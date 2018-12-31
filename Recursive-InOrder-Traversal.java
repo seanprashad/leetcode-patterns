@@ -3,8 +3,9 @@
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
 class Solution {
+    ArrayList<Integer> nodes = new ArrayList<Integer>();
+
     public List<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer> nodes = new ArrayList<Integer>();
         if (root == null) {
             return nodes;
         }

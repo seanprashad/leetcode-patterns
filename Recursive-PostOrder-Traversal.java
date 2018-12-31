@@ -16,8 +16,8 @@ class Solution {
         if (root.right != null) {
             postorderTraversal(root.right);
         }
+
         nodes.add(root.val);
-        // postorderTraversal(root);
 
         return nodes;
     }
