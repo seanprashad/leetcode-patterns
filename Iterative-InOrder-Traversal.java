@@ -3,27 +3,25 @@
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
 class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer> nodes = new ArrayList<Integer>();
-        Stack<TreeNode> q = new Stack<TreeNode>();
+    ArrayList<Integer> nodes = new ArrayList<Integer>();
 
+    public List<Integer> inorderTraversal(TreeNode root) {
         if (root == null) {
             return nodes;
         }
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        TreeNode t = root;
 
-        q.push(root);
+        while (t != null || !s.isEmpty()) {
+            while (t != null) {
+                System.out.println(t.val);
+                s.push(t);
+                t = t.left;
+            }
 
-        while (!q.isEmpty()) {
-            TreeNode t = q.pop();
-
+            t = s.pop();
             nodes.add(t.val);
-
-            if (t.right != null) {
-                q.push(t.right);
-            }
-            if (t.left != null) {
-                q.push(t.left);
-            }
+            t = t.right;
         }
 
         return nodes;
