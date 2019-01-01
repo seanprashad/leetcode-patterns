@@ -2,7 +2,7 @@
  * Definition for a binary tree node. public class TreeNode { int val; TreeNode
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
-class Solution {
+public class SymmetricTree {
     public boolean isSymmetric(TreeNode root) {
         return root == null || isSymmetric(root.left, root.right);
     }

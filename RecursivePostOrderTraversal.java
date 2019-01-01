@@ -4,22 +4,22 @@ import java.util.*;
  * Definition for a binary tree node. public class TreeNode { int val; TreeNode
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
-class Solution {
+public class RecursivePostOrderTraversal {
     ArrayList<Integer> nodes = new ArrayList<Integer>();
 
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         if (root == null) {
             return nodes;
         }
 
-        nodes.add(root.val);
-
         if (root.left != null) {
-            preorderTraversal(root.left);
+            postorderTraversal(root.left);
         }
         if (root.right != null) {
-            preorderTraversal(root.right);
+            postorderTraversal(root.right);
         }
+
+        nodes.add(root.val);
 
         return nodes;
     }

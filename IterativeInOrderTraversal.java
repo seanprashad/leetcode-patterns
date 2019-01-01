@@ -4,8 +4,8 @@ import java.util.*;
  * Definition for a binary tree node. public class TreeNode { int val; TreeNode
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
-class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
+public class IterativeInOrderTraversal {
+    public List<Integer> inorderTraversal(TreeNode root) {
         ArrayList<Integer> nodes = new ArrayList<Integer>();
         Stack<TreeNode> s = new Stack<TreeNode>();
         TreeNode t = root;
@@ -15,14 +15,15 @@ class Solution {
         }
 
         while (t != null || !s.isEmpty()) {
-            if (t != null) {
+            while (t != null) {
+                System.out.println(t.val);
                 s.push(t);
-                nodes.add(0, t.val);
-                t = t.right;
-            } else {
-                t = s.pop();
                 t = t.left;
             }
+
+            t = s.pop();
+            nodes.add(t.val);
+            t = t.right;
         }
 
         return nodes;

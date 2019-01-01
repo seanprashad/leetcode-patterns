@@ -4,7 +4,7 @@ import java.util.*;
  * Definition for a binary tree node. public class TreeNode { int val; TreeNode
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
-class Solution {
+public class RecursiveInOrderTraversal {
     ArrayList<Integer> nodes = new ArrayList<Integer>();
 
     public List<Integer> preorderTraversal(TreeNode root) {
