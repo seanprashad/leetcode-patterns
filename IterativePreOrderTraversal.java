@@ -1,9 +1,5 @@
 import java.util.*;
 
-/**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
- */
 public class IterativePreOrderTraversal {
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> nodes = new ArrayList<Integer>();
@@ -18,7 +14,7 @@ public class IterativePreOrderTraversal {
         while (!q.isEmpty()) {
             TreeNode t = q.pop();
 
-            nodes.add(t.val);
+            nodes.add(t.data);
 
             if (t.right != null) {
                 q.push(t.right);

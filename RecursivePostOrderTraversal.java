@@ -1,9 +1,5 @@
 import java.util.*;
 
-/**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
- */
 public class RecursivePostOrderTraversal {
     ArrayList<Integer> nodes = new ArrayList<Integer>();
 
@@ -19,7 +15,7 @@ public class RecursivePostOrderTraversal {
             postorderTraversal(root.right);
         }
 
-        nodes.add(root.val);
+        nodes.add(root.data);
 
         return nodes;
     }

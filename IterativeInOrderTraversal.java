@@ -16,13 +16,13 @@ public class IterativeInOrderTraversal {
 
         while (t != null || !s.isEmpty()) {
             while (t != null) {
-                System.out.println(t.val);
+                System.out.println(t.data);
                 s.push(t);
                 t = t.left;
             }
 
             t = s.pop();
-            nodes.add(t.val);
+            nodes.add(t.data);
             t = t.right;
         }
 

@@ -1,9 +1,5 @@
 import java.util.*;
 
-/**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
- */
 public class IterativePostOrderTraversal {
     public List<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> nodes = new ArrayList<Integer>();
@@ -17,7 +13,7 @@ public class IterativePostOrderTraversal {
         while (t != null || !s.isEmpty()) {
             if (t != null) {
                 s.push(t);
-                nodes.add(0, t.val);
+                nodes.add(0, t.data);
                 t = t.right;
             } else {
                 t = s.pop();
