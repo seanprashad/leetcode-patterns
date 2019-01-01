@@ -1,35 +1,41 @@
 public class RotateMatrix {
 
 	public static boolean rotate(int[][] matrix) {
-		if (matrix.length == 0 || matrix.length != matrix[0].length)
-			return false; // Not a square
-		int n = matrix.length;
+		int length = matrix.length - 1;
 
-		for (int layer = 0; layer < n / 2; layer++) {
-			int first = layer;
-			int last = n - 1 - layer;
-			for (int i = first; i < last; i++) {
-				int offset = i - first;
-				int top = matrix[first][i]; // save top
+		// Need <= for the inner rotations
+		for (int i = 0; i <= length / 2; i++) {
+			for (int j = i; j < length - i; j++) {
+				// Top left - coord 1
+				int p1 = matrix[i][j];
 
-				// left -> top
-				matrix[first][i] = matrix[last - offset][first];
+				// Top right - coord 2
+				int p2 = matrix[j][length - i];
 
-				// bottom -> left
-				matrix[last - offset][first] = matrix[last][last - offset];
+				// Bottom right - coord 3
+				int p3 = matrix[length - i][length - j];
 
-				// right -> bottom
-				matrix[last][last - offset] = matrix[i][last];
+				// Bottom left - coord 4
+				int p4 = matrix[length - j][i];
 
-				// top -> right
-				matrix[i][last] = top; // right <- saved top
+				// Coord 2 gets coord 1
+				matrix[j][length - i] = p1;
+
+				// Coord 3 gets coord 2
+				matrix[length - i][length - j] = p2;
+
+				// Coord 4 gets coord 3
+				matrix[length - j][i] = p3;
+
+				// Coord 1 gets coord 4
+				matrix[i][j] = p4;
 			}
 		}
 		return true;
 	}
 
 	public static void main(String[] args) {
-		int[][] matrix = AssortedMethods.randomMatrix(3, 3, 0, 9);
+		int[][] matrix = AssortedMethods.randomMatrix(4, 4, 0, 9);
 		AssortedMethods.printMatrix(matrix);
 		rotate(matrix);
 		System.out.println();
