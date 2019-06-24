@@ -5,13 +5,7 @@ public class Java_Array_Practice {
     // If the array is null or the length is 0,
     // we should return to avoid null pointer exceptions
     public static void printOneDArray(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return;
-        }
 
-        for (int i : arr) {
-            System.out.println(i + ", ");
-        }
     }
 
     // printTwoDArray accepts a two dimensional array
@@ -23,13 +17,7 @@ public class Java_Array_Practice {
     // Hint: For better code reusability, consider using
     // printOneDArray() for each row
     public static void printTwoDArray(int[][] arr) {
-        if (arr == null || arr.length == 0) {
-            return;
-        }
 
-        for (int[] row : arr) {
-            printOneDArray(row);
-        }
     }
 
     // evenFirst accepts an array and modifies it
@@ -42,28 +30,7 @@ public class Java_Array_Practice {
     //
     // Hint: Use the two pointer method
     public static void evenFirst(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return;
-        }
 
-        int evenIdx = 0, oddIdx = arr.length - 1;
-
-        while (evenIdx < oddIdx) {
-            while (evenIdx < oddIdx && arr[evenIdx] % 2 == 0) {
-                evenIdx++;
-            }
-
-            while (evenIdx < oddIdx && arr[oddIdx] % 2 != 0) {
-                oddIdx--;
-            }
-
-            int temp = arr[evenIdx];
-            arr[evenIdx] = arr[oddIdx];
-            arr[oddIdx] = temp;
-
-            evenIdx++;
-            oddIdx--;
-        }
     }
 
     public static void main(String[] args) {
@@ -101,6 +68,9 @@ public class Java_Array_Practice {
 
         int[] nums = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         evenFirst(nums);
+
+        // Step 8. Print out all of the values in the returned array
+        // from evenFirst()
 
         for (int i : nums) {
             System.out.print(i + ", ");
