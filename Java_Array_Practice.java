@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Java_Array_Practice {
     // printOneDArray accepts a one dimensional array
     // and prints all of the values in it
@@ -5,7 +7,19 @@ public class Java_Array_Practice {
     // If the array is null or the length is 0,
     // we should return to avoid null pointer exceptions
     public static void printOneDArray(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
 
+        // for (int i = 0; i < arr.length; i++) {
+        // System.out.println(arr[i]);
+        // }
+
+        for (int num : arr) {
+            System.out.print(num + ", ");
+        }
+
+        System.out.println();
     }
 
     // printTwoDArray accepts a two dimensional array
@@ -17,7 +31,17 @@ public class Java_Array_Practice {
     // Hint: For better code reusability, consider using
     // printOneDArray() for each row
     public static void printTwoDArray(int[][] arr) {
+        if (arr == null || arr[0] == null) {
+            return;
+        }
 
+        // for (int i = 0; i < arr.length; i++) {
+        // printOneDArray(arr[i]);
+        // }
+
+        for (int[] row : arr) {
+            printOneDArray(row);
+        }
     }
 
     // evenFirst accepts an array and modifies it
@@ -29,7 +53,29 @@ public class Java_Array_Practice {
     // Space complexity O(1)
     //
     // Hint: Use the two pointer method
-    public static void evenFirst(int[] arr) {
+    public static void evenFirst(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+
+        int i = 0;
+        int j = nums.length - 1;
+
+        while (i <= j) {
+            while (i <= j && nums[i] % 2 == 0) {
+                i++;
+            }
+            while (i <= j && nums[j] % 2 != 0) {
+                j--;
+            }
+            // Do swap
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+            // something else
+            i++;
+            j--;
+        }
 
     }
 
@@ -37,6 +83,7 @@ public class Java_Array_Practice {
         // Step 1.
         // Create an array, called oneDArr, with initializer values from
         // 1 through 10
+        int[] oneDArr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         // Step 2.
         // Create a two dimensional array, call twoDArr, with initializer values
@@ -45,18 +92,10 @@ public class Java_Array_Practice {
         // Row one should contain 2, 4, 6
         // Row two should contain 10, 20, 30
         // Row three should contain 100, 500, 1000
+        int[][] twoDArr = new int[][] { { 2, 4, 6 }, { 10, 20, 30 }, { 100, 500, 1000 } };
 
-        // Step 3.
-        // Create an ArrayList, called aList, using the existing oneDArr
-
-        // Step 4.
-        // Print out the size of aList, which should be 10
-
-        // Step 5.
-        // Convert aList into an array, called aArr
-
-        // Step 6.
-        // Print the newly created aArr
+        // printOneDArray(oneDArr);
+        // printTwoDArray(twoDArr);
 
         // Step 7. Shiba Inu potats only like it when all even values come first
         // in an array.
