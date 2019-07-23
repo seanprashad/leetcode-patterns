@@ -1,7 +1,5 @@
-import java.util.HashMap;
-
-public class First_Unique_Character_In_String_387 {
-    public static int firstUniqChar(String s) {
+class Solution {
+    public int firstUniqChar(String s) {
         if (s == null || s.isEmpty()) {
             return -1;
         }

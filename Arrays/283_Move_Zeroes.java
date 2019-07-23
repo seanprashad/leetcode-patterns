@@ -1,4 +1,4 @@
-public class Move_Zeroes_283 {
+class Solution {
     public void moveZeroes(int[] nums) {
         if (nums == null || nums.length == 0) {
             return;

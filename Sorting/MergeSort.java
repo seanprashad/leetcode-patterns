@@ -1,4 +1,4 @@
-public class MergeSort {
+class Solution {
     public static void mergeSort(int[] arr) {
         int len = arr.length;
         if (len < 2)

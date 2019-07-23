@@ -1,5 +1,5 @@
-public class Balanced_Binary_Tree_126 {
-    public static boolean isBalanced(TreeNode root) {
+class Solution {
+    public boolean isBalanced(TreeNode root) {
         if (root == null) {
             return true;
         }
@@ -7,7 +7,7 @@ public class Balanced_Binary_Tree_126 {
         return getHeight(root) != -1;
     }
 
-    private static int getHeight(TreeNode root) {
+    private int getHeight(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -15,7 +15,7 @@ public class Balanced_Binary_Tree_126 {
         int leftHeight = getHeight(root.left);
         int rightHeight = getHeight(root.right);
 
-        if (leftHeight < 0 || rightHeight < 0 || Math.abs(leftHeight - rightHeight) > 1) {
+        if (leftHeight == -1 || rightHeight == -1 || Math.abs(leftHeight - rightHeight) > 1) {
             return -1;
         }
 

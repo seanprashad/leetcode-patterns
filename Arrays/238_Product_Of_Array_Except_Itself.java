@@ -1,5 +1,5 @@
-public class Product_Of_Array_Except_Itself_238 {
-    public static int[] productExceptSelf(int[] nums) {
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
         if (nums == null || nums.length == 0) {
             return new int[] {};
         }

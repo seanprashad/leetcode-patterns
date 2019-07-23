@@ -1,4 +1,4 @@
-public class Reverse_String_344 {
+class Solution {
     public void reverseString(char[] s) {
         if (s == null || s.length == 0)
             return;
@@ -7,8 +7,10 @@ public class Reverse_String_344 {
 
         while (start < end) {
             char temp = s[start];
-            s[start++] = s[end];
-            s[end--] = temp;
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
         }
     }
 }

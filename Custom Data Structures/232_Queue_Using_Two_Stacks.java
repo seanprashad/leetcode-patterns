@@ -1,9 +1,7 @@
-import java.util.Stack;
+class MyQueue {
+    Stack<Integer> s1, s2;
 
-public class Queue_Using_Two_Stacks_232 {
-    private Stack<Integer> s1, s2;
-
-    public Queue_Using_Two_Stacks_232() {
+    public MyQueue() {
         s1 = new Stack<Integer>();
         s2 = new Stack<Integer>();
     }

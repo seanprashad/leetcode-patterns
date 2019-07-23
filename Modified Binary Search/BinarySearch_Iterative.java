@@ -1,4 +1,4 @@
-public class BinarySearch_Iterative {
+class Solution {
     public static boolean binarySearch(int[] nums, int searchVal) {
         if (nums == null || nums.length == 0) {
             return false;

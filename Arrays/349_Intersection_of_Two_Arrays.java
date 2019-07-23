@@ -1,8 +1,5 @@
-import java.util.HashSet;
-import java.util.Set;
-
-public class Intersection_of_Two_Arrays_349 {
-    public static int[] intersection(int[] nums1, int[] nums2) {
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
         Set<Integer> set = new HashSet<>();
         Set<Integer> intersection = new HashSet<>();
 
@@ -18,8 +15,8 @@ public class Intersection_of_Two_Arrays_349 {
 
         int[] result = new int[intersection.size()];
         int idx = 0;
-        for (int commonVal : intersection) {
-            result[idx++] = commonVal;
+        for (int i : intersection) {
+            result[idx++] = i;
         }
 
         return result;

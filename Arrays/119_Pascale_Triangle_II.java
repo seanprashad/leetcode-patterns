@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class Pascale_Triangle_II_119 {
-    public static List<Integer> getRow(int rowIndex) {
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
         List<Integer> row = new ArrayList<>();
 
         for (int i = 0; i <= rowIndex; i++) {

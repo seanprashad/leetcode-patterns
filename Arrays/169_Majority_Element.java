@@ -1,8 +1,5 @@
-import java.util.HashMap;
-import java.util.Map;
-
-public class Majority_Element_169 {
-    public static int majorityElement(int[] nums) {
+class Solution {
+    public int majorityElement(int[] nums) {
         Map<Integer, Integer> hm = new HashMap<>();
         int n = nums.length;
         int result = 0;

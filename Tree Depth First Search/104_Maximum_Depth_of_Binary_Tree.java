@@ -1,12 +1,12 @@
-public class Maximum_Depth_of_Binary_Tree_104 {
+class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
-        int left = maxDepth(root.left);
-        int right = maxDepth(root.right);
+        int leftHeight = maxDepth(root.left);
+        int rightHeight = maxDepth(root.right);
 
-        return Math.max(left, right) + 1;
+        return Math.max(leftHeight, rightHeight) + 1;
     }
 }

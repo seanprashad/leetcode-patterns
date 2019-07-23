@@ -1,11 +1,6 @@
-import java.util.Stack;
-
-public class Min_Stack_155 {
-    private int minimum = Integer.MAX_VALUE;
-    private Stack<Integer> stack = new Stack<Integer>();
-
-    public Min_Stack_155() {
-    }
+class MinStack {
+    int minimum = Integer.MAX_VALUE;
+    Stack<Integer> stack = new Stack<Integer>();
 
     public void push(int x) {
         if (x <= minimum) {

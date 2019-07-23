@@ -1,4 +1,4 @@
-public class Two_Sum_167 {
+class Solution {
     public int[] twoSum(int[] nums, int target) {
         if (nums == null || nums.length == 0) {
             return new int[] {};

@@ -1,6 +1,4 @@
-import java.util.HashMap;
-
-public class Two_Sum_1 {
+class Solution {
     public static int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> hm = new HashMap<>();
         int[] indices = new int[2];
