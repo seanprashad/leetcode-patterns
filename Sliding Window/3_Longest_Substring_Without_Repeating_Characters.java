@@ -9,9 +9,8 @@ class Solution {
 
         while (end < s.length()) {
             if (!set.contains(s.charAt(end))) {
-                set.add(s.charAt(end));
-                maxLen = Math.max(maxLen, end - start + 1);
-                end++;
+                set.add(s.charAt(end++));
+                maxLen = Math.max(maxLen, end - start);
             } else {
                 set.remove(s.charAt(start));
                 start++;
