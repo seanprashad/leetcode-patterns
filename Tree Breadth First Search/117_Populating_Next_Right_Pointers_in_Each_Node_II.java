@@ -1,34 +1,27 @@
 class Solution {
     public Node connect(Node root) {
-        if (root == null) {
-            return null;
-        }
+        Node head = root, dummy = new Node(), prev = dummy;
 
-        Queue<Node> q = new LinkedList<>();
-        q.offer(root);
+        while (root != null) {
+            if (root.left != null) {
+                prev.next = root.left;
+                prev = prev.next;
+            }
 
-        Node placeholder = root;
+            if (root.right != null) {
+                prev.next = root.right;
+                prev = prev.next;
+            }
 
-        while (!q.isEmpty()) {
-            int levelSize = q.size();
+            root = root.next;
 
-            for (int i = 0; i < levelSize; i++) {
-                Node n = q.poll();
-                if (i == levelSize - 1) {
-                    n.next = null;
-                } else {
-                    n.next = q.peek();
-                }
-
-                if (n.left != null) {
-                    q.offer(n.left);
-                }
-                if (n.right != null) {
-                    q.offer(n.right);
-                }
+            if (root == null) {
+                root = dummy.next;
+                prev = dummy;
+                dummy.next = null;
             }
         }
 
-        return placeholder;
+        return head;
     }
 }
