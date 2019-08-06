@@ -2,7 +2,7 @@ package Miscellaneous;
 
 import java.util.Stack;
 
-public class B {
+public class B1 {
     private static String expandEquation(String eqn) {
         if (eqn == null || eqn.length() == 0) {
             return null;
