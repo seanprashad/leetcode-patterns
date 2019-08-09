@@ -15,14 +15,12 @@ class RandomizedSet {
      * the specified element.
      */
     public boolean insert(int val) {
-        boolean contains = hm.containsKey(val);
-
-        if (contains) {
+        if (hm.containsKey(val)) {
             return false;
         }
 
+        hm.put(val, keys.size());
         keys.add(val);
-        hm.put(val, hm.getOrDefault(val, 0) + 1);
         return true;
     }
 
@@ -31,20 +29,25 @@ class RandomizedSet {
      * element.
      */
     public boolean remove(int val) {
-        boolean contains = hm.containsKey(val);
-
-        if (!contains) {
+        if (!hm.containsKey(val)) {
             return false;
         }
 
-        keys.remove(new Integer(val));
+        int removeIdx = hm.get(val);
+
+        if (removeIdx < keys.size() - 1) {
+            int lastVal = keys.get(keys.size() - 1);
+            keys.set(removeIdx, lastVal);
+            hm.put(lastVal, removeIdx);
+        }
+
+        keys.remove(keys.size() - 1);
         hm.remove(val);
         return true;
     }
 
     /** Get a random element from the set. */
     public int getRandom() {
-        ;
         return keys.get(generator.nextInt(hm.size()));
     }
 }
