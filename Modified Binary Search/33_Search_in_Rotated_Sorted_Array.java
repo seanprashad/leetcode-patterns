@@ -11,14 +11,14 @@ class Solution {
 
             if (nums[mid] == target) {
                 return mid;
-            } else if (nums[mid] >= nums[start]) {
-                if (target <= nums[mid] && target >= nums[start]) {
+            } else if (nums[start] <= nums[mid]) {
+                if (nums[start] <= target && target <= nums[mid]) {
                     end = mid;
                 } else {
                     start = mid + 1;
                 }
             } else {
-                if (target > nums[mid] && target <= nums[end]) {
+                if (nums[mid] <= target && target <= nums[end]) {
                     start = mid + 1;
                 } else {
                     end = mid;
