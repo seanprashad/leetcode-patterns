@@ -11,10 +11,10 @@ class Solution {
 
             if (nums[mid] == nums[end]) {
                 --end;
-            } else if (nums[mid] > nums[end]) {
-                start = mid + 1;
-            } else {
+            } else if (nums[mid] < nums[end]) {
                 end = mid;
+            } else {
+                start = mid + 1;
             }
         }
 
