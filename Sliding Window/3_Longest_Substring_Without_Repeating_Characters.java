@@ -12,8 +12,7 @@ class Solution {
                 set.add(s.charAt(end++));
                 maxLen = Math.max(maxLen, end - start);
             } else {
-                set.remove(s.charAt(start));
-                start++;
+                set.remove(s.charAt(start++));
             }
         }
 
