@@ -4,22 +4,23 @@ class Solution {
             return 0;
         }
 
-        int[] memo = new int[nums.length + 1];
+        int[] memo = new int[nums.length];
         Arrays.fill(memo, -1);
-        return robHouses(nums, nums.length - 1, memo);
+        return helper(nums, 0, memo);
     }
 
-    private int robHouses(int[] houses, int houseNo, int[] memo) {
-        if (houseNo < 0) {
+    private int helper(int[] nums, int idx, int[] memo) {
+        if (idx >= nums.length) {
             return 0;
         }
-        if (memo[houseNo] >= 0) {
-            return memo[houseNo];
+
+        if (memo[idx] != -1) {
+            return memo[idx];
         }
 
-        int result = Math.max(robHouses(houses, houseNo - 2, memo) + houses[houseNo],
-                robHouses(houses, houseNo - 1, memo));
-        memo[houseNo] = result;
+        int result = Math.max(helper(nums, idx + 1, memo), helper(nums, idx + 2, memo) + nums[idx]);
+
+        memo[idx] = result;
         return result;
     }
 }
