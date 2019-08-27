@@ -27,9 +27,9 @@
 ## Background
 
 This list is intended to be used as a study guide for any individual wanting to
-improve their problem solving skills for Software Engineering interviews. It
-separates problems into their subtopic, so you can focus on a specific approach
-over a range of difficulties.
+improve their problem solving skills for Software Engineering interviews.
+Problems are seperated under their respective subtopic, so you can focus on
+learning specific patterns rather than randomly tackling questions.
 
 All questions are available on [leetcode.com] with some requiring [leetcode premium].
 
@@ -62,10 +62,14 @@ In addition, you should have a good grasp on common algorithms such as:
 ## Java Syntax Notes
 
 This [pdf] contains useful information for the built-in data structures in Java.
+Other useful Java methods include `substring()`, `toCharArray()`, `Math.max()`,
+`Math.min()`, and `Arrays.fill()`, or in your chosen language.
 
 ## Question List
 
 ### Pattern: Sliding Window
+
+The sliding window approach can be found under `1. Sliding Window` [here].
 
 #### Medium:
 
@@ -84,6 +88,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. Substring with Concatenation of All Words: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
 
 ### Pattern: Two Pointers
+
+The two pointer approach can be found under `2. Two Pointers or Iterators` [here].
 
 #### Easy:
 
@@ -107,6 +113,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 
 ### Pattern: Fast & Slow Pointers
 
+The fast & slow pointer approach can be found under `3. Fast and Slow pointers` [here].
+
 #### Easy:
 
 1. Linked List Cycle: https://leetcode.com/problems/linked-list-cycle/
@@ -122,6 +130,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. Sort List: https://leetcode.com/problems/sort-list/
 
 ### Pattern: Merge Intervals
+
+The merge interval approach can be found under `4. Merge Intervals` [here].
 
 #### Easy:
 
@@ -160,6 +170,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 
 ### Pattern: In-place Reversal of a Linked List
 
+The in-place reveral technique can be found under `6. In-place reversal of linked list` [here].
+
 #### Easy:
 
 1. Reverse Linked List: https://leetcode.com/problems/reverse-linked-list/
@@ -176,6 +188,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. Reverse Nodes in k-Group: https://leetcode.com/problems/reverse-nodes-in-k-group/
 
 ### Pattern: Tree Breadth First Search
+
+The tree BFS technique can be found under `7. Tree BFS` [here].
 
 #### Easy:
 
@@ -195,6 +209,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. Boundary of Binary Tree: https://leetcode.com/problems/boundary-of-binary-tree
 
 ### Pattern: Tree Depth First Search
+
+The tree DFS technique can be found under `8. Tree DFS` [here].
 
 #### Easy:
 
@@ -225,6 +241,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 
 ### Pattern: Two Heaps
 
+The two heaps approach can be found under `9. Two heaps` [here].
+
 #### Hard:
 
 1. Find Median from Data Stream: https://leetcode.com/problems/find-median-from-data-stream/
@@ -232,6 +250,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. IPO: https://leetcode.com/problems/ipo/
 
 ### Pattern: Backtracking
+
+The backtracking technique can be found under `10. Subsets` [here].
 
 #### Easy:
 
@@ -260,6 +280,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 
 ### Pattern: Modified Binary Search
 
+The modified binary search algorithm can be found under `11. Modified binary search` [here].
+
 #### Easy:
 
 1. Binary Search: https://leetcode.com/problems/binary-search/
@@ -280,6 +302,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 
 ### Pattern: Top 'K' Elements
 
+The top K element technique can be found under `12. Top K elements` [here].
+
 #### Medium:
 
 1. Kth Smallest Element in a BST: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
@@ -298,6 +322,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 
 ### Pattern: K-Way Merge
 
+The k-way merge technique can be found under `13. K-way Merge` [here].
+
 #### Medium:
 
 1. Kth Smallest Element in a Sorted Matrix: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
@@ -309,6 +335,9 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. Smallest Range Covering Elements from K Lists: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
 
 ### Pattern : Dynamic Programming
+
+Dynamic programming guides can be found on [topcoder] and the [Back To Back SWE
+YouTube channel].
 
 #### Easy:
 
@@ -328,6 +357,8 @@ This [pdf] contains useful information for the built-in data structures in Java.
 1. Counting Bits: https://leetcode.com/problems/counting-bits/
 
 ### Pattern: Topological Sort
+
+The topological sort algorithm can be found under `14. Topological sort` [here].
 
 #### Medium:
 
@@ -389,6 +420,9 @@ on [14 patterns to ace any coding interview question].
 [leetcode premium]: https://leetcode.com/subscribe/
 [pdf]: https://drive.google.com/open?id=1ao4ZA28zzBttDkuS6MLQI52gDs_CJZEm
 [cracking the coding interview]: http://www.crackingthecodinginterview.com/contents.html
+[here]: https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
+[topcoder]: https://www.topcoder.com/community/competitive-programming/tutorials/dynamic-programming-from-novice-to-advanced/
+[back to back swe youtube channel]: https://www.youtube.com/watch?v=jgiZlGzXMBw
 [grokking the coding interview]: https://www.educative.io/courses/grokking-the-coding-interview
 [blind 75 list]: https://www.teamblind.com/article/New-Year-Gift---Curated-List-of-Top-100-LeetCode-Questions-to-Save-Your-Time-OaM1orEU?utm_source=share&utm_medium=ios_app
 [14 patterns to ace any coding interview question]: https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
