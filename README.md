@@ -15,10 +15,10 @@
   - [Merge Intervals](#pattern-merge-intervals)
   - [Modified Binary Search](#pattern-modified-binary-search)
   - [Sliding Window](#pattern-sliding-window)
+  - [Top K Elements](#pattern-top-k-elements)
   - [Topological Sort](#pattern-topological-sort)
   - [Tree Breadth First Search](#pattern-tree-breadth-first-search)
   - [Tree Depth First Search](#pattern-tree-depth-first-search)
-  - [Top K Elements](#pattern-top-k-elements)
   - [Two Heaps](#pattern-two-heaps)
   - [Two Pointers](#pattern-two-pointers)
 - [Tips to Consider](#tips-to-consider)
@@ -67,49 +67,73 @@ Other useful Java methods include `substring()`, `toCharArray()`, `Math.max()`,
 
 ## Question List
 
-### Pattern: Sliding Window
-
-The sliding window approach can be found under `1. Sliding Window` [here].
-
-#### Medium:
-
-1. Minimum Size Subarray Sum: https://leetcode.com/problems/minimum-size-subarray-sum/
-1. Fruit Into Baskets: https://leetcode.com/problems/fruit-into-baskets/
-1. Permutation in String: https://leetcode.com/problems/permutation-in-string/
-1. Longest Repeating Character Replacement: https://leetcode.com/problems/longest-repeating-character-replacement/
-
-#### Hard:
-
-1. Sliding Window Maximum: https://leetcode.com/problems/sliding-window-maximum/
-1. Longest Substring Without Repeating Characters: https://leetcode.com/problems/longest-substring-without-repeating-characters/
-1. Minimum Number of K Consecutive Bit Flips: https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
-1. Unique Letter String: https://leetcode.com/problems/unique-letter-string/
-1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
-1. Substring with Concatenation of All Words: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
-
-### Pattern: Two Pointers
-
-The two pointer approach can be found under `2. Two Pointers or Iterators` [here].
+### Pattern: Arrays
 
 #### Easy:
 
-1. Two Sum: https://leetcode.com/problems/two-sum/
-1. Remove Duplicates from Sorted List: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
-1. Squares of a Sorted Array: https://leetcode.com/problems/squares-of-a-sorted-array/
-1. Backspace String Compare: https://leetcode.com/problems/backspace-string-compare
+1. Missing Number: https://leetcode.com/problems/missing-number/
+1. Find All Numbers Disappeared in an Array: https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+1. Single Number: https://leetcode.com/problems/single-number/
 
 #### Medium:
 
-1. 3 Sum: https://leetcode.com/problems/3sum/
-1. 3 Sum Closest: https://leetcode.com/problems/3sum-closest/
-1. Subarrays with Product Less than K: https://leetcode.com/problems/subarray-product-less-than-k/
-1. Sort Colours: https://leetcode.com/problems/sort-colors/
+1. Find the Duplicate Number: https://leetcode.com/problems/find-the-duplicate-number/
+1. Find All Duplicates in an Array: https://leetcode.com/problems/find-all-duplicates-in-an-array/
 
 #### Hard:
 
-1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
-1. Trapping Rain Water: https://leetcode.com/problems/trapping-rain-water/
-1. Container With Most Water: https://leetcode.com/problems/container-with-most-water/
+1. First Missing Positive: https://leetcode.com/problems/first-missing-positive/
+
+### Pattern: Backtracking
+
+The backtracking technique can be found under `10. Subsets` [here].
+
+#### Easy:
+
+1. Letter Case Permutation: https://leetcode.com/problems/letter-case-permutation/
+
+#### Medium:
+
+1. Subsets: https://leetcode.com/problems/subsets/
+1. Subsets II: https://leetcode.com/problems/subsets-ii/
+1. Permutations: https://leetcode.com/problems/permutations/
+1. Permutations II: https://leetcode.com/problems/permutations-ii/
+1. Combinations: https://leetcode.com/problems/combinations/
+1. Combination Sum: https://leetcode.com/problems/combination-sum/
+1. Combination Sum II: https://leetcode.com/problems/combination-sum-ii/
+1. Combination Sum III: https://leetcode.com/problems/combination-sum-iii/
+1. Generate Parentheses: https://leetcode.com/problems/generate-parentheses/
+1. Target Sum: https://leetcode.com/problems/target-sum/
+1. Palindrome Partitioning: https://leetcode.com/problems/palindrome-partitioning/
+1. Letter Combinations of a Phone Number: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+1. Generalized Abbreviation: https://leetcode.com/problems/generalized-abbreviation/
+
+#### Hard:
+
+1. Sudoku Solver: https://leetcode.com/problems/sudoku-solver/
+1. N-Queens: https://leetcode.com/problems/n-queens/
+
+### Pattern : Dynamic Programming
+
+Dynamic programming guides can be found on [topcoder] and the [Back To Back SWE
+YouTube channel].
+
+#### Easy:
+
+1. Climbing Stairs: https://leetcode.com/problems/climbing-stairs/
+1. House Robber: https://leetcode.com/problems/house-robber/
+1. Maximum Subarray: https://leetcode.com/problems/maximum-subarray/
+1. Range Sum Query - Immutable: https://leetcode.com/problems/range-sum-query-immutable/
+
+#### Medium:
+
+1. Coin Change: https://leetcode.com/problems/coin-change/
+1. Longest Increasing Subsequence: https://leetcode.com/problems/longest-increasing-subsequence/
+1. Number of Longest Increasing Subsequence: https://leetcode.com/problems/number-of-longest-increasing-subsequence/
+1. Partition Equal Subset Sum: https://leetcode.com/problems/partition-equal-subset-sum/
+1. Partition to K Equal Sum Subsets: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+1. Best Time to Buy and Sell Stock with Cooldown: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+1. Counting Bits: https://leetcode.com/problems/counting-bits/
 
 ### Pattern: Fast & Slow Pointers
 
@@ -128,6 +152,39 @@ The fast & slow pointer approach can be found under `3. Fast and Slow pointers` 
 1. Linked List Cycle II: https://leetcode.com/problems/linked-list-cycle-ii/
 1. Add Two Numbers: https://leetcode.com/problems/add-two-numbers/,
 1. Sort List: https://leetcode.com/problems/sort-list/
+
+### Pattern: In-place Reversal of a Linked List
+
+The in-place reveral technique can be found under `6. In-place reversal of linked list` [here].
+
+#### Easy:
+
+1. Reverse Linked List: https://leetcode.com/problems/reverse-linked-list/
+
+#### Medium:
+
+1. Reverse Linked List II: https://leetcode.com/problems/reverse-linked-list-ii/
+1. Rotate List: https://leetcode.com/problems/rotate-list/
+1. Swap Nodes in Pairs: https://leetcode.com/problems/swap-nodes-in-pairs/
+1. Odd Even Linked List: https://leetcode.com/problems/odd-even-linked-list/
+
+#### Hard:
+
+1. Reverse Nodes in k-Group: https://leetcode.com/problems/reverse-nodes-in-k-group/
+
+### Pattern: K-Way Merge
+
+The k-way merge technique can be found under `13. K-way Merge` [here].
+
+#### Medium:
+
+1. Kth Smallest Element in a Sorted Matrix: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+1. Find K Pairs with Smallest Sums: https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
+
+#### Hard:
+
+1. Merge k Sorted Lists: https://leetcode.com/problems/merge-k-sorted-lists/
+1. Smallest Range Covering Elements from K Lists: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
 
 ### Pattern: Merge Intervals
 
@@ -151,41 +208,82 @@ The merge interval approach can be found under `4. Merge Intervals` [here].
 1. Insert Interval: https://leetcode.com/problems/insert-interval/
 1. Employee Free Time: https://leetcode.com/problems/employee-free-time/
 
-### Pattern: Arrays
+### Pattern: Modified Binary Search
+
+The modified binary search algorithm can be found under `11. Modified binary search` [here].
 
 #### Easy:
 
-1. Missing Number: https://leetcode.com/problems/missing-number/
-1. Find All Numbers Disappeared in an Array: https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
-1. Single Number: https://leetcode.com/problems/single-number/
+1. Binary Search: https://leetcode.com/problems/binary-search/
+1. Find Smallest Letter Greater Than Target: https://leetcode.com/problems/find-smallest-letter-greater-than-target/
+1. Peak Index in a Mountain Array: https://leetcode.com/problems/peak-index-in-a-mountain-array/
 
 #### Medium:
 
-1. Find the Duplicate Number: https://leetcode.com/problems/find-the-duplicate-number/
-1. Find All Duplicates in an Array: https://leetcode.com/problems/find-all-duplicates-in-an-array/
+1. Find Peak Element: https://leetcode.com/problems/find-peak-element/
+1. Search in Rotated Sorted Array: https://leetcode.com/problems/search-in-rotated-sorted-array/
+1. Search in Rotated Sorted Array II: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+1. Search a 2D Matrix: https://leetcode.com/problems/search-a-2d-matrix/
+1. Search a 2D Matrix II: https://leetcode.com/problems/search-a-2d-matrix-ii/
 
 #### Hard:
 
-1. First Missing Positive: https://leetcode.com/problems/first-missing-positive/
+1. Count of Range Sum: https://leetcode.com/problems/count-of-range-sum/
 
-### Pattern: In-place Reversal of a Linked List
+### Pattern: Sliding Window
 
-The in-place reveral technique can be found under `6. In-place reversal of linked list` [here].
-
-#### Easy:
-
-1. Reverse Linked List: https://leetcode.com/problems/reverse-linked-list/
+The sliding window approach can be found under `1. Sliding Window` [here].
 
 #### Medium:
 
-1. Reverse Linked List II: https://leetcode.com/problems/reverse-linked-list-ii/
-1. Rotate List: https://leetcode.com/problems/rotate-list/
-1. Swap Nodes in Pairs: https://leetcode.com/problems/swap-nodes-in-pairs/
-1. Odd Even Linked List: https://leetcode.com/problems/odd-even-linked-list/
+1. Minimum Size Subarray Sum: https://leetcode.com/problems/minimum-size-subarray-sum/
+1. Fruit Into Baskets: https://leetcode.com/problems/fruit-into-baskets/
+1. Permutation in String: https://leetcode.com/problems/permutation-in-string/
+1. Longest Repeating Character Replacement: https://leetcode.com/problems/longest-repeating-character-replacement/
 
 #### Hard:
 
-1. Reverse Nodes in k-Group: https://leetcode.com/problems/reverse-nodes-in-k-group/
+1. Sliding Window Maximum: https://leetcode.com/problems/sliding-window-maximum/
+1. Longest Substring Without Repeating Characters: https://leetcode.com/problems/longest-substring-without-repeating-characters/
+1. Minimum Number of K Consecutive Bit Flips: https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
+1. Unique Letter String: https://leetcode.com/problems/unique-letter-string/
+1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
+1. Substring with Concatenation of All Words: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+
+### Pattern: Top 'K' Elements
+
+The top K element technique can be found under `12. Top K elements` [here].
+
+#### Medium:
+
+1. Kth Smallest Element in a BST: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+1. K Closest Points to Origin: https://leetcode.com/problems/k-closest-points-to-origin/
+1. Top K Frequent Elements: https://leetcode.com/problems/top-k-frequent-elements/
+1. Sort Characters By Frequency: https://leetcode.com/problems/sort-characters-by-frequency/
+1. Kth Largest Element in an Array: https://leetcode.com/problems/kth-largest-element-in-an-array/
+1. Find K Closest Elements: https://leetcode.com/problems/find-k-closest-elements/
+1. Reorganize String: https://leetcode.com/problems/reorganize-string/
+
+#### Hard:
+
+1. Rearrange String k Distance Apart: https://leetcode.com/problems/rearrange-string-k-distance-apart
+1. Course Schedule III: https://leetcode.com/problems/course-schedule-iii/
+1. Maximum Frequency Stack: https://leetcode.com/problems/maximum-frequency-stack/
+
+### Pattern: Topological Sort
+
+The topological sort algorithm can be found under `14. Topological sort` [here].
+
+#### Medium:
+
+1. Course Schedule: https://leetcode.com/problems/course-schedule/
+1. Course Schedule II: https://leetcode.com/problems/course-schedule-ii/
+1. Minimum Height Trees: https://leetcode.com/problems/minimum-height-trees/
+
+#### Hard:
+
+1. Alien Dictionary: https://leetcode.com/problems/alien-dictionary
+1. Sequence Reconstruction: https://leetcode.com/problems/sequence-reconstruction
 
 ### Pattern: Tree Breadth First Search
 
@@ -249,127 +347,29 @@ The two heaps approach can be found under `9. Two heaps` [here].
 1. Sliding Window Median: https://leetcode.com/problems/sliding-window-median/
 1. IPO: https://leetcode.com/problems/ipo/
 
-### Pattern: Backtracking
+### Pattern: Two Pointers
 
-The backtracking technique can be found under `10. Subsets` [here].
-
-#### Easy:
-
-1. Letter Case Permutation: https://leetcode.com/problems/letter-case-permutation/
-
-#### Medium:
-
-1. Subsets: https://leetcode.com/problems/subsets/
-1. Subsets II: https://leetcode.com/problems/subsets-ii/
-1. Permutations: https://leetcode.com/problems/permutations/
-1. Permutations II: https://leetcode.com/problems/permutations-ii/
-1. Combinations: https://leetcode.com/problems/combinations/
-1. Combination Sum: https://leetcode.com/problems/combination-sum/
-1. Combination Sum II: https://leetcode.com/problems/combination-sum-ii/
-1. Combination Sum III: https://leetcode.com/problems/combination-sum-iii/
-1. Generate Parentheses: https://leetcode.com/problems/generate-parentheses/
-1. Target Sum: https://leetcode.com/problems/target-sum/
-1. Palindrome Partitioning: https://leetcode.com/problems/palindrome-partitioning/
-1. Letter Combinations of a Phone Number: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
-1. Generalized Abbreviation: https://leetcode.com/problems/generalized-abbreviation/
-
-#### Hard:
-
-1. Sudoku Solver: https://leetcode.com/problems/sudoku-solver/
-1. N-Queens: https://leetcode.com/problems/n-queens/
-
-### Pattern: Modified Binary Search
-
-The modified binary search algorithm can be found under `11. Modified binary search` [here].
+The two pointer approach can be found under `2. Two Pointers or Iterators` [here].
 
 #### Easy:
 
-1. Binary Search: https://leetcode.com/problems/binary-search/
-1. Find Smallest Letter Greater Than Target: https://leetcode.com/problems/find-smallest-letter-greater-than-target/
-1. Peak Index in a Mountain Array: https://leetcode.com/problems/peak-index-in-a-mountain-array/
+1. Two Sum: https://leetcode.com/problems/two-sum/
+1. Remove Duplicates from Sorted List: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+1. Squares of a Sorted Array: https://leetcode.com/problems/squares-of-a-sorted-array/
+1. Backspace String Compare: https://leetcode.com/problems/backspace-string-compare
 
 #### Medium:
 
-1. Find Peak Element: https://leetcode.com/problems/find-peak-element/
-1. Search in Rotated Sorted Array: https://leetcode.com/problems/search-in-rotated-sorted-array/
-1. Search in Rotated Sorted Array II: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
-1. Search a 2D Matrix: https://leetcode.com/problems/search-a-2d-matrix/
-1. Search a 2D Matrix II: https://leetcode.com/problems/search-a-2d-matrix-ii/
+1. 3 Sum: https://leetcode.com/problems/3sum/
+1. 3 Sum Closest: https://leetcode.com/problems/3sum-closest/
+1. Subarrays with Product Less than K: https://leetcode.com/problems/subarray-product-less-than-k/
+1. Sort Colours: https://leetcode.com/problems/sort-colors/
 
 #### Hard:
 
-1. Count of Range Sum: https://leetcode.com/problems/count-of-range-sum/
-
-### Pattern: Top 'K' Elements
-
-The top K element technique can be found under `12. Top K elements` [here].
-
-#### Medium:
-
-1. Kth Smallest Element in a BST: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
-1. K Closest Points to Origin: https://leetcode.com/problems/k-closest-points-to-origin/
-1. Top K Frequent Elements: https://leetcode.com/problems/top-k-frequent-elements/
-1. Sort Characters By Frequency: https://leetcode.com/problems/sort-characters-by-frequency/
-1. Kth Largest Element in an Array: https://leetcode.com/problems/kth-largest-element-in-an-array/
-1. Find K Closest Elements: https://leetcode.com/problems/find-k-closest-elements/
-1. Reorganize String: https://leetcode.com/problems/reorganize-string/
-
-#### Hard:
-
-1. Rearrange String k Distance Apart: https://leetcode.com/problems/rearrange-string-k-distance-apart
-1. Course Schedule III: https://leetcode.com/problems/course-schedule-iii/
-1. Maximum Frequency Stack: https://leetcode.com/problems/maximum-frequency-stack/
-
-### Pattern: K-Way Merge
-
-The k-way merge technique can be found under `13. K-way Merge` [here].
-
-#### Medium:
-
-1. Kth Smallest Element in a Sorted Matrix: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
-1. Find K Pairs with Smallest Sums: https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
-
-#### Hard:
-
-1. Merge k Sorted Lists: https://leetcode.com/problems/merge-k-sorted-lists/
-1. Smallest Range Covering Elements from K Lists: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
-
-### Pattern : Dynamic Programming
-
-Dynamic programming guides can be found on [topcoder] and the [Back To Back SWE
-YouTube channel].
-
-#### Easy:
-
-1. Climbing Stairs: https://leetcode.com/problems/climbing-stairs/
-1. House Robber: https://leetcode.com/problems/house-robber/
-1. Maximum Subarray: https://leetcode.com/problems/maximum-subarray/
-1. Range Sum Query - Immutable: https://leetcode.com/problems/range-sum-query-immutable/
-
-#### Medium:
-
-1. Coin Change: https://leetcode.com/problems/coin-change/
-1. Longest Increasing Subsequence: https://leetcode.com/problems/longest-increasing-subsequence/
-1. Number of Longest Increasing Subsequence: https://leetcode.com/problems/number-of-longest-increasing-subsequence/
-1. Partition Equal Subset Sum: https://leetcode.com/problems/partition-equal-subset-sum/
-1. Partition to K Equal Sum Subsets: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
-1. Best Time to Buy and Sell Stock with Cooldown: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
-1. Counting Bits: https://leetcode.com/problems/counting-bits/
-
-### Pattern: Topological Sort
-
-The topological sort algorithm can be found under `14. Topological sort` [here].
-
-#### Medium:
-
-1. Course Schedule: https://leetcode.com/problems/course-schedule/
-1. Course Schedule II: https://leetcode.com/problems/course-schedule-ii/
-1. Minimum Height Trees: https://leetcode.com/problems/minimum-height-trees/
-
-#### Hard:
-
-1. Alien Dictionary: https://leetcode.com/problems/alien-dictionary
-1. Sequence Reconstruction: https://leetcode.com/problems/sequence-reconstruction
+1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
+1. Trapping Rain Water: https://leetcode.com/problems/trapping-rain-water/
+1. Container With Most Water: https://leetcode.com/problems/container-with-most-water/
 
 ## Tips to Consider
 
