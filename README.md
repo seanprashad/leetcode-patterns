@@ -51,7 +51,7 @@ to familiarize yourself with the following data structures and their operations:
 - Binary (Search) Trees
   - Trie
 - Graphs
-- Queue
+- Queues
 
 In addition, you should have a good grasp on common algorithms such as:
 
@@ -64,7 +64,7 @@ In addition, you should have a good grasp on common algorithms such as:
 
 This [pdf] contains useful information for the built-in data structures in Java.
 Other useful Java methods include `substring()`, `toCharArray()`, `Math.max()`,
-`Math.min()`, and `Arrays.fill()`, in your chosen language.
+`Math.min()`, and `Arrays.fill()`, or in your chosen language.
 
 ## Question List
 
