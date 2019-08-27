@@ -10,6 +10,7 @@
   - [Backtracking](#pattern-backtracking)
   - [Dynamic Programming](#pattern--dynamic-programming)
   - [Fast & Slow Pointers](#pattern-fast--slow-pointers)
+  - [Graph Traversals](#graphs)
   - [In-place Reversal of a Linked List](#pattern-in-place-reversal-of-a-linked-list)
   - [K-Way Merge](#pattern-k-way-merge)
   - [Merge Intervals](#pattern-merge-intervals)
@@ -152,6 +153,17 @@ The fast & slow pointer approach can be found under `3. Fast and Slow pointers` 
 1. Linked List Cycle II: https://leetcode.com/problems/linked-list-cycle-ii/
 1. Add Two Numbers: https://leetcode.com/problems/add-two-numbers/,
 1. Sort List: https://leetcode.com/problems/sort-list/
+
+### Pattern: Graph Traversals
+
+#### Medium:
+
+1. Clone Graph: https://leetcode.com/problems/clone-graph/
+1. Course Schedule: https://leetcode.com/problems/course-schedule/
+1. Pacific Atlantic Water Flow: https://leetcode.com/problems/pacific-atlantic-water-flow/
+1. Number of Islands: https://leetcode.com/problems/number-of-islands/
+1. Graph Valid Tree: https://leetcode.com/problems/graph-valid-tree/
+1. Number of Connected Components in an Undirected Graph: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
 
 ### Pattern: In-place Reversal of a Linked List
 
