@@ -10,7 +10,7 @@
   - [Backtracking](#pattern-backtracking)
   - [Dynamic Programming](#pattern--dynamic-programming)
   - [Fast & Slow Pointers](#pattern-fast--slow-pointers)
-  - [Graph Traversals](#graphs)
+  - [Graph Traversals](#pattern-graph-traversals)
   - [In-place Reversal of a Linked List](#pattern-in-place-reversal-of-a-linked-list)
   - [K-Way Merge](#pattern-k-way-merge)
   - [Merge Intervals](#pattern-merge-intervals)
@@ -64,7 +64,7 @@ In addition, you should have a good grasp on common algorithms such as:
 
 This [pdf] contains useful information for the built-in data structures in Java.
 Other useful Java methods include `substring()`, `toCharArray()`, `Math.max()`,
-`Math.min()`, and `Arrays.fill()`, or in your chosen language.
+`Math.min()`, and `Arrays.fill()`, in your chosen language.
 
 ## Question List
 
@@ -72,18 +72,25 @@ Other useful Java methods include `substring()`, `toCharArray()`, `Math.max()`,
 
 #### Easy:
 
+1. Contains Duplicate: https://leetcode.com/problems/contains-duplicate/
 1. Missing Number: https://leetcode.com/problems/missing-number/
 1. Find All Numbers Disappeared in an Array: https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
 1. Single Number: https://leetcode.com/problems/single-number/
 
 #### Medium:
 
+1. Product of Array Except Self: https://leetcode.com/problems/product-of-array-except-self/
 1. Find the Duplicate Number: https://leetcode.com/problems/find-the-duplicate-number/
 1. Find All Duplicates in an Array: https://leetcode.com/problems/find-all-duplicates-in-an-array/
+1. Set Matrix Zeroes: https://leetcode.com/problems/set-matrix-zeroes/
+1. Spiral Matrix: https://leetcode.com/problems/spiral-matrix/
+1. Rotate Image: https://leetcode.com/problems/rotate-image/
+1. Word Search: https://leetcode.com/problems/word-search/
 
 #### Hard:
 
 1. First Missing Positive: https://leetcode.com/problems/first-missing-positive/
+1. Longest Consecutive Sequence: https://leetcode.com/problems/longest-consecutive-sequence/
 
 ### Pattern: Backtracking
 
@@ -123,13 +130,23 @@ YouTube channel].
 
 1. Climbing Stairs: https://leetcode.com/problems/climbing-stairs/
 1. House Robber: https://leetcode.com/problems/house-robber/
+1. Best Time to Buy and Sell Stock: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 1. Maximum Subarray: https://leetcode.com/problems/maximum-subarray/
 1. Range Sum Query - Immutable: https://leetcode.com/problems/range-sum-query-immutable/
 
 #### Medium:
 
+1. House Robber II: https://leetcode.com/problems/house-robber-ii/
 1. Coin Change: https://leetcode.com/problems/coin-change/
+1. Maximum Product Subarray: https://leetcode.com/problems/maximum-product-subarray/
 1. Longest Increasing Subsequence: https://leetcode.com/problems/longest-increasing-subsequence/
+1. Longest Palindromic Substring: https://leetcode.com/problems/longest-palindromic-substring/
+1. Word Break: https://leetcode.com/problems/word-break/
+1. Combination Sum: https://leetcode.com/problems/combination-sum-iv/
+1. Decode Ways: https://leetcode.com/problems/decode-ways/
+1. Unique Paths: https://leetcode.com/problems/unique-paths/
+1. Jump Game: https://leetcode.com/problems/jump-game/
+1. Palindromic Substrings: https://leetcode.com/problems/palindromic-substrings/
 1. Number of Longest Increasing Subsequence: https://leetcode.com/problems/number-of-longest-increasing-subsequence/
 1. Partition Equal Subset Sum: https://leetcode.com/problems/partition-equal-subset-sum/
 1. Partition to K Equal Sum Subsets: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
@@ -151,8 +168,10 @@ The fast & slow pointer approach can be found under `3. Fast and Slow pointers` 
 #### Medium:
 
 1. Linked List Cycle II: https://leetcode.com/problems/linked-list-cycle-ii/
-1. Add Two Numbers: https://leetcode.com/problems/add-two-numbers/,
+1. Add Two Numbers: https://leetcode.com/problems/add-two-numbers/
+1. Remove Nth Node From End Of List: https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 1. Sort List: https://leetcode.com/problems/sort-list/
+1. Reorder List: https://leetcode.com/problems/reorder-list/
 
 ### Pattern: Graph Traversals
 
@@ -187,6 +206,10 @@ The in-place reveral technique can be found under `6. In-place reversal of linke
 ### Pattern: K-Way Merge
 
 The k-way merge technique can be found under `13. K-way Merge` [here].
+
+#### Easy:
+
+1. Merge Two Sorted Lists: https://leetcode.com/problems/merge-two-sorted-lists/
 
 #### Medium:
 
@@ -232,6 +255,7 @@ The modified binary search algorithm can be found under `11. Modified binary sea
 
 #### Medium:
 
+1. Find Minimum in Rotated Sorted Array: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 1. Find Peak Element: https://leetcode.com/problems/find-peak-element/
 1. Search in Rotated Sorted Array: https://leetcode.com/problems/search-in-rotated-sorted-array/
 1. Search in Rotated Sorted Array II: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
@@ -343,11 +367,13 @@ The tree DFS technique can be found under `8. Tree DFS` [here].
 1. Construct Binary Tree from Preorder and Inorder Traversal: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 1. Validate Binary Search Tree: https://leetcode.com/problems/validate-binary-search-tree/
 1. Kth Smallest Element in a BST: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+1. Implement Trie (Prefix Tree): https://leetcode.com/problems/implement-trie-prefix-tree/
 
 #### Hard:
 
 1. Binary Tree Maximum Path Sum: https://leetcode.com/problems/binary-tree-maximum-path-sum/
 1. Serialize and Deserialize Binary Tree: https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+1. Word Search II: https://leetcode.com/problems/word-search-ii/
 
 ### Pattern: Two Heaps
 
