@@ -113,6 +113,7 @@ The backtracking technique can be found under `10. Subsets` [here].
 1. Generate Parentheses: https://leetcode.com/problems/generate-parentheses/
 1. Target Sum: https://leetcode.com/problems/target-sum/
 1. Palindrome Partitioning: https://leetcode.com/problems/palindrome-partitioning/
+1. Partition to K Equal Sum Subsets: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
 1. Letter Combinations of a Phone Number: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 1. Generalized Abbreviation: https://leetcode.com/problems/generalized-abbreviation/
 
@@ -149,7 +150,6 @@ YouTube channel].
 1. Palindromic Substrings: https://leetcode.com/problems/palindromic-substrings/
 1. Number of Longest Increasing Subsequence: https://leetcode.com/problems/number-of-longest-increasing-subsequence/
 1. Partition Equal Subset Sum: https://leetcode.com/problems/partition-equal-subset-sum/
-1. Partition to K Equal Sum Subsets: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
 1. Best Time to Buy and Sell Stock with Cooldown: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 1. Counting Bits: https://leetcode.com/problems/counting-bits/
 
