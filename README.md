@@ -1,4 +1,4 @@
-# Leetcode Study Guide
+# Leetcode Study List
 
 ## Table of Contents
 
@@ -27,10 +27,10 @@
 
 ## Background
 
-This list is intended to be used as a study guide for any individual wanting to
+This repo is intended to be used as a study guide for any individual wanting to
 improve their problem solving skills for Software Engineering interviews.
 Problems are seperated under their respective subtopic, so you can focus on
-learning specific patterns rather than randomly tackling questions.
+common interview patterns rather than randomly tackling questions.
 
 All questions are available on [leetcode.com] with some requiring [leetcode premium].
 
@@ -40,18 +40,13 @@ It is highly recommended to read chapters 1, 2, 3, 4, 8, and 10 of [Cracking The
 to familiarize yourself with the following data structures and their operations:
 
 - Arrays
-  - Single and two dimensional
 - Maps
-- Sets
 - Linked Lists
-  - Single/doubly linked
-- Heaps
-  - Min/max heap
-- Stacks
-- Binary (Search) Trees
-  - Trie
-- Graphs
 - Queues
+- Heaps
+- Stacks
+- Trees
+- Graphs
 
 In addition, you should have a good grasp on common algorithms such as:
 
@@ -63,8 +58,8 @@ In addition, you should have a good grasp on common algorithms such as:
 ## Java Syntax Notes
 
 This [pdf] contains useful information for the built-in data structures in Java.
-Other useful Java methods include `substring()`, `toCharArray()`, `Math.max()`,
-`Math.min()`, and `Arrays.fill()`, or in your chosen language.
+Other useful methods that will help include `substring()`, `toCharArray()`, `Math.max()`,
+`Math.min()`, and `Arrays.fill()`.
 
 ## Question List
 
