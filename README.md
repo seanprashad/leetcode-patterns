@@ -234,7 +234,7 @@ The k-way merge technique can be found under `13. K-way Merge` [here].
 </details>
 
 <details>
-   	<summary>Merge Intervals</summary>
+   	<summary>Intervals</summary>
 
 The merge interval approach can be found under `4. Merge Intervals` [here].
 
