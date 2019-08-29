@@ -13,6 +13,7 @@
   - [Graph Traversals](#pattern-graph-traversals)
   - [In-place Reversal of a Linked List](#pattern-in-place-reversal-of-a-linked-list)
   - [K-Way Merge](#pattern-k-way-merge)
+  - [Matrixes](#pattern-matrixes)
   - [Merge Intervals](#pattern-merge-intervals)
   - [Modified Binary Search](#pattern-modified-binary-search)
   - [Sliding Window](#pattern-sliding-window)
@@ -27,10 +28,10 @@
 
 ## Background
 
-This repo is intended to be used as a study guide for any individual wanting to
-improve their problem solving skills for Software Engineering interviews.
-Problems are seperated under their respective subtopic, so you can focus on
-common interview patterns rather than randomly tackling questions.
+This repo is intended for any individual wanting to improve their problem
+solving skills for Software Engineering interviews.
+Problems are grouped under their respective subtopic, in order to focus on
+repeatedly applying common patterns rather than randomly tackling questions.
 
 All questions are available on [leetcode.com] with some requiring [leetcode premium].
 
@@ -57,7 +58,7 @@ In addition, you should have a good grasp on common algorithms such as:
 
 ## Java Syntax Notes
 
-This [pdf] contains useful information for the built-in data structures in Java.
+[This pdf] contains useful information for the built-in data structures in Java.
 Other useful methods that will help include `substring()`, `toCharArray()`, `Math.max()`,
 `Math.min()`, and `Arrays.fill()`.
 
@@ -77,10 +78,6 @@ Other useful methods that will help include `substring()`, `toCharArray()`, `Mat
 1. Product of Array Except Self: https://leetcode.com/problems/product-of-array-except-self/
 1. Find the Duplicate Number: https://leetcode.com/problems/find-the-duplicate-number/
 1. Find All Duplicates in an Array: https://leetcode.com/problems/find-all-duplicates-in-an-array/
-1. Set Matrix Zeroes: https://leetcode.com/problems/set-matrix-zeroes/
-1. Spiral Matrix: https://leetcode.com/problems/spiral-matrix/
-1. Rotate Image: https://leetcode.com/problems/rotate-image/
-1. Word Search: https://leetcode.com/problems/word-search/
 
 #### Hard:
 
@@ -219,6 +216,15 @@ The k-way merge technique can be found under `13. K-way Merge` [here].
 
 1. Merge k Sorted Lists: https://leetcode.com/problems/merge-k-sorted-lists/
 1. Smallest Range Covering Elements from K Lists: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+
+### Pattern: Matrixes
+
+#### Medium:
+
+1. Set Matrix Zeroes: https://leetcode.com/problems/set-matrix-zeroes/
+1. Spiral Matrix: https://leetcode.com/problems/spiral-matrix/
+1. Rotate Image: https://leetcode.com/problems/rotate-image/
+1. Word Search: https://leetcode.com/problems/word-search/
 
 ### Pattern: Merge Intervals
 
@@ -454,7 +460,7 @@ on [14 patterns to ace any coding interview question].
 
 [leetcode.com]: https://leetcode.com
 [leetcode premium]: https://leetcode.com/subscribe/
-[pdf]: https://drive.google.com/open?id=1ao4ZA28zzBttDkuS6MLQI52gDs_CJZEm
+[this pdf]: https://drive.google.com/open?id=1ao4ZA28zzBttDkuS6MLQI52gDs_CJZEm
 [cracking the coding interview]: http://www.crackingthecodinginterview.com/contents.html
 [here]: https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
 [topcoder]: https://www.topcoder.com/community/competitive-programming/tutorials/dynamic-programming-from-novice-to-advanced/
