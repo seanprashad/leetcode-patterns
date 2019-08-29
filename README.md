@@ -148,6 +148,10 @@ YouTube channel].
 1. Best Time to Buy and Sell Stock with Cooldown: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 1. Counting Bits: https://leetcode.com/problems/counting-bits/
 
+#### Hard:
+
+1. Longest Valid Parentheses: https://leetcode.com/problems/longest-valid-parentheses/
+
 ### Pattern: Fast & Slow Pointers
 
 The fast & slow pointer approach can be found under `3. Fast and Slow pointers` [here].
