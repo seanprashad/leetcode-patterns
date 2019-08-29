@@ -338,7 +338,6 @@ The tree BFS technique can be found under `7. Tree BFS` [here].
 1. Populating Next Right Pointers in Each Node: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 1. Populating Next Right Pointers in Each Node II: https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
 1. Binary Tree Right Side View: https://leetcode.com/problems/binary-tree-right-side-view/
-1. Number of Islands: https://leetcode.com/problems/number-of-islands/
 1. All Nodes Distance K in Binary Tree: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
 1. Boundary of Binary Tree: https://leetcode.com/problems/boundary-of-binary-tree
 
