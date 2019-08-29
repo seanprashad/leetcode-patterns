@@ -6,23 +6,6 @@
 - [Preface](#preface)
 - [Java Syntax Notes](#java-syntax-notes)
 - [Question List](#question-list)
-  - [Arrays](#pattern-arrays)
-  - [Backtracking](#pattern-backtracking)
-  - [Dynamic Programming](#pattern--dynamic-programming)
-  - [Fast & Slow Pointers](#pattern-fast--slow-pointers)
-  - [Graph Traversals](#pattern-graph-traversals)
-  - [In-place Reversal of a Linked List](#pattern-in-place-reversal-of-a-linked-list)
-  - [K-Way Merge](#pattern-k-way-merge)
-  - [Matrixes](#pattern-matrixes)
-  - [Merge Intervals](#pattern-merge-intervals)
-  - [Modified Binary Search](#pattern-modified-binary-search)
-  - [Sliding Window](#pattern-sliding-window)
-  - [Top K Elements](#pattern-top-k-elements)
-  - [Topological Sort](#pattern-topological-sort)
-  - [Tree Breadth First Search](#pattern-tree-breadth-first-search)
-  - [Tree Depth First Search](#pattern-tree-depth-first-search)
-  - [Two Heaps](#pattern-two-heaps)
-  - [Two Pointers](#pattern-two-pointers)
 - [Tips to Consider](#tips-to-consider)
 - [Acknowledgements](#acknowledgements)
 
@@ -64,7 +47,8 @@ Other useful methods that will help include `substring()`, `toCharArray()`, `Mat
 
 ## Question List
 
-### Pattern: Arrays
+<details>
+   	<summary>Arrays</summary>
 
 #### Easy:
 
@@ -84,7 +68,10 @@ Other useful methods that will help include `substring()`, `toCharArray()`, `Mat
 1. First Missing Positive: https://leetcode.com/problems/first-missing-positive/
 1. Longest Consecutive Sequence: https://leetcode.com/problems/longest-consecutive-sequence/
 
-### Pattern: Backtracking
+</details>
+
+<details>
+   	<summary>Backtracking</summary>
 
 The backtracking technique can be found under `10. Subsets` [here].
 
@@ -114,7 +101,10 @@ The backtracking technique can be found under `10. Subsets` [here].
 1. Sudoku Solver: https://leetcode.com/problems/sudoku-solver/
 1. N-Queens: https://leetcode.com/problems/n-queens/
 
-### Pattern : Dynamic Programming
+</details>
+
+<details>
+   	<summary>Dynamic Programming</summary>
 
 Dynamic programming guides can be found on [topcoder] and the [Back To Back SWE
 YouTube channel].
@@ -149,7 +139,10 @@ YouTube channel].
 
 1. Longest Valid Parentheses: https://leetcode.com/problems/longest-valid-parentheses/
 
-### Pattern: Fast & Slow Pointers
+</details>
+
+<details>
+   	<summary>Fast & Slow Pointers</summary>
 
 The fast & slow pointer approach can be found under `3. Fast and Slow pointers` [here].
 
@@ -169,7 +162,10 @@ The fast & slow pointer approach can be found under `3. Fast and Slow pointers` 
 1. Sort List: https://leetcode.com/problems/sort-list/
 1. Reorder List: https://leetcode.com/problems/reorder-list/
 
-### Pattern: Graph Traversals
+</details>
+
+<details>
+   	<summary>Graph Traversals</summary>
 
 #### Medium:
 
@@ -180,7 +176,10 @@ The fast & slow pointer approach can be found under `3. Fast and Slow pointers` 
 1. Graph Valid Tree: https://leetcode.com/problems/graph-valid-tree/
 1. Number of Connected Components in an Undirected Graph: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
 
-### Pattern: In-place Reversal of a Linked List
+</details>
+
+<details>
+   	<summary>In-place Reversal of a Linked List</summary>
 
 The in-place reveral technique can be found under `6. In-place reversal of linked list` [here].
 
@@ -199,7 +198,10 @@ The in-place reveral technique can be found under `6. In-place reversal of linke
 
 1. Reverse Nodes in k-Group: https://leetcode.com/problems/reverse-nodes-in-k-group/
 
-### Pattern: K-Way Merge
+</details>
+
+<details>
+   	<summary>K-Way Merge</summary>
 
 The k-way merge technique can be found under `13. K-way Merge` [here].
 
@@ -217,7 +219,10 @@ The k-way merge technique can be found under `13. K-way Merge` [here].
 1. Merge k Sorted Lists: https://leetcode.com/problems/merge-k-sorted-lists/
 1. Smallest Range Covering Elements from K Lists: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
 
-### Pattern: Matrixes
+</details>
+
+<details>
+   	<summary>Matrices</summary>
 
 #### Medium:
 
@@ -226,7 +231,10 @@ The k-way merge technique can be found under `13. K-way Merge` [here].
 1. Rotate Image: https://leetcode.com/problems/rotate-image/
 1. Word Search: https://leetcode.com/problems/word-search/
 
-### Pattern: Merge Intervals
+</details>
+
+<details>
+   	<summary>Merge Intervals</summary>
 
 The merge interval approach can be found under `4. Merge Intervals` [here].
 
@@ -248,7 +256,10 @@ The merge interval approach can be found under `4. Merge Intervals` [here].
 1. Insert Interval: https://leetcode.com/problems/insert-interval/
 1. Employee Free Time: https://leetcode.com/problems/employee-free-time/
 
-### Pattern: Modified Binary Search
+</details>
+
+<details>
+   	<summary>Modified Binary Search</summary>
 
 The modified binary search algorithm can be found under `11. Modified binary search` [here].
 
@@ -271,7 +282,10 @@ The modified binary search algorithm can be found under `11. Modified binary sea
 
 1. Count of Range Sum: https://leetcode.com/problems/count-of-range-sum/
 
-### Pattern: Sliding Window
+</details>
+
+<details>
+   	<summary>Sliding Window</summary>
 
 The sliding window approach can be found under `1. Sliding Window` [here].
 
@@ -291,7 +305,10 @@ The sliding window approach can be found under `1. Sliding Window` [here].
 1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
 1. Substring with Concatenation of All Words: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
 
-### Pattern: Top 'K' Elements
+</details>
+
+<details>
+   	<summary>Top 'K' Elements</summary>
 
 The top K element technique can be found under `12. Top K elements` [here].
 
@@ -311,7 +328,10 @@ The top K element technique can be found under `12. Top K elements` [here].
 1. Course Schedule III: https://leetcode.com/problems/course-schedule-iii/
 1. Maximum Frequency Stack: https://leetcode.com/problems/maximum-frequency-stack/
 
-### Pattern: Topological Sort
+</details>
+
+<details>
+   	<summary>Topological Sort</summary>
 
 The topological sort algorithm can be found under `14. Topological sort` [here].
 
@@ -326,7 +346,10 @@ The topological sort algorithm can be found under `14. Topological sort` [here].
 1. Alien Dictionary: https://leetcode.com/problems/alien-dictionary
 1. Sequence Reconstruction: https://leetcode.com/problems/sequence-reconstruction
 
-### Pattern: Tree Breadth First Search
+</details>
+
+<details>
+   	<summary>Tree Breadth First Search</summary>
 
 The tree BFS technique can be found under `7. Tree BFS` [here].
 
@@ -346,7 +369,10 @@ The tree BFS technique can be found under `7. Tree BFS` [here].
 1. All Nodes Distance K in Binary Tree: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
 1. Boundary of Binary Tree: https://leetcode.com/problems/boundary-of-binary-tree
 
-### Pattern: Tree Depth First Search
+</details>
+
+<details>
+   	<summary>Tree Depth First Search</summary>
 
 The tree DFS technique can be found under `8. Tree DFS` [here].
 
@@ -379,7 +405,10 @@ The tree DFS technique can be found under `8. Tree DFS` [here].
 1. Serialize and Deserialize Binary Tree: https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 1. Word Search II: https://leetcode.com/problems/word-search-ii/
 
-### Pattern: Two Heaps
+</details>
+
+<details>
+   	<summary>Two Heaps</summary>
 
 The two heaps approach can be found under `9. Two heaps` [here].
 
@@ -389,7 +418,10 @@ The two heaps approach can be found under `9. Two heaps` [here].
 1. Sliding Window Median: https://leetcode.com/problems/sliding-window-median/
 1. IPO: https://leetcode.com/problems/ipo/
 
-### Pattern: Two Pointers
+</details>
+
+<details>
+   	<summary>Two Pointers</summary>
 
 The two pointer approach can be found under `2. Two Pointers or Iterators` [here].
 
@@ -412,6 +444,8 @@ The two pointer approach can be found under `2. Two Pointers or Iterators` [here
 1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
 1. Trapping Rain Water: https://leetcode.com/problems/trapping-rain-water/
 1. Container With Most Water: https://leetcode.com/problems/container-with-most-water/
+
+</details>
 
 ## Tips to Consider
 
