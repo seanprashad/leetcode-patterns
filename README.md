@@ -62,6 +62,7 @@ Other useful methods that will help include `substring()`, `toCharArray()`, `Mat
 1. Product of Array Except Self: https://leetcode.com/problems/product-of-array-except-self/
 1. Find the Duplicate Number: https://leetcode.com/problems/find-the-duplicate-number/
 1. Find All Duplicates in an Array: https://leetcode.com/problems/find-all-duplicates-in-an-array/
+1. Jump Game: https://leetcode.com/problems/jump-game/
 
 #### Hard:
 
@@ -128,7 +129,6 @@ YouTube channel].
 1. Combination Sum: https://leetcode.com/problems/combination-sum-iv/
 1. Decode Ways: https://leetcode.com/problems/decode-ways/
 1. Unique Paths: https://leetcode.com/problems/unique-paths/
-1. Jump Game: https://leetcode.com/problems/jump-game/
 1. Palindromic Substrings: https://leetcode.com/problems/palindromic-substrings/
 1. Number of Longest Increasing Subsequence: https://leetcode.com/problems/number-of-longest-increasing-subsequence/
 1. Partition Equal Subset Sum: https://leetcode.com/problems/partition-equal-subset-sum/
