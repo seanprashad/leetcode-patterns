@@ -62,7 +62,6 @@ Other useful methods that will help include `substring()`, `toCharArray()`, `Mat
 1. Product of Array Except Self: https://leetcode.com/problems/product-of-array-except-self/
 1. Find the Duplicate Number: https://leetcode.com/problems/find-the-duplicate-number/
 1. Find All Duplicates in an Array: https://leetcode.com/problems/find-all-duplicates-in-an-array/
-1. Jump Game: https://leetcode.com/problems/jump-game/
 
 #### Hard:
 
