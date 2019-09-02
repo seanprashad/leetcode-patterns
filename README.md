@@ -426,7 +426,7 @@ The two pointer approach can be found under `2. Two Pointers or Iterators` [here
 
 #### Easy:
 
-1. Two Sum: https://leetcode.com/problems/two-sum/
+1. Two Sum II - Input array is sorted: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 1. Remove Duplicates from Sorted List: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 1. Squares of a Sorted Array: https://leetcode.com/problems/squares-of-a-sorted-array/
 1. Backspace String Compare: https://leetcode.com/problems/backspace-string-compare
