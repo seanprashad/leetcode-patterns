@@ -296,7 +296,6 @@ The sliding window approach can be found under `1. Sliding Window` [here].
 1. Sliding Window Maximum: https://leetcode.com/problems/sliding-window-maximum/
 1. Minimum Number of K Consecutive Bit Flips: https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
 1. Unique Letter String: https://leetcode.com/problems/unique-letter-string/
-1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
 1. Substring with Concatenation of All Words: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
 
 </details>
