@@ -208,15 +208,9 @@ The k-way merge technique can be found under `13. K-way Merge` [here].
 
 1. Merge Two Sorted Lists: https://leetcode.com/problems/merge-two-sorted-lists/
 
-#### Medium:
-
-1. Kth Smallest Element in a Sorted Matrix: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
-1. Find K Pairs with Smallest Sums: https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
-
 #### Hard:
 
 1. Merge k Sorted Lists: https://leetcode.com/problems/merge-k-sorted-lists/
-1. Smallest Range Covering Elements from K Lists: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
 
 </details>
 
@@ -229,6 +223,7 @@ The k-way merge technique can be found under `13. K-way Merge` [here].
 1. Spiral Matrix: https://leetcode.com/problems/spiral-matrix/
 1. Rotate Image: https://leetcode.com/problems/rotate-image/
 1. Word Search: https://leetcode.com/problems/word-search/
+1. Kth Smallest Element in a Sorted Matrix: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
 
 </details>
 
