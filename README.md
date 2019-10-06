@@ -289,11 +289,11 @@ The sliding window approach can be found under `1. Sliding Window` [here].
 1. Fruit Into Baskets: https://leetcode.com/problems/fruit-into-baskets/
 1. Permutation in String: https://leetcode.com/problems/permutation-in-string/
 1. Longest Repeating Character Replacement: https://leetcode.com/problems/longest-repeating-character-replacement/
+1. Longest Substring Without Repeating Characters: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 #### Hard:
 
 1. Sliding Window Maximum: https://leetcode.com/problems/sliding-window-maximum/
-1. Longest Substring Without Repeating Characters: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 1. Minimum Number of K Consecutive Bit Flips: https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
 1. Unique Letter String: https://leetcode.com/problems/unique-letter-string/
 1. Minimum Window Substring: https://leetcode.com/problems/minimum-window-substring/
