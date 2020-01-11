@@ -7,6 +7,7 @@
 - [Java Syntax Notes](#java-syntax-notes)
 - [Question List](#question-list)
 - [Solutions](#solutions)
+- [Leetcode Discuss](#leetcode-discuss)
 - [Tips to Consider](#tips-to-consider)
 - [Acknowledgements](#acknowledgements)
 
@@ -445,6 +446,11 @@ The two pointer approach can be found under `2. Two Pointers or Iterators` [here
 
 Solutions written in Java can be found in the [solutions] branch.
 
+## Leetcode Discuss
+
+[Leetcode discuss] is an amazing resource and features previous interview
+questions, as well as compensation and general career advice.
+
 ## Tips to Consider
 
 ```
@@ -498,6 +504,7 @@ on [14 patterns to ace any coding interview question].
 [topcoder]: https://www.topcoder.com/community/competitive-programming/tutorials/dynamic-programming-from-novice-to-advanced/
 [back to back swe youtube channel]: https://www.youtube.com/watch?v=jgiZlGzXMBw
 [solutions]: https://github.com/SeanPrashad/leetcode-patterns/tree/solutions
+[leetcode discuss]: https://leetcode.com/discuss/interview-question
 [grokking the coding interview]: https://www.educative.io/courses/grokking-the-coding-interview
 [blind 75 list]: https://www.teamblind.com/article/New-Year-Gift---Curated-List-of-Top-100-LeetCode-Questions-to-Save-Your-Time-OaM1orEU?utm_source=share&utm_medium=ios_app
 [14 patterns to ace any coding interview question]: https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
