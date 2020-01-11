@@ -12,7 +12,7 @@
 ## Background
 
 This repo is intended for any individual wanting to improve their problem
-solving skills for Software Engineering interviews.
+solving skills for software engineering interviews.
 Problems are grouped under their respective subtopic, in order to focus on
 repeatedly applying common patterns rather than randomly tackling questions.
 
@@ -42,8 +42,8 @@ In addition, you should have a good grasp on common algorithms such as:
 ## Java Syntax Notes
 
 [This pdf] contains useful information for the built-in data structures in Java.
-Other useful methods that will help include `substring()`, `toCharArray()`, `Math.max()`,
-`Math.min()`, and `Arrays.fill()`.
+Other useful methods to know include [`substring()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-int-), [`toCharArray()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toCharArray--), [`Math.max()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#max-int-int-),
+[`Math.min()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#min-int-int-), and [`Arrays.fill()`](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#fill-int:A-int-).
 
 ## Question List
 
