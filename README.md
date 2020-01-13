@@ -1,4 +1,4 @@
-# Leetcode Study List
+# Leetcode Study List - https://seanprashad.com/leetcode-patterns/
 
 ## Table of Contents
 
@@ -48,6 +48,8 @@ Other useful methods to know include [`substring()`](https://docs.oracle.com/jav
 [`Math.min()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#min-int-int-), and [`Arrays.fill()`](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#fill-int:A-int-).
 
 ## Question List
+
+A web version of the question list can be found here: https://seanprashad.com/leetcode-patterns/.
 
 <details>
    	<summary>Arrays</summary>
