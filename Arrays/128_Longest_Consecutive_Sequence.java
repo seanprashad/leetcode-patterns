@@ -6,20 +6,22 @@ class Solution {
 
         int max = 0;
         Set<Integer> set = new HashSet<>();
-        for (int num : nums) {
-            set.add(num);
+        for (int n : nums) {
+            set.add(n);
         }
 
-        for (int startingNum : nums) {
-            if (!set.contains(startingNum - 1)) {
-                int nextVal = startingNum;
+        for (int n : nums) {
+            int left = n - 1;
+            int right = n + 1;
 
-                while (set.contains(nextVal)) {
-                    ++nextVal;
-                }
-
-                max = Math.max(max, nextVal - startingNum);
+            while (set.remove(left)) {
+                left--;
             }
+            while (set.remove(right)) {
+                right++;
+            }
+
+            max = Math.max(max, right - left - 1);
         }
 
         return max;
