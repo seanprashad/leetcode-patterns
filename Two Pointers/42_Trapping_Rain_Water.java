@@ -4,23 +4,31 @@ class Solution {
             return 0;
         }
 
-        int left = 0, right = height.length - 1;
-        int leftMax = 0, rightMax = 0;
-        int sum = 0;
+        int water = 0, currIdx = 0;
+        Stack<Integer> st = new Stack<>();
 
-        while (left < right) {
-            leftMax = Math.max(leftMax, height[left]);
-            rightMax = Math.max(rightMax, height[right]);
+        while (currIdx < height.length) {
+            while (!st.isEmpty() && height[currIdx] > height[st.peek()]) {
+                int poppedElement = st.pop();
 
-            if (leftMax < rightMax) {
-                sum += leftMax - height[left];
-                ++left;
-            } else {
-                sum += rightMax - height[right];
-                --right;
+                // If the stack is empty, it is implied that we are at the first
+                // peak in the array, of which there is no left boundary, or similar
+                if (st.isEmpty()) {
+                    break;
+                }
+
+                // st.peek() will represent the left pillar, whilst currIdx will
+                // represent the right pillar. -1 is for array indexes starting at 0
+                int distance = currIdx - st.peek() - 1;
+                int minHeight = Math.min(height[currIdx], height[st.peek()]) - height[poppedElement];
+
+                water += distance * minHeight;
             }
+
+            st.push(currIdx);
+            ++currIdx;
         }
 
-        return sum;
+        return water;
     }
 }
