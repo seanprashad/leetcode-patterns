@@ -4,26 +4,27 @@ class Solution {
             return 0;
         }
 
-        int max = 0;
+        int longestStreak = 0;
         Set<Integer> set = new HashSet<>();
+
         for (int n : nums) {
             set.add(n);
         }
 
         for (int n : nums) {
-            int left = n - 1;
-            int right = n + 1;
+            if (!set.contains(n - 1)) {
+                int currNum = n;
+                int currStreak = 0;
 
-            while (set.remove(left)) {
-                left--;
-            }
-            while (set.remove(right)) {
-                right++;
-            }
+                while (set.contains(currNum)) {
+                    ++currNum;
+                    ++currStreak;
+                }
 
-            max = Math.max(max, right - left - 1);
+                longestStreak = Math.max(longestStreak, currStreak);
+            }
         }
 
-        return max;
+        return longestStreak;
     }
 }
