@@ -4,19 +4,18 @@ class Solution {
             return head;
         }
 
-        ListNode curr = head;
+        ListNode curr = head, prev = head;
 
         while (curr != null) {
-            if (curr.next == null) {
-                break;
-            }
-
-            if (curr.val == curr.next.val) {
-                curr.next = curr.next.next;
-            } else {
+            if (prev.val == curr.val) {
                 curr = curr.next;
+            } else {
+                prev.next = curr;
+                prev = prev.next;
             }
         }
+
+        prev.next = curr;
 
         return head;
     }
