@@ -4,15 +4,18 @@ class Solution {
             return head;
         }
 
-        ListNode curr = head, fast = head.next;
+        ListNode curr = head;
 
         while (curr != null) {
-            while (fast != null && curr.val == fast.val) {
-                fast = fast.next;
+            if (curr.next == null) {
+                break;
             }
 
-            curr.next = fast;
-            curr = fast;
+            if (curr.val == curr.next.val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
         }
 
         return head;
