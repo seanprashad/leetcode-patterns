@@ -4,20 +4,20 @@ class Solution {
             return head;
         }
 
-        ListNode prev = null, slow = head, fast = head;
+        ListNode tortoise = head, hare = head, prev = tortoise;
 
-        while (fast != null && fast.next != null) {
-            prev = slow;
-            slow = slow.next;
-            fast = fast.next.next;
+        while (hare != null && hare.next != null) {
+            prev = tortoise;
+            tortoise = tortoise.next;
+            hare = hare.next.next;
         }
 
         prev.next = null;
 
-        ListNode l1 = sortList(head);
-        ListNode l2 = sortList(slow);
+        ListNode h1 = sortList(head);
+        ListNode h2 = sortList(tortoise);
 
-        return merge(l1, l2);
+        return merge(h1, h2);
     }
 
     private ListNode merge(ListNode l1, ListNode l2) {
