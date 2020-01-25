@@ -1,32 +1,25 @@
 class Solution {
     public int trap(int[] height) {
-        if (height == null || height.length <= 2) {
+        if (height == null || height.length == 0) {
             return 0;
         }
 
-        int water = 0, currIdx = 0;
-        Stack<Integer> st = new Stack<>();
+        int water = 0;
+        int[] leftMax = new int[height.length], rightMax = new int[height.length];
 
-        while (currIdx < height.length) {
-            while (!st.isEmpty() && height[currIdx] > height[st.peek()]) {
-                int poppedElement = st.pop();
+        leftMax[0] = height[0];
+        rightMax[rightMax.length - 1] = height[height.length - 1];
 
-                // If the stack is empty, it is implied that we are at the first
-                // peak in the array, of which there is no left boundary, or similar
-                if (st.isEmpty()) {
-                    break;
-                }
+        for (int i = 1; i < height.length; i++) {
+            leftMax[i] = Math.max(height[i], leftMax[i - 1]);
+        }
 
-                // st.peek() will represent the left pillar, whilst currIdx will
-                // represent the right pillar. -1 is for array indexes starting at 0
-                int distance = currIdx - st.peek() - 1;
-                int minHeight = Math.min(height[currIdx], height[st.peek()]) - height[poppedElement];
+        for (int i = height.length - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(height[i], rightMax[i + 1]);
+        }
 
-                water += distance * minHeight;
-            }
-
-            st.push(currIdx);
-            ++currIdx;
+        for (int i = 1; i < height.length - 1; i++) {
+            water += Math.min(leftMax[i], rightMax[i]) - height[i];
         }
 
         return water;
