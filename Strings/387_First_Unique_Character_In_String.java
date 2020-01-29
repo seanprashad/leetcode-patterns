@@ -1,22 +1,18 @@
 class Solution {
     public int firstUniqChar(String s) {
-        if (s == null || s.isEmpty()) {
+        if (s == null || s.length() == 0) {
             return -1;
         }
 
-        HashMap<Character, Integer> hmChar = new HashMap<Character, Integer>();
-        HashMap<Character, Integer> hmIdx = new HashMap<Character, Integer>();
-        char[] sArray = s.toCharArray();
+        Map<Character, Integer> hm = new HashMap<>();
 
-        for (int i = 0; i < sArray.length; i++) {
-            hmChar.put(sArray[i], hmChar.getOrDefault(sArray[i], 0) + 1);
-            hmIdx.put(sArray[i], hmIdx.getOrDefault(sArray[i], i));
+        for (char c : s.toCharArray()) {
+            hm.put(c, hm.getOrDefault(c, 0) + 1);
         }
 
-        for (Character c : sArray) {
-            int frequency = hmChar.get(c);
-            if (frequency == 1) {
-                return hmIdx.get(c);
+        for (int i = 0; i < s.length(); i++) {
+            if (hm.get(s.charAt(i)) == 1) {
+                return i;
             }
         }
 
