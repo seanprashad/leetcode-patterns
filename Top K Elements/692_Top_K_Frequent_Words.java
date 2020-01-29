@@ -1,28 +1,32 @@
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
-        List<String> result = new ArrayList<String>();
-        HashMap<String, Integer> hm = new HashMap<String, Integer>();
-
         if (words == null || words.length == 0) {
-            return result;
+            return Collections.emptyList();
         }
 
-        for (String s : words) {
-            hm.put(s, hm.getOrDefault(s, 0) + 1);
-        }
+        List<String> res = new ArrayList<>();
+        Map<String, Integer> hm = new HashMap<>();
+        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
+                (a, b) -> a.getValue().equals(b.getValue()) ? b.getKey().compareTo(a.getKey())
+                        : a.getValue() - b.getValue());
 
-        PriorityQueue<Map.Entry<String, Integer>> maxHeap = new PriorityQueue<>(k,
-                (a, b) -> a.getValue().equals(b.getValue()) ? a.getKey().compareTo(b.getKey())
-                        : b.getValue() - a.getValue());
+        for (String w : words) {
+            hm.put(w, hm.getOrDefault(w, 0) + 1);
+        }
 
         for (Map.Entry<String, Integer> entry : hm.entrySet()) {
-            maxHeap.add(entry);
+            pq.offer(entry);
+
+            if (pq.size() > k) {
+                pq.poll();
+            }
         }
 
-        while (result.size() < k) {
-            result.add(maxHeap.poll().getKey());
+        while (!pq.isEmpty()) {
+            res.add(pq.poll().getKey());
         }
 
-        return result;
+        Collections.reverse(res);
+        return res;
     }
 }
