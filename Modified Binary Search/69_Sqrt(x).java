@@ -4,23 +4,22 @@ class Solution {
             return x;
         }
 
-        long num;
-        int left = 2, right = x / 2;
+        int low = 1, high = x;
 
-        while (left <= right) {
-            int mid = left + ((right - left) / 2);
+        while (low <= high) {
+            int mid = low + ((high - low) / 2);
 
-            num = (long) mid * mid;
+            long squaredVal = (long) mid * mid;
 
-            if (num > x) {
-                right = mid - 1;
-            } else if (num < x) {
-                left = mid + 1;
-            } else {
+            if (squaredVal == x) {
                 return mid;
+            } else if (squaredVal > x) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
 
-        return right;
+        return low - 1;
     }
 }
