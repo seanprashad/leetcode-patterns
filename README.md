@@ -15,6 +15,7 @@
 
 This repo is intended for any individual wanting to improve their problem
 solving skills for software engineering interviews.
+
 Problems are grouped under their respective subtopic, in order to focus on
 repeatedly applying common patterns rather than randomly tackling questions.
 
@@ -49,7 +50,7 @@ Other useful methods to know include [`substring()`](https://docs.oracle.com/jav
 
 ## Question List
 
-All questions can be found here: https://seanprashad.com/leetcode-patterns/.
+The entire question list can be found here: https://seanprashad.com/leetcode-patterns/.
 
 ## Solutions
 
