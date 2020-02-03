@@ -4,11 +4,12 @@
 
 - [Background](#background)
 - [Preface](#preface)
-- [Java Syntax Notes](#java-syntax-notes)
+- [Notes](#notes)
 - [Question List](#question-list)
 - [Solutions](#solutions)
 - [Leetcode Discuss](#leetcode-discuss)
 - [Tips to Consider](#tips-to-consider)
+- [Suggestions](#suggestions)
 - [Acknowledgements](#acknowledgements)
 
 ## Background
@@ -42,15 +43,21 @@ In addition, you should have a good grasp on common algorithms such as:
 - Binary search
 - Recursion
 
-## Java Syntax Notes
+## Notes
 
 [This pdf] contains useful information for the built-in data structures in Java.
+
 Other useful methods to know include [`substring()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-int-), [`toCharArray()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toCharArray--), [`Math.max()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#max-int-int-),
 [`Math.min()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#min-int-int-), and [`Arrays.fill()`](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#fill-int:A-int-).
 
 ## Question List
 
-The entire question list can be found here: https://seanprashad.com/leetcode-patterns/.
+The entire question list can be found here:
+https://seanprashad.com/leetcode-patterns/.
+
+In addition to viewing the question list, companies that have previously asked
+the question in the past 6 months (_as of January 2020_) will be listed. You can
+also use the checkboxes to mark which questions you've completed!
 
 ## Solutions
 
@@ -100,6 +107,11 @@ Else
     - Sort input for O(nlogn) time and O(1) space
 ```
 
+## Suggestions
+
+Think a question should/shouldn't be included? Wish there was another feature?
+Feel free to open an [issue] with your suggestion!
+
 ## Acknowledgements
 
 This list is heavily inspired from [Grokking the Coding Interview] with
@@ -116,5 +128,6 @@ on [14 patterns to ace any coding interview question].
 [solutions]: https://github.com/SeanPrashad/leetcode-patterns/tree/solutions
 [leetcode discuss]: https://leetcode.com/discuss/interview-question
 [grokking the coding interview]: https://www.educative.io/courses/grokking-the-coding-interview
+[issue]: https://github.com/SeanPrashad/leetcode-patterns/issues/new
 [blind 75 list]: https://www.teamblind.com/article/New-Year-Gift---Curated-List-of-Top-100-LeetCode-Questions-to-Save-Your-Time-OaM1orEU?utm_source=share&utm_medium=ios_app
 [14 patterns to ace any coding interview question]: https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
