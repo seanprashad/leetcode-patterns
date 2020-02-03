@@ -4,19 +4,18 @@ class Solution {
             return 0;
         }
 
-        int result = 0;
-        Stack<Character> s = new Stack<>();
+        int left = 0, right = 0, result = 0;
 
-        for (char c : S.toCharArray()) {
-            if (c == '(') {
-                s.push(c);
-            } else if (s.isEmpty()) {
+        for (int i = 0; i < S.length(); i++) {
+            if (S.charAt(i) == '(') {
+                ++open;
+            } else if (open == 0) {
                 ++result;
             } else {
-                s.pop();
+                --open;
             }
         }
 
-        return result + s.size();
+        return left + right;
     }
 }
