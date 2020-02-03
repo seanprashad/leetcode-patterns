@@ -1,4 +1,4 @@
-# Leetcode Study List
+# Leetcode Patterns
 
 ## Table of Contents
 
