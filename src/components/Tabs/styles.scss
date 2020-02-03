@@ -1,0 +1,10 @@
+.tab-pane {
+  .active {
+    display: flex !important;
+    justify-content: center;
+  }
+}
+
+.nav-link:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,33 @@
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.navbar-nav {
+  .nav-item {
+    letter-spacing: 1px;
+    margin-left: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    color: #ffc952 !important;
+  }
+
+  a {
+    color: #212529 !important;
+    display: inline;
+    font-size: 1rem;
+  }
+
+  a:hover {
+    color: #ffc952 !important;
+  }
+
+  svg {
+    font-size: 2em;
+  }
+}
