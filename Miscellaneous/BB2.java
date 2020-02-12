@@ -68,9 +68,22 @@ public class BB2 {
         graph.addPath('D', 'C');
         graph.addPath('F', 'E');
 
-        List<String> paths = graph.printAllPathsBetween('A', 'C');
+        List<String> validPathFromAtoC = graph.printAllPathsBetween('A', 'C');
+        List<String> validPathFromBtoD = graph.printAllPathsBetween('B', 'D');
+        List<String> invalidPathFromEtoA = graph.printAllPathsBetween('E', 'A');
 
-        for (String p : paths) {
+        System.out.println("Valid Path - A to C:");
+        for (String p : validPathFromAtoC) {
+            System.out.println(p);
+        }
+
+        System.out.println("\nValid Path - B to D:");
+        for (String p : validPathFromBtoD) {
+            System.out.println(p);
+        }
+
+        System.out.println("\nInvalid Path - E to A:");
+        for (String p : invalidPathFromEtoA) {
             System.out.println(p);
         }
 

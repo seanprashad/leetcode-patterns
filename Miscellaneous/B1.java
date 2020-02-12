@@ -1,5 +1,3 @@
-package Miscellaneous;
-
 import java.util.Stack;
 
 public class B1 {

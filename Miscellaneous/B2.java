@@ -1,5 +1,3 @@
-package Miscellaneous;
-
 import java.util.*;
 
 public class B2 {

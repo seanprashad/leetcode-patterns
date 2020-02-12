@@ -1,5 +1,3 @@
-package Miscellaneous;
-
 public class P1 {
     public static int[] productOfArrayExceptItself(int[] nums) {
         if (nums == null || nums.length == 0) {
