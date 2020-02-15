@@ -17,7 +17,9 @@ class Solution {
                 if (remainder.length() == 0) {
                     result.add(word);
                 } else {
-                    for (String substring : backtrack(remainder, wordDict, memo)) {
+                    List<String> subList = backtrack(remainder, wordDict, memo);
+
+                    for (String substring : subList) {
                         result.add(word + " " + substring);
                     }
                 }
