@@ -67,12 +67,16 @@ public class BB1 {
         BB1 candy = new BB1();
         String toCrush1 = "aaabbbbbacddddd";
         String toCrush2 = "deeeeedbbcccccbdaa";
+        String toCrush3 = "aaabbbacd";
 
         // Should print "ac"
         System.out.println(candy.crush(toCrush1));
 
         // Should print "aa"
         System.out.println(candy.crush(toCrush2));
+
+        // Should print "cd"
+        System.out.println(candy.crush(toCrush3));
 
         return;
     }
