@@ -1,17 +1,31 @@
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        boolean[] dp = new boolean[s.length() + 1];
-        dp[0] = true;
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+        return helper(s, new HashSet<>(wordDict), new HashMap<>());
+    }
 
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && wordDict.contains(s.substring(j, i))) {
-                    dp[i] = true;
-                    break;
-                }
+    private boolean helper(String s, Set<String> wordDict, Map<String, Boolean> memo) {
+        if (s.length() == 0) {
+            return true;
+        }
+
+        if (memo.containsKey(s)) {
+            return memo.get(s);
+        }
+
+        for (int i = 0; i <= s.length(); i++) {
+            String prefix = s.substring(0, i);
+            String remainder = s.substring(i, s.length());
+
+            if (wordDict.contains(prefix) && helper(remainder, wordDict, memo)) {
+                memo.put(s, true);
+                return memo.get(s);
             }
         }
 
-        return dp[s.length()];
+        memo.put(s, false);
+        return memo.get(s);
     }
 }
