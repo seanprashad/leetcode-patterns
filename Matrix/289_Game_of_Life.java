@@ -1,39 +1,44 @@
 class Solution {
     public void gameOfLife(int[][] board) {
-        int[] neighbours = { 0, 1, -1 };
+        if (board == null || board.length == 0) {
+            return;
+        }
 
-        int rows = board.length;
-        int cols = board[0].length;
+        int rowsLen = board.length;
+        int colsLen = board[0].length;
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                int liveNeighbours = 0;
+        for (int i = 0; i < rowsLen; i++) {
+            for (int j = 0; j < colsLen; j++) {
+                int liveCellCount = 0;
 
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        if (!(neighbours[i] == 0 && neighbours[j] == 0)) {
-                            int r = (row + neighbours[i]);
-                            int c = (col + neighbours[j]);
+                for (int r = -1; r <= 1; r++) {
+                    for (int c = -1; c <= 1; c++) {
+                        if (r == 0 && c == 0) {
+                            continue;
+                        }
 
-                            if ((r >= 0 && r < rows) && (c >= 0 && c < cols) && Math.abs(board[r][c]) == 1) {
-                                liveNeighbours += 1;
-                            }
+                        int row = i + r;
+                        int col = j + c;
+
+                        if ((row >= 0 && row < rowsLen) && (col >= 0 && col < colsLen)
+                                && Math.abs(board[row][col]) == 1) {
+                            liveCellCount += 1;
                         }
                     }
                 }
 
-                if (board[row][col] == 1 && (liveNeighbours < 2 || liveNeighbours > 3)) {
-                    board[row][col] = -1;
+                if (board[i][j] == 1 && (liveCellCount < 2 || liveCellCount > 3)) {
+                    board[i][j] = -1;
                 }
 
-                if (board[row][col] == 0 && liveNeighbours == 3) {
-                    board[row][col] = 2;
+                if (board[i][j] == 0 && liveCellCount == 3) {
+                    board[i][j] = 2;
                 }
             }
         }
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < rowsLen; i++) {
+            for (int j = 0; j < colsLen; j++) {
                 if (board[i][j] > 0) {
                     board[i][j] = 1;
                 } else {
