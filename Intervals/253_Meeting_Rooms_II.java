@@ -4,27 +4,17 @@ class Solution {
             return 0;
         }
 
-        int[] starts = new int[intervals.length];
-        int[] ends = new int[intervals.length];
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        for (int i = 0; i < intervals.length; i++) {
-            starts[i] = intervals[i][0];
-            ends[i] = intervals[i][1];
-        }
-
-        Arrays.sort(starts);
-        Arrays.sort(ends);
-
-        int result = 0, endIdx = 0;
-
-        for (int i = 0; i < starts.length; i++) {
-            if (starts[i] < ends[endIdx]) {
-                ++result;
-            } else {
-                ++endIdx;
+        for (int[] interval : intervals) {
+            if (!pq.isEmpty() && pq.peek() <= interval[0]) {
+                pq.poll();
             }
+
+            pq.offer(interval[1]);
         }
 
-        return result;
+        return pq.size();
     }
 }
