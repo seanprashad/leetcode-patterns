@@ -4,18 +4,15 @@ class Solution {
             return false;
         }
 
-        int rows = matrix.length, cols = matrix[0].length;
-        int start = 0, end = rows * cols - 1;
+        int row = 0, col = matrix[0].length - 1;
 
-        while (start <= end) {
-            int mid = start + (end - start) / 2;
-
-            if (matrix[mid / cols][mid % cols] == target) {
+        while (row < matrix.length && col >= 0) {
+            if (matrix[row][col] == target) {
                 return true;
-            } else if (matrix[mid / cols][mid % cols] < target) {
-                start = mid + 1;
+            } else if (matrix[row][col] < target) {
+                ++row;
             } else {
-                end = mid - 1;
+                --col;
             }
         }
 
