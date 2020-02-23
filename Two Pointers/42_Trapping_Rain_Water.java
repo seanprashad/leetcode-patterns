@@ -4,21 +4,20 @@ class Solution {
             return 0;
         }
 
+        int leftMax = 0, rightMax = 0;
+        int left = 0, right = height.length - 1;
         int water = 0;
-        int leftMax = height[0], rightTallest = height[height.length - 1];
-        int[] leftMaxes = new int[height.length];
 
-        for (int i = 0; i < height.length; i++) {
-            leftMax = Math.max(leftMax, height[i]);
-            leftMaxes[i] = leftMax;
-        }
+        while (left < right) {
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
 
-        for (int i = height.length - 1; i >= 0; i--) {
-            rightTallest = Math.max(rightTallest, height[i]);
-
-            int leftTallest = Math.min(rightTallest, leftMaxes[i]);
-            if (leftTallest > height[i]) {
-                water += leftTallest - height[i];
+            if (leftMax < rightMax) {
+                water += leftMax - height[left];
+                ++left;
+            } else {
+                water += rightMax - height[right];
+                --right;
             }
         }
 
