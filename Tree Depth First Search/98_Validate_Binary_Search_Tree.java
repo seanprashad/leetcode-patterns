@@ -1,28 +1,16 @@
 class Solution {
     public boolean isValidBST(TreeNode root) {
+        return helper(root, null, null);
+    }
+
+    private boolean helper(TreeNode root, Integer min, Integer max) {
         if (root == null) {
             return true;
         }
 
-        TreeNode prev = null;
-        Stack<TreeNode> s = new Stack<>();
-
-        while (root != null || !s.isEmpty()) {
-            while (root != null) {
-                s.push(root);
-                root = root.left;
-            }
-
-            root = s.pop();
-
-            if (prev != null && prev.val >= root.val) {
-                return false;
-            }
-
-            prev = root;
-            root = root.right;
+        if ((min != null && root.val <= min) || (max != null && root.val >= max)) {
+            return false;
         }
-
-        return true;
+        return helper(root.left, min, root.val) && helper(root.right, root.val, max);
     }
 }
