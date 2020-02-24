@@ -4,22 +4,25 @@ class Solution {
             return true;
         }
 
-        int start = 0, end = s.length() - 1;
+        int left = 0, right = s.length() - 1;
 
-        while (start <= end) {
-            while (start <= end && !Character.isLetterOrDigit(s.charAt(start))) {
-                ++start;
+        while (left < right) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                ++left;
             }
-            while (start <= end && !Character.isLetterOrDigit(s.charAt(end))) {
-                --end;
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                --right;
             }
 
-            if (start <= end && Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end))) {
+            char lCh = Character.toLowerCase(s.charAt(left));
+            char rCh = Character.toLowerCase(s.charAt(right));
+
+            if (lCh != rCh) {
                 return false;
             }
 
-            ++start;
-            --end;
+            ++left;
+            --right;
         }
 
         return true;
