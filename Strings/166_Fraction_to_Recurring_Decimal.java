@@ -12,10 +12,9 @@ class Solution {
 
         long dividend = Math.abs((long) numerator);
         long divisor = Math.abs((long) denominator);
-        long quotient = dividend / divisor;
         long remainder = dividend % divisor;
 
-        result.append(quotient);
+        result.append(dividend / divisor);
 
         if (remainder == 0) {
             return result.toString();
