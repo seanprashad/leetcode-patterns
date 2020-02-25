@@ -11,17 +11,11 @@ class Solution {
             return 0;
         }
 
-        int left = Math.max(0, helper(root.left));
-        int right = Math.max(0, helper(root.right));
+        int leftSum = Math.max(0, helper(root.left));
+        int rightSum = Math.max(0, helper(root.right));
 
-        if (left < 0) {
-            max = Math.max(max, root.val + right);
-        } else if (right < 0) {
-            max = Math.max(max, root.val + left);
-        } else {
-            max = Math.max(max, root.val + left + right);
-        }
+        max = Math.max(max, root.val + leftSum + rightSum);
 
-        return Math.max(root.val, Math.max(root.val + left, root.val + right));
+        return Math.max(root.val, root.val + Math.max(leftSum, rightSum));
     }
 }
