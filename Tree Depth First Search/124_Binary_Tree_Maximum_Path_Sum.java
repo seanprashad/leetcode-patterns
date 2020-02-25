@@ -11,13 +11,13 @@ class Solution {
             return 0;
         }
 
-        int left = helper(root.left);
-        int right = helper(root.right);
+        int left = Math.max(0, helper(root.left));
+        int right = Math.max(0, helper(root.right));
 
         if (left < 0) {
-            max = Math.max(max, Math.max(root.val, root.val + right));
+            max = Math.max(max, root.val + right);
         } else if (right < 0) {
-            max = Math.max(max, Math.max(root.val, root.val + left));
+            max = Math.max(max, root.val + left);
         } else {
             max = Math.max(max, root.val + left + right);
         }
