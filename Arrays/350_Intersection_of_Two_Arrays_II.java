@@ -1,26 +1,34 @@
 class Solution {
     public int[] intersect(int[] nums1, int[] nums2) {
-        HashMap<Integer, Integer> hm = new HashMap<>();
-        ArrayList<Integer> intersection = new ArrayList<>();
-
-        for (int i = 0; i < nums1.length; i++) {
-            hm.put(nums1[i], hm.getOrDefault(nums1[i], 0) + 1);
+        if (nums1 == null || nums2 == null) {
+            return new int[0];
         }
 
-        for (int i = 0; i < nums2.length; i++) {
-            int freq = hm.getOrDefault(nums2[i], 0);
-            if (freq > 0) {
-                intersection.add(nums2[i]);
-                hm.put(nums2[i], --freq);
+        if (nums2.length > nums1.length) {
+            return intersect(nums2, nums1);
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+
+        for (int num : nums2) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        for (int num : nums1) {
+            int frequency = map.getOrDefault(num, 0);
+
+            if (frequency > 0) {
+                result.add(num);
+                map.put(num, frequency - 1);
             }
         }
 
-        int[] result = new int[intersection.size()];
-        int idx = 0;
-        for (int commonVal : intersection) {
-            result[idx++] = commonVal;
+        int[] arr = new int[result.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = result.get(i);
         }
 
-        return result;
+        return arr;
     }
 }
