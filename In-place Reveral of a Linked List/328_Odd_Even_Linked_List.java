@@ -7,15 +7,15 @@ class Solution {
         ListNode odd = head, even = head.next, evenHead = even;
 
         while (even != null && even.next != null) {
-            odd.next = odd.next.next;
-            even.next = even.next.next;
+            ListNode evenNext = even.next.next;
 
+            odd.next = even.next;
+            even.next = evenNext;
             odd = odd.next;
-            even = even.next;
+            even = evenNext;
         }
 
         odd.next = evenHead;
-
         return head;
     }
 }
