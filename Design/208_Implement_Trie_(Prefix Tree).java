@@ -1,88 +1,56 @@
-class TrieNode {
-    private Map<Character, TrieNode> children;
-    private boolean isWord;
-
-    public TrieNode() {
-        children = new HashMap<>();
-        isWord = false;
-    }
-
-    public boolean isWord() {
-        return isWord;
-    }
-
-    public void isFullWord() {
-        isWord = true;
-    }
-
-    public void putCharIfAbsent(char c) {
-        children.putIfAbsent(c, new TrieNode());
-    }
-
-    public TrieNode getChild(char c) {
-        return children.get(c);
-    }
-}
-
 class Trie {
     private TrieNode root;
 
-    /** Initialize your data structure here. */
     public Trie() {
         root = new TrieNode();
     }
 
-    /** Inserts a word into the trie. */
     public void insert(String word) {
-        if (word == null) {
-            return;
-        }
+        TrieNode runner = root;
 
-        TrieNode curr = root;
         for (char c : word.toCharArray()) {
-            curr.putCharIfAbsent(c);
-            curr = curr.getChild(c);
+            runner.children.putIfAbsent(c, new TrieNode());
+            runner = runner.children.get(c);
         }
 
-        curr.isFullWord();
+        runner.isWord = true;
     }
 
-    /** Returns if the word is in the trie. */
     public boolean search(String word) {
-        if (word == null) {
-            return false;
-        }
-
-        TrieNode curr = root;
+        TrieNode runner = root;
 
         for (char c : word.toCharArray()) {
-            curr = curr.getChild(c);
-
-            if (curr == null) {
+            if (runner.children.get(c) == null) {
                 return false;
             }
+
+            runner = runner.children.get(c);
         }
 
-        return curr.isWord();
+        return runner.isWord;
     }
 
-    /**
-     * Returns if there is any word in the trie that starts with the given prefix.
-     */
     public boolean startsWith(String prefix) {
-        if (prefix == null) {
-            return false;
-        }
-
-        TrieNode curr = root;
+        TrieNode runner = root;
 
         for (char c : prefix.toCharArray()) {
-            curr = curr.getChild(c);
-            if (curr == null) {
+            if (runner.children.get(c) == null) {
                 return false;
             }
+
+            runner = runner.children.get(c);
         }
 
         return true;
+    }
+
+    private class TrieNode {
+        private Map<Character, TrieNode> children;
+        private boolean isWord;
+
+        public TrieNode() {
+            children = new HashMap<>();
+            isWord = false;
+        }
     }
 }
