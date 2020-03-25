@@ -4,7 +4,7 @@ class Solution {
             return head;
         }
 
-        ListNode tortoise = head, hare = head, prev = tortoise;
+        ListNode tortoise = head, hare = head, prev = null;
 
         while (hare != null && hare.next != null) {
             prev = tortoise;
@@ -14,10 +14,7 @@ class Solution {
 
         prev.next = null;
 
-        ListNode h1 = sortList(head);
-        ListNode h2 = sortList(tortoise);
-
-        return merge(h1, h2);
+        return merge(sortList(head), sortList(tortoise));
     }
 
     private ListNode merge(ListNode l1, ListNode l2) {
