@@ -1,25 +1,27 @@
 class Solution {
     public Node connect(Node root) {
-        Node head = root, prev = root;
-
-        while (prev != null) {
-            Node curr = prev;
-
-            while (curr != null) {
-                if (curr.left != null) {
-                    curr.left.next = curr.right;
-                }
-
-                if (curr.right != null && curr.next != null) {
-                    curr.right.next = curr.next.left;
-                }
-
-                curr = curr.next;
-            }
-
-            prev = prev.left;
+        if (root == null) {
+            return null;
         }
 
-        return head;
+        Node leftMostNode = root;
+
+        while (leftMostNode.left != null) {
+            Node head = leftMostNode;
+
+            while (head != null) {
+                head.left.next = head.right;
+
+                if (head.next != null) {
+                    head.right.next = head.next.left;
+                }
+
+                head = head.next;
+            }
+
+            leftMostNode = leftMostNode.left;
+        }
+
+        return root;
     }
 }
