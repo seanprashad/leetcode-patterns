@@ -5,30 +5,34 @@ class Solution {
         }
 
         List<List<String>> result = new ArrayList<>();
-        dfs(0, s, new ArrayList<>(), result);
+        helper(s, 0, result, new ArrayList<>());
+
         return result;
     }
 
-    private void dfs(int idx, String s, List<String> tempResult, List<List<String>> result) {
+    private void helper(String s, int idx, List<List<String>> result, List<String> temp) {
         if (idx == s.length()) {
-            result.add(new ArrayList<>(tempResult));
+            result.add(new ArrayList<>(temp));
             return;
         }
 
         for (int i = idx; i < s.length(); i++) {
             if (isPalindrome(s, idx, i)) {
-                tempResult.add(s.substring(idx, i + 1));
-                dfs(i + 1, s, tempResult, result);
-                tempResult.remove(tempResult.size() - 1);
+                temp.add(s.substring(idx, i + 1));
+                helper(s, i + 1, result, temp);
+                temp.remove(temp.size() - 1);
             }
         }
     }
 
-    private boolean isPalindrome(String s, int start, int end) {
-        while (start < end) {
-            if (s.charAt(start++) != s.charAt(end--)) {
+    private boolean isPalindrome(String s, int left, int right) {
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
                 return false;
             }
+
+            ++left;
+            --right;
         }
 
         return true;
