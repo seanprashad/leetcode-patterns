@@ -1,17 +1,20 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<Integer>[] adjList = new ArrayList[numCourses];
-        int[] indegrees = new int[numCourses];
-        Queue<Integer> q = new LinkedList<>();
-        int courseCount = 0;
+        if (prerequisites == null || prerequisites.length == 0) {
+            return true;
+        }
 
-        for (int i = 0; i < numCourses; i++) {
-            adjList[i] = new ArrayList<>();
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        int[] indegrees = new int[numCourses];
+
+        for (int[] p : prerequisites) {
+            graph.putIfAbsent(p[1], new HashSet<>());
+            graph.get(p[1]).add(p[0]);
+
+            indegrees[p[0]]++;
         }
-        for (int[] pair : prerequisites) {
-            adjList[pair[1]].add(pair[0]);
-            ++indegrees[pair[0]];
-        }
+
+        Queue<Integer> q = new LinkedList<>();
 
         for (int i = 0; i < indegrees.length; i++) {
             if (indegrees[i] == 0) {
@@ -19,17 +22,25 @@ class Solution {
             }
         }
 
+        int count = 0;
         while (!q.isEmpty()) {
-            int course = q.poll();
-            ++courseCount;
+            int curr = q.poll();
 
-            for (int prereqCourse : adjList[course]) {
-                if (--indegrees[prereqCourse] == 0) {
-                    q.offer(prereqCourse);
+            if (indegrees[curr] == 0) {
+                ++count;
+            }
+            if (!graph.containsKey(curr)) {
+                continue;
+            }
+
+            for (int neighbour : graph.get(curr)) {
+                indegrees[neighbour]--;
+                if (indegrees[neighbour] == 0) {
+                    q.offer(neighbour);
                 }
             }
         }
 
-        return courseCount == numCourses;
+        return count == numCourses;
     }
 }
