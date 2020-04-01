@@ -1,20 +1,17 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        List<Integer>[] adjList = new ArrayList[numCourses];
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
         int[] indegrees = new int[numCourses];
-        Queue<Integer> q = new LinkedList<>();
 
-        int courseCount = 0, idx = 0;
+        for (int[] p : prerequisites) {
+            graph.putIfAbsent(p[1], new HashSet<>());
+            graph.get(p[1]).add(p[0]);
+
+            indegrees[p[0]]++;
+        }
+
         int[] result = new int[numCourses];
-
-        for (int i = 0; i < numCourses; i++) {
-            adjList[i] = new ArrayList<>();
-        }
-
-        for (int[] pair : prerequisites) {
-            adjList[pair[1]].add(pair[0]);
-            ++indegrees[pair[0]];
-        }
+        Queue<Integer> q = new LinkedList<>();
 
         for (int i = 0; i < indegrees.length; i++) {
             if (indegrees[i] == 0) {
@@ -22,19 +19,27 @@ class Solution {
             }
         }
 
+        int idx = 0;
         while (!q.isEmpty()) {
-            int course = q.poll();
+            int curr = q.poll();
 
-            ++courseCount;
-            result[idx++] = course;
+            if (indegrees[curr] == 0) {
+                result[idx++] = curr;
+            }
 
-            for (int neighbour : adjList[course]) {
-                if (--indegrees[neighbour] == 0) {
+            if (!graph.containsKey(curr)) {
+                continue;
+            }
+
+            for (int neighbour : graph.get(curr)) {
+                indegrees[neighbour]--;
+
+                if (indegrees[neighbour] == 0) {
                     q.offer(neighbour);
                 }
             }
         }
 
-        return courseCount == numCourses ? result : new int[] {};
+        return idx == numCourses ? result : new int[0];
     }
 }
