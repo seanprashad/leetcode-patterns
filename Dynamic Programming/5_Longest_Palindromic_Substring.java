@@ -1,23 +1,20 @@
 class Solution {
     public String longestPalindrome(String s) {
-        if (s == null || s.length() == 0) {
-            return s;
-        }
+        int len = s.length();
 
-        int start = 0, end = 0, n = s.length();
-        boolean[][] dp = new boolean[n][n];
+        boolean[][] dp = new boolean[len][len];
+        String result = "";
 
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = i; j < n; j++) {
-                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i + 1][j - 1]);
+        for (int i = len - 1; i >= 0; i--) {
+            for (int j = i; j < len; j++) {
+                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);
 
-                if (dp[i][j] && j - i > end - start) {
-                    start = i;
-                    end = j;
+                if (dp[i][j] && j - i + 1 > result.length()) {
+                    result = s.substring(i, j + 1);
                 }
             }
         }
 
-        return s.substring(start, end + 1);
+        return result;
     }
 }
