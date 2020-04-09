@@ -1,22 +1,27 @@
 class Solution {
     public int pathSum(TreeNode root, int sum) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+
+        return helper(root, sum, 0, map);
+    }
+
+    private int helper(TreeNode root, int target, int currSum, Map<Integer, Integer> map) {
         if (root == null) {
             return 0;
         }
 
-        return traverseSubtree(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
-    }
+        currSum += root.val;
 
-    private int traverseSubtree(TreeNode root, int sum) {
         int result = 0;
-        if (root == null) {
-            return result;
+        if (map.containsKey(currSum - target)) {
+            result += map.get(currSum - target);
         }
 
-        if (root.val == sum) {
-            ++result;
-        }
+        map.put(currSum, map.getOrDefault(currSum, 0) + 1);
+        result += helper(root.left, target, currSum, map) + helper(root.right, target, currSum, map);
+        map.put(currSum, map.getOrDefault(currSum, 0) - 1);
 
-        return result + traverseSubtree(root.left, sum - root.val) + traverseSubtree(root.right, sum - root.val);
+        return result;
     }
 }
