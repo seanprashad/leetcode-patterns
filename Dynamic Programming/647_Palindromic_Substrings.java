@@ -4,19 +4,25 @@ class Solution {
             return 0;
         }
 
-        int result = 0, n = s.length();
-        boolean[][] dp = new boolean[n][n];
+        int result = 0;
 
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = i; j < n; j++) {
-                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i + 1][j - 1]);
-
-                if (dp[i][j]) {
-                    ++result;
-                }
-            }
+        for (int i = 0; i < s.length(); i++) {
+            result += expand(s, i, i);
+            result += expand(s, i, i + 1);
         }
 
         return result;
+    }
+
+    private int expand(String str, int s, int e) {
+        int count = 0;
+
+        while (s >= 0 && e < str.length() && str.charAt(s) == str.charAt(e)) {
+            --s;
+            ++e;
+            ++count;
+        }
+
+        return count;
     }
 }
