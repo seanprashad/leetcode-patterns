@@ -1,28 +1,30 @@
-class Solution {
+sclass Solution {
     public int rob(TreeNode root) {
-        return helper(root, new HashMap<TreeNode, Integer>());
+        Map<TreeNode, Integer> memo = new HashMap<>();
+        return robHelper(root, memo);
     }
 
-    private int helper(TreeNode root, Map<TreeNode, Integer> m) {
+    private int robHelper(TreeNode root, Map<TreeNode, Integer> memo) {
         if (root == null) {
             return 0;
         }
-        if (m.containsKey(root)) {
-            return m.get(root);
+        if (memo.containsKey(root)) {
+            return memo.get(root);
         }
 
-        int result = 0;
+        int sum = 0;
 
         if (root.left != null) {
-            result += helper(root.left.left, m) + helper(root.left.right, m);
+            sum += robHelper(root.left.left, memo) + robHelper(root.left.right, memo);
         }
 
         if (root.right != null) {
-            result += helper(root.right.left, m) + helper(root.right.right, m);
+            sum += robHelper(root.right.left, memo) + robHelper(root.right.right, memo);
         }
 
-        result = Math.max(result + root.val, helper(root.left, m) + helper(root.right, m));
-        m.put(root, result);
-        return result;
+        sum = Math.max(sum + root.val, robHelper(root.left, memo) + robHelper(root.right, memo));
+
+        memo.put(root, sum);
+        return sum;
     }
 }
