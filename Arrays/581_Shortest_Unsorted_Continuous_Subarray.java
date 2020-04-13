@@ -5,17 +5,17 @@ class Solution {
         }
 
         int[] temp = nums.clone();
+        int left = 0, right = temp.length - 1;
+
         Arrays.sort(temp);
 
-        int start = 0, end = nums.length - 1;
-
-        while (start < nums.length && nums[start] == temp[start]) {
-            start++;
+        while (left <= right && nums[left] == temp[left]) {
+            ++left;
         }
-        while (end > start && nums[end] == temp[end]) {
-            end--;
+        while (left <= right && nums[right] == temp[right]) {
+            --right;
         }
 
-        return end - start + 1;
+        return right - left + 1;
     }
 }
