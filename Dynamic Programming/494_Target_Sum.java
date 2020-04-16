@@ -1,29 +1,26 @@
 class Solution {
     public int findTargetSumWays(int[] nums, int S) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-
-        return dfs(nums, S, 0, 0, new HashMap<>());
+        Map<String, Integer> memo = new HashMap<>();
+        return helper(nums, S, 0, memo);
     }
 
-    private int dfs(int[] nums, int S, int sum, int idx, Map<String, Integer> m) {
-        String encodedVal = idx + "->" + sum;
-        if (m.containsKey(encodedVal)) {
-            return m.get(encodedVal);
-        }
-
+    private int helper(int[] nums, int sum, int idx, Map<String, Integer> memo) {
         if (idx == nums.length) {
-            if (sum == S) {
-                return 1;
-            }
-            return 0;
+            return sum == 0 ? 1 : 0;
         }
 
-        int add = dfs(nums, S, sum + nums[idx], idx + 1, m);
-        int minus = dfs(nums, S, sum - nums[idx], idx + 1, m);
+        String key = idx + "," + sum;
 
-        m.put(encodedVal, add + minus);
-        return add + minus;
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+
+        int result = 0;
+
+        result += helper(nums, sum + nums[idx], idx + 1, memo);
+        result += helper(nums, sum - nums[idx], idx + 1, memo);
+
+        memo.put(key, result);
+        return result;
     }
 }
