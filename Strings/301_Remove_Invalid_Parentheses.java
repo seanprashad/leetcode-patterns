@@ -1,9 +1,7 @@
 class Solution {
     public List<String> removeInvalidParentheses(String s) {
-        List<String> result = new ArrayList<>();
-
         if (s == null) {
-            return result;
+            return Collections.emptyList();
         }
 
         Queue<String> q = new LinkedList<>();
@@ -12,17 +10,18 @@ class Solution {
         q.offer(s);
         visited.add(s);
 
-        boolean finished = false;
+        boolean found = false;
+        List<String> result = new ArrayList<>();
 
         while (!q.isEmpty()) {
             s = q.poll();
 
             if (isValid(s)) {
                 result.add(s);
-                finished = true;
+                found = true;
             }
 
-            if (finished) {
+            if (found) {
                 continue;
             }
 
@@ -31,11 +30,11 @@ class Solution {
                     continue;
                 }
 
-                String t = s.substring(0, i) + s.substring(i + 1);
+                String temp = s.substring(0, i) + s.substring(i + 1);
 
-                if (!visited.contains(t)) {
-                    q.offer(t);
-                    visited.add(t);
+                if (!visited.contains(temp)) {
+                    q.offer(temp);
+                    visited.add(temp);
                 }
             }
         }
@@ -44,17 +43,20 @@ class Solution {
     }
 
     private boolean isValid(String s) {
-        int count = 0;
+        int leftCount = 0;
 
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                count++;
+                ++leftCount;
             }
-            if (s.charAt(i) == ')' && count-- == 0) {
-                return false;
+            if (s.charAt(i) == ')') {
+                if (leftCount == 0) {
+                    return false;
+                }
+                --leftCount;
             }
         }
 
-        return count == 0;
+        return leftCount == 0;
     }
 }
