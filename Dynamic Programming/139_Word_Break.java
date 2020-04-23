@@ -3,29 +3,20 @@ class Solution {
         if (s == null || s.length() == 0) {
             return false;
         }
-        return helper(s, new HashSet<>(wordDict), new HashMap<>());
-    }
 
-    private boolean helper(String s, Set<String> wordDict, Map<String, Boolean> memo) {
-        if (s.length() == 0) {
-            return true;
-        }
+        Set<String> dict = new HashSet<>(wordDict);
 
-        if (memo.containsKey(s)) {
-            return memo.get(s);
-        }
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
 
-        for (int i = 0; i <= s.length(); i++) {
-            String prefix = s.substring(0, i);
-            String remainder = s.substring(i, s.length());
-
-            if (wordDict.contains(prefix) && helper(remainder, wordDict, memo)) {
-                memo.put(s, true);
-                return memo.get(s);
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && dict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                }
             }
         }
 
-        memo.put(s, false);
-        return memo.get(s);
+        return dp[s.length()];
     }
 }
