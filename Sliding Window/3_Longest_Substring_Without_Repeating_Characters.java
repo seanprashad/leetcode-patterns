@@ -4,18 +4,18 @@ class Solution {
             return 0;
         }
 
-        int start = 0, end = 0, maxLen = Integer.MIN_VALUE;
-        Set<Character> set = new HashSet<>();
+        Map<Character, Integer> map = new HashMap<>();
+        int result = 0, j = 0;
 
-        while (end < s.length()) {
-            if (!set.contains(s.charAt(end))) {
-                set.add(s.charAt(end++));
-                maxLen = Math.max(maxLen, end - start);
-            } else {
-                set.remove(s.charAt(start++));
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                j = Math.max(j, map.get(s.charAt(i)) + 1);
             }
+
+            result = Math.max(result, i - j + 1);
+            map.put(s.charAt(i), i);
         }
 
-        return maxLen;
+        return result;
     }
 }
