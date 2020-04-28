@@ -14,10 +14,7 @@ class Solution {
                 --right;
             }
 
-            char lCh = Character.toLowerCase(s.charAt(left));
-            char rCh = Character.toLowerCase(s.charAt(right));
-
-            if (lCh != rCh) {
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
                 return false;
             }
 
