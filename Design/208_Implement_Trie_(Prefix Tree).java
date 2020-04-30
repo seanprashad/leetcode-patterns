@@ -1,4 +1,14 @@
 class Trie {
+    class TrieNode {
+        private TrieNode[] children;
+        private boolean isWord;
+
+        public TrieNode() {
+            children = new TrieNode[26];
+            isWord = false;
+        }
+    }
+
     private TrieNode root;
 
     public Trie() {
@@ -9,8 +19,11 @@ class Trie {
         TrieNode runner = root;
 
         for (char c : word.toCharArray()) {
-            runner.children.putIfAbsent(c, new TrieNode());
-            runner = runner.children.get(c);
+            if (runner.children[c - 'a'] == null) {
+                runner.children[c - 'a'] = new TrieNode();
+            }
+
+            runner = runner.children[c - 'a'];
         }
 
         runner.isWord = true;
@@ -20,11 +33,10 @@ class Trie {
         TrieNode runner = root;
 
         for (char c : word.toCharArray()) {
-            if (runner.children.get(c) == null) {
+            if (runner.children[c - 'a'] == null) {
                 return false;
             }
-
-            runner = runner.children.get(c);
+            runner = runner.children[c - 'a'];
         }
 
         return runner.isWord;
@@ -34,23 +46,12 @@ class Trie {
         TrieNode runner = root;
 
         for (char c : prefix.toCharArray()) {
-            if (runner.children.get(c) == null) {
+            if (runner.children[c - 'a'] == null) {
                 return false;
             }
-
-            runner = runner.children.get(c);
+            runner = runner.children[c - 'a'];
         }
 
         return true;
-    }
-
-    private class TrieNode {
-        private Map<Character, TrieNode> children;
-        private boolean isWord;
-
-        public TrieNode() {
-            children = new HashMap<>();
-            isWord = false;
-        }
     }
 }
