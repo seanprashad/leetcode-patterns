@@ -1,64 +1,54 @@
 class WordDictionary {
-    private Map<Integer, List<String>> map;
+    class TrieNode {
+        private TrieNode[] children;
+        private boolean isWord;
 
-    /** Initialize your data structure here. */
+        public TrieNode() {
+            children = new TrieNode[26];
+            isWord = false;
+        }
+    }
+
+    private TrieNode root;
+
     public WordDictionary() {
-        map = new HashMap<>();
+        root = new TrieNode();
     }
 
-    /** Adds a word into the data structure. */
     public void addWord(String word) {
-        if (word == null) {
-            return;
+        TrieNode curr = root;
+
+        for (char c : word.toCharArray()) {
+            if (curr.children[c - 'a'] == null) {
+                curr.children[c - 'a'] = new TrieNode();
+            }
+            curr = curr.children[c - 'a'];
         }
 
-        int idx = word.length();
-        if (!map.containsKey(idx)) {
-            map.put(idx, new ArrayList<>());
-        }
-
-        map.get(idx).add(word);
+        curr.isWord = true;
     }
 
-    /**
-     * Returns if the word is in the data structure. A word could contain the dot
-     * character '.' to represent any one letter.
-     */
     public boolean search(String word) {
-        if (word == null) {
-            return false;
-        }
-
-        int idx = word.length();
-        if (!map.containsKey(idx)) {
-            return false;
-        }
-
-        List<String> words = map.get(idx);
-        if (words.contains(word)) {
-            return true;
-        }
-
-        for (String s : words) {
-            if (isSame(s, word)) {
-                return true;
-            }
-        }
-
-        return false;
+        return helper(word, 0, root);
     }
 
-    private boolean isSame(String search, String target) {
-        if (search.length() != target.length()) {
+    private boolean helper(String word, int idx, TrieNode t) {
+        if (idx >= word.length()) {
+            return t.isWord;
+        }
+
+        char c = word.charAt(idx);
+
+        if (c == '.') {
+            for (int i = 0; i < 26; i++) {
+                if (t.children[i] != null && helper(word, idx + 1, t.children[i])) {
+                    return true;
+                }
+            }
+
             return false;
         }
 
-        for (int i = 0; i < target.length(); i++) {
-            if (target.charAt(i) != '.' && target.charAt(i) != search.charAt(i)) {
-                return false;
-            }
-        }
-
-        return true;
+        return t.children[c - 'a'] != null && helper(word, idx + 1, t.children[c - 'a']);
     }
 }
