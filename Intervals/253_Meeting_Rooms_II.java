@@ -4,17 +4,21 @@ class Solution {
             return 0;
         }
 
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        Arrays.sort(intervals, (i1, i2) -> i1[0] - i2[0]);
+
+        PriorityQueue<Integer> rooms = new PriorityQueue<>();
 
         for (int[] interval : intervals) {
-            if (!pq.isEmpty() && pq.peek() <= interval[0]) {
-                pq.poll();
+            int startTime = interval[0];
+            int endTime = interval[1];
+
+            if (!rooms.isEmpty() && rooms.peek() <= startTime) {
+                rooms.poll();
             }
 
-            pq.offer(interval[1]);
+            rooms.offer(endTime);
         }
 
-        return pq.size();
+        return rooms.size();
     }
 }
