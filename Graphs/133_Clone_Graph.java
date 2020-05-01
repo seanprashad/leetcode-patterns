@@ -4,24 +4,25 @@ class Solution {
             return null;
         }
 
-        Queue<Node> q = new LinkedList<>();
-        Map<Node, Node> clones = new HashMap<>();
+        Map<Node, Node> map = new HashMap<>();
+        map.put(node, new Node(node.val));
 
-        clones.put(node, new Node(node.val, new ArrayList<>()));
+        Queue<Node> q = new LinkedList<>();
         q.offer(node);
 
         while (!q.isEmpty()) {
             Node n = q.poll();
 
-            for (Node neighbour : n.neighbors) {
-                if (!clones.containsKey(neighbour)) {
-                    clones.put(neighbour, new Node(neighbour.val, new ArrayList<>()));
-                    q.offer(neighbour);
+            for (Node neighbor : n.neighbors) {
+                if (!map.containsKey(neighbor)) {
+                    map.put(neighbor, new Node(neighbor.val));
+                    q.offer(neighbor);
                 }
-                clones.get(n).neighbors.add(clones.get(neighbour));
+
+                map.get(n).neighbors.add(map.get(neighbor));
             }
         }
 
-        return clones.get(node);
+        return map.get(node);
     }
 }
