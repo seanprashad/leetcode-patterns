@@ -1,38 +1,37 @@
 class Solution {
     public boolean validTree(int n, int[][] edges) {
-        List<List<Integer>> adjList = new ArrayList<>();
+        int[] parents = new int[n];
 
-        for (int i = 0; i < n; i++) {
-            adjList.add(new ArrayList<>());
+        for (int i = 0; i < parents.length; i++) {
+            parents[i] = i;
         }
 
-        for (int[] edge : edges) {
-            adjList.get(edge[0]).add(edge[1]);
-            adjList.get(edge[1]).add(edge[0]);
-        }
-
-        Map<Integer, Integer> parents = new HashMap<>();
-        Queue<Integer> q = new LinkedList<>();
-
-        parents.put(0, -1);
-        q.offer(0);
-
-        while (!q.isEmpty()) {
-            int node = q.poll();
-
-            for (int neighbour : adjList.get(node)) {
-                if (parents.get(node) == neighbour) {
-                    continue;
-                }
-                if (parents.containsKey(neighbour)) {
-                    return false;
-                }
-
-                parents.put(neighbour, node);
-                q.offer(neighbour);
+        for (int i = 0; i < edges.length; i++) {
+            if (!union(parents, edges[i][0], edges[i][1])) {
+                return false;
             }
+            --n;
         }
 
-        return parents.size() == n;
+        return n == 1;
+    }
+
+    private int find(int[] parents, int root) {
+        if (parents[root] == root) {
+            return root;
+        }
+        return find(parents, parents[root]);
+    }
+
+    private boolean union(int[] parents, int firstRoot, int secondRoot) {
+        int parentOne = find(parents, firstRoot);
+        int parentTwo = find(parents, secondRoot);
+
+        if (parentOne == parentTwo) {
+            return false;
+        }
+
+        parents[parentTwo] = parents[parentOne];
+        return true;
     }
 }
