@@ -1,44 +1,35 @@
 class Solution {
     public int countComponents(int n, int[][] edges) {
-        if (n <= 1) {
-            return n;
-        }
-
-        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        int[] parents = new int[n];
 
         for (int i = 0; i < n; i++) {
-            graph.put(i, new HashSet<>());
+            parents[i] = i;
         }
 
-        for (int[] edge : edges) {
-            graph.get(edge[0]).add(edge[1]);
-            graph.get(edge[1]).add(edge[0]);
-        }
-
-        Set<Integer> visited = new HashSet<>();
         int result = 0;
 
-        for (int idx : graph.keySet()) {
-            if (visited.contains(idx)) {
-                continue;
-            }
+        for (int[] edge : edges) {
+            int p1 = find(parents, edge[0]);
+            int p2 = find(parents, edge[1]);
 
-            ++result;
-            helper(graph, idx, visited);
+            if (p1 != p2) {
+                ++result;
+                union(parents, p1, p2);
+            }
         }
 
-        return result;
+        return n - result;
     }
 
-    private void helper(Map<Integer, Set<Integer>> graph, int idx, Set<Integer> visited) {
-        if (!graph.containsKey(idx) || visited.contains(idx)) {
-            return;
+    private int find(int[] parents, int node) {
+        if (parents[node] == node) {
+            return parents[node];
         }
+        parents[node] = find(parents, parents[node]);
+        return parents[node];
+    }
 
-        visited.add(idx);
-
-        for (int neighbour : graph.get(idx)) {
-            helper(graph, neighbour, visited);
-        }
+    private void union(int[] parents, int p1, int p2) {
+        parents[p1] = p2;
     }
 }
