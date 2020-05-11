@@ -5,8 +5,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Row,
-  Col,
   Container,
 } from 'reactstrap';
 import classnames from 'classnames';
