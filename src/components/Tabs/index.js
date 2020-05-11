@@ -62,31 +62,17 @@ const Tabs = () => {
           </NavLink>
         </NavItem>
       </Nav>
-      <Container>
-        <TabContent activeTab={activeTab}>
-          <TabPane tabId="1">
-            <Row>
-              <Col>
-                <Table />
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="2">
-            <Row>
-              <Col>
-                <Tips />
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="3">
-            <Row>
-              <Col>
-                <Acknowledgements />
-              </Col>
-            </Row>
-          </TabPane>
-        </TabContent>
-      </Container>
+      <TabContent activeTab={activeTab}>
+        <TabPane tabId="1">
+          <Table />
+        </TabPane>
+        <TabPane tabId="2">
+          <Tips />
+        </TabPane>
+        <TabPane tabId="3">
+          <Acknowledgements />
+        </TabPane>
+      </TabContent>
     </Container>
   );
 };
