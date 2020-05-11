@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import ReactTooltip from 'react-tooltip';
 import { useTable, useFilters } from 'react-table';
-import { FaSortAlphaUp, FaSortAlphaDown } from 'react-icons/fa';
+import { FaQuestionCircle } from 'react-icons/fa';
 import { Event } from '../Shared/Tracking';
 
 import questionList from '../../data';
@@ -149,7 +149,16 @@ const Table = () => {
             ),
           },
           {
-            Header: 'Companies',
+            Header: () => {
+              return (
+                <div style={{ whiteSpace: 'nowrap' }}>
+                  Companies{' '}
+                  <span data-tip="Companies updated as of May 2020">
+                    <FaQuestionCircle />
+                  </span>
+                </div>
+              );
+            },
             accessor: 'companies',
             Cell: cellInfo => {
               const companies = cellInfo.row.original.companies.map(company => {
