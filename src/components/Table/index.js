@@ -129,7 +129,6 @@ const Table = () => {
               </NavLink>
             ),
             disableFilters: true,
-            maxWidth: 2,
           },
           {
             Header: 'Pattern',
@@ -208,18 +207,6 @@ const Table = () => {
               {headerGroup.headers.map(column => (
                 <th {...column.getHeaderProps()}>
                   {column.render('Header')}
-                  <span>
-                    {' '}
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <FaSortAlphaUp />
-                      ) : (
-                        <FaSortAlphaDown />
-                      )
-                    ) : (
-                      ''
-                    )}
-                  </span>
                   <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
