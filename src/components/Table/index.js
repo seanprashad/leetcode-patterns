@@ -194,7 +194,14 @@ const Table = () => {
   return (
     <Container className="table">
       <ReactTooltip />
-      <ReactTable align="center" borderless striped hover {...getTableProps()}>
+      <ReactTable
+        align="center"
+        responsive
+        borderless
+        striped
+        hover
+        {...getTableProps()}
+      >
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
