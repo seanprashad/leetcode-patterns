@@ -1592,7 +1592,7 @@ export default [
     id: 147,
     name: 'Implement Trie (Prefix Tree)',
     url: 'https://leetcode.com/problems/implement-trie-prefix-tree/',
-    pattern: 'DFS',//Trie
+    pattern: 'Trie',
     difficulty: 'Medium',
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook'],
   },
@@ -1626,7 +1626,7 @@ export default [
     id: 150,
     name: 'Word Search II',
     url: 'https://leetcode.com/problems/word-search-ii/',
-    pattern: 'DFS',
+    pattern: 'Trie',
     difficulty: 'Hard',
     companies: [
       'Amazon',
@@ -1826,7 +1826,10 @@ export default [
     url: 'https://leetcode.com/problems/longest-word-in-dictionary/',
     pattern: 'Trie',
     difficulty: 'Easy',
-    companies: [],
+    companies: [
+      'Goldman Sachs',
+      'Google',
+    ],
   },
   {
     id: 165,
@@ -1834,7 +1837,9 @@ export default [
     url: 'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array',
     pattern: 'Trie',
     difficulty: 'Medium',
-    companies: [],
+    companies: [
+      'Google',
+    ],
   },
   {
     id: 166,
@@ -1842,7 +1847,11 @@ export default [
     url: 'https://leetcode.com/problems/concatenated-words/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [],
+    companies: [
+      'Amazon',
+      'Apple',
+      'Facebook',
+    ],
   },
   {
     id: 167,
@@ -1850,7 +1859,11 @@ export default [
     url: 'https://leetcode.com/problems/prefix-and-suffix-search/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [],
+    companies: [
+      'Facebook',
+      'Google',
+      'Uber',
+    ],
   },
   {
     id: 168,
@@ -1858,14 +1871,12 @@ export default [
     url: 'https://leetcode.com/problems/palindrome-pairs/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [],
-  },
-  {
-    id: 169,
-    name: 'Word Search II',
-    url: 'https://leetcode.com/problems/word-search-ii/,
-    pattern: 'Trie',
-    difficulty: 'Hard',
-    companies: [],
+    companies: [
+      'Airbnb',
+      'Amazon',
+      'Facebook',
+      'Google',
+      'Square',
+    ],
   },
 ];
