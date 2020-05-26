@@ -1833,6 +1833,16 @@ export default [
   },
   {
     id: 165,
+    name: 'Index Pairs of a String',
+    url: 'https://leetcode.com/problems/index-pairs-of-a-string/',
+    pattern: 'Trie',
+    difficulty: 'Easy',
+    companies: [
+      'Amazon',
+    ],
+  },
+  {
+    id: 166,
     name: 'Maximum XOR of Two Numbers in an Array',
     url: 'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array',
     pattern: 'Trie',
@@ -1842,7 +1852,7 @@ export default [
     ],
   },
   {
-    id: 166,
+    id: 167,
     name: 'Concatenated Words',
     url: 'https://leetcode.com/problems/concatenated-words/',
     pattern: 'Trie',
@@ -1854,7 +1864,7 @@ export default [
     ],
   },
   {
-    id: 167,
+    id: 168,
     name: 'Prefix and Suffix Search',
     url: 'https://leetcode.com/problems/prefix-and-suffix-search/',
     pattern: 'Trie',
@@ -1866,7 +1876,7 @@ export default [
     ],
   },
   {
-    id: 168,
+    id: 169,
     name: 'Palindrome Pairs',
     url: 'https://leetcode.com/problems/palindrome-pairs/',
     pattern: 'Trie',
@@ -1877,6 +1887,30 @@ export default [
       'Facebook',
       'Google',
       'Square',
+    ],
+  },
+  {
+    id: 170,
+    name: 'Design Search Autocomplete System',
+    url: 'https://leetcode.com/problems/design-search-autocomplete-system/',
+    pattern: 'Trie',
+    difficulty: 'Hard',
+    companies: [
+      'Amazon',
+      'Google',
+      'Lyft',
+      'Microsoft',
+      'Uber',
+    ],
+  },
+  {
+    id: 171,
+    name: 'Word Squares',
+    url: 'https://leetcode.com/problems/word-squares/',
+    pattern: 'Trie',
+    difficulty: 'Hard',
+    companies: [
+      'Oracle',
     ],
   },
 ];
