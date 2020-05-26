@@ -1826,10 +1826,7 @@ export default [
     url: 'https://leetcode.com/problems/longest-word-in-dictionary/',
     pattern: 'Trie',
     difficulty: 'Easy',
-    companies: [
-      'Goldman Sachs',
-      'Google',
-    ],
+    companies: ['Goldman Sachs', 'Google'],
   },
   {
     id: 165,
@@ -1837,9 +1834,7 @@ export default [
     url: 'https://leetcode.com/problems/index-pairs-of-a-string/',
     pattern: 'Trie',
     difficulty: 'Easy',
-    companies: [
-      'Amazon',
-    ],
+    companies: ['Amazon'],
   },
   {
     id: 166,
@@ -1847,9 +1842,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array',
     pattern: 'Trie',
     difficulty: 'Medium',
-    companies: [
-      'Google',
-    ],
+    companies: ['Google'],
   },
   {
     id: 167,
@@ -1857,11 +1850,7 @@ export default [
     url: 'https://leetcode.com/problems/concatenated-words/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [
-      'Amazon',
-      'Apple',
-      'Facebook',
-    ],
+    companies: ['Amazon', 'Apple', 'Facebook'],
   },
   {
     id: 168,
@@ -1869,11 +1858,7 @@ export default [
     url: 'https://leetcode.com/problems/prefix-and-suffix-search/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [
-      'Facebook',
-      'Google',
-      'Uber',
-    ],
+    companies: ['Facebook', 'Google', 'Uber'],
   },
   {
     id: 169,
@@ -1881,13 +1866,7 @@ export default [
     url: 'https://leetcode.com/problems/palindrome-pairs/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [
-      'Airbnb',
-      'Amazon',
-      'Facebook',
-      'Google',
-      'Square',
-    ],
+    companies: ['Airbnb', 'Amazon', 'Facebook', 'Google', 'Square'],
   },
   {
     id: 170,
@@ -1895,13 +1874,7 @@ export default [
     url: 'https://leetcode.com/problems/design-search-autocomplete-system/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [
-      'Amazon',
-      'Google',
-      'Lyft',
-      'Microsoft',
-      'Uber',
-    ],
+    companies: ['Amazon', 'Google', 'Lyft', 'Microsoft', 'Uber'],
   },
   {
     id: 171,
@@ -1909,8 +1882,6 @@ export default [
     url: 'https://leetcode.com/problems/word-squares/',
     pattern: 'Trie',
     difficulty: 'Hard',
-    companies: [
-      'Oracle',
-    ],
+    companies: ['Oracle'],
   },
 ];
