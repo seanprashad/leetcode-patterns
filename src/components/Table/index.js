@@ -166,10 +166,16 @@ const Table = () => {
   }) {
     const options = React.useMemo(() => {
       const options = new Set();
+
       preFilteredRows.forEach(row => {
         options.add(row.values[id]);
       });
-      return [...options.values()];
+
+      if (id === 'difficulty') {
+        return [...options.values()];
+      }
+
+      return [...options.values()].sort();
     }, [id, preFilteredRows]);
 
     return (
