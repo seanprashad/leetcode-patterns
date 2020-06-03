@@ -272,7 +272,7 @@ export default [
     id: 23,
     name: 'Target Sum',
     url: 'https://leetcode.com/problems/target-sum/',
-    pattern: 'Backtracking',
+    pattern: 'DFS',
     difficulty: 'Medium',
     companies: ['Facebook'],
   },
