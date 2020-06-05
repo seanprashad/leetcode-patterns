@@ -5,6 +5,7 @@ export default [
     url: 'https://leetcode.com/problems/contains-duplicate/',
     pattern: 'Arrays',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Apple'],
   },
   {
@@ -13,6 +14,7 @@ export default [
     url: 'https://leetcode.com/problems/missing-number/',
     pattern: 'Arrays',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Apple'],
   },
   {
@@ -22,6 +24,7 @@ export default [
       'https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/',
     pattern: 'Arrays',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Microsoft', 'Apple'],
   },
   {
@@ -30,6 +33,7 @@ export default [
     url: 'https://leetcode.com/problems/single-number/',
     pattern: 'Arrays',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -46,6 +50,7 @@ export default [
     url: 'https://leetcode.com/problems/product-of-array-except-self/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -67,6 +72,7 @@ export default [
     url: 'https://leetcode.com/problems/find-the-duplicate-number/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Google', 'Microsoft', 'Facebook', 'Apple'],
   },
   {
@@ -75,6 +81,7 @@ export default [
     url: 'https://leetcode.com/problems/find-all-duplicates-in-an-array/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Facebook', 'Apple'],
   },
   {
@@ -83,6 +90,7 @@ export default [
     url: 'https://leetcode.com/problems/set-matrix-zeroes/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Microsoft', 'Oracle'],
   },
   {
@@ -91,6 +99,7 @@ export default [
     url: 'https://leetcode.com/problems/spiral-matrix/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -107,6 +116,7 @@ export default [
     url: 'https://leetcode.com/problems/rotate-image/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Apple', 'Facebook'],
   },
   {
@@ -115,6 +125,7 @@ export default [
     url: 'https://leetcode.com/problems/word-search/',
     pattern: 'Arrays',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -134,6 +145,7 @@ export default [
     url: 'https://leetcode.com/problems/first-missing-positive/',
     pattern: 'Arrays',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -151,6 +163,7 @@ export default [
     url: 'https://leetcode.com/problems/longest-consecutive-sequence/',
     pattern: 'Arrays',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Google',
       'Microsoft',
@@ -168,6 +181,7 @@ export default [
     url: 'https://leetcode.com/problems/letter-case-permutation/',
     pattern: 'Backtracking',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon'],
   },
   {
@@ -176,6 +190,7 @@ export default [
     url: 'https://leetcode.com/problems/subsets/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -191,6 +206,7 @@ export default [
     url: 'https://leetcode.com/problems/subsets-ii/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Bloomberg'],
   },
   {
@@ -199,6 +215,7 @@ export default [
     url: 'https://leetcode.com/problems/permutations/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Microsoft',
       'Amazon',
@@ -218,6 +235,7 @@ export default [
     url: 'https://leetcode.com/problems/permutations-ii/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Bloomberg'],
   },
   {
@@ -226,6 +244,7 @@ export default [
     url: 'https://leetcode.com/problems/combinations/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Google', 'Amazon'],
   },
   {
@@ -234,6 +253,7 @@ export default [
     url: 'https://leetcode.com/problems/combination-sum/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Microsoft', 'Airbnb', 'Uber'],
   },
   {
@@ -242,6 +262,7 @@ export default [
     url: 'https://leetcode.com/problems/combination-sum-ii/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google', 'Microsoft', 'Amazon'],
   },
   {
@@ -250,6 +271,7 @@ export default [
     url: 'https://leetcode.com/problems/combination-sum-iii/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Amazon'],
   },
   {
@@ -258,6 +280,7 @@ export default [
     url: 'https://leetcode.com/problems/generate-parentheses/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -274,6 +297,7 @@ export default [
     url: 'https://leetcode.com/problems/target-sum/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook'],
   },
   {
@@ -282,6 +306,7 @@ export default [
     url: 'https://leetcode.com/problems/palindrome-partitioning/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon'],
   },
   {
@@ -290,6 +315,7 @@ export default [
     url: 'https://leetcode.com/problems/letter-combinations-of-a-phone-number/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -309,6 +335,7 @@ export default [
     url: 'https://leetcode.com/problems/generalized-abbreviation/',
     pattern: 'Backtracking',
     difficulty: 'Medium',
+    premium: true,
     companies: ['Google'],
   },
   {
@@ -317,6 +344,7 @@ export default [
     url: 'https://leetcode.com/problems/sudoku-solver/',
     pattern: 'Backtracking',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Microsoft', 'Amazon', 'Apple', 'Oracle'],
   },
   {
@@ -325,6 +353,7 @@ export default [
     url: 'https://leetcode.com/problems/n-queens/',
     pattern: 'Backtracking',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Apple', 'Oracle', 'Amazon'],
   },
   {
@@ -333,6 +362,7 @@ export default [
     url: 'https://leetcode.com/problems/climbing-stairs/',
     pattern: 'Dynamic Programming',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Amazon',
       'Google',
@@ -350,6 +380,7 @@ export default [
     url: 'https://leetcode.com/problems/house-robber/',
     pattern: 'Dynamic Programming',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Google', 'Apple', 'Adobe', 'Microsoft', 'Amazon'],
   },
   {
@@ -358,6 +389,7 @@ export default [
     url: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
     pattern: 'Dynamic Programming',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Amazon',
       'Facebook',
@@ -378,6 +410,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-subarray/',
     pattern: 'Dynamic Programming',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Amazon',
       'Apple',
@@ -398,6 +431,7 @@ export default [
     url: 'https://leetcode.com/problems/range-sum-query-immutable/',
     pattern: 'Dynamic Programming',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Google', 'Facebook'],
   },
   {
@@ -406,6 +440,7 @@ export default [
     url: 'https://leetcode.com/problems/house-robber-ii/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -414,6 +449,7 @@ export default [
     url: 'https://leetcode.com/problems/coin-change/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -432,6 +468,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-product-subarray/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'LinkedIn',
@@ -447,6 +484,7 @@ export default [
     url: 'https://leetcode.com/problems/longest-increasing-subsequence/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Atlassian',
       'Amazon',
@@ -463,6 +501,7 @@ export default [
     url: 'https://leetcode.com/problems/longest-palindromic-substring/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -481,6 +520,7 @@ export default [
     url: 'https://leetcode.com/problems/word-break/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -500,6 +540,7 @@ export default [
     url: 'https://leetcode.com/problems/combination-sum-iv/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -508,6 +549,7 @@ export default [
     url: 'https://leetcode.com/problems/decode-ways/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Facebook',
@@ -525,6 +567,7 @@ export default [
     url: 'https://leetcode.com/problems/unique-paths/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Microsoft',
@@ -542,6 +585,7 @@ export default [
     url: 'https://leetcode.com/problems/jump-game/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Adobe', 'Google', 'Bloomberg', 'Oracle'],
   },
   {
@@ -550,6 +594,7 @@ export default [
     url: 'https://leetcode.com/problems/palindromic-substrings/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Apple', 'Twitter', 'Google', 'Citadel'],
   },
   {
@@ -559,6 +604,7 @@ export default [
       'https://leetcode.com/problems/number-of-longest-increasing-subsequence/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon'],
   },
   {
@@ -567,6 +613,7 @@ export default [
     url: 'https://leetcode.com/problems/partition-equal-subset-sum/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook'],
   },
   {
@@ -575,6 +622,7 @@ export default [
     url: 'https://leetcode.com/problems/partition-to-k-equal-sum-subsets/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['LinkedIn', 'Amazon', 'Facebook'],
   },
   {
@@ -584,6 +632,7 @@ export default [
       'https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google', 'Amazon', 'Apple'],
   },
   {
@@ -592,6 +641,7 @@ export default [
     url: 'https://leetcode.com/problems/counting-bits/',
     pattern: 'Dynamic Programming',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook'],
   },
   {
@@ -600,6 +650,7 @@ export default [
     url: 'https://leetcode.com/problems/linked-list-cycle/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Apple', 'Microsoft', 'Goldman Sachs'],
   },
   {
@@ -608,6 +659,7 @@ export default [
     url: 'https://leetcode.com/problems/middle-of-the-linked-list/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Apple', 'Oracle'],
   },
   {
@@ -616,6 +668,7 @@ export default [
     url: 'https://leetcode.com/problems/palindrome-linked-list/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Apple', 'Snapchat', 'Bloomberg'],
   },
   {
@@ -624,6 +677,7 @@ export default [
     url: 'https://leetcode.com/problems/remove-linked-list-elements/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Bloomberg', 'Google', 'Capital One'],
   },
   {
@@ -632,6 +686,7 @@ export default [
     url: 'https://leetcode.com/problems/remove-duplicates-from-sorted-list/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Apple', 'Microsoft'],
   },
   {
@@ -640,6 +695,7 @@ export default [
     url: 'https://leetcode.com/problems/linked-list-cycle-ii/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Apple', 'Adobe'],
   },
   {
@@ -648,6 +704,7 @@ export default [
     url: 'https://leetcode.com/problems/add-two-numbers/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Google',
@@ -666,6 +723,7 @@ export default [
     url: 'https://leetcode.com/problems/remove-nth-node-from-end-of-list/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft'],
   },
   {
@@ -674,6 +732,7 @@ export default [
     url: 'https://leetcode.com/problems/sort-list/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Amazon', 'Facebook'],
   },
   {
@@ -682,6 +741,7 @@ export default [
     url: 'https://leetcode.com/problems/reorder-list/',
     pattern: 'Fast & Slow Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Microsoft'],
   },
   {
@@ -690,6 +750,7 @@ export default [
     url: 'https://leetcode.com/problems/clone-graph/',
     pattern: 'Graphs',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft'],
   },
   {
@@ -698,6 +759,7 @@ export default [
     url: 'https://leetcode.com/problems/pacific-atlantic-water-flow/',
     pattern: 'Graphs',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Google', 'Amazon'],
   },
   {
@@ -706,6 +768,7 @@ export default [
     url: 'https://leetcode.com/problems/number-of-islands/',
     pattern: 'Graphs',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Bloomberg',
@@ -724,6 +787,7 @@ export default [
     url: 'https://leetcode.com/problems/graph-valid-tree/',
     pattern: 'Graphs',
     difficulty: 'Medium',
+    premium: true,
     companies: ['Amazon', 'LinkedIn'],
   },
   {
@@ -733,6 +797,7 @@ export default [
       'https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/',
     pattern: 'Graphs',
     difficulty: 'Medium',
+    premium: true,
     companies: ['Facebook', 'Amazon'],
   },
   {
@@ -741,6 +806,7 @@ export default [
     url: 'https://leetcode.com/problems/reverse-linked-list/',
     pattern: 'In-place reversal of a linked list',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -758,6 +824,7 @@ export default [
     url: 'https://leetcode.com/problems/reverse-linked-list-ii/',
     pattern: 'In-place reversal of a linked list',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft', 'Oracle'],
   },
   {
@@ -766,6 +833,7 @@ export default [
     url: 'https://leetcode.com/problems/rotate-list/',
     pattern: 'In-place reversal of a linked list',
     difficulty: 'Medium',
+    premium: false,
     companies: ['LinkedIn', 'Amazon', 'Microsoft'],
   },
   {
@@ -774,6 +842,7 @@ export default [
     url: 'https://leetcode.com/problems/swap-nodes-in-pairs/',
     pattern: 'In-place reversal of a linked list',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Facebook', 'Apple', 'Amazon'],
   },
   {
@@ -782,6 +851,7 @@ export default [
     url: 'https://leetcode.com/problems/odd-even-linked-list/',
     pattern: 'In-place reversal of a linked list',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Capital One', 'Facebook', 'Google', 'Microsoft', 'Bloomberg'],
   },
   {
@@ -790,6 +860,7 @@ export default [
     url: 'https://leetcode.com/problems/reverse-nodes-in-k-group/',
     pattern: 'In-place reversal of a linked list',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Microsoft', 'Amazon', 'Facebook', 'Apple', 'Adobe'],
   },
   {
@@ -798,6 +869,7 @@ export default [
     url: 'https://leetcode.com/problems/merge-two-sorted-lists/',
     pattern: 'K-Way Merge',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -818,6 +890,7 @@ export default [
       'https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/',
     pattern: 'K-Way Merge',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft', 'Google'],
   },
   {
@@ -826,6 +899,7 @@ export default [
     url: 'https://leetcode.com/problems/find-k-pairs-with-smallest-sums/',
     pattern: 'K-Way Merge',
     difficulty: 'Medium',
+    premium: false,
     companies: ['LinkedIn', 'Amazon', 'Facebook'],
   },
   {
@@ -834,6 +908,7 @@ export default [
     url: 'https://leetcode.com/problems/merge-k-sorted-lists/',
     pattern: 'K-Way Merge',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -853,6 +928,7 @@ export default [
       'https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/',
     pattern: 'K-Way Merge',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Google', 'Amazon', 'Snapchat'],
   },
   {
@@ -861,6 +937,7 @@ export default [
     url: 'https://leetcode.com/problems/meeting-rooms',
     pattern: 'Merge Intervals',
     difficulty: 'Easy',
+    premium: true,
     companies: ['Microsoft'],
   },
   {
@@ -869,6 +946,7 @@ export default [
     url: 'https://leetcode.com/problems/merge-intervals/',
     pattern: 'Merge Intervals',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -891,6 +969,7 @@ export default [
     url: 'https://leetcode.com/problems/interval-list-intersections/',
     pattern: 'Merge Intervals',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Uber',
@@ -907,6 +986,7 @@ export default [
     url: 'https://leetcode.com/problems/non-overlapping-intervals/',
     pattern: 'Merge Intervals',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook'],
   },
   {
@@ -915,6 +995,7 @@ export default [
     url: 'https://leetcode.com/problems/meeting-rooms-ii/',
     pattern: 'Merge Intervals',
     difficulty: 'Medium',
+    premium: true,
     companies: [
       'Amazon',
       'Bloomberg',
@@ -933,6 +1014,7 @@ export default [
     url: 'https://leetcode.com/problems/task-scheduler/',
     pattern: 'Merge Intervals',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Microsoft', 'Amazon', 'Uber', 'Oracle'],
   },
   {
@@ -942,6 +1024,7 @@ export default [
       'https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/',
     pattern: 'Merge Intervals',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook'],
   },
   {
@@ -950,6 +1033,7 @@ export default [
     url: 'https://leetcode.com/problems/insert-interval/',
     pattern: 'Merge Intervals',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Google', 'Facebook', 'Twitter', 'Uber', 'LinkedIn', 'Amazon'],
   },
   {
@@ -958,6 +1042,7 @@ export default [
     url: 'https://leetcode.com/problems/employee-free-time/',
     pattern: 'Merge Intervals',
     difficulty: 'Hard',
+    premium: true,
     companies: [
       'Pinterest',
       'Amazon',
@@ -973,6 +1058,7 @@ export default [
     url: 'https://leetcode.com/problems/binary-search/',
     pattern: 'Modified Binary Search',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Microsoft'],
   },
   {
@@ -982,6 +1068,7 @@ export default [
       'https://leetcode.com/problems/find-smallest-letter-greater-than-target/',
     pattern: 'Modified Binary Search',
     difficulty: 'Easy',
+    premium: false,
     companies: ['LinkedIn'],
   },
   {
@@ -990,6 +1077,7 @@ export default [
     url: 'https://leetcode.com/problems/peak-index-in-a-mountain-array/',
     pattern: 'Modified Binary Search',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Google', 'Uber'],
   },
   {
@@ -998,6 +1086,7 @@ export default [
     url: 'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Google', 'Goldman Sachs', 'Apple'],
   },
   {
@@ -1006,6 +1095,7 @@ export default [
     url: 'https://leetcode.com/problems/find-peak-element/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Google', 'Apple'],
   },
   {
@@ -1014,6 +1104,7 @@ export default [
     url: 'https://leetcode.com/problems/search-in-rotated-sorted-array/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1032,6 +1123,7 @@ export default [
     url: 'https://leetcode.com/problems/search-in-rotated-sorted-array-ii/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon'],
   },
   {
@@ -1040,6 +1132,7 @@ export default [
     url: 'https://leetcode.com/problems/search-a-2d-matrix/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Facebook', 'Uber', 'Apple'],
   },
   {
@@ -1048,6 +1141,7 @@ export default [
     url: 'https://leetcode.com/problems/search-a-2d-matrix-ii/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft'],
   },
   {
@@ -1056,6 +1150,7 @@ export default [
     url: 'https://leetcode.com/problems/find-k-closest-elements/',
     pattern: 'Modified Binary Search',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Bloomberg', 'Apple'],
   },
   {
@@ -1064,6 +1159,7 @@ export default [
     url: 'https://leetcode.com/problems/count-of-range-sum/',
     pattern: 'Modified Binary Search',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -1072,6 +1168,7 @@ export default [
     url: 'https://leetcode.com/problems/minimum-size-subarray-sum/',
     pattern: 'Sliding Window',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Goldman Sachs', 'Google', 'Amazon', 'Facebook', 'Oracle'],
   },
   {
@@ -1080,6 +1177,7 @@ export default [
     url: 'https://leetcode.com/problems/fruit-into-baskets/',
     pattern: 'Sliding Window',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -1088,6 +1186,7 @@ export default [
     url: 'https://leetcode.com/problems/permutation-in-string/',
     pattern: 'Sliding Window',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Microsoft', 'Google'],
   },
   {
@@ -1097,6 +1196,7 @@ export default [
       'https://leetcode.com/problems/longest-repeating-character-replacement/',
     pattern: 'Sliding Window',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -1105,6 +1205,7 @@ export default [
     url: 'https://leetcode.com/problems/sliding-window-maximum/',
     pattern: 'Sliding Window',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -1123,6 +1224,7 @@ export default [
       'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
     pattern: 'Sliding Window',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Facebook',
@@ -1142,6 +1244,7 @@ export default [
       'https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/',
     pattern: 'Sliding Window',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Amazon'],
   },
   {
@@ -1151,6 +1254,7 @@ export default [
       'https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
     pattern: 'Sliding Window',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Twitch'],
   },
   {
@@ -1159,6 +1263,7 @@ export default [
     url: 'https://leetcode.com/problems/minimum-window-substring/',
     pattern: 'Sliding Window',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1180,6 +1285,7 @@ export default [
       'https://leetcode.com/problems/substring-with-concatenation-of-all-words/',
     pattern: 'Sliding Window',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook'],
   },
   {
@@ -1188,6 +1294,7 @@ export default [
     url: 'https://leetcode.com/problems/kth-smallest-element-in-a-bst/',
     pattern: "Top 'K' Elements",
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Oracle', 'Facebook', 'Apple', 'Bloomberg'],
   },
   {
@@ -1196,6 +1303,7 @@ export default [
     url: 'https://leetcode.com/problems/k-closest-points-to-origin/',
     pattern: "Top 'K' Elements",
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Asana', 'Oracle', 'Apple'],
   },
   {
@@ -1204,6 +1312,7 @@ export default [
     url: 'https://leetcode.com/problems/top-k-frequent-elements/',
     pattern: "Top 'K' Elements",
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Oracle', 'Google', 'Yelp', 'Apple'],
   },
   {
@@ -1212,6 +1321,7 @@ export default [
     url: 'https://leetcode.com/problems/sort-characters-by-frequency/',
     pattern: "Top 'K' Elements",
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Bloomberg', 'Uber'],
   },
   {
@@ -1220,6 +1330,7 @@ export default [
     url: 'https://leetcode.com/problems/kth-largest-element-in-an-array/',
     pattern: "Top 'K' Elements",
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1240,6 +1351,7 @@ export default [
     url: 'https://leetcode.com/problems/reorganize-string/',
     pattern: "Top 'K' Elements",
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1255,6 +1367,7 @@ export default [
     url: 'https://leetcode.com/problems/rearrange-string-k-distance-apart',
     pattern: "Top 'K' Elements",
     difficulty: 'Hard',
+    premium: true,
     companies: ['Google'],
   },
   {
@@ -1263,6 +1376,7 @@ export default [
     url: 'https://leetcode.com/problems/course-schedule-iii/',
     pattern: "Top 'K' Elements",
     difficulty: 'Hard',
+    premium: false,
     companies: ['Microsoft'],
   },
   {
@@ -1271,6 +1385,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-frequency-stack/',
     pattern: "Top 'K' Elements",
     difficulty: 'Hard',
+    premium: false,
     companies: ['Amazon', 'Apple'],
   },
   {
@@ -1279,6 +1394,7 @@ export default [
     url: 'https://leetcode.com/problems/course-schedule/',
     pattern: 'Topological Sort',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Microsoft', 'Amazon', 'Facebook', 'Oracle', 'Google', 'Apple'],
   },
   {
@@ -1287,6 +1403,7 @@ export default [
     url: 'https://leetcode.com/problems/course-schedule-ii/',
     pattern: 'Topological Sort',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Google',
@@ -1305,6 +1422,7 @@ export default [
     url: 'https://leetcode.com/problems/minimum-height-trees/',
     pattern: 'Topological Sort',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google', 'Amazon'],
   },
   {
@@ -1313,6 +1431,7 @@ export default [
     url: 'https://leetcode.com/problems/alien-dictionary',
     pattern: 'Topological Sort',
     difficulty: 'Hard',
+    premium: true,
     companies: [
       'Facebook',
       'Amazon',
@@ -1331,6 +1450,7 @@ export default [
     url: 'https://leetcode.com/problems/sequence-reconstruction',
     pattern: 'Topological Sort',
     difficulty: 'Hard',
+    premium: true,
     companies: ['Google'],
   },
   {
@@ -1339,6 +1459,7 @@ export default [
     url: 'https://leetcode.com/problems/binary-tree-level-order-traversal-ii/',
     pattern: 'BFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Apple'],
   },
   {
@@ -1347,6 +1468,7 @@ export default [
     url: 'https://leetcode.com/problems/average-of-levels-in-binary-tree/',
     pattern: 'BFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Facebook'],
   },
   {
@@ -1355,6 +1477,7 @@ export default [
     url: 'https://leetcode.com/problems/minimum-depth-of-binary-tree/',
     pattern: 'BFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Facebook'],
   },
   {
@@ -1363,6 +1486,7 @@ export default [
     url: 'https://leetcode.com/problems/binary-tree-level-order-traversal/',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -1379,6 +1503,7 @@ export default [
       'https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -1396,6 +1521,7 @@ export default [
       'https://leetcode.com/problems/populating-next-right-pointers-in-each-node/',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Microsoft',
       'Amazon',
@@ -1412,6 +1538,7 @@ export default [
       'https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Bloomberg', 'Facebook', 'Google'],
   },
   {
@@ -1420,6 +1547,7 @@ export default [
     url: 'https://leetcode.com/problems/binary-tree-right-side-view/',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Microsoft', 'Bloomberg'],
   },
   {
@@ -1428,6 +1556,7 @@ export default [
     url: 'https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft', 'Uber'],
   },
   {
@@ -1436,6 +1565,7 @@ export default [
     url: 'https://leetcode.com/problems/boundary-of-binary-tree',
     pattern: 'BFS',
     difficulty: 'Medium',
+    premium: true,
     companies: ['Amazon', 'Microsoft', 'Apple', 'Oracle'],
   },
   {
@@ -1444,6 +1574,7 @@ export default [
     url: 'https://leetcode.com/problems/same-tree/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon'],
   },
   {
@@ -1452,6 +1583,7 @@ export default [
     url: 'https://leetcode.com/problems/path-sum/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Bloomberg'],
   },
   {
@@ -1460,6 +1592,7 @@ export default [
     url: 'https://leetcode.com/problems/diameter-of-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Microsoft', 'Oracle', 'Google', 'Adobe'],
   },
   {
@@ -1468,6 +1601,7 @@ export default [
     url: 'https://leetcode.com/problems/merge-two-binary-trees/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Adobe', 'Amazon'],
   },
   {
@@ -1476,6 +1610,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-depth-of-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Google', 'Goldman Sachs'],
   },
   {
@@ -1485,6 +1620,7 @@ export default [
       'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Microsoft', 'LinkedIn'],
   },
   {
@@ -1493,6 +1629,7 @@ export default [
     url: 'https://leetcode.com/problems/subtree-of-another-tree/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon'],
   },
   {
@@ -1501,6 +1638,7 @@ export default [
     url: 'https://leetcode.com/problems/invert-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Google', 'Microsoft', 'Amazon'],
   },
   {
@@ -1509,6 +1647,7 @@ export default [
     url: 'https://leetcode.com/problems/path-sum-ii/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Quora'],
   },
   {
@@ -1517,6 +1656,7 @@ export default [
     url: 'https://leetcode.com/problems/path-sum-iii/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft'],
   },
   {
@@ -1526,6 +1666,7 @@ export default [
       'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1542,6 +1683,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -1550,6 +1692,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-width-of-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Facebook', 'Amazon', 'Google', 'Microsoft'],
   },
   {
@@ -1559,6 +1702,7 @@ export default [
       'https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook', 'Bloomberg'],
   },
   {
@@ -1567,6 +1711,7 @@ export default [
     url: 'https://leetcode.com/problems/validate-binary-search-tree/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1586,6 +1731,7 @@ export default [
     url: 'https://leetcode.com/problems/kth-smallest-element-in-a-bst/',
     pattern: 'DFS',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Oracle', 'Facebook', 'Apple', 'Bloomberg'],
   },
   {
@@ -1594,6 +1740,7 @@ export default [
     url: 'https://leetcode.com/problems/implement-trie-prefix-tree/',
     pattern: 'Trie',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook'],
   },
   {
@@ -1602,6 +1749,7 @@ export default [
     url: 'https://leetcode.com/problems/binary-tree-maximum-path-sum/',
     pattern: 'DFS',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Facebook', 'Microsoft', 'Amazon', 'Google', 'Uber', 'Apple'],
   },
   {
@@ -1610,6 +1758,7 @@ export default [
     url: 'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/',
     pattern: 'DFS',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1628,6 +1777,7 @@ export default [
     url: 'https://leetcode.com/problems/word-search-ii/',
     pattern: 'Trie',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -1644,6 +1794,7 @@ export default [
     url: 'https://leetcode.com/problems/find-median-from-data-stream/',
     pattern: 'Two Heaps',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Google',
@@ -1660,6 +1811,7 @@ export default [
     url: 'https://leetcode.com/problems/sliding-window-median/',
     pattern: 'Two Heaps',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Amazon', 'Facebook', 'Google'],
   },
   {
@@ -1668,6 +1820,7 @@ export default [
     url: 'https://leetcode.com/problems/two-sum/',
     pattern: 'Two Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Amazon',
       'Google',
@@ -1686,6 +1839,7 @@ export default [
     url: 'https://leetcode.com/problems/remove-duplicates-from-sorted-list/',
     pattern: 'Two Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Amazon', 'Apple', 'Microsoft'],
   },
   {
@@ -1694,6 +1848,7 @@ export default [
     url: 'https://leetcode.com/problems/squares-of-a-sorted-array/',
     pattern: 'Two Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1712,6 +1867,7 @@ export default [
     url: 'https://leetcode.com/problems/backspace-string-compare',
     pattern: 'Two Pointers',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Google', 'Facebook', 'Amazon', 'Microsoft', 'Oracle'],
   },
   {
@@ -1720,6 +1876,7 @@ export default [
     url: 'https://leetcode.com/problems/3sum/',
     pattern: 'Two Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Facebook',
@@ -1738,6 +1895,7 @@ export default [
     url: 'https://leetcode.com/problems/3sum-closest/',
     pattern: 'Two Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google', 'Facebook', 'Amazon', 'Apple', 'Microsoft'],
   },
   {
@@ -1746,6 +1904,7 @@ export default [
     url: 'https://leetcode.com/problems/subarray-product-less-than-k/',
     pattern: 'Two Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Akuna Capital', 'Google'],
   },
   {
@@ -1754,6 +1913,7 @@ export default [
     url: 'https://leetcode.com/problems/sort-colors/',
     pattern: 'Two Pointers',
     difficulty: 'Medium',
+    premium: false,
     companies: [
       'Amazon',
       'Microsoft',
@@ -1770,6 +1930,7 @@ export default [
     url: 'https://leetcode.com/problems/minimum-window-substring/',
     pattern: 'Two Pointers',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Facebook',
       'Amazon',
@@ -1789,6 +1950,7 @@ export default [
     url: 'https://leetcode.com/problems/trapping-rain-water/',
     pattern: 'Two Pointers',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Goldman Sachs',
@@ -1809,6 +1971,7 @@ export default [
     url: 'https://leetcode.com/problems/container-with-most-water/',
     pattern: 'Two Pointers',
     difficulty: 'Hard',
+    premium: false,
     companies: [
       'Amazon',
       'Goldman Sachs',
@@ -1826,6 +1989,7 @@ export default [
     url: 'https://leetcode.com/problems/longest-word-in-dictionary/',
     pattern: 'Trie',
     difficulty: 'Easy',
+    premium: false,
     companies: ['Goldman Sachs', 'Google'],
   },
   {
@@ -1834,6 +1998,7 @@ export default [
     url: 'https://leetcode.com/problems/index-pairs-of-a-string/',
     pattern: 'Trie',
     difficulty: 'Easy',
+    premium: true,
     companies: ['Amazon'],
   },
   {
@@ -1842,6 +2007,7 @@ export default [
     url: 'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array',
     pattern: 'Trie',
     difficulty: 'Medium',
+    premium: false,
     companies: ['Google'],
   },
   {
@@ -1850,6 +2016,7 @@ export default [
     url: 'https://leetcode.com/problems/concatenated-words/',
     pattern: 'Trie',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Amazon', 'Apple', 'Facebook'],
   },
   {
@@ -1858,6 +2025,7 @@ export default [
     url: 'https://leetcode.com/problems/prefix-and-suffix-search/',
     pattern: 'Trie',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Facebook', 'Google', 'Uber'],
   },
   {
@@ -1866,6 +2034,7 @@ export default [
     url: 'https://leetcode.com/problems/palindrome-pairs/',
     pattern: 'Trie',
     difficulty: 'Hard',
+    premium: false,
     companies: ['Airbnb', 'Amazon', 'Facebook', 'Google', 'Square'],
   },
   {
@@ -1874,6 +2043,7 @@ export default [
     url: 'https://leetcode.com/problems/design-search-autocomplete-system/',
     pattern: 'Trie',
     difficulty: 'Hard',
+    premium: true,
     companies: ['Amazon', 'Google', 'Lyft', 'Microsoft', 'Uber'],
   },
   {
@@ -1882,6 +2052,7 @@ export default [
     url: 'https://leetcode.com/problems/word-squares/',
     pattern: 'Trie',
     difficulty: 'Hard',
+    premium: true,
     companies: ['Oracle'],
   },
 ];
