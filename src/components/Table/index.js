@@ -9,30 +9,30 @@ import {
 import ReactTooltip from 'react-tooltip';
 import { useTable, useFilters, useSortBy } from 'react-table';
 import { FaQuestionCircle, FaLock } from 'react-icons/fa';
+import {
+  DefaultColumnFilter,
+  SelectDifficultyColumnFilter,
+  SelectColumnFilter,
+} from './filters';
 import { Event } from '../Shared/Tracking';
 
-import questionList from '../../data';
+import questions from '../../data';
 
 import './styles.scss';
 
 const images = require.context('../../icons', true);
 
-const sortByObject = { Easy: 0, Medium: 1, Hard: 2 };
-questionList.sort(
-  (a, b) => sortByObject[a.difficulty] - sortByObject[b.difficulty],
-);
-
 const Table = () => {
   const [checked, setChecked] = useState(
     JSON.parse(localStorage.getItem('checked')) ||
-      new Array(questionList.length).fill(false),
+      new Array(questions.length).fill(false),
   );
 
   useEffect(() => {
     window.localStorage.setItem('checked', JSON.stringify(checked));
   }, [checked]);
 
-  const data = React.useMemo(() => questionList, []);
+  const data = React.useMemo(() => questions, []);
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -73,8 +73,8 @@ const Table = () => {
               return (
                 <span>
                   {cellInfo.row.original.premium ? (
-                    <span data-tip="Requires leetcode premium">
-                      <FaLock />{' '}
+                    <span data-tip="Requires leetcode premium to view">
+                      <FaLock />
                     </span>
                   ) : (
                     ''
@@ -123,7 +123,7 @@ const Table = () => {
                 {cellInfo.row.original.difficulty}
               </Badge>
             ),
-            Filter: SelectColumnFilter,
+            Filter: SelectDifficultyColumnFilter,
           },
           {
             Header: () => {
@@ -152,7 +152,7 @@ const Table = () => {
 
               return <Row className="companies">{companies}</Row>;
             },
-            disableFilters: true,
+            Filter: SelectColumnFilter,
           },
         ],
       },
@@ -160,56 +160,6 @@ const Table = () => {
     // eslint-disable-next-line
     [],
   );
-
-  function DefaultColumnFilter({
-    column: { filterValue, preFilteredRows, setFilter },
-  }) {
-    const count = preFilteredRows.length;
-
-    return (
-      <input
-        value={filterValue || ''}
-        onChange={e => {
-          setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
-        }}
-        placeholder={`Search ${count} questions...`}
-      />
-    );
-  }
-
-  function SelectColumnFilter({
-    column: { filterValue, setFilter, preFilteredRows, id },
-  }) {
-    const options = React.useMemo(() => {
-      const options = new Set();
-
-      preFilteredRows.forEach(row => {
-        options.add(row.values[id]);
-      });
-
-      if (id === 'difficulty') {
-        return [...options.values()];
-      }
-
-      return [...options.values()].sort();
-    }, [id, preFilteredRows]);
-
-    return (
-      <select
-        value={filterValue}
-        onChange={e => {
-          setFilter(e.target.value || undefined);
-        }}
-      >
-        <option value="">All</option>
-        {options.map((option, i) => (
-          <option key={i} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    );
-  }
 
   const {
     getTableProps,
@@ -233,10 +183,10 @@ const Table = () => {
   return (
     <Container className="table">
       <ReactTooltip />
-      <ReactTable align="center" borderless striped hover {...getTableProps()}>
+      <ReactTable borderless striped hover {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
-            <tr className="sticky" {...headerGroup.getHeaderGroupProps()}>
+            <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 <th {...column.getHeaderProps()}>
                   {column.render('Header')}
