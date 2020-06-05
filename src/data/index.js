@@ -1,4 +1,4 @@
-export default [
+const questions = [
   {
     id: 0,
     name: 'Contains Duplicate',
@@ -2056,3 +2056,9 @@ export default [
     companies: ['Oracle'],
   },
 ];
+
+const sortBy = { Easy: 0, Medium: 1, Hard: 2 };
+
+export default questions.sort(
+  (a, b) => sortBy[a.difficulty] - sortBy[b.difficulty],
+);
