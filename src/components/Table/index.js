@@ -68,8 +68,7 @@ const Table = () => {
             },
           },
           {
-            Header: 'Name',
-            accessor: 'name',
+            id: 'Premium',
             Cell: cellInfo => {
               return (
                 <span>
@@ -80,10 +79,13 @@ const Table = () => {
                   ) : (
                     ''
                   )}
-                  {cellInfo.row.original.name}
                 </span>
               );
             },
+          },
+          {
+            Header: 'Name',
+            accessor: 'name',
           },
           {
             Header: 'URL',
