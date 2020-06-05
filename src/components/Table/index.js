@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import ReactTooltip from 'react-tooltip';
 import { useTable, useFilters, useSortBy } from 'react-table';
-import { FaQuestionCircle } from 'react-icons/fa';
+import { FaQuestionCircle, FaLock } from 'react-icons/fa';
 import { Event } from '../Shared/Tracking';
 
 import questionList from '../../data';
@@ -64,6 +64,22 @@ const Table = () => {
                     setChecked([...checked]);
                   }}
                 />
+              );
+            },
+          },
+          {
+            id: 'Premium',
+            Cell: cellInfo => {
+              return (
+                <span>
+                  {cellInfo.row.original.premium ? (
+                    <span data-tip="Requires leetcode premium">
+                      <FaLock />{' '}
+                    </span>
+                  ) : (
+                    ''
+                  )}
+                </span>
               );
             },
           },
