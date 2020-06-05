@@ -7,6 +7,12 @@
     display: none;
   }
 
+  tr.sticky th {
+    background: white;
+    position: sticky;
+    top: 0;
+  }
+
   .nav-link {
     padding: 0;
   }
