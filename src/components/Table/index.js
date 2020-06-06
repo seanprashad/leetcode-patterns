@@ -110,6 +110,11 @@ const Table = () => {
           {
             Header: 'Pattern',
             accessor: 'pattern',
+            Cell: cellInfo => (
+              <div>
+                {`${cellInfo.row.original.pattern}`.replace(/,/g, ', ')}
+              </div>
+            ),
             Filter: SelectColumnFilter,
           },
           {
