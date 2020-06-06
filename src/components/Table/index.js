@@ -110,6 +110,20 @@ const Table = () => {
           {
             Header: 'Pattern',
             accessor: 'pattern',
+            Cell: cellInfo => {
+              const patterns = `${cellInfo.row.original.pattern}`
+                .split(',')
+                .map(pattern => {
+                  return (
+                    <Badge key={pattern} className={pattern} pill>
+                      {pattern}
+                    </Badge>
+                  );
+                });
+
+              return <Row className="patterns">{patterns}</Row>;
+            },
+
             Filter: SelectColumnFilter,
           },
           {
@@ -172,9 +186,6 @@ const Table = () => {
       columns,
       data,
       defaultColumn,
-      initialState: {
-        sortBy: [{ id: 'pattern' }],
-      },
     },
     useFilters,
     useSortBy,
