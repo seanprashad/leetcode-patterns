@@ -867,7 +867,7 @@ const questions = [
     id: 72,
     name: 'Merge Two Sorted Lists',
     url: 'https://leetcode.com/problems/merge-two-sorted-lists/',
-    pattern: ['K-Way Merge'],
+    pattern: ['Two Pointers'],
     difficulty: 'Easy',
     premium: false,
     companies: [
