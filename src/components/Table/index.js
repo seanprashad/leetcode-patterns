@@ -54,8 +54,6 @@ const Table = () => {
               return (
                 <input
                   type="checkbox"
-                  className="checkbox"
-                  name={cellInfo.row.original.name}
                   checked={checked[cellInfo.row.original.id]}
                   onChange={() => {
                     checked[cellInfo.row.original.id] = !checked[
@@ -116,7 +114,7 @@ const Table = () => {
                 .map(pattern => {
                   return (
                     <Badge key={pattern} className={pattern} pill>
-                      {pattern}
+                      {checked[cellInfo.row.original.id] ? pattern : '***'}
                     </Badge>
                   );
                 });
