@@ -6,6 +6,7 @@ import {
   Badge,
   NavLink,
 } from 'reactstrap';
+import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
 import { useTable, useFilters, useSortBy } from 'react-table';
 import { FaQuestionCircle, FaLock } from 'react-icons/fa';
@@ -18,6 +19,7 @@ import { Event } from '../Shared/Tracking';
 
 import questions from '../../data';
 
+import 'react-toggle/style.css';
 import './styles.scss';
 
 const images = require.context('../../icons', true);
@@ -28,9 +30,18 @@ const Table = () => {
       new Array(questions.length).fill(false),
   );
 
+  const [hidePatterns, setHidePatterns] = useState(
+    JSON.parse(localStorage.getItem('hidePatterns')) ||
+      new Array(1).fill(false),
+  );
+
   useEffect(() => {
     window.localStorage.setItem('checked', JSON.stringify(checked));
   }, [checked]);
+
+  useEffect(() => {
+    window.localStorage.setItem('hidePatterns', JSON.stringify(hidePatterns));
+  }, [hidePatterns]);
 
   const data = React.useMemo(() => questions, []);
 
@@ -106,7 +117,25 @@ const Table = () => {
             disableFilters: true,
           },
           {
-            Header: 'Pattern',
+            Header: () => {
+              return (
+                <label htmlFor="pattern-toggle">
+                  <span>Show/Hide Patterns </span>
+                  <Toggle
+                    id="pattern-toggle"
+                    defaultChecked={hidePatterns[0]}
+                    icons={{
+                      checked: null,
+                      unchecked: null,
+                    }}
+                    onChange={() => {
+                      hidePatterns[0] = !hidePatterns[0];
+                      setHidePatterns([...hidePatterns]);
+                    }}
+                  />
+                </label>
+              );
+            },
             accessor: 'pattern',
             Cell: cellInfo => {
               const patterns = `${cellInfo.row.original.pattern}`
@@ -114,7 +143,7 @@ const Table = () => {
                 .map(pattern => {
                   return (
                     <Badge key={pattern} className={pattern} pill>
-                      {checked[cellInfo.row.original.id] ? pattern : '***'}
+                      {hidePatterns[0] ? pattern : '***'}
                     </Badge>
                   );
                 });
