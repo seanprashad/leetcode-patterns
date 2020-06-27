@@ -30,9 +30,8 @@ const Table = () => {
       new Array(questions.length).fill(false),
   );
 
-  const [hidePatterns, setHidePatterns] = useState(
-    JSON.parse(localStorage.getItem('hidePatterns')) ||
-      new Array(1).fill(false),
+  const [showPatterns, setShowPatterns] = useState(
+    JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
   );
 
   useEffect(() => {
@@ -40,8 +39,8 @@ const Table = () => {
   }, [checked]);
 
   useEffect(() => {
-    window.localStorage.setItem('hidePatterns', JSON.stringify(hidePatterns));
-  }, [hidePatterns]);
+    window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
+  }, [showPatterns]);
 
   const data = React.useMemo(() => questions, []);
 
@@ -123,14 +122,14 @@ const Table = () => {
                   <span>Show/Hide Patterns </span>
                   <Toggle
                     id="pattern-toggle"
-                    defaultChecked={hidePatterns[0]}
+                    defaultChecked={showPatterns[0]}
                     icons={{
                       checked: null,
                       unchecked: null,
                     }}
                     onChange={() => {
-                      hidePatterns[0] = !hidePatterns[0];
-                      setHidePatterns([...hidePatterns]);
+                      showPatterns[0] = !showPatterns[0];
+                      setShowPatterns([...showPatterns]);
                     }}
                   />
                 </label>
@@ -143,7 +142,7 @@ const Table = () => {
                 .map(pattern => {
                   return (
                     <Badge key={pattern} className={pattern} pill>
-                      {hidePatterns[0] ? pattern : '***'}
+                      {showPatterns[0] ? pattern : '***'}
                     </Badge>
                   );
                 });
