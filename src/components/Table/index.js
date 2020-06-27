@@ -152,9 +152,17 @@ const Table = () => {
               const patterns = `${cellInfo.row.original.pattern}`
                 .split(',')
                 .map(pattern => {
+                  if (showPatterns[0] || checked[cellInfo.row.original.id]) {
+                    return (
+                      <Badge key={pattern} className={pattern} pill>
+                        {pattern}
+                      </Badge>
+                    );
+                  }
+
                   return (
                     <Badge key={pattern} className={pattern} pill>
-                      {showPatterns[0] ? pattern : '***'}
+                      ***
                     </Badge>
                   );
                 });
