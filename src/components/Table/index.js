@@ -25,10 +25,22 @@ import './styles.scss';
 const images = require.context('../../icons', true);
 
 const Table = () => {
-  const [checked, setChecked] = useState(
+  let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
-      new Array(questions.length).fill(false),
-  );
+    new Array(questions.length).fill(false);
+
+  if (checkedList.length !== questions.length) {
+    const newCheckedList = new Array(questions.length).fill(false);
+
+    for (let i = 0; i < checkedList.length; i += 1) {
+      newCheckedList[i] = checkedList[i];
+    }
+
+    checkedList = newCheckedList;
+    window.localStorage.setItem('checked', JSON.stringify(checkedList));
+  }
+
+  const [checked, setChecked] = useState(checkedList);
 
   const [showPatterns, setShowPatterns] = useState(
     JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
