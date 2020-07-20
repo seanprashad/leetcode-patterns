@@ -1420,7 +1420,7 @@ const questions = [
     id: 118,
     name: 'Minimum Height Trees',
     url: 'https://leetcode.com/problems/minimum-height-trees/',
-    pattern: ['BFS', 'Graph', 'Topological Sort'],
+    pattern: ['BFS', 'Graph'],
     difficulty: 'Medium',
     premium: false,
     companies: ['Google', 'Amazon'],
