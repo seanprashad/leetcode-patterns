@@ -2046,6 +2046,15 @@ const questions = [
     premium: true,
     companies: ['Oracle'],
   },
+  {
+    id: 172,
+    name: 'Sort Items by Groups Respecting Dependencies',
+    url: 'https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/',
+    pattern: ['DFS', 'Graph', 'Topological Sort'],
+    difficulty: 'Hard',
+    premium: false,
+    companies: ['Google'],
+  },
 ];
 
 const sortBy = { Easy: 0, Medium: 1, Hard: 2 };
