@@ -1420,7 +1420,7 @@ const questions = [
     id: 118,
     name: 'Minimum Height Trees',
     url: 'https://leetcode.com/problems/minimum-height-trees/',
-    pattern: ['BFS', 'Graph'],
+    pattern: ['BFS', 'Graph', 'Topological Sort'],
     difficulty: 'Medium',
     premium: false,
     companies: ['Google', 'Amazon'],
@@ -2045,6 +2045,15 @@ const questions = [
     difficulty: 'Hard',
     premium: true,
     companies: ['Oracle'],
+  },
+  {
+    id: 172,
+    name: 'Sort Items by Groups Respecting Dependencies',
+    url: 'https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/',
+    pattern: ['DFS', 'Graph', 'Topological Sort'],
+    difficulty: 'Hard',
+    premium: false,
+    companies: ['Google'],
   },
 ];
 
