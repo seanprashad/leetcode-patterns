@@ -154,14 +154,14 @@ const Table = () => {
                 .map(pattern => {
                   if (showPatterns[0] || checked[cellInfo.row.original.id]) {
                     return (
-                      <Badge key={pattern} className={pattern} pill>
+                      <Badge key={pattern} pill>
                         {pattern}
                       </Badge>
                     );
                   }
 
                   return (
-                    <Badge key={pattern} className={pattern} pill>
+                    <Badge key={pattern} pill>
                       ***
                     </Badge>
                   );
@@ -176,12 +176,14 @@ const Table = () => {
             Header: 'Difficulty',
             accessor: 'difficulty',
             Cell: cellInfo => (
-              <Badge
-                className={cellInfo.row.original.difficulty.toLowerCase()}
-                pill
-              >
-                {cellInfo.row.original.difficulty}
-              </Badge>
+              <Row>
+                <Badge
+                  className={cellInfo.row.original.difficulty.toLowerCase()}
+                  pill
+                >
+                  {cellInfo.row.original.difficulty}
+                </Badge>
+              </Row>
             ),
             Filter: SelectDifficultyColumnFilter,
           },
