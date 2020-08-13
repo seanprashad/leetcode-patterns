@@ -1825,15 +1825,6 @@ const questions = [
     ],
   },
   {
-    id: 154,
-    name: 'Remove Duplicates from Sorted List',
-    url: 'https://leetcode.com/problems/remove-duplicates-from-sorted-list/',
-    pattern: ['Two Pointers'],
-    difficulty: 'Easy',
-    premium: false,
-    companies: ['Amazon', 'Apple', 'Microsoft'],
-  },
-  {
     id: 155,
     name: 'Squares of a Sorted Array',
     url: 'https://leetcode.com/problems/squares-of-a-sorted-array/',
@@ -2049,7 +2040,8 @@ const questions = [
   {
     id: 172,
     name: 'Sort Items by Groups Respecting Dependencies',
-    url: 'https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/',
+    url:
+      'https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/',
     pattern: ['DFS', 'Graph', 'Topological Sort'],
     difficulty: 'Hard',
     premium: false,
