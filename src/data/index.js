@@ -1717,15 +1717,6 @@ const questions = [
     ],
   },
   {
-    id: 146,
-    name: 'Kth Smallest Element in a BST',
-    url: 'https://leetcode.com/problems/kth-smallest-element-in-a-bst/',
-    pattern: ['DFS'],
-    difficulty: 'Medium',
-    premium: false,
-    companies: ['Amazon', 'Oracle', 'Facebook', 'Apple', 'Bloomberg'],
-  },
-  {
     id: 147,
     name: 'Implement Trie (Prefix Tree)',
     url: 'https://leetcode.com/problems/implement-trie-prefix-tree/',
