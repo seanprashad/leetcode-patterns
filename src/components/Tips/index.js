@@ -27,6 +27,10 @@ If given a linked list then
 If recursion is banned then
 - Stack
 
+If must solve in-place then
+- Swap corresponding values
+- Store one or more different values in the same pointer
+
 If asked for maximum/minumum subarray/subset/options then
 - Dynamic programming
 
