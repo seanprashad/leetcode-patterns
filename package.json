@@ -10,21 +10,21 @@
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-adapter-react-16": "^1.15.4",
     "gh-pages": "^2.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
-    "react-icons": "^3.10.0",
+    "react-icons": "^3.11.0",
     "react-markdown": "^4.3.1",
     "react-scripts": "^3.4.3",
     "react-scroll": "^1.8.0",
-    "react-table": "^7.3.0",
+    "react-table": "^7.5.1",
     "react-test-renderer": "^16.12.0",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^3.11.2",
-    "reactstrap": "^8.5.1"
+    "reactstrap": "^8.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^7.20.3",
     "husky": "^3.1.0",
     "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
+    "pretty-quick": "^2.0.2"
   },
   "scripts": {
     "predeploy": "npm run build",
