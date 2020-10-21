@@ -180,7 +180,7 @@ const questions = [
     name: 'Letter Case Permutation',
     url: 'https://leetcode.com/problems/letter-case-permutation/',
     pattern: ['Backtracking'],
-    difficulty: 'Easy',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Amazon'],
   },
