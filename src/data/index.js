@@ -2035,6 +2035,15 @@ const questions = [
       'Bloomberg',
     ],
   },
+  {
+    id: 173,
+    name: 'Majority Element',
+    url: 'https://leetcode.com/problems/majority-element/',
+    pattern: ['Sorting'],
+    difficulty: 'Easy',
+    premium: false,
+    companies: ['Amazon', 'Google', 'Microsoft', 'Apple'],
+  },
 ];
 
 const sortBy = { Easy: 0, Medium: 1, Hard: 2 };
