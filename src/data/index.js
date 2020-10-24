@@ -2018,6 +2018,23 @@ const questions = [
     premium: false,
     companies: ['Google'],
   },
+  {
+    id: 173,
+    name: 'Median of Two Sorted Arrays',
+    url: 'https://leetcode.com/problems/median-of-two-sorted-arrays/',
+    pattern: ['Binary Search'],
+    difficulty: 'Hard',
+    premium: false,
+    companies: [
+      'Amazon',
+      'Goldman Sachs',
+      'Apple',
+      'Google',
+      'Facebook',
+      'Microsoft',
+      'Bloomberg',
+    ],
+  },
 ];
 
 const sortBy = { Easy: 0, Medium: 1, Hard: 2 };
