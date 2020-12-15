@@ -379,7 +379,7 @@ const questions = [
     name: 'House Robber',
     url: 'https://leetcode.com/problems/house-robber/',
     pattern: ['Dynamic Programming'],
-    difficulty: 'Easy',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Google', 'Apple', 'Adobe', 'Microsoft', 'Amazon'],
   },
