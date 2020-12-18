@@ -5,7 +5,6 @@ import {
   Row,
   Badge,
   NavLink,
-  Col,
 } from 'reactstrap';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
