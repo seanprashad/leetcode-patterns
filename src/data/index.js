@@ -2036,7 +2036,7 @@ const questions = [
     ],
   },
   {
-    id: 173,
+    id: 174,
     name: 'Majority Element',
     url: 'https://leetcode.com/problems/majority-element/',
     pattern: ['Sorting'],
