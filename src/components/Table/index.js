@@ -65,7 +65,7 @@ const Table = () => {
     window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
   }, [showPatterns]);
 
-  /*To view the number of question solved by difficulty*/
+  /* To view the number of question solved by difficulty */
   console.log(checkQuestionsDict);
 
   const defaultColumn = React.useMemo(
@@ -93,7 +93,7 @@ const Table = () => {
                     checked[cellInfo.row.original.id] = !checked[
                       cellInfo.row.original.id
                     ];
-                    /*increment or decrement question count for the correct difficulty from the checkbox */
+                    /* increment or decrement question count for the correct difficulty from the checkbox */
                     if (checked[cellInfo.row.original.id]) {
                       setcheckQuestionsDict(prevState => ({
                         ...prevState,
