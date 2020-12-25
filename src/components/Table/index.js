@@ -25,34 +25,36 @@ import './styles.scss';
 const images = require.context('../../icons', true);
 
 const Table = () => {
+  const data = React.useMemo(() => questions, []);
+
   let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
-    new Array(questions.length).fill(false);
+    new Array(data.length).fill(false);
 
-  if (checkedList.length !== questions.length) {
-    const newCheckedList = new Array(questions.length).fill(false);
+  /* If the user has previously visited the website, then an array in
+  LocalStorage would exist of a certain length which corresponds to which
+  questions they have/have not completed. In the event that we add new questions
+  to the list, then we would need to resize and copy the existing 'checked'
+  array before updating it in LocalStorage in order to transfer their saved
+  progress. */
+  if (checkedList.length !== data.length) {
+    const resizedCheckedList = new Array(data.length).fill(false);
 
     for (let i = 0; i < checkedList.length; i += 1) {
-      newCheckedList[i] = checkedList[i];
+      resizedCheckedList[i] = checkedList[i];
     }
 
-    checkedList = newCheckedList;
+    checkedList = resizedCheckedList;
     window.localStorage.setItem('checked', JSON.stringify(checkedList));
   }
-  const data = React.useMemo(() => questions, []);
-  /* Get a list of all checked questions in the form of a dictionary keys as question difficulty */
-  const checkedQuestionsByDifficulty = { Easy: 0, Hard: 0, Medium: 0 };
-  for (let i = 0; i < checkedList.length; i += 1) {
-    if (checkedList[i]) {
-      checkedQuestionsByDifficulty[data[i].difficulty] += 1;
-    }
+
+  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
+  for (let i = 0; i < data.length; i += 1) {
+    difficultyMap[data[i].difficulty] += checkedList[data[i].id];
   }
-  const [checkQuestionsDict, setcheckQuestionsDict] = useState(
-    checkedQuestionsByDifficulty,
-  );
 
+  const [difficultyCount, setDifficultyCount] = useState(difficultyMap);
   const [checked, setChecked] = useState(checkedList);
-
   const [showPatterns, setShowPatterns] = useState(
     JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
   );
@@ -65,8 +67,8 @@ const Table = () => {
     window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
   }, [showPatterns]);
 
-  /*To view the number of question solved by difficulty*/
-  console.log(checkQuestionsDict);
+  /* To view the number of question solved by difficulty */
+  console.log(difficultyCount);
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -93,22 +95,14 @@ const Table = () => {
                     checked[cellInfo.row.original.id] = !checked[
                       cellInfo.row.original.id
                     ];
-                    /*increment or decrement question count for the correct difficulty from the checkbox */
-                    if (checked[cellInfo.row.original.id]) {
-                      setcheckQuestionsDict(prevState => ({
-                        ...prevState,
-                        [cellInfo.row.original.difficulty]:
-                          prevState[cellInfo.row.original.difficulty] + 1,
-                      }));
-                    } else {
-                      setcheckQuestionsDict(prevState => ({
-                        ...prevState,
-                        [cellInfo.row.original.difficulty]:
-                          prevState[cellInfo.row.original.difficulty] === 0
-                            ? 0
-                            : prevState[cellInfo.row.original.difficulty] - 1,
-                      }));
-                    }
+
+                    const additive = checked[cellInfo.row.original.id] ? 1 : -1;
+                    setDifficultyCount(prevState => ({
+                      ...prevState,
+                      [cellInfo.row.original.difficulty]:
+                        prevState[cellInfo.row.original.difficulty] + additive,
+                    }));
+
                     setChecked([...checked]);
                   }}
                 />

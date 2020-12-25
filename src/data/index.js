@@ -754,7 +754,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Microsoft'],
   },
   {
-    id: 62,
+    id: 61,
     name: 'Pacific Atlantic Water Flow',
     url: 'https://leetcode.com/problems/pacific-atlantic-water-flow/',
     pattern: ['BFS', 'DFS'],
@@ -763,7 +763,7 @@ const questions = [
     companies: ['Microsoft', 'Google', 'Amazon'],
   },
   {
-    id: 63,
+    id: 62,
     name: 'Number of Islands',
     url: 'https://leetcode.com/problems/number-of-islands/',
     pattern: ['BFS', 'DFS', 'Union Find'],
@@ -782,7 +782,7 @@ const questions = [
     ],
   },
   {
-    id: 64,
+    id: 63,
     name: 'Graph Valid Tree',
     url: 'https://leetcode.com/problems/graph-valid-tree/',
     pattern: ['BFS', 'DFS', 'Graph', 'Union Find'],
@@ -791,7 +791,7 @@ const questions = [
     companies: ['Amazon', 'LinkedIn'],
   },
   {
-    id: 65,
+    id: 64,
     name: 'Number of Connected Components in an Undirected Graph',
     url:
       'https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/',
@@ -801,7 +801,7 @@ const questions = [
     companies: ['Facebook', 'Amazon'],
   },
   {
-    id: 66,
+    id: 65,
     name: 'Reverse Linked List',
     url: 'https://leetcode.com/problems/reverse-linked-list/',
     pattern: ['In-place reversal of a linked list'],
@@ -819,7 +819,7 @@ const questions = [
     ],
   },
   {
-    id: 67,
+    id: 66,
     name: 'Reverse Linked List II',
     url: 'https://leetcode.com/problems/reverse-linked-list-ii/',
     pattern: ['In-place reversal of a linked list'],
@@ -828,7 +828,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Microsoft', 'Oracle'],
   },
   {
-    id: 68,
+    id: 67,
     name: 'Rotate List',
     url: 'https://leetcode.com/problems/rotate-list/',
     pattern: ['In-place reversal of a linked list'],
@@ -837,7 +837,7 @@ const questions = [
     companies: ['LinkedIn', 'Amazon', 'Microsoft'],
   },
   {
-    id: 69,
+    id: 68,
     name: 'Swap Nodes in Pairs',
     url: 'https://leetcode.com/problems/swap-nodes-in-pairs/',
     pattern: ['In-place reversal of a linked list'],
@@ -846,7 +846,7 @@ const questions = [
     companies: ['Microsoft', 'Facebook', 'Apple', 'Amazon'],
   },
   {
-    id: 70,
+    id: 69,
     name: 'Odd Even Linked List',
     url: 'https://leetcode.com/problems/odd-even-linked-list/',
     pattern: ['In-place reversal of a linked list'],
@@ -855,7 +855,7 @@ const questions = [
     companies: ['Capital One', 'Facebook', 'Google', 'Microsoft', 'Bloomberg'],
   },
   {
-    id: 71,
+    id: 70,
     name: 'Reverse Nodes in k-Group',
     url: 'https://leetcode.com/problems/reverse-nodes-in-k-group/',
     pattern: ['In-place reversal of a linked list'],
@@ -864,7 +864,7 @@ const questions = [
     companies: ['Microsoft', 'Amazon', 'Facebook', 'Apple', 'Adobe'],
   },
   {
-    id: 72,
+    id: 71,
     name: 'Merge Two Sorted Lists',
     url: 'https://leetcode.com/problems/merge-two-sorted-lists/',
     pattern: ['Two Pointers'],
@@ -884,7 +884,7 @@ const questions = [
     ],
   },
   {
-    id: 73,
+    id: 72,
     name: 'Kth Smallest Element in a Sorted Matrix',
     url:
       'https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/',
@@ -894,7 +894,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Microsoft', 'Google'],
   },
   {
-    id: 74,
+    id: 73,
     name: 'Find K Pairs with Smallest Sums',
     url: 'https://leetcode.com/problems/find-k-pairs-with-smallest-sums/',
     pattern: ['Heap'],
@@ -903,7 +903,7 @@ const questions = [
     companies: ['LinkedIn', 'Amazon', 'Facebook'],
   },
   {
-    id: 75,
+    id: 74,
     name: 'Merge k Sorted Lists',
     url: 'https://leetcode.com/problems/merge-k-sorted-lists/',
     pattern: ['Heap'],
@@ -922,7 +922,7 @@ const questions = [
     ],
   },
   {
-    id: 76,
+    id: 75,
     name: 'Smallest Range Covering Elements from K Lists',
     url:
       'https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/',
@@ -932,7 +932,7 @@ const questions = [
     companies: ['Google', 'Amazon', 'Snapchat'],
   },
   {
-    id: 77,
+    id: 76,
     name: 'Meeting Rooms',
     url: 'https://leetcode.com/problems/meeting-rooms',
     pattern: ['Intervals'],
@@ -941,7 +941,7 @@ const questions = [
     companies: ['Microsoft'],
   },
   {
-    id: 78,
+    id: 77,
     name: 'Merge Intervals',
     url: 'https://leetcode.com/problems/merge-intervals/',
     pattern: ['Intervals'],
@@ -964,7 +964,7 @@ const questions = [
     ],
   },
   {
-    id: 79,
+    id: 78,
     name: 'Interval List Intersections',
     url: 'https://leetcode.com/problems/interval-list-intersections/',
     pattern: ['Intervals'],
@@ -981,7 +981,7 @@ const questions = [
     ],
   },
   {
-    id: 80,
+    id: 79,
     name: 'Non-overlapping Intervals',
     url: 'https://leetcode.com/problems/non-overlapping-intervals/',
     pattern: ['Intervals'],
@@ -990,7 +990,7 @@ const questions = [
     companies: ['Facebook'],
   },
   {
-    id: 81,
+    id: 80,
     name: 'Meeting Rooms II',
     url: 'https://leetcode.com/problems/meeting-rooms-ii/',
     pattern: ['Heap', 'Intervals'],
@@ -1009,7 +1009,7 @@ const questions = [
     ],
   },
   {
-    id: 82,
+    id: 81,
     name: 'Task Scheduler',
     url: 'https://leetcode.com/problems/task-scheduler/',
     pattern: ['Greedy', 'Heap'],
@@ -1018,7 +1018,7 @@ const questions = [
     companies: ['Facebook', 'Microsoft', 'Amazon', 'Uber', 'Oracle'],
   },
   {
-    id: 83,
+    id: 82,
     name: 'Minimum Number of Arrows to Burst Balloons',
     url:
       'https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/',
@@ -1028,7 +1028,7 @@ const questions = [
     companies: ['Facebook'],
   },
   {
-    id: 84,
+    id: 83,
     name: 'Insert Interval',
     url: 'https://leetcode.com/problems/insert-interval/',
     pattern: ['Intervals'],
@@ -1037,7 +1037,7 @@ const questions = [
     companies: ['Google', 'Facebook', 'Twitter', 'Uber', 'LinkedIn', 'Amazon'],
   },
   {
-    id: 85,
+    id: 84,
     name: 'Employee Free Time',
     url: 'https://leetcode.com/problems/employee-free-time/',
     pattern: ['Heap', 'Greedy'],
@@ -1053,7 +1053,7 @@ const questions = [
     ],
   },
   {
-    id: 86,
+    id: 85,
     name: 'Binary Search',
     url: 'https://leetcode.com/problems/binary-search/',
     pattern: ['Binary Search'],
@@ -1062,7 +1062,7 @@ const questions = [
     companies: ['Microsoft'],
   },
   {
-    id: 87,
+    id: 86,
     name: 'Find Smallest Letter Greater Than Target',
     url:
       'https://leetcode.com/problems/find-smallest-letter-greater-than-target/',
@@ -1072,7 +1072,7 @@ const questions = [
     companies: ['LinkedIn'],
   },
   {
-    id: 88,
+    id: 87,
     name: 'Peak Index in a Mountain Array',
     url: 'https://leetcode.com/problems/peak-index-in-a-mountain-array/',
     pattern: ['Binary Search'],
@@ -1081,7 +1081,7 @@ const questions = [
     companies: ['Facebook', 'Amazon', 'Google', 'Uber'],
   },
   {
-    id: 89,
+    id: 88,
     name: 'Find Minimum in Rotated Sorted Array',
     url: 'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/',
     pattern: ['Binary Search'],
@@ -1090,7 +1090,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Google', 'Goldman Sachs', 'Apple'],
   },
   {
-    id: 90,
+    id: 89,
     name: 'Find Peak Element',
     url: 'https://leetcode.com/problems/find-peak-element/',
     pattern: ['Binary Search'],
@@ -1099,7 +1099,7 @@ const questions = [
     companies: ['Facebook', 'Amazon', 'Google', 'Apple'],
   },
   {
-    id: 91,
+    id: 90,
     name: 'Search in Rotated Sorted Array',
     url: 'https://leetcode.com/problems/search-in-rotated-sorted-array/',
     pattern: ['Binary Search'],
@@ -1118,7 +1118,7 @@ const questions = [
     ],
   },
   {
-    id: 92,
+    id: 91,
     name: 'Search in Rotated Sorted Array II',
     url: 'https://leetcode.com/problems/search-in-rotated-sorted-array-ii/',
     pattern: ['Binary Search'],
@@ -1127,7 +1127,7 @@ const questions = [
     companies: ['Amazon'],
   },
   {
-    id: 93,
+    id: 92,
     name: 'Search a 2D Matrix',
     url: 'https://leetcode.com/problems/search-a-2d-matrix/',
     pattern: ['Binary Search'],
@@ -1136,7 +1136,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Facebook', 'Uber', 'Apple'],
   },
   {
-    id: 94,
+    id: 93,
     name: 'Search a 2D Matrix II',
     url: 'https://leetcode.com/problems/search-a-2d-matrix-ii/',
     pattern: ['Binary Search'],
@@ -1145,7 +1145,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Microsoft'],
   },
   {
-    id: 95,
+    id: 94,
     name: 'Find K Closest Elements',
     url: 'https://leetcode.com/problems/find-k-closest-elements/',
     pattern: ['Binary Search'],
@@ -1154,7 +1154,7 @@ const questions = [
     companies: ['Facebook', 'Bloomberg', 'Apple'],
   },
   {
-    id: 96,
+    id: 95,
     name: 'Count of Range Sum',
     url: 'https://leetcode.com/problems/count-of-range-sum/',
     pattern: ['Binary Search'],
@@ -1163,7 +1163,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 97,
+    id: 96,
     name: 'Minimum Size Subarray Sum',
     url: 'https://leetcode.com/problems/minimum-size-subarray-sum/',
     pattern: ['Sliding Window'],
@@ -1172,7 +1172,7 @@ const questions = [
     companies: ['Goldman Sachs', 'Google', 'Amazon', 'Facebook', 'Oracle'],
   },
   {
-    id: 98,
+    id: 97,
     name: 'Fruit Into Baskets',
     url: 'https://leetcode.com/problems/fruit-into-baskets/',
     pattern: ['Sliding Window'],
@@ -1181,7 +1181,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 99,
+    id: 98,
     name: 'Permutation in String',
     url: 'https://leetcode.com/problems/permutation-in-string/',
     pattern: ['Sliding Window'],
@@ -1190,7 +1190,7 @@ const questions = [
     companies: ['Facebook', 'Microsoft', 'Google'],
   },
   {
-    id: 100,
+    id: 99,
     name: 'Longest Repeating Character Replacement',
     url:
       'https://leetcode.com/problems/longest-repeating-character-replacement/',
@@ -1200,7 +1200,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 101,
+    id: 100,
     name: 'Sliding Window Maximum',
     url: 'https://leetcode.com/problems/sliding-window-maximum/',
     pattern: ['Sliding Window'],
@@ -1218,7 +1218,7 @@ const questions = [
     ],
   },
   {
-    id: 102,
+    id: 101,
     name: 'Longest Substring Without Repeating Characters',
     url:
       'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
@@ -1238,7 +1238,7 @@ const questions = [
     ],
   },
   {
-    id: 103,
+    id: 102,
     name: 'Minimum Number of K Consecutive Bit Flips',
     url:
       'https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/',
@@ -1248,7 +1248,7 @@ const questions = [
     companies: ['Amazon'],
   },
   {
-    id: 104,
+    id: 103,
     name: 'Count Unique Characters of All Substrings of a Given String',
     url:
       'https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
@@ -1258,7 +1258,7 @@ const questions = [
     companies: ['Twitch'],
   },
   {
-    id: 105,
+    id: 104,
     name: 'Minimum Window Substring',
     url: 'https://leetcode.com/problems/minimum-window-substring/',
     pattern: ['Sliding Window'],
@@ -1279,7 +1279,7 @@ const questions = [
     ],
   },
   {
-    id: 106,
+    id: 105,
     name: 'Substring with Concatenation of All Words',
     url:
       'https://leetcode.com/problems/substring-with-concatenation-of-all-words/',
@@ -1289,7 +1289,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook'],
   },
   {
-    id: 107,
+    id: 106,
     name: 'Kth Smallest Element in a BST',
     url: 'https://leetcode.com/problems/kth-smallest-element-in-a-bst/',
     pattern: ['DFS'],
@@ -1298,7 +1298,7 @@ const questions = [
     companies: ['Amazon', 'Oracle', 'Facebook', 'Apple', 'Bloomberg'],
   },
   {
-    id: 108,
+    id: 107,
     name: 'K Closest Points to Origin',
     url: 'https://leetcode.com/problems/k-closest-points-to-origin/',
     pattern: ['Heap'],
@@ -1307,7 +1307,7 @@ const questions = [
     companies: ['Facebook', 'Amazon', 'Asana', 'Oracle', 'Apple'],
   },
   {
-    id: 109,
+    id: 108,
     name: 'Top K Frequent Elements',
     url: 'https://leetcode.com/problems/top-k-frequent-elements/',
     pattern: ['Heap'],
@@ -1316,7 +1316,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Oracle', 'Google', 'Yelp', 'Apple'],
   },
   {
-    id: 110,
+    id: 109,
     name: 'Sort Characters By Frequency',
     url: 'https://leetcode.com/problems/sort-characters-by-frequency/',
     pattern: ['Heap'],
@@ -1325,7 +1325,7 @@ const questions = [
     companies: ['Amazon', 'Bloomberg', 'Uber'],
   },
   {
-    id: 111,
+    id: 110,
     name: 'Kth Largest Element in an Array',
     url: 'https://leetcode.com/problems/kth-largest-element-in-an-array/',
     pattern: ['Heap'],
@@ -1346,7 +1346,7 @@ const questions = [
     ],
   },
   {
-    id: 112,
+    id: 111,
     name: 'Reorganize String',
     url: 'https://leetcode.com/problems/reorganize-string/',
     pattern: ['Greedy', 'Heap'],
@@ -1362,7 +1362,7 @@ const questions = [
     ],
   },
   {
-    id: 113,
+    id: 112,
     name: 'Rearrange String k Distance Apart',
     url: 'https://leetcode.com/problems/rearrange-string-k-distance-apart',
     pattern: ['Greedy', 'Heap'],
@@ -1371,7 +1371,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 114,
+    id: 113,
     name: 'Course Schedule III',
     url: 'https://leetcode.com/problems/course-schedule-iii/',
     pattern: ['Greedy', 'Heap'],
@@ -1380,7 +1380,7 @@ const questions = [
     companies: ['Microsoft'],
   },
   {
-    id: 115,
+    id: 114,
     name: 'Maximum Frequency Stack',
     url: 'https://leetcode.com/problems/maximum-frequency-stack/',
     pattern: ['Bucket Sort', 'Heap'],
@@ -1389,7 +1389,7 @@ const questions = [
     companies: ['Amazon', 'Apple'],
   },
   {
-    id: 116,
+    id: 115,
     name: 'Course Schedule',
     url: 'https://leetcode.com/problems/course-schedule/',
     pattern: ['BFS', 'DFS', 'Graph', 'Topological Sort'],
@@ -1398,7 +1398,7 @@ const questions = [
     companies: ['Microsoft', 'Amazon', 'Facebook', 'Oracle', 'Google', 'Apple'],
   },
   {
-    id: 117,
+    id: 116,
     name: 'Course Schedule II',
     url: 'https://leetcode.com/problems/course-schedule-ii/',
     pattern: ['BFS', 'DFS', 'Graph', 'Topological Sort'],
@@ -1417,7 +1417,7 @@ const questions = [
     ],
   },
   {
-    id: 118,
+    id: 117,
     name: 'Minimum Height Trees',
     url: 'https://leetcode.com/problems/minimum-height-trees/',
     pattern: ['BFS', 'Graph', 'Topological Sort'],
@@ -1426,7 +1426,7 @@ const questions = [
     companies: ['Google', 'Amazon'],
   },
   {
-    id: 119,
+    id: 118,
     name: 'Alien Dictionary',
     url: 'https://leetcode.com/problems/alien-dictionary',
     pattern: ['Graph', 'Topological Sort'],
@@ -1445,7 +1445,7 @@ const questions = [
     ],
   },
   {
-    id: 120,
+    id: 119,
     name: 'Sequence Reconstruction',
     url: 'https://leetcode.com/problems/sequence-reconstruction',
     pattern: ['Graph', 'Topological Sort'],
@@ -1454,7 +1454,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 121,
+    id: 120,
     name: 'Binary Tree Level Order Traversal II',
     url: 'https://leetcode.com/problems/binary-tree-level-order-traversal-ii/',
     pattern: ['BFS'],
@@ -1463,7 +1463,7 @@ const questions = [
     companies: ['Apple'],
   },
   {
-    id: 122,
+    id: 121,
     name: 'Average of Levels in Binary Tree',
     url: 'https://leetcode.com/problems/average-of-levels-in-binary-tree/',
     pattern: ['BFS'],
@@ -1472,7 +1472,7 @@ const questions = [
     companies: ['Amazon', 'Facebook'],
   },
   {
-    id: 123,
+    id: 122,
     name: 'Minimum Depth of Binary Tree',
     url: 'https://leetcode.com/problems/minimum-depth-of-binary-tree/',
     pattern: ['BFS', 'DFS'],
@@ -1481,7 +1481,7 @@ const questions = [
     companies: ['Facebook'],
   },
   {
-    id: 124,
+    id: 123,
     name: 'Binary Tree Level Order Traversal',
     url: 'https://leetcode.com/problems/binary-tree-level-order-traversal/',
     pattern: ['BFS'],
@@ -1497,7 +1497,7 @@ const questions = [
     ],
   },
   {
-    id: 125,
+    id: 124,
     name: 'Binary Tree Zigzag Level Order Traversal',
     url:
       'https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/',
@@ -1515,7 +1515,7 @@ const questions = [
     ],
   },
   {
-    id: 126,
+    id: 125,
     name: 'Populating Next Right Pointers in Each Node',
     url:
       'https://leetcode.com/problems/populating-next-right-pointers-in-each-node/',
@@ -1532,7 +1532,7 @@ const questions = [
     ],
   },
   {
-    id: 127,
+    id: 126,
     name: 'Populating Next Right Pointers in Each Node II',
     url:
       'https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/',
@@ -1542,7 +1542,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Bloomberg', 'Facebook', 'Google'],
   },
   {
-    id: 128,
+    id: 127,
     name: 'Binary Tree Right Side View',
     url: 'https://leetcode.com/problems/binary-tree-right-side-view/',
     pattern: ['BFS', 'DFS'],
@@ -1551,7 +1551,7 @@ const questions = [
     companies: ['Facebook', 'Amazon', 'Microsoft', 'Bloomberg'],
   },
   {
-    id: 129,
+    id: 128,
     name: 'All Nodes Distance K in Binary Tree',
     url: 'https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/',
     pattern: ['BFS', 'DFS'],
@@ -1560,7 +1560,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Microsoft', 'Uber'],
   },
   {
-    id: 131,
+    id: 129,
     name: 'Same Tree',
     url: 'https://leetcode.com/problems/same-tree/',
     pattern: ['DFS'],
@@ -1569,7 +1569,7 @@ const questions = [
     companies: ['Amazon'],
   },
   {
-    id: 132,
+    id: 130,
     name: 'Path Sum',
     url: 'https://leetcode.com/problems/path-sum/',
     pattern: ['DFS'],
@@ -1578,7 +1578,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Bloomberg'],
   },
   {
-    id: 133,
+    id: 131,
     name: 'Diameter of Binary Tree',
     url: 'https://leetcode.com/problems/diameter-of-binary-tree/',
     pattern: ['DFS'],
@@ -1587,7 +1587,7 @@ const questions = [
     companies: ['Facebook', 'Amazon', 'Microsoft', 'Oracle', 'Google', 'Adobe'],
   },
   {
-    id: 134,
+    id: 132,
     name: 'Merge Two Binary Trees',
     url: 'https://leetcode.com/problems/merge-two-binary-trees/',
     pattern: ['DFS'],
@@ -1596,7 +1596,7 @@ const questions = [
     companies: ['Adobe', 'Amazon'],
   },
   {
-    id: 135,
+    id: 133,
     name: 'Maximum Depth of Binary Tree',
     url: 'https://leetcode.com/problems/maximum-depth-of-binary-tree/',
     pattern: ['DFS'],
@@ -1605,7 +1605,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Google', 'Goldman Sachs'],
   },
   {
-    id: 136,
+    id: 134,
     name: 'Lowest Common Ancestor of a Binary Search Tree',
     url:
       'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/',
@@ -1615,7 +1615,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Microsoft', 'LinkedIn'],
   },
   {
-    id: 137,
+    id: 135,
     name: 'Subtree of Another Tree',
     url: 'https://leetcode.com/problems/subtree-of-another-tree/',
     pattern: ['DFS'],
@@ -1624,7 +1624,7 @@ const questions = [
     companies: ['Amazon'],
   },
   {
-    id: 138,
+    id: 136,
     name: 'Invert Binary Tree',
     url: 'https://leetcode.com/problems/invert-binary-tree/',
     pattern: ['DFS'],
@@ -1633,7 +1633,7 @@ const questions = [
     companies: ['Google', 'Microsoft', 'Amazon'],
   },
   {
-    id: 139,
+    id: 137,
     name: 'Path Sum II',
     url: 'https://leetcode.com/problems/path-sum-ii/',
     pattern: ['DFS'],
@@ -1642,7 +1642,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Quora'],
   },
   {
-    id: 140,
+    id: 138,
     name: 'Path Sum III',
     url: 'https://leetcode.com/problems/path-sum-iii/',
     pattern: ['DFS'],
@@ -1651,7 +1651,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft'],
   },
   {
-    id: 141,
+    id: 139,
     name: 'Lowest Common Ancestor of a Binary Tree',
     url:
       'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/',
@@ -1669,7 +1669,7 @@ const questions = [
     ],
   },
   {
-    id: 142,
+    id: 140,
     name: 'Maximum Binary Tree',
     url: 'https://leetcode.com/problems/maximum-binary-tree/',
     pattern: ['DFS'],
@@ -1678,7 +1678,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 143,
+    id: 141,
     name: 'Maximum Width of Binary Tree',
     url: 'https://leetcode.com/problems/maximum-width-of-binary-tree/',
     pattern: ['DFS'],
@@ -1687,7 +1687,7 @@ const questions = [
     companies: ['Facebook', 'Amazon', 'Google', 'Microsoft'],
   },
   {
-    id: 144,
+    id: 142,
     name: 'Construct Binary Tree from Preorder and Inorder Traversal',
     url:
       'https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/',
@@ -1697,7 +1697,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook', 'Bloomberg'],
   },
   {
-    id: 145,
+    id: 143,
     name: 'Validate Binary Search Tree',
     url: 'https://leetcode.com/problems/validate-binary-search-tree/',
     pattern: ['DFS'],
@@ -1717,7 +1717,7 @@ const questions = [
     ],
   },
   {
-    id: 147,
+    id: 144,
     name: 'Implement Trie (Prefix Tree)',
     url: 'https://leetcode.com/problems/implement-trie-prefix-tree/',
     pattern: ['Design', 'Trie'],
@@ -1726,7 +1726,7 @@ const questions = [
     companies: ['Amazon', 'Microsoft', 'Google', 'Facebook'],
   },
   {
-    id: 148,
+    id: 145,
     name: 'Binary Tree Maximum Path Sum',
     url: 'https://leetcode.com/problems/binary-tree-maximum-path-sum/',
     pattern: ['DFS'],
@@ -1735,7 +1735,7 @@ const questions = [
     companies: ['Facebook', 'Microsoft', 'Amazon', 'Google', 'Uber', 'Apple'],
   },
   {
-    id: 149,
+    id: 146,
     name: 'Serialize and Deserialize Binary Tree',
     url: 'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/',
     pattern: ['Design'],
@@ -1754,7 +1754,7 @@ const questions = [
     ],
   },
   {
-    id: 150,
+    id: 147,
     name: 'Word Search II',
     url: 'https://leetcode.com/problems/word-search-ii/',
     pattern: ['DFS', 'Trie'],
@@ -1771,7 +1771,7 @@ const questions = [
     ],
   },
   {
-    id: 151,
+    id: 148,
     name: 'Find Median from Data Stream',
     url: 'https://leetcode.com/problems/find-median-from-data-stream/',
     pattern: ['Heap'],
@@ -1788,7 +1788,7 @@ const questions = [
     ],
   },
   {
-    id: 152,
+    id: 149,
     name: 'Sliding Window Median',
     url: 'https://leetcode.com/problems/sliding-window-median/',
     pattern: ['Heap'],
@@ -1797,7 +1797,7 @@ const questions = [
     companies: ['Amazon', 'Facebook', 'Google'],
   },
   {
-    id: 153,
+    id: 150,
     name: 'Two Sum',
     url: 'https://leetcode.com/problems/two-sum/',
     pattern: ['Two Pointers'],
@@ -1816,7 +1816,7 @@ const questions = [
     ],
   },
   {
-    id: 155,
+    id: 151,
     name: 'Squares of a Sorted Array',
     url: 'https://leetcode.com/problems/squares-of-a-sorted-array/',
     pattern: ['Two Pointers'],
@@ -1835,7 +1835,7 @@ const questions = [
     ],
   },
   {
-    id: 156,
+    id: 152,
     name: 'Backspace String Compare',
     url: 'https://leetcode.com/problems/backspace-string-compare',
     pattern: ['Two Pointers'],
@@ -1844,7 +1844,7 @@ const questions = [
     companies: ['Google', 'Facebook', 'Amazon', 'Microsoft', 'Oracle'],
   },
   {
-    id: 157,
+    id: 153,
     name: '3 Sum',
     url: 'https://leetcode.com/problems/3sum/',
     pattern: ['Two Pointers'],
@@ -1863,7 +1863,7 @@ const questions = [
     ],
   },
   {
-    id: 158,
+    id: 154,
     name: '3 Sum Closest',
     url: 'https://leetcode.com/problems/3sum-closest/',
     pattern: ['Two Pointers'],
@@ -1872,7 +1872,7 @@ const questions = [
     companies: ['Google', 'Facebook', 'Amazon', 'Apple', 'Microsoft'],
   },
   {
-    id: 159,
+    id: 155,
     name: 'Subarrays with Product Less than K',
     url: 'https://leetcode.com/problems/subarray-product-less-than-k/',
     pattern: ['Two Pointers'],
@@ -1881,7 +1881,7 @@ const questions = [
     companies: ['Akuna Capital', 'Google'],
   },
   {
-    id: 160,
+    id: 156,
     name: 'Sort Colours',
     url: 'https://leetcode.com/problems/sort-colors/',
     pattern: ['Two Pointers'],
@@ -1898,7 +1898,7 @@ const questions = [
     ],
   },
   {
-    id: 162,
+    id: 157,
     name: 'Trapping Rain Water',
     url: 'https://leetcode.com/problems/trapping-rain-water/',
     pattern: ['Two Pointers'],
@@ -1919,7 +1919,7 @@ const questions = [
     ],
   },
   {
-    id: 163,
+    id: 158,
     name: 'Container With Most Water',
     url: 'https://leetcode.com/problems/container-with-most-water/',
     pattern: ['Two Pointers'],
@@ -1937,7 +1937,7 @@ const questions = [
     ],
   },
   {
-    id: 164,
+    id: 159,
     name: 'Longest Word in Dictionary',
     url: 'https://leetcode.com/problems/longest-word-in-dictionary/',
     pattern: ['Trie'],
@@ -1946,7 +1946,7 @@ const questions = [
     companies: ['Goldman Sachs', 'Google'],
   },
   {
-    id: 165,
+    id: 160,
     name: 'Index Pairs of a String',
     url: 'https://leetcode.com/problems/index-pairs-of-a-string/',
     pattern: ['Trie'],
@@ -1955,7 +1955,7 @@ const questions = [
     companies: ['Amazon'],
   },
   {
-    id: 166,
+    id: 161,
     name: 'Maximum XOR of Two Numbers in an Array',
     url: 'https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array',
     pattern: ['Trie'],
@@ -1964,7 +1964,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 167,
+    id: 162,
     name: 'Concatenated Words',
     url: 'https://leetcode.com/problems/concatenated-words/',
     pattern: ['Trie'],
@@ -1973,7 +1973,7 @@ const questions = [
     companies: ['Amazon', 'Apple', 'Facebook'],
   },
   {
-    id: 168,
+    id: 163,
     name: 'Prefix and Suffix Search',
     url: 'https://leetcode.com/problems/prefix-and-suffix-search/',
     pattern: ['Trie'],
@@ -1982,7 +1982,7 @@ const questions = [
     companies: ['Facebook', 'Google', 'Uber'],
   },
   {
-    id: 169,
+    id: 164,
     name: 'Palindrome Pairs',
     url: 'https://leetcode.com/problems/palindrome-pairs/',
     pattern: ['Trie'],
@@ -1991,7 +1991,7 @@ const questions = [
     companies: ['Airbnb', 'Amazon', 'Facebook', 'Google', 'Square'],
   },
   {
-    id: 170,
+    id: 165,
     name: 'Design Search Autocomplete System',
     url: 'https://leetcode.com/problems/design-search-autocomplete-system/',
     pattern: ['Trie'],
@@ -2000,7 +2000,7 @@ const questions = [
     companies: ['Amazon', 'Google', 'Lyft', 'Microsoft', 'Uber'],
   },
   {
-    id: 171,
+    id: 166,
     name: 'Word Squares',
     url: 'https://leetcode.com/problems/word-squares/',
     pattern: ['Trie'],
@@ -2009,7 +2009,7 @@ const questions = [
     companies: ['Oracle'],
   },
   {
-    id: 172,
+    id: 167,
     name: 'Sort Items by Groups Respecting Dependencies',
     url:
       'https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/',
@@ -2019,7 +2019,7 @@ const questions = [
     companies: ['Google'],
   },
   {
-    id: 173,
+    id: 168,
     name: 'Median of Two Sorted Arrays',
     url: 'https://leetcode.com/problems/median-of-two-sorted-arrays/',
     pattern: ['Binary Search'],
@@ -2036,7 +2036,7 @@ const questions = [
     ],
   },
   {
-    id: 174,
+    id: 169,
     name: 'Majority Element',
     url: 'https://leetcode.com/problems/majority-element/',
     pattern: ['Sorting'],
