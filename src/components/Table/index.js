@@ -49,8 +49,10 @@ const Table = () => {
   }
 
   const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
+  const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
   for (let i = 0; i < data.length; i += 1) {
     difficultyMap[data[i].difficulty] += checkedList[data[i].id];
+    totalDifficultyCount[data[i].difficulty] += 1;
   }
 
   const [difficultyCount, setDifficultyCount] = useState(difficultyMap);
@@ -67,9 +69,6 @@ const Table = () => {
     window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
   }, [showPatterns]);
 
-  /* To view the number of question solved by difficulty */
-  console.log(difficultyCount);
-
   const defaultColumn = React.useMemo(
     () => ({
       Filter: DefaultColumnFilter,
@@ -85,6 +84,33 @@ const Table = () => {
         Header: 'Leetcode Patterns',
         columns: [
           {
+            Header: () => {
+              return (
+                <span>
+                  <Badge className="easy" pill>
+                    <span
+                      data-tip={`You've completed ${difficultyCount.Easy}/${totalDifficultyCount.Easy} easy questions`}
+                    >
+                      {difficultyCount.Easy}/{totalDifficultyCount.Easy}
+                    </span>
+                  </Badge>
+                  <Badge className="medium" pill>
+                    <span
+                      data-tip={`You've completed ${difficultyCount.Medium}/${totalDifficultyCount.Medium} medium questions`}
+                    >
+                      {difficultyCount.Medium}/{totalDifficultyCount.Medium}
+                    </span>
+                  </Badge>
+                  <Badge className="hard" pill>
+                    <span
+                      data-tip={`You've completed ${difficultyCount.Hard}/${totalDifficultyCount.Hard} hard questions`}
+                    >
+                      {difficultyCount.Hard}/{totalDifficultyCount.Hard}
+                    </span>
+                  </Badge>
+                </span>
+              );
+            },
             id: 'Checkbox',
             Cell: cellInfo => {
               return (
@@ -97,12 +123,11 @@ const Table = () => {
                     ];
 
                     const additive = checked[cellInfo.row.original.id] ? 1 : -1;
-                    setDifficultyCount(prevState => ({
-                      ...prevState,
-                      [cellInfo.row.original.difficulty]:
-                        prevState[cellInfo.row.original.difficulty] + additive,
-                    }));
+                    difficultyCount[
+                      cellInfo.row.original.difficulty
+                    ] += additive;
 
+                    setDifficultyCount(difficultyCount);
                     setChecked([...checked]);
                   }}
                 />
@@ -110,24 +135,22 @@ const Table = () => {
             },
           },
           {
-            id: 'Premium',
+            Header: 'Name',
+            accessor: 'name',
             Cell: cellInfo => {
               return (
                 <span>
                   {cellInfo.row.original.premium ? (
                     <span data-tip="Requires leetcode premium to view">
-                      <FaLock />
+                      <FaLock />{' '}
                     </span>
                   ) : (
                     ''
                   )}
+                  {cellInfo.row.original.name}
                 </span>
               );
             },
-          },
-          {
-            Header: 'Name',
-            accessor: 'name',
           },
           {
             Header: 'URL',
