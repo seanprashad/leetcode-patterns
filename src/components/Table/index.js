@@ -256,7 +256,7 @@ const Table = () => {
               return (
                 <div style={{ whiteSpace: 'nowrap' }}>
                   Companies{' '}
-                  <span data-tip="Companies retrieved from Leetcode Premium (May 2020)">
+                  <span data-tip="Companies retrieved from Leetcode Premium (December 2020)">
                     <FaQuestionCircle />
                   </span>
                 </div>
