@@ -9,7 +9,7 @@ import {
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
 import { useTable, useFilters, useSortBy } from 'react-table';
-import { FaQuestionCircle, FaLock } from 'react-icons/fa';
+import { FaLock, FaExternalLinkAlt, FaQuestionCircle } from 'react-icons/fa';
 import {
   DefaultColumnFilter,
   SelectDifficultyColumnFilter,
@@ -105,6 +105,7 @@ const Table = () => {
                         totalDifficultyCount.Hard}
                     </span>
                   </Badge>
+                  <br />
                   <Badge className="easy" pill>
                     <span
                       data-tip={`You've completed ${difficultyCount.Easy}/${totalDifficultyCount.Easy} easy questions`}
@@ -112,6 +113,7 @@ const Table = () => {
                       Easy: {difficultyCount.Easy}/{totalDifficultyCount.Easy}
                     </span>
                   </Badge>
+                  <br />
                   <Badge className="medium" pill>
                     <span
                       data-tip={`You've completed ${difficultyCount.Medium}/${totalDifficultyCount.Medium} medium questions`}
@@ -120,6 +122,7 @@ const Table = () => {
                       {totalDifficultyCount.Medium}
                     </span>
                   </Badge>
+                  <br />
                   <Badge className="hard" pill>
                     <span
                       data-tip={`You've completed ${difficultyCount.Hard}/${totalDifficultyCount.Hard} hard questions`}
@@ -154,11 +157,21 @@ const Table = () => {
             },
           },
           {
-            Header: 'Name',
-            accessor: 'name',
+            Header: 'Questions',
+            accessor: 'questions',
             Cell: cellInfo => {
               return (
-                <span>
+                <NavLink
+                  target="_blank"
+                  href={cellInfo.row.original.url}
+                  onClick={() => {
+                    Event(
+                      'Table',
+                      'Clicked question url',
+                      `${cellInfo.row.original.name} question url`,
+                    );
+                  }}
+                >
                   {cellInfo.row.original.premium ? (
                     <span data-tip="Requires leetcode premium to view">
                       <FaLock />{' '}
@@ -167,26 +180,26 @@ const Table = () => {
                     ''
                   )}
                   {cellInfo.row.original.name}
-                </span>
+                </NavLink>
               );
             },
           },
           {
-            Header: 'URL',
-            accessor: 'url',
+            Header: 'Solutions',
+            accessor: 'solutions',
             Cell: cellInfo => (
               <NavLink
                 target="_blank"
-                href={cellInfo.row.original.url}
+                href={`${cellInfo.row.original.url}discuss`}
                 onClick={() => {
                   Event(
                     'Table',
-                    'Clicked url',
-                    `${cellInfo.row.original.name} url`,
+                    'Clicked solution',
+                    `${cellInfo.row.original.name} solution`,
                   );
                 }}
               >
-                {cellInfo.row.original.url}
+                <FaExternalLinkAlt />
               </NavLink>
             ),
             disableFilters: true,
