@@ -87,25 +87,40 @@ const Table = () => {
             Header: () => {
               return (
                 <span>
+                  <Badge className="" pill>
+                    <span
+                      data-tip={`You've completed ${difficultyCount.Easy +
+                        difficultyCount.Medium +
+                        difficultyCount.Hard}/${totalDifficultyCount.Easy +
+                        totalDifficultyCount.Medium +
+                        totalDifficultyCount.Hard} questions`}
+                    >
+                      Total: {difficultyCount.Easy}/
+                      {totalDifficultyCount.Easy +
+                        totalDifficultyCount.Medium +
+                        totalDifficultyCount.Hard}
+                    </span>
+                  </Badge>
                   <Badge className="easy" pill>
                     <span
                       data-tip={`You've completed ${difficultyCount.Easy}/${totalDifficultyCount.Easy} easy questions`}
                     >
-                      {difficultyCount.Easy}/{totalDifficultyCount.Easy}
+                      Easy: {difficultyCount.Easy}/{totalDifficultyCount.Easy}
                     </span>
                   </Badge>
                   <Badge className="medium" pill>
                     <span
                       data-tip={`You've completed ${difficultyCount.Medium}/${totalDifficultyCount.Medium} medium questions`}
                     >
-                      {difficultyCount.Medium}/{totalDifficultyCount.Medium}
+                      Medium: {difficultyCount.Medium}/
+                      {totalDifficultyCount.Medium}
                     </span>
                   </Badge>
                   <Badge className="hard" pill>
                     <span
                       data-tip={`You've completed ${difficultyCount.Hard}/${totalDifficultyCount.Hard} hard questions`}
                     >
-                      {difficultyCount.Hard}/{totalDifficultyCount.Hard}
+                      Hard: {difficultyCount.Hard}/{totalDifficultyCount.Hard}
                     </span>
                   </Badge>
                 </span>
