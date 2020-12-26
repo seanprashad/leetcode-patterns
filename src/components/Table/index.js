@@ -95,7 +95,11 @@ const Table = () => {
                         totalDifficultyCount.Medium +
                         totalDifficultyCount.Hard} total questions`}
                     >
-                      Total: {difficultyCount.Easy}/
+                      Total:{' '}
+                      {difficultyCount.Easy +
+                        difficultyCount.Medium +
+                        difficultyCount.Hard}
+                      /
                       {totalDifficultyCount.Easy +
                         totalDifficultyCount.Medium +
                         totalDifficultyCount.Hard}
