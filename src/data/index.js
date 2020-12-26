@@ -1804,7 +1804,6 @@ const questions = [
       'Uber',
       'Snapchat',
       'Google',
-      'Google',
       'Oracle',
     ],
   },
