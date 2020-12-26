@@ -93,7 +93,7 @@ const Table = () => {
                         difficultyCount.Medium +
                         difficultyCount.Hard}/${totalDifficultyCount.Easy +
                         totalDifficultyCount.Medium +
-                        totalDifficultyCount.Hard} questions`}
+                        totalDifficultyCount.Hard} total questions`}
                     >
                       Total: {difficultyCount.Easy}/
                       {totalDifficultyCount.Easy +
