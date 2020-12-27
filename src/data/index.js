@@ -1048,7 +1048,7 @@ const questions = [
     name: 'Insert Interval',
     url: 'https://leetcode.com/problems/insert-interval/',
     pattern: ['Intervals'],
-    difficulty: 'Hard',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Google', 'Twitter', 'Amazon', 'Facebook'],
   },
