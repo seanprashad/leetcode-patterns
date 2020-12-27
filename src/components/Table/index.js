@@ -183,6 +183,7 @@ const Table = () => {
                 </NavLink>
               );
             },
+            disableFilters: true,
           },
           {
             Header: 'Solutions',
