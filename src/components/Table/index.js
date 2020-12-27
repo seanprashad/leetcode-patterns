@@ -191,7 +191,7 @@ const Table = () => {
             Cell: cellInfo => (
               <NavLink
                 target="_blank"
-                href={`${cellInfo.row.original.url}discuss`}
+                href={`${cellInfo.row.original.url}discuss/?currentPage=1&orderBy=most_votes`}
                 onClick={() => {
                   Event(
                     'Table',
