@@ -1947,7 +1947,7 @@ const questions = [
     name: 'Container With Most Water',
     url: 'https://leetcode.com/problems/container-with-most-water/',
     pattern: ['Two Pointers'],
-    difficulty: 'Hard',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Amazon', 'Facebook', 'Adobe', 'Apple', 'Bloomberg'],
   },
