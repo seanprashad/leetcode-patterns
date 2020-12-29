@@ -1237,7 +1237,7 @@ const questions = [
     url:
       'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
     pattern: ['Sliding Window'],
-    difficulty: 'Hard',
+    difficulty: 'Medium',
     premium: false,
     companies: [
       'Amazon',
