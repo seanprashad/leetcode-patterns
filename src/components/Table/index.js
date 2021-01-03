@@ -188,21 +188,26 @@ const Table = () => {
           {
             Header: 'Solutions',
             accessor: 'solutions',
-            Cell: cellInfo => (
-              <NavLink
-                target="_blank"
-                href={`${cellInfo.row.original.url}discuss/?currentPage=1&orderBy=most_votes`}
-                onClick={() => {
-                  Event(
-                    'Table',
-                    'Clicked solution',
-                    `${cellInfo.row.original.name} solution`,
-                  );
-                }}
-              >
-                <FaExternalLinkAlt />
-              </NavLink>
-            ),
+            Cell: cellInfo => {
+              const url = cellInfo.row.original.premium
+                ? `${cellInfo.row.original.url}/`
+                : cellInfo.row.original.url;
+              return (
+                <NavLink
+                  target="_blank"
+                  href={`${url}discuss/?currentPage=1&orderBy=most_votes`}
+                  onClick={() => {
+                    Event(
+                      'Table',
+                      'Clicked solution',
+                      `${cellInfo.row.original.name} solution`,
+                    );
+                  }}
+                >
+                  <FaExternalLinkAlt />
+                </NavLink>
+              );
+            },
             disableFilters: true,
           },
           {
