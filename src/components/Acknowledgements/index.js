@@ -12,11 +12,12 @@ import {
 } from 'reactstrap';
 import { Event } from '../Shared/Tracking';
 
-import Blind from '../../images/Blind.png';
-import Educative from '../../images/Educative.png';
-import Hackernoon from '../../images/Hackernoon.png';
-
 import './styles.scss';
+
+const imagePath = `${process.env.PUBLIC_URL}/assets/images/`;
+const Blind = `${imagePath}Blind.png`;
+const Educative = `${imagePath}Educative.png`;
+const Hackernoon = `${imagePath}Hackernoon.png`;
 
 const Acknowledgements = () => {
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import {
   Table as ReactTable,
@@ -22,7 +23,7 @@ import questions from '../../data';
 import 'react-toggle/style.css';
 import './styles.scss';
 
-const images = require.context('../../icons', true);
+const iconPath = `${process.env.PUBLIC_URL}/assets/icons/`;
 
 const Table = () => {
   const data = React.useMemo(() => questions, []);
@@ -213,6 +214,8 @@ const Table = () => {
           {
             Header: () => {
               return (
+                // eslint-disable-next-line
+                // eslint-disable-next-line jsx-a11y/label-has-associated-control
                 <label htmlFor="pattern-toggle">
                   <span>Show/Hide Patterns </span>
                   <Toggle
@@ -284,11 +287,10 @@ const Table = () => {
             accessor: 'companies',
             Cell: cellInfo => {
               const companies = cellInfo.row.original.companies.map(company => {
-                const icon = images(`./${company}.png`);
                 return (
                   <img
                     key={company}
-                    src={icon}
+                    src={`${iconPath}${company}.png`}
                     alt={company}
                     data-tip={company}
                   />

@@ -10,7 +10,7 @@ function CreateDropDownListHelper(options, filterValue, setFilter) {
     >
       <option value="">All</option>
       {options.map((option, idx) => (
-        <option key={idx} value={option}>
+        <option key={`${idx + option}`} value={option}>
           {option}
         </option>
       ))}
@@ -19,8 +19,10 @@ function CreateDropDownListHelper(options, filterValue, setFilter) {
 }
 
 export function DefaultColumnFilter({
-  column: { filterValue, preFilteredRows, setFilter, id },
+  // eslint-disable-next-line react/prop-types
+  column: { filterValue, preFilteredRows, setFilter },
 }) {
+  // eslint-disable-next-line react/prop-types
   const count = preFilteredRows.length;
 
   return (
