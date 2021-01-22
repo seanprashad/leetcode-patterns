@@ -1,27 +1,28 @@
 class Solution {
     public boolean backspaceCompare(String s, String t) {
-        String sTrimmed = trimString(s);
-        String tTrimmed = trimString(t);
+        int i = s.length() - 1, j = t.length() - 1, sCounter = 0, tCounter = 0;
 
-        return sTrimmed.equals(tTrimmed);
-    }
+        while (i >= 0 || j >= 0) {
+            while (i >= 0 && (s.charAt(i) == '#' || sCounter > 0)) {
+                if (s.charAt(i) == '#') ++sCounter;
+                else --sCounter;
+                --i;
+            }
 
-    private String trimString(String str) {
-        StringBuilder sb = new StringBuilder();
-        int hyphenCnt = 0;
+            while (j >= 0 && (t.charAt(j) == '#' || tCounter > 0)) {
+                if (t.charAt(j) == '#') ++tCounter;
+                else --tCounter;
+                --j;
+            }
 
-        for (int i = str.length() - 1; i >= 0; i--) {
-            if (str.charAt(i) == '#') {
-                hyphenCnt++;
+            if (i >= 0 && j >= 0 && s.charAt(i) == t.charAt(j)) {
+                --i;
+                --j;
             } else {
-                if (hyphenCnt == 0) {
-                    sb.append(str.charAt(i));
-                } else {
-                    hyphenCnt--;
-                }
+                break;
             }
         }
 
-        return sb.reverse().toString();
+        return i < 0 && j < 0;
     }
 }
