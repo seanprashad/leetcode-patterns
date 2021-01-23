@@ -5,23 +5,25 @@ class Solution {
         }
 
         List<List<Integer>> result = new ArrayList<>();
-        dfs(nums, new ArrayList<>(), result);
+        helper(nums, result, new ArrayList<>());
+
         return result;
     }
 
-    private void dfs(int[] nums, List<Integer> tempResult, List<List<Integer>> result) {
-        if (tempResult.size() == nums.length) {
-            result.add(new ArrayList<>(tempResult));
+    private void helper(int[] nums, List<List<Integer>> result, List<Integer> temp) {
+        if (temp.size() == nums.length) {
+            result.add(new ArrayList<>(temp));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if (tempResult.contains(nums[i])) {
+            if (temp.contains(nums[i])) {
                 continue;
             }
-            tempResult.add(nums[i]);
-            dfs(nums, tempResult, result);
-            tempResult.remove(tempResult.size() - 1);
+
+            temp.add(nums[i]);
+            helper(nums, result, temp);
+            temp.remove(temp.size() - 1);
         }
     }
 }
