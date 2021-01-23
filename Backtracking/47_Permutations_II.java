@@ -7,26 +7,29 @@ class Solution {
         Arrays.sort(nums);
 
         List<List<Integer>> result = new ArrayList<>();
-        boolean[] usedElements = new boolean[nums.length];
-        dfs(nums, usedElements, new ArrayList<>(), result);
+
+        helper(nums, result, new ArrayList<>(), new boolean[nums.length]);
         return result;
     }
 
-    private void dfs(int[] nums, boolean[] usedElements, List<Integer> tempResult, List<List<Integer>> result) {
-        if (tempResult.size() == nums.length) {
-            result.add(new ArrayList<>(tempResult));
+    private void helper(int[] nums, List<List<Integer>> result, List<Integer> temp, boolean[] used) {
+        if (temp.size() == nums.length) {
+            result.add(new ArrayList<>(temp));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if (usedElements[i] || i > 0 && nums[i] == nums[i - 1] && !usedElements[i - 1]) {
+            if (used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
                 continue;
             }
-            usedElements[i] = true;
-            tempResult.add(nums[i]);
-            dfs(nums, usedElements, tempResult, result);
-            usedElements[i] = false;
-            tempResult.remove(tempResult.size() - 1);
+
+            used[i] = true;
+            temp.add(nums[i]);
+
+            helper(nums, result, temp, used);
+
+            used[i] = false;
+            temp.remove(temp.size() - 1);
         }
     }
 }
