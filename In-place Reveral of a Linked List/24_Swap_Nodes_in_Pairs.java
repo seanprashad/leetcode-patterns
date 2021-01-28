@@ -4,18 +4,15 @@ class Solution {
             return head;
         }
 
-        ListNode dummy = new ListNode(-1);
+        ListNode dummy = new ListNode(-1), curr = dummy;
         dummy.next = head;
-        ListNode p0 = dummy;
 
-        while (p0.next != null && p0.next.next != null) {
-            ListNode p1 = p0.next;
-            ListNode p2 = p0.next.next;
-
-            p0.next = p2;
-            p1.next = p2.next;
-            p2.next = p1;
-            p0 = p1;
+        while (curr.next != null && curr.next.next != null) {
+            ListNode p = curr.next;
+            curr.next = p.next;
+            p.next = curr.next.next;
+            curr.next.next = p;
+            curr = p;
         }
 
         return dummy.next;
