@@ -4,42 +4,29 @@ class Solution {
             return -1;
         }
 
-        int left = 0, right = nums.length - 1;
+        int result = -1, low = 0, high = nums.length - 1;
 
-        while (left < right) {
-            int mid = left + ((right - left) / 2);
-
-            if (nums[mid] > nums[right]) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
-
-        int start = left;
-        left = 0;
-        right = nums.length - 1;
-
-        if (target >= nums[start] && target <= nums[right]) {
-            left = start;
-        } else {
-            right = start;
-        }
-
-        while (left <= right) {
-            int mid = left + ((right - left) / 2);
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
 
             if (nums[mid] == target) {
-                return mid;
-            }
-
-            if (nums[mid] < target) {
-                left = mid + 1;
+                result = mid;
+                break;
+            } else if (nums[mid] >= nums[low]) {
+                if (target >= nums[low] && target < nums[mid]) {
+                    high = mid;
+                } else {
+                    low = mid + 1;
+                }
             } else {
-                right = mid - 1;
+                if (target >= nums[mid] && target <= nums[high]) {
+                    low = mid + 1;
+                } else {
+                    high = mid;
+                }
             }
         }
 
-        return -1;
+        return result;
     }
 }
