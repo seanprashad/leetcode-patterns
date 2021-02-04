@@ -5,35 +5,28 @@ class Solution {
         while (low <= high) {
             int mid = low + (high - low) / 2;
 
-            if (countLessThan(matrix, mid) < k) {
-                low = mid + 1;
-            } else {
+            if (countLessThan(matrix, mid) >= k) {
                 high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
 
         return low;
     }
 
-    private int countLessThan(int[][] matrix, int k) {
-        int count = 0;
+    private int countLessThan(int[][] matrix, int target) {
+        int row = matrix.length - 1, col = 0, result = 0;
 
-        for (int[] row : matrix) {
-            int left = 0, right = row.length;
-
-            while (left < right) {
-                int mid = left + (right - left) / 2;
-
-                if (row[mid] <= k) {
-                    left = mid + 1;
-                } else {
-                    right = mid;
-                }
+        while (row >= 0 && col < matrix[0].length) {
+            if (matrix[row][col] <= target) {
+                result += row + 1;
+                ++col;
+            } else {
+                --row;
             }
-
-            count += left;
         }
 
-        return count;
+        return result;
     }
 }
