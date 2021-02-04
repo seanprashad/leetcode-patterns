@@ -4,20 +4,22 @@ class Solution {
             return 0;
         }
 
-        int start = 0, end = 0, result = 0;
         Map<Integer, Integer> hm = new HashMap<>();
+        int s = 0, e = 0, result = 0;
 
-        while (end < tree.length) {
-            hm.put(tree[end], end++);
+        while (e < tree.length) {
+            hm.put(tree[e], hm.getOrDefault(tree[e], 0) + 1);
+            ++e;
 
-            if (hm.size() > 2) {
-                int minIdx = Collections.min(hm.values());
-                start = minIdx + 1;
-
-                hm.remove(tree[minIdx]);
+            while (hm.size() > 2) {
+                hm.put(tree[s], hm.get(tree[s]) - 1);
+                if (hm.get(tree[s]) == 0) {
+                    hm.remove(tree[s]);
+                }
+                ++s;
             }
 
-            result = Math.max(result, end - start);
+            result = Math.max(result, e - s);
         }
 
         return result;
