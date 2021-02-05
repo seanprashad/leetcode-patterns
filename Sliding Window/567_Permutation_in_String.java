@@ -1,44 +1,44 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if (s1 == null || s2.length() < s1.length()) {
+        if (s1 == null || s1.length() == 0 || s1.length() > s2.length()) {
             return false;
         }
 
-        int[] lookup = new int[26];
+        Map<Character, Integer> hm = new HashMap<>();
 
-        for (int i = 0; i < s1.length(); i++) {
-            lookup[s1.charAt(i) - 'a']++;
+        for (char c : s1.toCharArray()) {
+            hm.put(c, hm.getOrDefault(c, 0) + 1);
         }
 
-        int start = 0, end = s1.length() - 1;
+        int s = 0, e = 0, counter = hm.size();
 
-        while (end < s2.length()) {
-            for (int i = start; i <= end; i++) {
-                lookup[s2.charAt(i) - 'a']--;
+        while (e < s2.length()) {
+            if (hm.containsKey(s2.charAt(e))) {
+                hm.put(s2.charAt(e), hm.get(s2.charAt(e)) - 1);
+
+                if (hm.get(s2.charAt(e)) == 0) {
+                    --counter;
+                }
             }
 
-            if (allZeros(lookup)) {
+            ++e;
+
+            if (e - s > s1.length()) {
+                if (hm.containsKey(s2.charAt(s))) {
+                    if (hm.get(s2.charAt(s)) == 0) {
+                        ++counter;
+                    }
+                    hm.put(s2.charAt(s), hm.get(s2.charAt(s)) + 1);
+                }
+
+                ++s;
+            }
+
+            if (counter == 0 && e - s == s1.length()) {
                 return true;
             }
-
-            for (int i = start; i <= end; i++) {
-                lookup[s2.charAt(i) - 'a']++;
-            }
-
-            start++;
-            end++;
         }
 
         return false;
-    }
-
-    private boolean allZeros(int[] lookup) {
-        for (int i = 0; i < lookup.length; i++) {
-            if (lookup[i] != 0) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
