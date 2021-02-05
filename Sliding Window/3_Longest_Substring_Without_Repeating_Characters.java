@@ -4,16 +4,18 @@ class Solution {
             return 0;
         }
 
-        Map<Character, Integer> map = new HashMap<>();
-        int result = 0, j = 0;
+        Map<Character, Integer> hm = new HashMap<>();
 
-        for (int i = 0; i < s.length(); i++) {
-            if (map.containsKey(s.charAt(i))) {
-                j = Math.max(j, map.get(s.charAt(i)) + 1);
+        int start = 0, end = 0, result = 0;
+
+        while (end < s.length()) {
+            if (hm.containsKey(s.charAt(end))) {
+                start = Math.max(start, hm.get(s.charAt(end)) + 1);
             }
 
-            result = Math.max(result, i - j + 1);
-            map.put(s.charAt(i), i);
+            hm.put(s.charAt(end), end);
+            ++end;
+            result = Math.max(result, end - start);
         }
 
         return result;
