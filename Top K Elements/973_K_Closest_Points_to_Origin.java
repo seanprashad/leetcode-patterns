@@ -1,25 +1,49 @@
 class Solution {
     public int[][] kClosest(int[][] points, int K) {
         if (points == null || points.length == 0) {
-            return new int[][] {};
+            return new int[0][0];
         }
 
-        List<int[]> result = new ArrayList<>();
-        PriorityQueue<int[]> pq = new PriorityQueue<>(
-                (p1, p2) -> (p2[0] * p2[0] + p2[1] * p2[1]) - (p1[0] * p1[0] + p1[1] * p1[1]));
+        int low = 0, high = points.length - 1;
 
-        for (int[] pair : points) {
-            pq.offer(pair);
+        while (low < high) {
+            int idx = quickSelect(points, low, high);
 
-            if (pq.size() > K) {
-                pq.poll();
+            if (idx == K) {
+                break;
+            } else if (idx < K) {
+                low = idx + 1;
+            } else {
+                high = idx - 1;
             }
         }
 
-        while (K-- > 0) {
-            result.add(pq.poll());
+        return Arrays.copyOf(points, K);
+    }
+
+    private int quickSelect(int[][] points, int low, int high) {
+        int idx = low, pivot = high;
+        int pivotDistance = distance(points[pivot]);
+
+        for (int i = low; i < high; i++) {
+            if (distance(points[i]) < pivotDistance) {
+                swap(points, i, idx);
+                ++idx;
+            }
         }
 
-        return result.toArray(new int[0][]);
+        swap(points, idx, pivot);
+        return idx;
+    }
+
+    private void swap(int[][] points, int low, int high) {
+        int[] temp = points[low];
+        points[low] = points[high];
+        points[high] = temp;
+        return;
+    }
+
+    private int distance(int[] pair) {
+        return pair[0] * pair[0] + pair[1] * pair[1];
     }
 }
