@@ -4,33 +4,36 @@ class Solution {
             return Arrays.asList(0);
         }
 
-        List<Set<Integer>> adjList = new ArrayList<>();
-        List<Integer> leaves = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            adjList.add(new HashSet<>());
-        }
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
 
         for (int[] edge : edges) {
-            adjList.get(edge[0]).add(edge[1]);
-            adjList.get(edge[1]).add(edge[0]);
+            graph.putIfAbsent(edge[0], new HashSet<>());
+            graph.putIfAbsent(edge[1], new HashSet<>());
+
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
         }
 
-        for (int i = 0; i < n; i++) {
-            if (adjList.get(i).size() == 1) {
-                leaves.add(i);
+        List<Integer> leaves = new ArrayList<>();
+
+        for (int leaf : graph.keySet()) {
+            if (graph.get(leaf).size() == 1) {
+                leaves.add(leaf);
             }
         }
 
-        while (n > 2) {
-            n -= leaves.size();
+        int remainingNodes = n;
+
+        while (remainingNodes > 2) {
+            remainingNodes -= leaves.size();
             List<Integer> newLeaves = new ArrayList<>();
 
-            for (int currLeaf : leaves) {
-                int adjLeaf = adjList.get(currLeaf).iterator().next();
-                adjList.get(adjLeaf).remove(currLeaf);
-                if (adjList.get(adjLeaf).size() == 1) {
-                    newLeaves.add(adjLeaf);
+            for (int leaf : leaves) {
+                int neighbour = graph.get(leaf).iterator().next();
+                graph.get(neighbour).remove(leaf);
+
+                if (graph.get(neighbour).size() == 1) {
+                    newLeaves.add(neighbour);
                 }
             }
 
