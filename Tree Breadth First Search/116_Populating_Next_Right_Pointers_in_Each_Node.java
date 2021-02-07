@@ -4,22 +4,26 @@ class Solution {
             return null;
         }
 
-        Node leftMostNode = root;
+        Node curr = root;
 
-        while (leftMostNode.left != null) {
-            Node head = leftMostNode;
+        while (curr != null) {
+            Node next = curr.left;
 
-            while (head != null) {
-                head.left.next = head.right;
-
-                if (head.next != null) {
-                    head.right.next = head.next.left;
-                }
-
-                head = head.next;
+            if (next == null) {
+                break;
             }
 
-            leftMostNode = leftMostNode.left;
+            while (curr != null) {
+                curr.left.next = curr.right;
+
+                if (curr.next != null) {
+                    curr.right.next = curr.next.left;
+                }
+
+                curr = curr.next;
+            }
+
+            curr = next;
         }
 
         return root;
