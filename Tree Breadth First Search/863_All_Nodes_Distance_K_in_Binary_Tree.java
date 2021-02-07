@@ -1,60 +1,65 @@
 class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
-        Map<TreeNode, TreeNode> hm = buildParentMap(root);
-        Set<TreeNode> visited = new HashSet<>();
+        if (root == null) {
+            return Collections.emptyList();
+        }
+
         List<Integer> result = new ArrayList<>();
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        buildGraph(root, graph);
 
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(target);
-        visited.add(target);
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(target.val);
 
-        while (K > 0) {
-            int levelSize = q.size();
+        while (K >= 0) {
+            int level = q.size();
 
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode t = q.poll();
+            for (int i = 0; i < level; i++) {
+                int node = q.poll();
 
-                if (t.left != null && visited.add(t.left)) {
-                    q.offer(t.left);
+                if (visited.contains(node)) {
+                    continue;
                 }
-                if (t.right != null && visited.add(t.right)) {
-                    q.offer(t.right);
+                visited.add(node);
+
+                if (K == 0) {
+                    result.add(node);
                 }
 
-                if (hm.get(t) != null && visited.add(hm.get(t))) {
-                    q.offer(hm.get(t));
+                for (int neighbour : graph.get(node)) {
+                    q.offer(neighbour);
                 }
             }
 
-            --K;
-        }
-
-        for (TreeNode t : q) {
-            result.add(t.val);
+            K--;
         }
 
         return result;
     }
 
-    private Map<TreeNode, TreeNode> buildParentMap(TreeNode root) {
-        Map<TreeNode, TreeNode> hm = new HashMap<>();
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-
-        while (!q.isEmpty()) {
-            TreeNode t = q.poll();
-
-            if (t.left != null) {
-                hm.put(t.left, t);
-                q.offer(t.left);
-            }
-
-            if (t.right != null) {
-                hm.put(t.right, t);
-                q.offer(t.right);
-            }
+    private void buildGraph(TreeNode root, Map<Integer, Set<Integer>> graph) {
+        if (root == null) {
+            return;
         }
 
-        return hm;
+        graph.putIfAbsent(root.val, new HashSet<>());
+
+        if (root.left != null) {
+            graph.putIfAbsent(root.left.val, new HashSet<>());
+
+            graph.get(root.val).add(root.left.val);
+            graph.get(root.left.val).add(root.val);
+        }
+
+        if (root.right != null) {
+            graph.putIfAbsent(root.right.val, new HashSet<>());
+
+            graph.get(root.val).add(root.right.val);
+            graph.get(root.right.val).add(root.val);
+        }
+
+        buildGraph(root.left, graph);
+        buildGraph(root.right, graph);
     }
 }
