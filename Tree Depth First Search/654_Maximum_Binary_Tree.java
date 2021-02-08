@@ -1,9 +1,12 @@
 class Solution {
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return createTree(nums, 0, nums.length - 1);
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+        return helper(nums, 0, nums.length - 1);
     }
 
-    private TreeNode createTree(int[] nums, int start, int end) {
+    private TreeNode helper(int[] nums, int start, int end) {
         if (start > end) {
             return null;
         }
@@ -17,8 +20,9 @@ class Solution {
         }
 
         TreeNode t = new TreeNode(nums[maxIdx]);
-        t.left = createTree(nums, start, maxIdx - 1);
-        t.right = createTree(nums, maxIdx + 1, end);
+
+        t.left = helper(nums, start, maxIdx - 1);
+        t.right = helper(nums, maxIdx + 1, end);
 
         return t;
     }
