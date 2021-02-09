@@ -8,19 +8,21 @@ class Solution {
             return null;
         }
 
-        TreeNode root = new TreeNode(preorder[preStart]);
         int rootIdx = 0;
 
         for (int i = inStart; i <= inEnd; i++) {
-            if (inorder[i] == root.val) {
+            if (preorder[preStart] == inorder[i]) {
                 rootIdx = i;
-                break;
             }
         }
 
-        root.left = helper(preorder, inorder, preStart + 1, preEnd, inStart, rootIdx - 1);
-        root.right = helper(preorder, inorder, preStart + rootIdx - inStart + 1, preEnd, rootIdx + 1, inEnd);
+        TreeNode t = new TreeNode(preorder[preStart]);
 
-        return root;
+        int leftSubtreeSize = rootIdx - inStart;
+
+        t.left = helper(preorder, inorder, preStart + 1, preStart + leftSubtreeSize, inStart, rootIdx - 1);
+        t.right = helper(preorder, inorder, preStart + leftSubtreeSize + 1, preEnd, rootIdx + 1, inEnd);
+
+        return t;
     }
 }
