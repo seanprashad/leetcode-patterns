@@ -1,13 +1,11 @@
 class RandomizedSet {
-    HashMap<Integer, Integer> hm;
-    ArrayList<Integer> keys;
-    Random generator;
+    private List<Integer> list;
+    private Map<Integer, Integer> hm;
 
     /** Initialize your data structure here. */
     public RandomizedSet() {
-        hm = new HashMap<Integer, Integer>();
-        keys = new ArrayList<Integer>();
-        generator = new Random();
+        list = new ArrayList<>();
+        hm = new HashMap<>();
     }
 
     /**
@@ -19,8 +17,8 @@ class RandomizedSet {
             return false;
         }
 
-        hm.put(val, keys.size());
-        keys.add(val);
+        list.add(val);
+        hm.put(val, list.size() - 1);
         return true;
     }
 
@@ -33,21 +31,22 @@ class RandomizedSet {
             return false;
         }
 
-        int removeIdx = hm.get(val);
+        int idx = hm.get(val);
+        int lastElement = list.get(list.size() - 1);
 
-        if (removeIdx < keys.size() - 1) {
-            int lastVal = keys.get(keys.size() - 1);
-            keys.set(removeIdx, lastVal);
-            hm.put(lastVal, removeIdx);
-        }
-
-        keys.remove(keys.size() - 1);
+        list.set(idx, lastElement);
+        list.remove(list.size() - 1);
+        hm.put(lastElement, idx);
         hm.remove(val);
+
         return true;
     }
 
     /** Get a random element from the set. */
     public int getRandom() {
-        return keys.get(generator.nextInt(hm.size()));
+        Random rand = new Random();
+        int randIdx = rand.nextInt(list.size());
+
+        return list.get(randIdx);
     }
 }
