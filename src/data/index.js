@@ -1468,7 +1468,7 @@ const questions = [
     name: 'Sequence Reconstruction',
     url: 'https://leetcode.com/problems/sequence-reconstruction',
     pattern: ['Graph', 'Topological Sort'],
-    difficulty: 'Hard',
+    difficulty: 'Medium',
     premium: true,
     companies: ['Google'],
   },
