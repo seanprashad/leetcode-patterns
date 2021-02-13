@@ -6,32 +6,31 @@ class Solution {
             parents[i] = i;
         }
 
-        for (int i = 0; i < edges.length; i++) {
-            if (!union(parents, edges[i][0], edges[i][1])) {
+        for (int[] edge : edges) {
+            int p1 = findParent(parents, edge[0]);
+            int p2 = findParent(parents, edge[1]);
+
+            if (p1 == p2) {
                 return false;
             }
+
+            union(parents, p1, p2);
             --n;
         }
 
         return n == 1;
     }
 
-    private int find(int[] parents, int root) {
-        if (parents[root] == root) {
-            return root;
+    private int findParent(int[] parents, int node) {
+        if (parents[node] == node) {
+            return parents[node];
         }
-        return find(parents, parents[root]);
+
+        parents[node] = findParent(parents, parents[node]);
+        return parents[node];
     }
 
-    private boolean union(int[] parents, int firstRoot, int secondRoot) {
-        int parentOne = find(parents, firstRoot);
-        int parentTwo = find(parents, secondRoot);
-
-        if (parentOne == parentTwo) {
-            return false;
-        }
-
-        parents[parentTwo] = parents[parentOne];
-        return true;
+    private void union(int[] parents, int p1, int p2) {
+        parents[p2] = parents[p1];
     }
 }
