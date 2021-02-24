@@ -4,18 +4,23 @@ class Solution {
             return 0;
         }
 
-        int maxSquareLen = 0;
-        int[][] dp = new int[matrix.length + 1][matrix[0].length + 1];
+        int result = 0;
+        int[][] dp = new int[matrix.length][matrix[0].length];
 
-        for (int i = 1; i <= matrix.length; i++) {
-            for (int j = 1; j <= matrix[0].length; j++) {
-                if (matrix[i - 1][j - 1] == '1') {
-                    dp[i][j] = 1 + Math.min(Math.min(dp[i][j - 1], dp[i - 1][j]), dp[i - 1][j - 1]);
-                    maxSquareLen = Math.max(maxSquareLen, dp[i][j]);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = matrix[i][j] - '0';
+                } else {
+                    if (matrix[i][j] == '1') {
+                        dp[i][j] = 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]));
+                    }
                 }
+
+                result = Math.max(result, dp[i][j]);
             }
         }
 
-        return maxSquareLen * maxSquareLen;
+        return result * result;
     }
 }
