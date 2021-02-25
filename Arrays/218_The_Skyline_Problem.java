@@ -1,43 +1,32 @@
 class Solution {
     public List<List<Integer>> getSkyline(int[][] buildings) {
         List<List<Integer>> result = new ArrayList<>();
-        List<int[]> heights = new ArrayList<>();
 
-        for (int[] building : buildings) {
-            heights.add(new int[] { building[0], -building[2] });
-            heights.add(new int[] { building[1], building[2] });
+        List<int[]> points = new ArrayList<>();
+
+        for (int[] b : buildings) {
+            points.add(new int[] { b[0], -b[2] });
+            points.add(new int[] { b[1], b[2] });
         }
 
-        Collections.sort(heights, (a, b) -> {
-            if (a[0] == b[0])
-                return a[1] - b[1];
-            return a[0] - b[0];
-        });
+        Collections.sort(points, (p1, p2) -> p1[0] == p2[0] ? p1[1] - p2[1] : p1[0] - p2[0]);
 
-        TreeMap<Integer, Integer> pq = new TreeMap<>();
-        int prevMaxHeight = 0;
+        int maxHeight = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        pq.offer(maxHeight);
 
-        pq.put(prevMaxHeight, 1);
-
-        for (int[] h : heights) {
-            int xCoord = h[0];
-            int height = h[1];
+        for (int[] p : points) {
+            int xCoord = p[0], height = p[1];
 
             if (height < 0) {
-                pq.put(-height, pq.getOrDefault(-height, 0) + 1);
+                pq.offer(Math.abs(height));
             } else {
-                if (pq.get(height) > 1) {
-                    pq.put(height, pq.get(height) - 1);
-                } else {
-                    pq.remove(height);
-                }
+                pq.remove(height);
             }
 
-            int maxHeightAtXCoord = pq.lastKey();
-
-            if (maxHeightAtXCoord != prevMaxHeight) {
-                result.add(Arrays.asList(new Integer[] { xCoord, maxHeightAtXCoord }));
-                prevMaxHeight = maxHeightAtXCoord;
+            if (maxHeight != pq.peek()) {
+                maxHeight = pq.peek();
+                result.add(Arrays.asList(xCoord, maxHeight));
             }
         }
 
