@@ -1,34 +1,31 @@
 class Solution {
     public List<String> wordBreak(String s, List<String> wordDict) {
-        Set<String> dict = new HashSet<>(wordDict);
-        Map<String, List<String>> memo = new HashMap<>();
-
-        return helper(s, dict, memo);
+        return dfs(s, new HashSet<String>(wordDict), new HashMap<String, List<String>>());
     }
 
-    private List<String> helper(String s, Set<String> dict, Map<String, List<String>> memo) {
+    private List<String> dfs(String s, Set<String> dict, Map<String, List<String>> memo) {
         if (memo.containsKey(s)) {
             return memo.get(s);
         }
 
         List<String> result = new ArrayList<>();
-        if (dict.contains(s)) {
-            result.add(s);
-        }
 
-        for (int i = 1; i < s.length(); i++) {
-            String word = s.substring(0, i);
+        for (String word : dict) {
+            if (s.startsWith(word)) {
+                if (word.length() == s.length()) {
+                    result.add(word);
+                    continue;
+                }
 
-            if (dict.contains(word)) {
-                List<String> tmp = helper(s.substring(i), dict, memo);
+                List<String> postfix = dfs(s.substring(word.length()), dict, memo);
 
-                for (String remainder : tmp) {
-                    result.add(word + " " + remainder);
+                for (String str : postfix) {
+                    result.add(word + " " + str);
                 }
             }
         }
 
         memo.put(s, result);
-        return result;
+        return memo.get(s);
     }
 }
