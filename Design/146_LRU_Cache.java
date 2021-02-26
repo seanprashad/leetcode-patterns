@@ -1,83 +1,92 @@
 class LRUCache {
-    private static class DLLNode {
+    private class DLLNode {
+        private int key, value;
         private DLLNode next, prev;
-        private int key;
-        private int value;
 
-        public DLLNode(int key, int value) {
-            this.key = key;
-            this.value = value;
+        public DLLNode() {
+            key = -1;
+            value = -1;
+
+            next = null;
+            prev = null;
+        }
+
+        public DLLNode(int k, int v) {
+            key = k;
+            value = v;
+
+            next = null;
+            prev = null;
         }
     }
 
-    private int capacity;
     private DLLNode head, tail;
     private Map<Integer, DLLNode> hm;
+    private int cap, size;
 
     public LRUCache(int capacity) {
-        this.capacity = capacity;
+        cap = capacity;
+        size = 0;
+
         hm = new HashMap<>();
 
-        head = tail = new DLLNode(-1, -1);
+        head = new DLLNode();
+        tail = new DLLNode();
+
         head.next = tail;
         tail.prev = head;
     }
 
     public int get(int key) {
-        DLLNode node = hm.get(key);
-        if (node == null) {
+        if (!hm.containsKey(key)) {
             return -1;
         }
 
-        moveNodeToHead(node);
+        DLLNode node = hm.get(key);
+        moveToHead(node);
         return node.value;
     }
 
     public void put(int key, int value) {
-        DLLNode node = hm.get(key);
-
-        if (node != null) {
+        if (hm.containsKey(key)) {
+            DLLNode node = hm.get(key);
             node.value = value;
-            moveNodeToHead(node);
+            hm.put(key, node);
+            moveToHead(node);
             return;
         }
 
-        node = new DLLNode(key, value);
+        DLLNode node = new DLLNode(key, value);
         hm.put(key, node);
-        addNode(node);
+        moveToHead(node);
+        ++size;
 
-        if (hm.size() > capacity) {
-            hm.remove(tail.prev.key);
-            removeTail(tail.prev);
+        if (size > cap) {
+            remove(tail.prev);
+            --size;
         }
     }
 
-    private void moveNodeToHead(DLLNode node) {
-        removeNode(node);
-        addNode(node);
+    private void remove(DLLNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+
+        hm.remove(node.key);
     }
 
-    private void removeTail(DLLNode node) {
-        removeNode(node);
-    }
+    private void moveToHead(DLLNode node) {
+        if (node.prev != null) {
+            node.prev.next = node.next;
+        }
 
-    private void addNode(DLLNode node) {
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        }
+
         node.next = head.next;
         node.prev = head;
 
         head.next.prev = node;
         head.next = node;
-    }
-
-    private void removeNode(DLLNode node) {
-        if (node == null) {
-            return;
-        }
-
-        DLLNode prev = node.prev;
-        DLLNode next = node.next;
-
-        prev.next = next;
-        next.prev = prev;
     }
 }
