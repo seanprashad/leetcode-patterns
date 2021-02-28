@@ -1,19 +1,16 @@
 class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        while (sx < tx && sy < ty) {
-            if (tx > ty) {
-                tx %= ty;
-            } else {
-                ty %= tx;
-            }
+        if (tx < sx || ty < sy) {
+            return false;
         }
 
-        if (sx == tx && sy <= ty && (ty - sy) % sx == 0) {
+        if (sx == tx && (ty - sy) % sx == 0) {
             return true;
         }
-        if (sy == ty && sx <= tx && (tx - sx) % sy == 0) {
+        if (sy == ty && (tx - sx) % sy == 0) {
             return true;
         }
-        return false;
+
+        return reachingPoints(sx, sy, tx % ty, ty % tx);
     }
 }
