@@ -1477,7 +1477,7 @@ const questions = [
     name: 'Binary Tree Level Order Traversal II',
     url: 'https://leetcode.com/problems/binary-tree-level-order-traversal-ii/',
     pattern: ['BFS'],
-    difficulty: 'Easy',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Microsoft', 'Bloomberg', 'Amazon', 'Adobe'],
   },
