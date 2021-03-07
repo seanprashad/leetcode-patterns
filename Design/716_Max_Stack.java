@@ -1,33 +1,30 @@
 class MaxStack {
-    private Stack<Integer> stack, maxStack;
+    private Stack<Integer> st, maxSt;
 
     public MaxStack() {
-        stack = new Stack<>();
-        maxStack = new Stack<>();
+        st = new Stack<>();
+        maxSt = new Stack<>();
     }
 
     public void push(int x) {
-        int tempMax = maxStack.isEmpty() ? Integer.MIN_VALUE : maxStack.peek();
+        int max = maxSt.isEmpty() ? Integer.MIN_VALUE : maxSt.peek();
+        max = Math.max(max, x);
 
-        if (x > tempMax) {
-            tempMax = x;
-        }
-
-        maxStack.push(tempMax);
-        stack.push(x);
+        st.push(x);
+        maxSt.push(max);
     }
 
     public int pop() {
-        maxStack.pop();
-        return stack.pop();
+        maxSt.pop();
+        return st.pop();
     }
 
     public int top() {
-        return stack.peek();
+        return st.peek();
     }
 
     public int peekMax() {
-        return maxStack.peek();
+        return maxSt.peek();
     }
 
     public int popMax() {
@@ -35,16 +32,14 @@ class MaxStack {
 
         Stack<Integer> buffer = new Stack<>();
 
-        while (stack.peek() != max) {
-            buffer.push(stack.pop());
-            maxStack.pop();
+        while (top() != max) {
+            buffer.push(pop());
         }
-
         pop();
-
         while (!buffer.isEmpty()) {
             push(buffer.pop());
         }
+
         return max;
     }
 }
