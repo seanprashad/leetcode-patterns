@@ -1,31 +1,27 @@
 class Solution {
     public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
         int result = 0;
-        Map<Character, Integer> cMap = new HashMap<>();
-        Map<String, Integer> sMap = new HashMap<>();
+        Map<String, Integer> freq = new HashMap<>();
 
-        for (int i = 0, j = 0; j < s.length(); j++) {
-            char c = s.charAt(j);
-            cMap.put(c, cMap.getOrDefault(c, 0) + 1);
+        for (int i = 0; i < s.length() - minSize + 1; i++) {
+            String str = s.substring(i, i + minSize);
 
-            if (j - i + 1 > minSize) {
-                char l = s.charAt(i);
-                cMap.put(l, cMap.get(l) - 1);
-
-                if (cMap.get(l) == 0) {
-                    cMap.remove(l);
-                }
-
-                ++i;
-            }
-
-            if (j - i + 1 >= minSize && cMap.size() <= maxLetters) {
-                String str = s.substring(i, j + 1);
-                sMap.put(str, sMap.getOrDefault(str, 0) + 1);
-                result = Math.max(result, sMap.get(str));
+            if (isValid(str, maxLetters)) {
+                freq.put(str, freq.getOrDefault(str, 0) + 1);
+                result = Math.max(result, freq.get(str));
             }
         }
 
         return result;
+    }
+
+    private boolean isValid(String s, int maxLetters) {
+        Set<Character> set = new HashSet<>();
+
+        for (char c : s.toCharArray()) {
+            set.add(c);
+        }
+
+        return set.size() <= maxLetters;
     }
 }
