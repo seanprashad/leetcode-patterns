@@ -1,60 +1,42 @@
 class Solution {
-    private class Letter {
-        private char c;
+    private class Node {
+        private char letter;
         private int count;
 
-        public Letter(char c, int count) {
-            this.c = c;
-            this.count = count;
-        }
-
-        public char getChar() {
-            return this.c;
-        }
-
-        public int getCount() {
-            return this.count;
-        }
-
-        private void setCount(int count) {
-            this.count = count;
+        public Node(char l, int c) {
+            letter = l;
+            count = c;
         }
     }
 
     public String removeDuplicates(String s, int k) {
-        if (s == null || s.length() < k) {
-            return s;
+        if (s == null || s.isEmpty()) {
+            return "";
         }
 
-        Stack<Letter> st = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        Stack<Node> st = new Stack<>();
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            int count = 1;
 
-            if (st.isEmpty() || st.peek().getChar() != c) {
-                st.push(new Letter(c, count));
+            if (!st.isEmpty() && st.peek().letter == c) {
+                st.peek().count += 1;
             } else {
-                Letter l = st.pop();
-                l.setCount(l.getCount() + 1);
-                st.push(l);
+                st.push(new Node(c, 1));
             }
 
-            if (st.peek().getCount() == k) {
+            while (!st.isEmpty() && st.peek().count >= k) {
                 st.pop();
             }
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        while (!st.isEmpty()) {
-            Letter l = st.pop();
-
-            for (int i = 0; i < l.getCount(); i++) {
-                sb.append(l.getChar());
+        for (Node n : st) {
+            for (int i = 0; i < n.count; i++) {
+                sb.append(n.letter);
             }
         }
 
-        return sb.reverse().toString();
+        return sb.toString();
     }
 }
