@@ -8,75 +8,68 @@ class MyHashMap {
         }
     }
 
-    private Node[] map;
-    private int size, maxSize;
-    private double loadCapacity;
+    private Node[] m;
+    private int size, capacity;
+    private static final double LOAD_CAPACITY = 0.66;
 
-    /** Initialize your data structure here. */
     public MyHashMap() {
         size = 0;
-        maxSize = 512;
-        loadCapacity = 0.66;
-        map = new Node[maxSize];
+        capacity = 5000;
+        m = new Node[capacity];
     }
 
     private int getHash(int key) {
-        return key % map.length;
+        return key % capacity;
     }
 
     private void resize() {
-        if (size < (int) (maxSize * loadCapacity)) {
+        if (size <= LOAD_CAPACITY * capacity) {
             return;
         }
 
-        maxSize *= 2;
         size = 0;
+        capacity *= 2;
 
-        Node[] temp = map;
-        map = new Node[maxSize];
+        Node[] temp = m;
+        m = new Node[capacity];
 
-        for (Node n : temp) {
-            if (n == null || n.key == -1) {
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] == null || temp[i].key == -1) {
                 continue;
             }
-            put(n.key, n.value);
+            put(temp[i].key, temp[i].value);
         }
     }
 
-    /** value will always be non-negative. */
     public void put(int key, int value) {
         int idx = getHash(key);
 
-        while (map[idx] != null && map[idx].key != key) {
+        while (m[idx] != null) {
+            if (m[idx].key == key) {
+                m[idx].value = value;
+                return;
+            }
+
             ++idx;
-            idx %= maxSize;
+            idx %= capacity;
         }
 
-        if (map[idx] != null) {
-            map[idx].value = value;
-            return;
-        }
-
-        map[idx] = new Node(key, value);
+        m[idx] = new Node(key, value);
         ++size;
 
         resize();
     }
 
-    /**
-     * Returns the value to which the specified key is mapped, or -1 if this map
-     * contains no mapping for the key
-     */
     public int get(int key) {
         int idx = getHash(key);
 
-        while (map[idx] != null) {
-            if (map[idx].key == key) {
-                return map[idx].value;
+        while (m[idx] != null) {
+            if (m[idx].key == key) {
+                return m[idx].value;
             }
 
             ++idx;
-            idx %= maxSize;
+            idx %= capacity;
         }
 
         return -1;
@@ -89,20 +82,15 @@ class MyHashMap {
     public void remove(int key) {
         int idx = getHash(key);
 
-        while (map[idx] != null) {
-            if (map[idx].key == key) {
-                // Mark the current spot as "deleted" since we
-                // might have had multiple collisions for keys
-                // that should have came before it and are placed
-                // after it since we're using Linear Probing!
-                map[idx] = new Node(-1, -1);
+        while (m[idx] != null) {
+            if (m[idx].key == key) {
+                m[idx] = new Node(-1, -1);
                 --size;
-
                 return;
             }
 
             ++idx;
-            idx %= maxSize;
+            idx %= capacity;
         }
     }
 }
