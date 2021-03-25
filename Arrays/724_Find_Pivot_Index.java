@@ -8,11 +8,9 @@ class Solution {
 
         for (int i = 0; i < nums.length; i++) {
             currSum += nums[i];
-
-            if (totalSum == currSum) {
+            if (currSum == totalSum) {
                 return i;
             }
-
             totalSum -= nums[i];
         }
 
