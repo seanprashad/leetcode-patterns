@@ -1,25 +1,26 @@
 class Solution {
     public Node cloneGraph(Node node) {
-        Map<Node, Node> map = new HashMap<>();
-        return helper(node, map);
+        Map<Node, Node> m = new HashMap<>();
+        return helper(node, m);
     }
 
-    private Node helper(Node node, Map<Node, Node> visited) {
+    private Node helper(Node node, Map<Node, Node> m) {
         if (node == null) {
             return null;
         }
 
-        if (visited.containsKey(node)) {
-            return visited.get(node);
+        if (m.containsKey(node)) {
+            return m.get(node);
         }
 
-        Node cloned = new Node(node.val);
-        visited.put(node, cloned);
+        Node copy = new Node(node.val);
+        m.put(node, copy);
 
-        for (Node n : node.neighbors) {
-            cloned.neighbors.add(helper(n, visited));
+        for (Node neighbour : node.neighbors) {
+            Node neighbourCopy = helper(neighbour, m);
+            m.get(node).neighbors.add(neighbourCopy);
         }
 
-        return cloned;
+        return m.get(node);
     }
 }
