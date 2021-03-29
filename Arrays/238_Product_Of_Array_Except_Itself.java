@@ -1,22 +1,39 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return new int[] {};
-        }
-
         int[] result = new int[nums.length];
-        int productSoFar = 1;
+
+        boolean hasZero = false;
+        int product = 1, zeroIdx = 0;
 
         for (int i = 0; i < nums.length; i++) {
-            result[i] = productSoFar;
-            productSoFar *= nums[i];
+            if (nums[i] == 0) {
+                if (hasZero) {
+                    return new int[nums.length];
+                }
+
+                hasZero = true;
+                zeroIdx = i;
+                continue;
+            }
+
+            result[i] = product;
+            product *= nums[i];
         }
 
-        productSoFar = 1;
+        product = 1;
 
         for (int i = nums.length - 1; i >= 0; i--) {
-            result[i] *= productSoFar;
-            productSoFar *= nums[i];
+            if (nums[i] == 0) {
+                continue;
+            }
+
+            result[i] *= product;
+            product *= nums[i];
+        }
+
+        if (hasZero) {
+            Arrays.fill(result, 0);
+            result[zeroIdx] = product;
         }
 
         return result;
