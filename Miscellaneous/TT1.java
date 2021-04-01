@@ -1,93 +1,79 @@
 import java.util.*;
-import java.util.concurrent.*;
 
 public class TT1 {
-    private Map<String, TreeSet<Long>> tweets;
+    enum Frequency {
+        MINUTE, HOUR, DAY
+    }
+
+    private Map<String, TreeMap<Long, Integer>> tweets;
 
     public TT1() {
         tweets = new HashMap<>();
     }
 
     public void recordTweet(String tweetName, long time) {
-        tweets.putIfAbsent(tweetName, new TreeSet<>());
-        tweets.get(tweetName).add(time);
+        tweets.putIfAbsent(tweetName, new TreeMap<>());
+        TreeMap<Long, Integer> times = tweets.get(tweetName);
+        times.put(time, times.getOrDefault(time, 0) + 1);
     }
 
     public long[] getTweetCountsPerFrequency(Frequency freq, String tweetName, long startTime, long endTime) {
-        if (!tweets.containsKey(tweetName)) {
-            return new long[0];
-        }
+        TreeMap<Long, Integer> times = tweets.get(tweetName);
 
-        TreeSet<Long> tweetTimes = tweets.get(tweetName);
+        long diff = endTime - startTime;
+        long delta = getDelta(freq);
+        long[] result = new long[(int) (diff / delta) + 1];
 
-        long timePeriod = endTime - startTime;
-        long delta = getDelta(freq, timePeriod);
-        long[] result = new long[(int) delta + 1];
-        long intervalStart = startTime, intervalEnd = intervalStart + delta;
+        long startInterval = startTime, endInterval = startInterval + delta;
         int idx = 0;
 
-        while (intervalStart <= endTime) {
-            SortedSet<Long> timesSubset = tweetTimes.subSet(intervalStart, Math.min(intervalEnd, endTime + 1));
-            result[idx] = timesSubset.size();
+        while (startInterval <= endTime) {
+            SortedMap<Long, Integer> subMap = times.subMap(startInterval, Math.min(endInterval, endTime + 1));
+            long count = 0;
+
+            for (long time : subMap.keySet()) {
+                count += subMap.get(time);
+            }
+
+            result[idx] = count;
             ++idx;
+
+            startInterval += delta;
+            endInterval += delta;
         }
 
         return result;
     }
 
-    private long getDelta(Frequency f, long timePeriod) {
-        TimeUnit tu = TimeUnit.MILLISECONDS;
-
-        if (f.equals(Frequency.MINUTE)) {
-            return tu.toSeconds(timePeriod);
-        } else if (f.equals(Frequency.HOUR)) {
-            return tu.toHours(timePeriod);
+    private long getDelta(Frequency f) {
+        if (Frequency.MINUTE == f) {
+            return 60 * 1000;
+        } else if (Frequency.HOUR == f) {
+            return 60 * 60 * 1000;
+        } else if (Frequency.DAY == f) {
+            return 60 * 60 * 24 * 1000;
         } else {
-            return tu.toDays(timePeriod);
-        }
-    }
-
-    enum Frequency {
-        MINUTE, HOUR, DAY
-    }
-
-    /*
-     * Generate some random timestamps
-     */
-    public static class TimeMachine {
-        public static long between(Date startInclusive, Date endExclusive) {
-            long startMillis = startInclusive.getTime();
-            long endMillis = endExclusive.getTime();
-            long randomMillisSinceEpoch = ThreadLocalRandom.current().nextLong(startMillis, endMillis);
-            return randomMillisSinceEpoch;
+            return 0L;
         }
     }
 
     public static void main(String[] args) {
-        long now = new Date().getTime();
-        Date tenDaysAgo = new Date(now - TimeUnit.DAYS.toMillis(10));
-        Date tenMinsAgo = new Date(now - TimeUnit.MINUTES.toMillis(10));
-        Date oneMinAgo = new Date(now - TimeUnit.MINUTES.toMillis(1));
-        Date tenHoursAgo = new Date(now - TimeUnit.HOURS.toMillis(10));
+        TT1 tweetCounts = new TT1();
 
-        TT1 tc = new TT1();
-        Date rightnow = new Date(now);
+        tweetCounts.recordTweet("tweet3", 0);
+        tweetCounts.recordTweet("tweet3", 60000);
+        tweetCounts.recordTweet("tweet3", 10000);
+        tweetCounts.recordTweet("tweet3", 10000);
 
-        for (int i = 0; i < 1000; i++) {
-            long randomTime = TimeMachine.between(tenDaysAgo, rightnow);
-            tc.recordTweet("tweet", randomTime);
-        }
+        System.out
+                .println(Arrays.toString(tweetCounts.getTweetCountsPerFrequency(Frequency.MINUTE, "tweet3", 0, 59000)));
+        System.out
+                .println(Arrays.toString(tweetCounts.getTweetCountsPerFrequency(Frequency.MINUTE, "tweet3", 0, 60000)));
 
-        System.out.println(Arrays.toString(
-                tc.getTweetCountsPerFrequency(Frequency.MINUTE, "tweet", oneMinAgo.getTime(), rightnow.getTime())));
-        System.out.println(Arrays.toString(
-                tc.getTweetCountsPerFrequency(Frequency.MINUTE, "tweet", tenMinsAgo.getTime(), rightnow.getTime())));
-        System.out.println(Arrays.toString(
-                tc.getTweetCountsPerFrequency(Frequency.HOUR, "tweet", tenMinsAgo.getTime(), rightnow.getTime())));
-        System.out.println(Arrays.toString(
-                tc.getTweetCountsPerFrequency(Frequency.HOUR, "tweet", tenHoursAgo.getTime(), rightnow.getTime())));
-        System.out.println(Arrays.toString(
-                tc.getTweetCountsPerFrequency(Frequency.DAY, "tweet", tenDaysAgo.getTime(), rightnow.getTime())));
+        tweetCounts.recordTweet("tweet3", 120000);
+
+        System.out
+                .println(Arrays.toString(tweetCounts.getTweetCountsPerFrequency(Frequency.HOUR, "tweet3", 0, 210000)));
 
         return;
     }
