@@ -1,17 +1,19 @@
 class LogSystem {
-    private Map<String, Integer> delimiterMap;
     private TreeMap<String, List<Integer>> logs;
+    private Map<String, Integer> delimeters;
+    private static final String min = "2000:01:01:00:00:00";
+    private static final String max = "2017:12:31:23:59:59";
 
     public LogSystem() {
-        delimiterMap = new HashMap<>();
         logs = new TreeMap<>();
+        delimeters = new HashMap<>();
 
-        delimiterMap.put("Year", 4);
-        delimiterMap.put("Month", 7);
-        delimiterMap.put("Day", 10);
-        delimiterMap.put("Hour", 13);
-        delimiterMap.put("Minute", 16);
-        delimiterMap.put("Second", 19);
+        delimeters.put("Year", 4);
+        delimeters.put("Month", 7);
+        delimeters.put("Day", 10);
+        delimeters.put("Hour", 13);
+        delimeters.put("Minute", 16);
+        delimeters.put("Second", 19);
     }
 
     public void put(int id, String timestamp) {
@@ -22,17 +24,12 @@ class LogSystem {
     public List<Integer> retrieve(String start, String end, String granularity) {
         List<Integer> result = new ArrayList<>();
 
-        int idx = delimiterMap.get(granularity);
+        int idx = delimeters.get(granularity);
+        String searchStart = start.substring(0, idx) + min.substring(idx),
+                searchEnd = end.substring(0, idx) + max.substring(idx);
 
-        String searchStart = start.substring(0, idx);
-        String searchEnd = end.substring(0, idx);
-
-        for (String timestamp : logs.keySet()) {
-            String tSubstring = timestamp.substring(0, idx);
-
-            if (tSubstring.compareTo(searchStart) >= 0 && tSubstring.compareTo(searchEnd) <= 0) {
-                result.addAll(logs.get(timestamp));
-            }
+        for (String timestamp : logs.subMap(searchStart, true, searchEnd, true).keySet()) {
+            result.addAll(logs.get(timestamp));
         }
 
         return result;
