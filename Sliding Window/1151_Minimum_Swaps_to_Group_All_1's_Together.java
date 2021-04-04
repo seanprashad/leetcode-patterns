@@ -1,32 +1,27 @@
 class Solution {
     public int minSwaps(int[] data) {
-        if (data == null || data.length == 0) {
-            return 0;
-        }
-
-        int windowSize = 0;
+        int onesCount = 0;
 
         for (int d : data) {
-            if (d == 1) {
-                ++windowSize;
-            }
+            onesCount += d;
         }
 
-        int result = 0, onesCount = 0;
-        int left = 0, right = 0;
+        int left = 0, right = 0, maxOnesWindow = 0, result = 0;
 
         while (right < data.length) {
-            onesCount += data[right];
+            maxOnesWindow += data[right];
             ++right;
 
-            if (right - left > windowSize) {
-                onesCount -= data[left];
+            if (right - left > onesCount) {
+                maxOnesWindow -= data[left];
                 ++left;
             }
 
-            result = Math.max(result, onesCount);
+            if (right - left == onesCount) {
+                result = Math.max(result, maxOnesWindow);
+            }
         }
 
-        return windowSize - result;
+        return onesCount - result;
     }
 }
