@@ -1,51 +1,25 @@
 class TimeMap {
-    private Map<String, List<Node>> hm;
+    Map<String, TreeMap<Integer, String>> m;
 
     public TimeMap() {
-        hm = new HashMap<>();
+        m = new HashMap<>();
     }
 
     public void set(String key, String value, int timestamp) {
-        hm.putIfAbsent(key, new ArrayList<>());
-        hm.get(key).add(new Node(timestamp, value));
+        m.putIfAbsent(key, new TreeMap<>());
+        m.get(key).put(timestamp, value);
     }
 
     public String get(String key, int timestamp) {
-        if (!hm.containsKey(key)) {
+        if (!m.containsKey(key)) {
             return "";
         }
 
-        List<Node> nodes = hm.get(key);
-        int low = 0, high = nodes.size() - 1;
+        Integer result = m.get(key).floorKey(timestamp);
 
-        while (low < high) {
-            int mid = low + (high - low) / 2;
-
-            if (nodes.get(mid).timestamp == timestamp) {
-                return nodes.get(mid).value;
-            }
-
-            if (nodes.get(mid).timestamp < timestamp) {
-                if (nodes.get(mid + 1).timestamp > timestamp) {
-                    return nodes.get(mid).value;
-                }
-
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
+        if (result == null) {
+            return "";
         }
-
-        return nodes.get(low).timestamp <= timestamp ? nodes.get(low).value : "";
-    }
-
-    private class Node {
-        private int timestamp;
-        private String value;
-
-        public Node(int t, String v) {
-            timestamp = t;
-            value = v;
-        }
+        return m.get(key).get(result);
     }
 }
