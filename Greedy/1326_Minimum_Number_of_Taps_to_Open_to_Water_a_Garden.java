@@ -1,6 +1,6 @@
 class Solution {
     public int minTaps(int n, int[] ranges) {
-        int[] nums = new int[ranges.length];
+        int[] garden = new int[ranges.length];
 
         for (int i = 0; i < ranges.length; i++) {
             if (ranges[i] == 0) {
@@ -8,26 +8,27 @@ class Solution {
             }
 
             int left = Math.max(0, i - ranges[i]);
-            nums[left] = Math.max(nums[left], i + ranges[i]);
+            garden[left] = Math.max(garden[left], i + ranges[i]);
         }
 
-        int i = 0, end = 0, jumps = 0, maxReach = 0;
+        int idx = 0, farthest = garden[0], steps = 1;
 
-        while (i < nums.length && end < n) {
-            ++jumps;
+        while (farthest < n) {
+            int temp = 0;
 
-            while (i < nums.length && i <= end) {
-                maxReach = Math.max(maxReach, nums[i]);
-                ++i;
+            while (idx <= farthest) {
+                temp = Math.max(temp, garden[idx]);
+                ++idx;
             }
 
-            if (end == maxReach) {
+            if (temp <= farthest) {
                 return -1;
             }
 
-            end = maxReach;
+            farthest = temp;
+            ++steps;
         }
 
-        return jumps;
+        return steps;
     }
 }
