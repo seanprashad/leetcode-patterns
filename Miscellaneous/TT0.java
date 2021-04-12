@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class T1 {
+public class TT0 {
     // Epoch timestamp with list of users who had an action for the respective
     // timestamp
     private TreeMap<Integer, Set<Integer>> logs;
 
-    public T1() {
+    public TT0() {
         logs = new TreeMap<>();
     }
 
@@ -33,27 +33,19 @@ public class T1 {
 
     public static void main(String[] args) {
         /*
-         * [1, 1518290973]
-         * [1, 1518291096]
-         * [1, 1518291200]
-         * [1, 1518291200]
-         * [2, 1518291032]
-         * [3, 1518291095]
-         * [3, 1518291178]
-         * [4, 1518291120]
+         * [1, 1518290973] [1, 1518291096] [1, 1518291200] [1, 1518291200] [2,
+         * 1518291032] [3, 1518291095] [3, 1518291178] [4, 1518291120]
          * 
-         * 1 -> 3 minutes in total
-         * 2 -> 1 minutes in total
-         * 3 -> 2 minutes in total
-         * 4 -> 1 minutes in total
+         * 1 -> 3 minutes in total 2 -> 1 minutes in total 3 -> 2 minutes in total 4 ->
+         * 1 minutes in total
          * 
-         * 2 users spend 0-1 minutes in total - users 2 and 4
-         * 2 users spend 2-3 minutes in total - users 1 and 3
+         * 2 users spend 0-1 minutes in total - users 2 and 4 2 users spend 2-3 minutes
+         * in total - users 1 and 3
          */
         int[][] logs = new int[][] { { 1, 1518290973 }, { 2, 1518291032 }, { 3, 1518291095 }, { 1, 1518291096 },
                 { 4, 1518291120 }, { 3, 1518291178 }, { 1, 1518291200 }, { 1, 1518291200 } };
 
-        T1 logRetrieval = new T1();
+        TT0 logRetrieval = new TT0();
 
         for (int[] log : logs) {
             logRetrieval.put(log[0], log[1]);
