@@ -1,45 +1,34 @@
 class MaxStack {
-    private Stack<Integer> st, maxSt;
+    private Deque<Integer> dq;
+    private PriorityQueue<Integer> pq;
 
     public MaxStack() {
-        st = new Stack<>();
-        maxSt = new Stack<>();
+        dq = new ArrayDeque<>();
+        pq = new PriorityQueue<>(Collections.reverseOrder());
     }
 
     public void push(int x) {
-        int max = maxSt.isEmpty() ? Integer.MIN_VALUE : maxSt.peek();
-        max = Math.max(max, x);
-
-        st.push(x);
-        maxSt.push(max);
+        dq.offerLast(x);
+        pq.offer(x);
     }
 
     public int pop() {
-        maxSt.pop();
-        return st.pop();
+        int x = dq.pollLast();
+        pq.remove(x);
+        return x;
     }
 
     public int top() {
-        return st.peek();
+        return dq.peekLast();
     }
 
     public int peekMax() {
-        return maxSt.peek();
+        return pq.peek();
     }
 
     public int popMax() {
-        int max = peekMax();
-
-        Stack<Integer> buffer = new Stack<>();
-
-        while (top() != max) {
-            buffer.push(pop());
-        }
-        pop();
-        while (!buffer.isEmpty()) {
-            push(buffer.pop());
-        }
-
-        return max;
+        int x = pq.poll();
+        dq.removeLastOccurrence(x);
+        return x;
     }
 }
