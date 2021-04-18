@@ -9,7 +9,6 @@ class TweetCounts {
         m.putIfAbsent(tweetName, new TreeMap<>());
         TreeMap<Integer, Integer> times = m.get(tweetName);
         times.put(time, times.getOrDefault(time, 0) + 1);
-        m.put(tweetName, times);
     }
 
     public List<Integer> getTweetCountsPerFrequency(String freq, String tweetName, int startTime, int endTime) {
@@ -23,8 +22,6 @@ class TweetCounts {
         int intervalStart = startTime, intervalEnd = intervalStart + delta;
 
         while (intervalStart <= endTime) {
-            // SortedMap<Integer, Integer> timesSubset = times.subMap(intervalStart, Math.min(intervalEnd, endTime + 1));
-
             int count = 0;
             for (Map.Entry<Integer, Integer> entry : times.subMap(intervalStart, Math.min(intervalEnd, endTime + 1))
                     .entrySet()) {
