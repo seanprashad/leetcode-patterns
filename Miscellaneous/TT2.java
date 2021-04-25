@@ -52,6 +52,10 @@ public class TT2 {
         }
 
         public boolean addTask(String taskName, int taskWeight, int taskTTL) {
+            for (Server s : servers) {
+                s.invalidateTasks();
+            }
+
             servers.peek().addTask(taskName, taskWeight, taskTTL);
             return true;
         }
