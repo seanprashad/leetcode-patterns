@@ -56,7 +56,7 @@ The entire question list can be found here:
 https://seanprashad.com/leetcode-patterns/.
 
 In addition to viewing the question list, companies that have previously asked
-the question in the past 6 months (_as of December 2020_) will be listed. You can
+the question in the past 6 months (_as of May 2021_) will be listed. You can
 also use the checkboxes to mark which questions you've completed!
 
 ## Solutions
