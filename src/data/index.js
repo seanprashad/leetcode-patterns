@@ -642,7 +642,7 @@ const questions = [
     id: 49,
     name: 'Counting Bits',
     url: 'https://leetcode.com/problems/counting-bits/',
-    pattern: ['Dynamic Programming'],
+    pattern: ['Dynamic Programming', 'Bit Manipulation'],
     difficulty: 'Easy',
     premium: false,
     companies: ['Amazon', 'Apple'],
