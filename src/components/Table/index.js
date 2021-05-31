@@ -160,6 +160,7 @@ const Table = () => {
           {
             Header: 'Questions',
             accessor: 'questions',
+            disableSortBy: true,
             Cell: cellInfo => {
               return (
                 <NavLink
@@ -189,6 +190,7 @@ const Table = () => {
           {
             Header: 'Solutions',
             accessor: 'solutions',
+            disableSortBy: true,
             Cell: cellInfo => {
               const url = cellInfo.row.original.premium
                 ? `${cellInfo.row.original.url}/`
@@ -234,6 +236,7 @@ const Table = () => {
               );
             },
             accessor: 'pattern',
+            disableSortBy: true,
             Cell: cellInfo => {
               const patterns = `${cellInfo.row.original.pattern}`
                 .split(',')
@@ -261,6 +264,7 @@ const Table = () => {
           {
             Header: 'Difficulty',
             accessor: 'difficulty',
+            disableSortBy: true,
             Cell: cellInfo => (
               <Row>
                 <Badge
@@ -276,15 +280,27 @@ const Table = () => {
           {
             Header: () => {
               return (
-                <div style={{ whiteSpace: 'nowrap' }}>
-                  Companies{' '}
-                  <span data-tip="Companies retrieved from Leetcode Premium (May 2021)">
-                    <FaQuestionCircle />
-                  </span>
-                </div>
+                <>
+                  <div
+                    style={{ whiteSpace: 'nowrap', display: 'inline-block' }}
+                  >
+                    Companies{' '}
+                    <span data-tip="Companies retrieved from Leetcode Premium (May 2021)">
+                      <FaQuestionCircle />
+                    </span>
+                  </div>
+                </>
               );
             },
             accessor: 'companies',
+            sortType: (a, b) => {
+              if (a.original.companies.length === b.original.companies.length) {
+                return 0;
+              }
+              return a.original.companies.length > b.original.companies.length
+                ? 1
+                : -1;
+            },
             Cell: cellInfo => {
               const companies = cellInfo.row.original.companies.map(company => {
                 return (
@@ -333,7 +349,15 @@ const Table = () => {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 <th {...column.getHeaderProps()}>
-                  {column.render('Header')}
+                  <div {...column.getSortByToggleProps({ title: null })}>
+                    {column.render('Header')}
+                    {/* eslint-disable-next-line no-nested-ternary */}
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </div>
                   <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
