@@ -2027,7 +2027,7 @@ const questions = [
     name: 'Longest Word in Dictionary',
     url: 'https://leetcode.com/problems/longest-word-in-dictionary/',
     pattern: ['Trie'],
-    difficulty: 'Easy',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Goldman Sachs', 'Amazon'],
   },
