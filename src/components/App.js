@@ -9,7 +9,7 @@ import { initGA, PageView } from './Shared/Tracking';
 
 class App extends React.Component {
   componentDidMount() {
-    initGA('UA-92642042-4', { debug: false });
+    initGA('UA-203108441-2', { debug: false });
     PageView();
   }
 
