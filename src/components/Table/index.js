@@ -22,6 +22,7 @@ import questions from '../../data';
 
 import 'react-toggle/style.css';
 import './styles.scss';
+import PatternFrequencies from '../PatternFrequencies';
 
 const iconPath = `${process.env.PUBLIC_URL}/assets/icons/`;
 
@@ -328,6 +329,8 @@ const Table = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
+    filteredRows,
+    state: { filters },
     rows,
     prepareRow,
   } = useTable(
@@ -343,6 +346,7 @@ const Table = () => {
   return (
     <Container className="table">
       <ReactTooltip />
+      <PatternFrequencies filters={filters} rows={filteredRows} />
       <ReactTable borderless striped hover {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
