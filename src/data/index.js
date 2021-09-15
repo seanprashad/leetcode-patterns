@@ -169,7 +169,7 @@ const questions = [
     name: 'Longest Consecutive Sequence',
     url: 'https://leetcode.com/problems/longest-consecutive-sequence/',
     pattern: ['Arrays'],
-    difficulty: 'Hard',
+    difficulty: 'Medium',
     premium: false,
     companies: [
       'Google',
