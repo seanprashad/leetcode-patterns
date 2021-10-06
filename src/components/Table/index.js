@@ -6,6 +6,7 @@ import {
   Row,
   Badge,
   NavLink,
+  Button,
 } from 'reactstrap';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
@@ -132,6 +133,19 @@ const Table = () => {
                       Hard: {difficultyCount.Hard}/{totalDifficultyCount.Hard}
                     </span>
                   </Badge>
+                  <br />
+                  <Button
+                    className="reset-button"
+                    outline
+                    size="sm"
+                    color="danger"
+                    onClick={() => {
+                      setDifficultyCount({ Easy: 0, Medium: 0, Hard: 0 });
+                      setChecked([...checked].map(() => false));
+                    }}
+                  >
+                    Reset
+                  </Button>
                 </span>
               );
             },
@@ -322,7 +336,7 @@ const Table = () => {
       },
     ],
     // eslint-disable-next-line
-    [],
+    [checked, difficultyCount],
   );
 
   const {
