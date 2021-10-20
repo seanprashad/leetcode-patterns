@@ -336,7 +336,7 @@ const Table = () => {
       },
     ],
     // eslint-disable-next-line
-    [checked, difficultyCount],
+    [],
   );
 
   const {
