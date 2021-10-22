@@ -29,7 +29,7 @@ const iconPath = `${process.env.PUBLIC_URL}/assets/icons/`;
 
 const Table = () => {
   const data = React.useMemo(() => questions, []);
-
+  const [resetCount, setResetCount] = useState(0);
   let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
     new Array(data.length).fill(false);
@@ -80,6 +80,15 @@ const Table = () => {
     }),
     [],
   );
+
+  const resetHandler = () => {
+    setChecked(new Array(checked.length).fill(false));
+    setDifficultyCount(() => {
+      return { Easy: 0, Medium: 0, Hard: 0 };
+    });
+    const count = resetCount + 1;
+    setResetCount(count);
+  };
 
   const columns = React.useMemo(
     () => [
@@ -139,10 +148,7 @@ const Table = () => {
                     outline
                     size="sm"
                     color="danger"
-                    onClick={() => {
-                      setDifficultyCount({ Easy: 0, Medium: 0, Hard: 0 });
-                      setChecked([...checked].map(() => false));
-                    }}
+                    onClick={resetHandler}
                   >
                     Reset
                   </Button>
@@ -164,7 +170,6 @@ const Table = () => {
                     difficultyCount[
                       cellInfo.row.original.difficulty
                     ] += additive;
-
                     setDifficultyCount(difficultyCount);
                     setChecked([...checked]);
                   }}
@@ -336,7 +341,7 @@ const Table = () => {
       },
     ],
     // eslint-disable-next-line
-    [],
+    [resetCount],
   );
 
   const {
