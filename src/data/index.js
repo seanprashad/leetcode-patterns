@@ -1935,7 +1935,7 @@ const questions = [
   {
     id: 152,
     name: 'Backspace String Compare',
-    url: 'https://leetcode.com/problems/backspace-string-compare',
+    url: 'https://leetcode.com/problems/backspace-string-compare/',
     pattern: ['Two Pointers'],
     difficulty: 'Easy',
     premium: false,
