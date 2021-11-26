@@ -2139,6 +2139,15 @@ const questions = [
     premium: false,
     companies: ['Amazon', 'Microsoft', 'Bloomberg', 'Apple', 'Adobe'],
   },
+  {
+    id: 170,
+    name: 'Convert 1D Array Into 2D Array',
+    url: 'https://leetcode.com/problems/convert-1d-array-into-2d-array/',
+    pattern: ['Arrays-Adhoc'],
+    difficulty: 'Easy',
+    premium: false,
+    companies: ['Amazon'],
+  },
 ];
 
 const sortBy = { Easy: 0, Medium: 1, Hard: 2 };
