@@ -633,7 +633,7 @@ const questions = [
     name: 'Best Time to Buy and Sell Stock with Cooldown',
     url:
       'https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/',
-    pattern: ['Dynamic Programming'],
+    pattern: ['Arrays'],
     difficulty: 'Medium',
     premium: false,
     companies: ['Amazon', 'Facebook', 'Adobe', 'Goldman Sachs'],
