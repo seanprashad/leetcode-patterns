@@ -1384,7 +1384,7 @@ const questions = [
     id: 110,
     name: 'Kth Largest Element in an Array',
     url: 'https://leetcode.com/problems/kth-largest-element-in-an-array/',
-    pattern: ['Heap'],
+    pattern: ['Heap', 'QuickSelect'],
     difficulty: 'Medium',
     premium: false,
     companies: [
