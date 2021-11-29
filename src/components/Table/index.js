@@ -158,22 +158,26 @@ const Table = () => {
             id: 'Checkbox',
             Cell: cellInfo => {
               return (
-                <input
-                  type="checkbox"
-                  checked={checked[cellInfo.row.original.id]}
-                  onChange={() => {
-                    checked[cellInfo.row.original.id] = !checked[
-                      cellInfo.row.original.id
-                    ];
+                <span data-tip={`Question #${Number(cellInfo.row.id) + 1}`}>
+                  <input
+                    type="checkbox"
+                    checked={checked[cellInfo.row.original.id]}
+                    onChange={() => {
+                      checked[cellInfo.row.original.id] = !checked[
+                        cellInfo.row.original.id
+                      ];
 
-                    const additive = checked[cellInfo.row.original.id] ? 1 : -1;
-                    difficultyCount[
-                      cellInfo.row.original.difficulty
-                    ] += additive;
-                    setDifficultyCount(difficultyCount);
-                    setChecked([...checked]);
-                  }}
-                />
+                      const additive = checked[cellInfo.row.original.id]
+                        ? 1
+                        : -1;
+                      difficultyCount[
+                        cellInfo.row.original.difficulty
+                      ] += additive;
+                      setDifficultyCount(difficultyCount);
+                      setChecked([...checked]);
+                    }}
+                  />
+                </span>
               );
             },
           },
