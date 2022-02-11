@@ -433,7 +433,7 @@ const questions = [
     id: 31,
     name: 'Best Time to Buy and Sell Stock',
     url: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
-    pattern: ['Dynamic Programming'],
+    pattern: ['Greedy'],
     difficulty: 'Easy',
     premium: false,
     companies: [
