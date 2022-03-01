@@ -7,6 +7,9 @@ import {
   Badge,
   NavLink,
   Button,
+  Modal,
+  ModalHeader,
+  ModalFooter,
 } from 'reactstrap';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
@@ -97,6 +100,14 @@ const Table = () => {
         columns: [
           {
             Header: () => {
+              /**
+               * Modal Handlers for the Reset Button
+               */
+              const [resetModal, setResetModal] = React.useState(false);
+              const toggleResetModal = () => {
+                setResetModal(!resetModal);
+              };
+
               return (
                 <span>
                   <Badge className="" pill>
@@ -148,10 +159,22 @@ const Table = () => {
                     outline
                     size="sm"
                     color="danger"
-                    onClick={resetHandler}
+                    onClick={toggleResetModal}
                   >
                     Reset
                   </Button>
+                  {/* Modal for Reset Button */}
+                  <Modal isOpen={resetModal} toggle={toggleResetModal}>
+                    <ModalHeader toggle={toggleResetModal}>
+                      Are you sure you want to reset your progress?
+                    </ModalHeader>
+                    <ModalFooter>
+                      <Button onClick={resetHandler} color="success">
+                        Reset
+                      </Button>
+                      <Button onClick={toggleResetModal}>Cancel</Button>
+                    </ModalFooter>
+                  </Modal>
                 </span>
               );
             },
