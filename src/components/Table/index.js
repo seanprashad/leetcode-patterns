@@ -100,9 +100,6 @@ const Table = () => {
         columns: [
           {
             Header: () => {
-              /**
-               * Modal Handlers for the Reset Button
-               */
               const [resetModal, setResetModal] = React.useState(false);
               const toggleResetModal = () => {
                 setResetModal(!resetModal);
@@ -163,7 +160,6 @@ const Table = () => {
                   >
                     Reset
                   </Button>
-                  {/* Modal for Reset Button */}
                   <Modal isOpen={resetModal} toggle={toggleResetModal}>
                     <ModalHeader toggle={toggleResetModal}>
                       Are you sure you want to reset your progress?
