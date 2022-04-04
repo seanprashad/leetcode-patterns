@@ -373,7 +373,7 @@ const questions = [
     pattern: ['Backtracking'],
     difficulty: 'Medium',
     premium: true,
-    companies: ['', 'Google'],
+    companies: ['Google'],
   },
   {
     id: 27,
@@ -382,7 +382,7 @@ const questions = [
     pattern: ['Backtracking'],
     difficulty: 'Hard',
     premium: false,
-    companies: ['', 'Google', 'Intuit', 'Amazon', 'Apple', 'Uber', 'Bloomberg'],
+    companies: ['Google', 'Intuit', 'Amazon', 'Apple', 'Uber', 'Bloomberg'],
   },
   {
     id: 28,
