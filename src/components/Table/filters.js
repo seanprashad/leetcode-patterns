@@ -1,11 +1,12 @@
 import React from 'react';
 
-function CreateDropDownListHelper(options, filterValue, setFilter) {
+function CreateDropDownListHelper(options, filterValue, setFilter, id) {
   return (
     <select
       value={filterValue}
       onChange={e => {
         setFilter(e.target.value || '');
+        localStorage.setItem(id, e.target.value);
       }}
     >
       <option value="">All</option>
@@ -37,11 +38,11 @@ export function DefaultColumnFilter({
 }
 
 export function SelectDifficultyColumnFilter({
-  column: { filterValue, setFilter },
+  column: { filterValue, setFilter, id },
 }) {
   const options = ['Easy', 'Medium', 'Hard'];
 
-  return CreateDropDownListHelper(options, filterValue, setFilter);
+  return CreateDropDownListHelper(options, filterValue, setFilter, id);
 }
 
 export function SelectColumnFilter({
@@ -61,5 +62,5 @@ export function SelectColumnFilter({
     return [...set.values()].sort();
   }, [id, preFilteredRows]);
 
-  return CreateDropDownListHelper(options, filterValue, setFilter);
+  return CreateDropDownListHelper(options, filterValue, setFilter, id);
 }

@@ -280,6 +280,7 @@ const Table = () => {
             },
             accessor: 'pattern',
             disableSortBy: true,
+            id: 'pattern',
             Cell: cellInfo => {
               const patterns = `${cellInfo.row.original.pattern}`
                 .split(',')
@@ -307,6 +308,7 @@ const Table = () => {
           {
             Header: 'Difficulty',
             accessor: 'difficulty',
+            id: 'difficulty',
             disableSortBy: true,
             Cell: cellInfo => (
               <Row>
@@ -380,6 +382,22 @@ const Table = () => {
       columns,
       data,
       defaultColumn,
+      initialState: {
+        filters: [
+          {
+            id: 'difficulty',
+            value: localStorage.getItem('difficulty') || '',
+          },
+          {
+            id: 'pattern',
+            value: localStorage.getItem('pattern') || '',
+          },
+          {
+            id: 'companies',
+            value: localStorage.getItem('companies') || '',
+          },
+        ],
+      },
     },
     useFilters,
     useSortBy,
