@@ -1,53 +1,51 @@
 class Solution {
     public double[] medianSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0) {
-            return new double[] {};
-        }
+        Comparator<Integer> comparator = (i, j) -> nums[i] != nums[j] ? Integer.compare(nums[i], nums[j]) : i - j;
 
-        MedianQueue mq = new MedianQueue();
+        TreeSet<Integer> lower = new TreeSet<>(comparator.reversed());
+        TreeSet<Integer> upper = new TreeSet<>(comparator);
         double[] result = new double[nums.length - k + 1];
         int idx = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            mq.offer(nums[i]);
+        for (int i = 0; i < k; i++) {
+            lower.add(i);
+        }
 
-            if (mq.size() == k) {
-                result[idx++] = mq.getMedian();
-                mq.remove(nums[i + 1 - k]);
+        balance(lower, upper);
+        result[idx] = getMedian(lower, upper, nums, k);
+        ++idx;
+
+        for (int i = k; i < nums.length; i++) {
+            int idxToRemove = i - k;
+
+            if (!upper.remove(idxToRemove)) {
+                lower.remove(idxToRemove);
+            } else {
+                upper.remove(idxToRemove);
             }
+
+            upper.add(i);
+            lower.add(upper.pollFirst());
+
+            balance(lower, upper);
+            result[idx] = getMedian(lower, upper, nums, k);
+            ++idx;
         }
 
         return result;
     }
 
-    class MedianQueue {
-        private PriorityQueue<Integer> maxHeap;
-        private PriorityQueue<Integer> minHeap;
-
-        public MedianQueue() {
-            maxHeap = new PriorityQueue<>();
-            minHeap = new PriorityQueue<>(Collections.reverseOrder());
+    private void balance(TreeSet<Integer> lower, TreeSet<Integer> upper) {
+        while (lower.size() > upper.size()) {
+            upper.add(lower.pollFirst());
         }
+    }
 
-        public void offer(int num) {
-            maxHeap.offer(num);
-            minHeap.offer(maxHeap.poll());
-
-            if (maxHeap.size() < minHeap.size()) {
-                maxHeap.offer(minHeap.poll());
-            }
-        }
-
-        public boolean remove(int num) {
-            return maxHeap.remove(num) || minHeap.remove(num);
-        }
-
-        public int size() {
-            return maxHeap.size() + minHeap.size();
-        }
-
-        public double getMedian() {
-            return maxHeap.size() > minHeap.size() ? maxHeap.peek() : ((long) maxHeap.peek() + minHeap.peek()) / 2.0;
+    private double getMedian(TreeSet<Integer> lower, TreeSet<Integer> upper, int[] nums, int k) {
+        if (k % 2 == 0) {
+            return ((double) nums[lower.first()] + nums[upper.first()]) / 2;
+        } else {
+            return (double) nums[upper.first()];
         }
     }
 }
