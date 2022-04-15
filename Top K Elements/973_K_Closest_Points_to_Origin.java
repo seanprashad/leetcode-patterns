@@ -1,49 +1,46 @@
 class Solution {
-    public int[][] kClosest(int[][] points, int K) {
-        if (points == null || points.length == 0) {
-            return new int[0][0];
+    public int[][] kClosest(int[][] points, int k) {
+        if (points.length == k) {
+            return points;
         }
 
-        int low = 0, high = points.length - 1;
+        List<int[]> result = new ArrayList<>();
+        int idx = quickSelect(points, 0, points.length - 1, k);
 
-        while (low < high) {
-            int idx = quickSelect(points, low, high);
-
-            if (idx == K) {
-                break;
-            } else if (idx < K) {
-                low = idx + 1;
-            } else {
-                high = idx - 1;
-            }
+        for (int i = 0; i < k; i++) {
+            result.add(points[i]);
         }
 
-        return Arrays.copyOf(points, K);
+        return result.toArray(new int[0][]);
     }
 
-    private int quickSelect(int[][] points, int low, int high) {
+    private int quickSelect(int[][] points, int low, int high, int k) {
         int idx = low, pivot = high;
-        int pivotDistance = distance(points[pivot]);
+        int pivotDistance = points[pivot][0] * points[pivot][0] + points[pivot][1] * points[pivot][1];
 
         for (int i = low; i < high; i++) {
-            if (distance(points[i]) < pivotDistance) {
+            int distance = points[i][0] * points[i][0] + points[i][1] * points[i][1];
+
+            if (distance <= pivotDistance) {
                 swap(points, i, idx);
                 ++idx;
             }
         }
 
         swap(points, idx, pivot);
-        return idx;
+
+        if (idx == k) {
+            return idx;
+        } else if (idx < k) {
+            return quickSelect(points, idx + 1, high, k);
+        } else {
+            return quickSelect(points, low, idx - 1, k);
+        }
     }
 
-    private void swap(int[][] points, int low, int high) {
-        int[] temp = points[low];
-        points[low] = points[high];
-        points[high] = temp;
-        return;
-    }
-
-    private int distance(int[] pair) {
-        return pair[0] * pair[0] + pair[1] * pair[1];
+    private void swap(int[][] points, int i, int j) {
+        int[] temp = points[i];
+        points[i] = points[j];
+        points[j] = temp;
     }
 }
