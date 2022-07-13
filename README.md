@@ -119,7 +119,7 @@ Feel free to open an [issue] with your suggestion!
 ## Acknowledgements
 
 This list is heavily inspired from [Grokking the Coding Interview] with
-additional problems extracted from the [Blind 75 list] and this medium article
+additional problems extracted from the [Blind 75 list] and this hackernoon article
 on [14 patterns to ace any coding interview question].
 
 [leetcode.com]: https://leetcode.com
