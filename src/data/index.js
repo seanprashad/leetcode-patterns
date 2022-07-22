@@ -459,7 +459,7 @@ const questions = [
     name: 'Maximum Subarray',
     url: 'https://leetcode.com/problems/maximum-subarray/',
     pattern: ['Dynamic Programming'],
-    difficulty: 'Easy',
+    difficulty: 'Medium',
     premium: false,
     companies: [
       'LinkedIn',
@@ -1177,7 +1177,7 @@ const questions = [
     name: 'Peak Index in a Mountain Array',
     url: 'https://leetcode.com/problems/peak-index-in-a-mountain-array/',
     pattern: ['Binary Search'],
-    difficulty: 'Easy',
+    difficulty: 'Medium',
     premium: false,
     companies: ['Google', 'Amazon', 'Bloomberg', 'Facebook'],
   },
