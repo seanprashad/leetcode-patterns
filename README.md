@@ -101,6 +101,7 @@ If asked for maximum/minimum subarray/subset/options then
 
 If asked for top/least K items then
     - Heap
+    - QuickSelect
 
 If asked for common strings then
     - Map
