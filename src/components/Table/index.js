@@ -55,8 +55,8 @@ const Table = () => {
   }
 
   const filteredByCheckbox = () => {
+    const checkbox = localStorage.getItem('checkbox') || '';
     return questions.filter(question => {
-      const checkbox = localStorage.getItem('checkbox') || '';
       if (!checkbox) return true;
       return question.checkbox === checkbox;
     });
