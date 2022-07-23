@@ -5,8 +5,8 @@ function CreateDropDownListHelper(options, filterValue, setFilter, id) {
     <select
       value={filterValue}
       onChange={e => {
-        setFilter(e.target.value || '');
         localStorage.setItem(id, e.target.value);
+        setFilter(e.target.value || '');
       }}
     >
       <option value="">All</option>
@@ -63,4 +63,16 @@ export function SelectColumnFilter({
   }, [id, preFilteredRows]);
 
   return CreateDropDownListHelper(options, filterValue, setFilter, id);
+}
+
+export function SelectCheckedColumnFilter({
+  column: { filterValue, setFilter, id, filterByCheckbox },
+}) {
+  const options = ['Checked', 'Unchecked'];
+  const filter = val => {
+    setFilter(val);
+    filterByCheckbox();
+  };
+
+  return CreateDropDownListHelper(options, filterValue, filter, id);
 }
