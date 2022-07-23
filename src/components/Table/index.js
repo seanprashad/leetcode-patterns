@@ -68,15 +68,14 @@ const Table = () => {
     }
   }
 
-  const [data, setData] = useState(filteredByCheckbox());
-
   const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
   const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
-  for (let i = 0; i < data.length; i += 1) {
-    difficultyMap[data[i].difficulty] += checkedList[data[i].id];
-    totalDifficultyCount[data[i].difficulty] += 1;
+  for (let i = 0; i < questions.length; i += 1) {
+    difficultyMap[questions[i].difficulty] += checkedList[questions[i].id];
+    totalDifficultyCount[questions[i].difficulty] += 1;
   }
 
+  const [data, setData] = useState(filteredByCheckbox());
   const [difficultyCount, setDifficultyCount] = useState(difficultyMap);
   const [checked, setChecked] = useState(checkedList);
   const [showPatterns, setShowPatterns] = useState(
