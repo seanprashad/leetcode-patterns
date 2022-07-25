@@ -177,8 +177,6 @@ const Table = () => {
                   >
                     Reset
                   </Button>
-                  <br />
-                  <br />
                   <Modal isOpen={resetModal} toggle={toggleResetModal}>
                     <ModalHeader toggle={toggleResetModal}>
                       Are you sure you want to reset your progress?
