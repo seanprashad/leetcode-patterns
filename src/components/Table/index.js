@@ -19,6 +19,7 @@ import {
   DefaultColumnFilter,
   SelectDifficultyColumnFilter,
   SelectColumnFilter,
+  SelectCheckedColumnFilter,
 } from './filters';
 import { Event } from '../Shared/Tracking';
 
@@ -31,11 +32,10 @@ import PatternFrequencies from '../PatternFrequencies';
 const iconPath = `${process.env.PUBLIC_URL}/assets/icons/`;
 
 const Table = () => {
-  const data = React.useMemo(() => questions, []);
   const [resetCount, setResetCount] = useState(0);
   let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
-    new Array(data.length).fill(false);
+    new Array(questions.length).fill(false);
 
   /* If the user has previously visited the website, then an array in
   LocalStorage would exist of a certain length which corresponds to which
@@ -43,8 +43,8 @@ const Table = () => {
   to the list, then we would need to resize and copy the existing 'checked'
   array before updating it in LocalStorage in order to transfer their saved
   progress. */
-  if (checkedList.length !== data.length) {
-    const resizedCheckedList = new Array(data.length).fill(false);
+  if (checkedList.length !== questions.length) {
+    const resizedCheckedList = new Array(questions.length).fill(false);
 
     for (let i = 0; i < checkedList.length; i += 1) {
       resizedCheckedList[i] = checkedList[i];
@@ -54,13 +54,30 @@ const Table = () => {
     window.localStorage.setItem('checked', JSON.stringify(checkedList));
   }
 
-  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
-  const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
-  for (let i = 0; i < data.length; i += 1) {
-    difficultyMap[data[i].difficulty] += checkedList[data[i].id];
-    totalDifficultyCount[data[i].difficulty] += 1;
+  const filteredByCheckbox = () => {
+    const checkbox = localStorage.getItem('checkbox') || '';
+    return questions.filter(question => {
+      if (!checkbox) return true;
+      return question.checkbox === checkbox;
+    });
+  };
+
+  for (let i = 0; i < questions.length; i += 1) {
+    if (checkedList[questions[i].id]) {
+      questions[i].checkbox = 'Checked';
+    } else {
+      questions[i].checkbox = 'Unchecked';
+    }
   }
 
+  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
+  const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
+  for (let i = 0; i < questions.length; i += 1) {
+    difficultyMap[questions[i].difficulty] += checkedList[questions[i].id];
+    totalDifficultyCount[questions[i].difficulty] += 1;
+  }
+
+  const [data, setData] = useState(filteredByCheckbox());
   const [difficultyCount, setDifficultyCount] = useState(difficultyMap);
   const [checked, setChecked] = useState(checkedList);
   const [showPatterns, setShowPatterns] = useState(
@@ -174,7 +191,12 @@ const Table = () => {
                 </span>
               );
             },
-            id: 'Checkbox',
+            accessor: 'checkbox',
+            id: 'checkbox',
+            filterByCheckbox: () => {
+              setData(filteredByCheckbox());
+            },
+            disableSortBy: true,
             Cell: cellInfo => {
               return (
                 <span data-tip={`Question #${Number(cellInfo.row.id) + 1}`}>
@@ -185,7 +207,14 @@ const Table = () => {
                       checked[cellInfo.row.original.id] = !checked[
                         cellInfo.row.original.id
                       ];
-
+                      const question = questions.find(
+                        q => q.id === cellInfo.row.original.id,
+                      );
+                      if (checked[cellInfo.row.original.id]) {
+                        question.checkbox = 'Checked';
+                      } else {
+                        question.checkbox = 'Unchecked';
+                      }
                       const additive = checked[cellInfo.row.original.id]
                         ? 1
                         : -1;
@@ -194,11 +223,13 @@ const Table = () => {
                       ] += additive;
                       setDifficultyCount(difficultyCount);
                       setChecked([...checked]);
+                      setData(filteredByCheckbox());
                     }}
                   />
                 </span>
               );
             },
+            Filter: SelectCheckedColumnFilter,
           },
           {
             Header: 'Questions',
@@ -384,6 +415,10 @@ const Table = () => {
       defaultColumn,
       initialState: {
         filters: [
+          {
+            id: 'checkbox',
+            value: localStorage.getItem('checkbox') || '',
+          },
           {
             id: 'difficulty',
             value: localStorage.getItem('difficulty') || '',
