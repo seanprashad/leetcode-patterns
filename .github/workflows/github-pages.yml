@@ -16,10 +16,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install Node
+      - name: Install Node ⚛️
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '14'
 
       - name: Install Packages and Build 🔧
         run: |
@@ -27,6 +27,5 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build
+        run: |
+          npm run deploy
