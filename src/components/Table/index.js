@@ -29,7 +29,7 @@ import 'react-toggle/style.css';
 import './styles.scss';
 import PatternFrequencies from '../PatternFrequencies';
 
-const iconPath = `${process.env.PUBLIC_URL}/assets/icons/`;
+const iconPath = `${process.env.PUBLIC_URL}/static/icons/`;
 
 const Table = () => {
   const [resetCount, setResetCount] = useState(0);
