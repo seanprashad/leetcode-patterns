@@ -24,8 +24,9 @@ jobs:
       - name: Install Packages and Build 🔧
         run: |
           npm ci
-          npm run build
 
       - name: Deploy 🚀
         run: |
+          git config user.email "${{ secrets.GIT_CONFIG_EMAIL }}"
+          git config user.name "${{ secrets.GIT_CONFIG_NAME }}"
           npm run deploy
