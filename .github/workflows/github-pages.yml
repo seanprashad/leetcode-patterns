@@ -6,27 +6,31 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-20.04
     permissions:
       contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Install Node ⚛️
+      - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '14.x'
 
-      - name: Install Packages and Build 🔧
-        run: |
-          npm ci
+      - name: Install Packages
+        run: npm ci
 
-      - name: Deploy 🚀
-        run: |
-          git config user.email "${{ secrets.GIT_CONFIG_EMAIL }}"
-          git config user.name "${{ secrets.GIT_CONFIG_NAME }}"
-          npm run deploy
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
