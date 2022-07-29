@@ -32,7 +32,7 @@ const Acknowledgements = () => {
           <Card>
             <CardImg top width="100%" src={Blind} alt="Blind 75 Question" />
             <CardBody>
-              <CardTitle>Blind 75</CardTitle>
+              <CardTitle>Blind Curated 75 Question List</CardTitle>
               <CardSubtitle>
                 <NavLink
                   target="_blank"
