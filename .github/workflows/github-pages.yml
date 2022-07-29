@@ -6,22 +6,24 @@ on:
       - master
   pull_request:
 
-  # Allows manual runs from the Actions tab
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-test-deploy:
     runs-on: ubuntu-20.04
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Checkout Repo
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build Artifact
-        uses: actions/jekyll-build-pages@v1
+      - name: Set-up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm ci
+      - run: npm run build
 
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v0
+      - name: Deploy
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: build
