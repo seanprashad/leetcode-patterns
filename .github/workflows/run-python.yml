@@ -9,9 +9,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.x'
+          architecture: 'x64'
       - run: |
-            python -m pip install --upgrade pip
-            pip install requests
+          python -m pip install --upgrade pip
+          pip install requests
       - run: |
-          python test.py
+          python cron/difficulty.py
