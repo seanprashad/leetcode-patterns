@@ -1,36 +1,36 @@
-name: GitHub pages
+name: github-pages
 
 on:
   push:
     branches:
       - master
 
+  # Allows manual runs from the Actions tab
+  workflow_dispatch:
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-20.04
     permissions:
       contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
-      - name: Install Node
+      - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '14'
 
-      - name: Install Packages
-        run: npm ci
+      - name: Build Static Files
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        run: npm run build
+      - name: Build Artifact
+        uses: actions/jekyll-build-pages@v1
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/master' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v0
