@@ -6,32 +6,31 @@ on:
       - master
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-20.04
     permissions:
       contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
 
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: '14.x'
 
-      - name: Install Packages
-        run: npm ci
+      - name: Install Packages and Build 🔧
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        run: npm run build
+      - name: Install rsync 📚
+        run: |
+          apt-get update && apt-get install -y rsync
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/master' }}
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          keep_files: true
+          folder: build
