@@ -8,20 +8,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test-deploy:
+  build-and-deploy:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set-up Node
+      - name: Install dependencies and build
         uses: actions/setup-node@v3
         with:
           node-version: '14'
       - run: npm ci
       - run: npm run build
 
-      - name: Deploy
+      - name: Check GitHub Pages status
+        uses: crazy-max/ghaction-github-status@v3
+        with:
+          pages_threshold: major_outage
+
+      - name: Deploy to gh-pages branch
+        if: success()
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
