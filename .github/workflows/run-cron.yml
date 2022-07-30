@@ -1,4 +1,4 @@
-name: run-python
+name: run-cron
 
 on: workflow_dispatch
 
@@ -15,4 +15,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
       - run: |
-          python cron/difficulty.py
+          python cron/update_questions.py

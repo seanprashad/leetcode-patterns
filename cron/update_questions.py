@@ -1,6 +1,6 @@
 import requests
 from urllib.parse import urlparse
-from questions import questions
+import json
 
 query = '''query questionData($titleSlug: String!) {
   question(titleSlug: $titleSlug) {
@@ -8,6 +8,13 @@ query = '''query questionData($titleSlug: String!) {
   }
 }
 '''
+
+print("Reading questions file")
+
+with open("questions.json", "r") as file:
+  questions = json.load(file)
+
+print("Updating question metadata")
 
 for question in questions:
     p = urlparse(question["url"])
@@ -23,5 +30,11 @@ for question in questions:
 
     if their_difficulty != our_difficulty:
         print(f'{question["name"]}: {our_difficulty} -> {their_difficulty}')
+        question["difficulty"] = their_difficulty
 
 print("Finished checking all questions")
+
+with open("questions.json", "w") as file:
+  json.dump(questions, file, indent=2)
+
+print("Wrote questions file")
