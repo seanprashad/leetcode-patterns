@@ -1,5 +1,6 @@
 import requests
 from urllib.parse import urlparse
+from datetime import datetime
 import json
 
 query = '''query questionData($titleSlug: String!) {
@@ -16,7 +17,7 @@ with open("questions.json", "r") as file:
 
 print("Updating question metadata")
 
-for question in questions:
+for question in questions["data"]:
     p = urlparse(question["url"])
     title_slug = p.path.rstrip('/').split('/')[-1]
     our_difficulty = question["difficulty"]
@@ -34,7 +35,8 @@ for question in questions:
 
 print("Finished checking all questions")
 
-with open("questions.json", "w") as file:
+with open("output.json", "w") as file:
+  questions["updated"] = str(datetime.now().isoformat())
   json.dump(questions, file, indent=2)
 
 print("Wrote questions file")
