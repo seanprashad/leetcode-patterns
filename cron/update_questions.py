@@ -35,7 +35,7 @@ for question in questions["data"]:
 
 print("Finished checking all questions")
 
-with open("output.json", "w") as file:
+with open("questions.json", "w") as file:
   questions["updated"] = str(datetime.now().isoformat())
   json.dump(questions, file, indent=2)
 

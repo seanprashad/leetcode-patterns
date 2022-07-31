@@ -3,7 +3,7 @@ name: run-cron
 on: workflow_dispatch
 
 jobs:
-  build:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,3 +16,6 @@ jobs:
           pip install requests
       - run: |
           python cron/update_questions.py
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: update questions (cron job)
