@@ -239,7 +239,7 @@ const Table = () => {
               return (
                 <NavLink
                   target="_blank"
-                  href={cellInfo.row.original.url}
+                  href={`https://leetcode.com/problems/${cellInfo.row.original.url}/`}
                   onClick={() => {
                     Event(
                       'Table',
@@ -266,9 +266,7 @@ const Table = () => {
             accessor: 'solutions',
             disableSortBy: true,
             Cell: cellInfo => {
-              const url = cellInfo.row.original.premium
-                ? `${cellInfo.row.original.url}/`
-                : cellInfo.row.original.url;
+              const url = `https://leetcode.com/problems/${cellInfo.row.original.url}/`;
               return (
                 <NavLink
                   target="_blank"
