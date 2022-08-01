@@ -10,10 +10,16 @@ query = '''query questionData($titleSlug: String!) {
 }
 '''
 
+questions_file = "questions.json"
+
 print("Reading questions file")
 
-with open("questions.json", "r") as file:
-  questions = json.load(file)
+try:
+    with open(questions_file, "r") as file:
+        questions = json.load(file)
+except Exception as e:
+    print(e)
+    exit()
 
 print("Updating question metadata")
 
@@ -35,8 +41,12 @@ for question in questions["data"]:
 
 print("Finished checking all questions")
 
-with open("questions.json", "w") as file:
-  questions["updated"] = str(datetime.now().isoformat())
-  json.dump(questions, file, indent=2)
+try:
+    with open(questions_file, "w") as file:
+        questions["updated"] = str(datetime.now().isoformat())
+        json.dump(questions, file, indent=2)
+except Exception as e:
+    print(e)
+    exit()
 
 print("Wrote questions file")
