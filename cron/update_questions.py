@@ -1,5 +1,4 @@
 import requests
-from urllib.parse import urlparse
 from datetime import datetime
 import json
 
