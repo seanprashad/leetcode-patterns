@@ -27,11 +27,11 @@ for question in questions["data"]:
         json={"query": query, "variables": variables}
     )
 
-    their_difficulty = response.json()["data"]["question"]["difficulty"]
+    leetcode_difficulty = response.json()["data"]["question"]["difficulty"]
 
-    if their_difficulty != our_difficulty:
-        print(f'{question["name"]}: {our_difficulty} -> {their_difficulty}')
-        question["difficulty"] = their_difficulty
+    if leetcode_difficulty != our_difficulty:
+        print(f'{question["name"]}: {our_difficulty} -> {leetcode_difficulty}')
+        question["difficulty"] = leetcode_difficulty
 
 print("Finished checking all questions")
 
