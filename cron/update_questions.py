@@ -24,15 +24,13 @@ except Exception as e:
 print("Updating question metadata")
 
 for question in questions["data"]:
-    p = urlparse(question["url"])
-    title_slug = p.path.rstrip('/').split('/')[-1]
-    our_difficulty = question["difficulty"]
-    variables = {"titleSlug": title_slug}
+    variables = {"titleSlug": question["url"]}
 
     response = requests.post("https://leetcode.com/graphql",
         json={"query": query, "variables": variables}
     )
 
+    our_difficulty = question["difficulty"]
     leetcode_difficulty = response.json()["data"]["question"]["difficulty"]
 
     if leetcode_difficulty != our_difficulty:
