@@ -9,7 +9,7 @@ query = '''query questionData($titleSlug: String!) {
 }
 '''
 
-questions_file = "questions.json"
+questions_file = "../src/data/questions.json"
 
 print("Reading questions file")
 
