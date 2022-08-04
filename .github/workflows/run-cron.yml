@@ -22,4 +22,4 @@ jobs:
           python cron/update_questions.py
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: update questions (cron job)
+          commit_message: Update questions & companies via run-cron GitHub Action

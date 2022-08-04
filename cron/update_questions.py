@@ -1,6 +1,7 @@
+import os
+import json
 import requests
 from datetime import datetime
-import json
 
 query = '''query questionData($titleSlug: String!) {
   question(titleSlug: $titleSlug) {
@@ -9,9 +10,9 @@ query = '''query questionData($titleSlug: String!) {
 }
 '''
 
-questions_file = "../src/data/questions.json"
+questions_file = os.getcwd() + "/src/data/questions.json"
 
-print("Reading questions file")
+print("=== Reading questions file ===")
 
 try:
     with open(questions_file, "r") as file:
@@ -20,7 +21,9 @@ except Exception as e:
     print(e)
     exit()
 
-print("Updating question metadata")
+print("=== Updating question metadata ===")
+
+startTime = datetime.now()
 
 for question in questions["data"]:
     variables = {"titleSlug": question["url"]}
@@ -36,7 +39,7 @@ for question in questions["data"]:
         print(f'{question["name"]}: {our_difficulty} -> {leetcode_difficulty}')
         question["difficulty"] = leetcode_difficulty
 
-print("Finished checking all questions")
+print("=== Finished checking all questions ===")
 
 try:
     with open(questions_file, "w") as file:
@@ -46,4 +49,5 @@ except Exception as e:
     print(e)
     exit()
 
-print("Wrote questions file")
+print("=== Wrote questions file ===")
+print(f'=== Script took: {datetime.now() - startTime} seconds ===')
