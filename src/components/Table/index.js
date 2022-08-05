@@ -23,7 +23,7 @@ import {
 } from './filters';
 import { Event } from '../Shared/Tracking';
 
-import questions from '../../data';
+import questions, { updated } from '../../data';
 
 import 'react-toggle/style.css';
 import './styles.scss';
@@ -353,13 +353,20 @@ const Table = () => {
           },
           {
             Header: () => {
+              const date = new Date(updated);
+              const month = date.toLocaleString('default', {
+                month: 'long',
+              });
+              const year = date.getFullYear();
               return (
                 <>
                   <div
                     style={{ whiteSpace: 'nowrap', display: 'inline-block' }}
                   >
                     Companies{' '}
-                    <span data-tip="Companies retrieved from Leetcode Premium (January 2022)">
+                    <span
+                      data-tip={`Companies retrieved from Leetcode Premium (${month} ${year})`}
+                    >
                       <FaQuestionCircle />
                     </span>
                   </div>
