@@ -1,11 +1,10 @@
 import os
 import json
-from datetime import datetime
 import leetcode
 import leetcode.auth
+from datetime import datetime
 
 LEETCODE_SESSION_TOKEN = os.environ.get("LEETCODE_SESSION_TOKEN")
-
 questions_file = os.getcwd() + "/src/data/questions.json"
 
 print("=== Reading questions file ===")
@@ -34,23 +33,39 @@ configuration.debug = False
 api_instance = leetcode.DefaultApi(leetcode.ApiClient(configuration))
 
 for question in questions["data"]:
+    # for x in range(1):
+    # question = questions["data"][0]
+
     graphql_request = leetcode.GraphqlQuery(
         query='''query questionData($titleSlug: String!) {
             question(titleSlug: $titleSlug) {
                 difficulty
+                companyTagStats
             }
         }
         ''',
-        variables=leetcode.GraphqlQueryGetQuestionDetailVariables(title_slug=question["url"])
+        variables=leetcode.GraphqlQueryGetQuestionDetailVariables(
+            title_slug=question["url"])
     )
+
     response = api_instance.graphql_post(body=graphql_request).to_dict()
 
-    our_difficulty = question["difficulty"]
     leetcode_difficulty = response["data"]["question"]["difficulty"]
+    leetcode_companies = json.loads(
+        response["data"]["question"]["company_tag_stats"])["1"]
 
-    if leetcode_difficulty != our_difficulty:
-        print(f'{question["name"]}: {our_difficulty} -> {leetcode_difficulty}')
-        question["difficulty"] = leetcode_difficulty
+    companies = []
+
+    for leetcode_company in leetcode_companies:
+        company = {
+            "name": leetcode_company["slug"],
+            "frequency": leetcode_company["timesEncountered"]
+        }
+
+        companies.append(company)
+
+    question["difficulty"] = leetcode_difficulty
+    question["companies"] = companies
 
 print("=== Finished checking all questions ===")
 
