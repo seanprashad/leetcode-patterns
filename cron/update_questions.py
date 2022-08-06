@@ -1,14 +1,10 @@
 import os
 import json
-import requests
+import leetcode
+import leetcode.auth
 from datetime import datetime
 
-query = '''query questionData($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    difficulty
-  }
-}
-'''
+LEETCODE_SESSION_TOKEN = os.environ.get("LEETCODE_SESSION_TOKEN")
 
 questions_file = os.getcwd() + "/src/data/questions.json"
 
@@ -25,19 +21,56 @@ print("=== Updating question metadata ===")
 
 startTime = datetime.now()
 
-for question in questions["data"]:
-    variables = {"titleSlug": question["url"]}
+csrf_token = leetcode.auth.get_csrf_cookie(LEETCODE_SESSION_TOKEN)
 
-    response = requests.post("https://leetcode.com/graphql",
-        json={"query": query, "variables": variables}
+configuration = leetcode.Configuration()
+
+configuration.api_key["x-csrftoken"] = csrf_token
+configuration.api_key["csrftoken"] = csrf_token
+configuration.api_key["LEETCODE_SESSION"] = LEETCODE_SESSION_TOKEN
+configuration.api_key["Referer"] = "https://leetcode.com"
+configuration.debug = False
+
+api_instance = leetcode.DefaultApi(leetcode.ApiClient(configuration))
+
+for question in questions["data"]:
+    graphql_request = leetcode.GraphqlQuery(
+        query='''query questionData($titleSlug: String!) {
+            question(titleSlug: $titleSlug) {
+                title
+                difficulty
+                companyTagStats
+                isPaidOnly
+            }
+        }
+        ''',
+        variables=leetcode.GraphqlQueryGetQuestionDetailVariables(
+            title_slug=question["slug"])
     )
 
-    our_difficulty = question["difficulty"]
-    leetcode_difficulty = response.json()["data"]["question"]["difficulty"]
+    response = api_instance.graphql_post(body=graphql_request).to_dict()
 
-    if leetcode_difficulty != our_difficulty:
-        print(f'{question["name"]}: {our_difficulty} -> {leetcode_difficulty}')
-        question["difficulty"] = leetcode_difficulty
+    leetcode_title = response["data"]["question"]["title"]
+    leetcode_difficulty = response["data"]["question"]["difficulty"]
+    leetcode_companies = json.loads(
+        response["data"]["question"]["company_tag_stats"])["1"]
+    leetcode_premium = response["data"]["question"]["is_paid_only"]
+
+    companies = []
+
+    for leetcode_company in leetcode_companies:
+        company = {
+            "name": leetcode_company["name"],
+            "slug": leetcode_company["slug"],
+            "frequency": leetcode_company["timesEncountered"]
+        }
+
+        companies.append(company)
+
+    question["title"] = leetcode_title
+    question["difficulty"] = leetcode_difficulty
+    question["companies"] = companies
+    question["premium"] = leetcode_premium
 
 print("=== Finished checking all questions ===")
 
