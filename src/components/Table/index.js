@@ -239,12 +239,12 @@ const Table = () => {
               return (
                 <NavLink
                   target="_blank"
-                  href={`https://leetcode.com/problems/${cellInfo.row.original.url}/`}
+                  href={`https://leetcode.com/problems/${cellInfo.row.original.slug}/`}
                   onClick={() => {
                     Event(
                       'Table',
-                      'Clicked question url',
-                      `${cellInfo.row.original.name} question url`,
+                      'Clicked question title',
+                      `${cellInfo.row.original.title} question title`,
                     );
                   }}
                 >
@@ -255,7 +255,7 @@ const Table = () => {
                   ) : (
                     ''
                   )}
-                  {cellInfo.row.original.name}
+                  {cellInfo.row.original.title}
                 </NavLink>
               );
             },
@@ -266,7 +266,7 @@ const Table = () => {
             accessor: 'solutions',
             disableSortBy: true,
             Cell: cellInfo => {
-              const url = `https://leetcode.com/problems/${cellInfo.row.original.url}/`;
+              const url = `https://leetcode.com/problems/${cellInfo.row.original.slug}/`;
               return (
                 <NavLink
                   target="_blank"
@@ -275,7 +275,7 @@ const Table = () => {
                     Event(
                       'Table',
                       'Clicked solution',
-                      `${cellInfo.row.original.name} solution`,
+                      `${cellInfo.row.original.slug} solution`,
                     );
                   }}
                 >
@@ -366,7 +366,7 @@ const Table = () => {
                   >
                     Companies{' '}
                     <span
-                      data-tip={`Companies retrieved from Leetcode Premium on ${month} ${day}, ${year}`}
+                      data-tip={`Companies retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
                     >
                       <FaQuestionCircle />
                     </span>
@@ -384,14 +384,15 @@ const Table = () => {
                 : -1;
             },
             Cell: cellInfo => {
+              const questionSlug = cellInfo.row.original.slug;
               const companies = cellInfo.row.original.companies.map(company => {
-                const infoText = `${company} (${company.frequency})`;
+                const tooltipText = `Asked by ${company.name} ${company.frequency} times`;
                 return (
                   <img
-                    key={company.name}
-                    src={`${iconPath}${company.name}.png`}
-                    alt={infoText}
-                    data-tip={infoText}
+                    key={`${questionSlug}-${company.name}`}
+                    src={`${iconPath}${company.slug}.png`}
+                    alt={company.name}
+                    data-tip={tooltipText}
                   />
                 );
               });
