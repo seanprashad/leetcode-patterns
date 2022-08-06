@@ -399,7 +399,7 @@ const Table = () => {
 
               return <Row className="companies">{companies}</Row>;
             },
-            Filter: SelectColumnFilter,
+            disableFilters: true,
           },
         ],
       },
