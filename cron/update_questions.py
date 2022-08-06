@@ -6,7 +6,7 @@ import leetcode.auth
 
 LEETCODE_SESSION_TOKEN = os.environ.get("LEETCODE_SESSION_TOKEN")
 
-questions_file = "../src/data/questions.json"
+questions_file = os.getcwd() + "/src/data/questions.json"
 
 print("=== Reading questions file ===")
 
