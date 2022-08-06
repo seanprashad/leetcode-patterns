@@ -32,10 +32,7 @@ configuration.debug = False
 
 api_instance = leetcode.DefaultApi(leetcode.ApiClient(configuration))
 
-for question in questions["data"]:
-    # for x in range(1):
-    # question = questions["data"][0]
-
+for question in questions["data"]: 
     graphql_request = leetcode.GraphqlQuery(
         query='''query questionData($titleSlug: String!) {
             question(titleSlug: $titleSlug) {

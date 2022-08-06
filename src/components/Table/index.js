@@ -385,12 +385,13 @@ const Table = () => {
             },
             Cell: cellInfo => {
               const companies = cellInfo.row.original.companies.map(company => {
+                const infoText = `${company} (${company.frequency})`;
                 return (
                   <img
-                    key={company}
-                    src={`${iconPath}${company}.png`}
-                    alt={company}
-                    data-tip={company}
+                    key={company.name}
+                    src={`${iconPath}${company.name}.png`}
+                    alt={infoText}
+                    data-tip={infoText}
                   />
                 );
               });
