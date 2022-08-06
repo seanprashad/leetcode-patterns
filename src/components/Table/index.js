@@ -357,6 +357,7 @@ const Table = () => {
               const month = date.toLocaleString('default', {
                 month: 'long',
               });
+              const day = date.getDay();
               const year = date.getFullYear();
               return (
                 <>
@@ -365,7 +366,7 @@ const Table = () => {
                   >
                     Companies{' '}
                     <span
-                      data-tip={`Companies retrieved from Leetcode Premium (${month} ${year})`}
+                      data-tip={`Companies retrieved from Leetcode Premium on ${month} ${day}, ${year}`}
                     >
                       <FaQuestionCircle />
                     </span>
