@@ -366,7 +366,7 @@ const Table = () => {
                   >
                     Companies{' '}
                     <span
-                      data-tip={`Companies retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
+                      data-tip={`Companies that have asked these questions in the past year; retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
                     >
                       <FaQuestionCircle />
                     </span>

@@ -52,20 +52,23 @@ for question in questions["data"]:
 
     leetcode_title = response["data"]["question"]["title"]
     leetcode_difficulty = response["data"]["question"]["difficulty"]
-    leetcode_companies = json.loads(
-        response["data"]["question"]["company_tag_stats"])["1"]
+    leetcode_companyTags = json.loads(
+        response["data"]["question"]["company_tag_stats"])
     leetcode_premium = response["data"]["question"]["is_paid_only"]
+
+    # Retrieve companies who have asked this question within 0-1 year
+    leetcode_companies = leetcode_companyTags["1"] + leetcode_companyTags["2"]
 
     companies = []
 
     for leetcode_company in leetcode_companies:
-        company = {
+        companies.append({
             "name": leetcode_company["name"],
             "slug": leetcode_company["slug"],
             "frequency": leetcode_company["timesEncountered"]
-        }
+        })
 
-        companies.append(company)
+    companies = sorted(companies, key = lambda d: d['frequency'], reverse=True)
 
     question["title"] = leetcode_title
     question["difficulty"] = leetcode_difficulty
