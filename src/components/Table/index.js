@@ -374,7 +374,7 @@ const Table = () => {
                 </>
               );
             },
-            accessor: 'companies',
+            accessor: 'companyNames',
             sortType: (a, b) => {
               if (a.original.companies.length === b.original.companies.length) {
                 return 0;
@@ -399,7 +399,7 @@ const Table = () => {
 
               return <Row className="companies">{companies}</Row>;
             },
-            disableFilters: true,
+            Filter: SelectColumnFilter,
           },
         ],
       },
@@ -436,8 +436,8 @@ const Table = () => {
             value: localStorage.getItem('pattern') || '',
           },
           {
-            id: 'companies',
-            value: localStorage.getItem('companies') || '',
+            id: 'companyNames',
+            value: localStorage.getItem('companyNames') || '',
           },
         ],
       },
