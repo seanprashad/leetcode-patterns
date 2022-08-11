@@ -61,6 +61,8 @@ def construct_company_tag_list(company_tags_json, sections):
 
 
 def update_question_metadata(question, title, difficulty, companies, is_premium):
+    print(f"🔄 Updating question metadata for {title}")
+
     question["title"] = title
     question["difficulty"] = difficulty
     question["companies"] = companies
@@ -68,36 +70,38 @@ def update_question_metadata(question, title, difficulty, companies, is_premium)
 
 
 def read_questions(file_name):
-    print("=== Reading questions file ===")
+    print(f"💾 Loading {file_name}")
 
     try:
         with open(file_name, "r") as file:
             questions = json.load(file)
-            return questions["data"]
+            print(f"✅ Finished loading {file_name}")
+            return questions
     except Exception as e:
         print(
-            f'Exception occurred when reading questions.json: ${e}')
+            f"❌ Exception occurred when reading {file_name}: {e}")
         exit()
 
 
-def write_questions(file_name, data):
+def write_questions(file_name, questions):
+    print(f"💾 Updating {file_name}")
+
     try:
         with open(file_name, "w") as file:
-            data["updated"] = str(datetime.now().isoformat())
-            json.dump(data, file, indent=2)
+            questions["updated"] = str(datetime.now().isoformat())
+            json.dump(questions, file, indent=2)
+            print(f"✅ Finished updating {file_name}")
     except Exception as e:
         print(
-            f'Exception occurred when writing questions.json: ${e}')
+            f"❌ Exception occurred when writing {file_name}: {e}")
         exit()
-
-    print("=== Wrote questions file ===")
 
 
 def main(file_name):
     api = create_leetcode_api()
     questions = read_questions(file_name)
 
-    for question in questions:
+    for question in questions["data"]:
         title_slug = question["slug"]
 
         response = get_question_metadata(api, title_slug)
@@ -127,4 +131,4 @@ if __name__ == "__main__":
 
     main(file_name)
 
-    print(f'=== Script took: {datetime.now() - startTime} seconds ===')
+    print(f"⏱️  Data updated in {datetime.now() - startTime} seconds")
