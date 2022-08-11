@@ -38,12 +38,11 @@ def get_question_metadata(api, title_slug):
 
     try:
         response = api.graphql_post(body=graphql_request)
+        return response
     except ApiException as e:
         print(
             f'Exception occurred when contacting the Leetcode GraphQL API: ${e}')
         exit()
-
-    return response
 
 
 def construct_company_tag_list(company_tags_json, sections):
@@ -60,13 +59,26 @@ def construct_company_tag_list(company_tags_json, sections):
     return sorted(companies, key=lambda d: d['frequency'], reverse=True)
 
 
-def update_question_metadata(question, title, difficulty, companies, is_premium):
-    print(f"🔄 Updating question metadata for {title}")
+def update_question_metadata(question, response):
+    print(f'''🔄 Updating question metadata for {question["title"]}''')
 
-    question["title"] = title
-    question["difficulty"] = difficulty
+    question_title = response.data.question.title
+    question_difficulty = response.data.question.difficulty
+    question_company_tags = json.loads(
+        response.data.question.company_tag_stats)
+    question_is_premium = response.data.question.is_paid_only
+
+    # Retrieve companies who have asked this question for the following two
+    # company_tag_stat sections:
+    #   1. 0-6 months
+    #   2. 6 months to 1 year
+    companies = construct_company_tag_list(
+        question_company_tags, ["1", "2"])
+
+    question["title"] = question_title
+    question["difficulty"] = question_difficulty
     question["companies"] = companies
-    question["premium"] = is_premium
+    question["premium"] = question_is_premium
 
 
 def read_questions(file_name):
@@ -106,21 +118,7 @@ def main(file_name):
 
         response = get_question_metadata(api, title_slug)
 
-        question_title = response.data.question.title
-        question_difficulty = response.data.question.difficulty
-        question_company_tags = json.loads(
-            response.data.question.company_tag_stats)
-        question_is_premium = response.data.question.is_paid_only
-
-        # Retrieve companies who have asked this question within the following two
-        # company_tag_stat sections:
-        #   1. 0-6 months
-        #   2. 6 months to 1 year
-        companies = construct_company_tag_list(
-            question_company_tags, ["1", "2"])
-
-        update_question_metadata(question, question_title, question_difficulty,
-                                 companies, question_is_premium)
+        update_question_metadata(question, response)
 
     write_questions(file_name, questions)
 
