@@ -1,9 +1,11 @@
 import os
 import json
+import uuid
 import leetcode
 import leetcode.auth
 from datetime import datetime
 from leetcode.rest import ApiException
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def create_leetcode_api():
@@ -26,6 +28,7 @@ def get_question_metadata(api, title_slug):
         query='''query questionData($titleSlug: String!) {
             question(titleSlug: $titleSlug) {
                 title
+                titleSlug
                 difficulty
                 companyTagStats
                 isPaidOnly
@@ -38,12 +41,11 @@ def get_question_metadata(api, title_slug):
 
     try:
         response = api.graphql_post(body=graphql_request)
+        return response
     except ApiException as e:
         print(
             f'Exception occurred when contacting the Leetcode GraphQL API: ${e}')
         exit()
-
-    return response
 
 
 def construct_company_tag_list(company_tags_json, sections):
@@ -60,13 +62,24 @@ def construct_company_tag_list(company_tags_json, sections):
     return sorted(companies, key=lambda d: d['frequency'], reverse=True)
 
 
-def update_question_metadata(question, title, difficulty, companies, is_premium):
-    print(f"🔄 Updating question metadata for {title}")
+def update_question_metadata(question, response):
+    question_title = response.data.question.title
+    question_difficulty = response.data.question.difficulty
+    question_company_tags = json.loads(
+        response.data.question.company_tag_stats)
+    question_is_premium = response.data.question.is_paid_only
 
-    question["title"] = title
-    question["difficulty"] = difficulty
+    # Retrieve companies who have asked this question within the following two
+    # company_tag_stat sections:
+    #   1. 0-6 months
+    #   2. 6 months to 1 year
+    companies = construct_company_tag_list(
+        question_company_tags, ["1", "2"])
+
+    question["title"] = question_title
+    question["difficulty"] = question_difficulty
     question["companies"] = companies
-    question["premium"] = is_premium
+    question["premium"] = question_is_premium
 
 
 def read_questions(file_name):
@@ -97,30 +110,28 @@ def write_questions(file_name, questions):
         exit()
 
 
+def runners(api, question_list):
+    print(f"📡 Retrieving question metadata from Leetcode")
+
+    threads = []
+
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        for question in question_list:
+            title_slug = question["slug"]
+            threads.append(executor.submit(
+                get_question_metadata, api, title_slug))
+
+        for task in as_completed(threads):
+            update_question_metadata(question, task.result())
+
+    print(f"✅ Finished retrieving question metadata from Leetcode")
+
+
 def main(file_name):
     api = create_leetcode_api()
     questions = read_questions(file_name)
 
-    for question in questions["data"]:
-        title_slug = question["slug"]
-
-        response = get_question_metadata(api, title_slug)
-
-        question_title = response.data.question.title
-        question_difficulty = response.data.question.difficulty
-        question_company_tags = json.loads(
-            response.data.question.company_tag_stats)
-        question_is_premium = response.data.question.is_paid_only
-
-        # Retrieve companies who have asked this question within the following two
-        # company_tag_stat sections:
-        #   1. 0-6 months
-        #   2. 6 months to 1 year
-        companies = construct_company_tag_list(
-            question_company_tags, ["1", "2"])
-
-        update_question_metadata(question, question_title, question_difficulty,
-                                 companies, question_is_premium)
+    runners(api, questions["data"])
 
     write_questions(file_name, questions)
 
