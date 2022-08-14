@@ -5,6 +5,11 @@ on:
     branches:
       - master
 
+  workflow_run:
+    workflows: [run-cron]
+    types:
+      - completed
+
   workflow_dispatch:
 
 jobs:
