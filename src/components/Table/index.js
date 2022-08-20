@@ -362,6 +362,26 @@ const Table = () => {
             },
             Filter: SelectColumnFilter,
           },
+          // button to display a random question
+          {
+            randomQuestion: () => {
+              const random = Math.floor(Math.random() * questions.length);
+              const questionId = questions[random].id;
+              return questionId;
+            },
+            Header: () => {
+              return (
+                <Button
+                  onClick={() => {}}
+                  color="success"
+                  id="random-question-button"
+                >
+                  Random Question
+                </Button>
+              );
+            },
+            accessor: 'randomQuestion',
+          },
         ],
       },
     ],
