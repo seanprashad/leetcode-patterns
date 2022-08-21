@@ -207,12 +207,11 @@ const Table = () => {
           },
           {
             Header: () => {
-              const randomQuestionId = () => {
+              const randomQuestion = () => {
                 const random = Math.floor(Math.random() * questions.length);
                 const questionId = questions[random].id;
                 const questionSlug = questions[questionId].url;
                 window.open(`${questionSlug}`, '_blank');
-                return questionId;
               };
               return (
                 <>
@@ -221,7 +220,7 @@ const Table = () => {
                   >
                     Questions{' '}
                     <Button
-                      onClick={randomQuestionId}
+                      onClick={randomQuestion}
                       color="dark"
                       id="random-question-button"
                       size="sm"
