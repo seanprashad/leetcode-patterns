@@ -210,8 +210,11 @@ const Table = () => {
               const randomQuestion = () => {
                 const random = Math.floor(Math.random() * questions.length);
                 const questionId = questions[random].id;
-                const questionSlug = questions[questionId].url;
-                window.open(`${questionSlug}`, '_blank');
+                const questionSlug = questions[questionId].slug;
+                window.open(
+                  `https://leetcode.com/problems/${questionSlug}/`,
+                  '_blank',
+                );
               };
               return (
                 <>
