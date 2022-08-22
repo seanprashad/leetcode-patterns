@@ -14,7 +14,12 @@ import {
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
 import { useTable, useFilters, useSortBy } from 'react-table';
-import { FaLock, FaExternalLinkAlt, FaQuestionCircle } from 'react-icons/fa';
+import {
+  FaLock,
+  FaExternalLinkAlt,
+  FaRandom,
+  FaQuestionCircle,
+} from 'react-icons/fa';
 import {
   DefaultColumnFilter,
   SelectDifficultyColumnFilter,
@@ -232,7 +237,36 @@ const Table = () => {
             Filter: SelectCheckedColumnFilter,
           },
           {
-            Header: 'Questions',
+            Header: () => {
+              const randomQuestion = () => {
+                const random = Math.floor(Math.random() * questions.length);
+                const questionId = questions[random].id;
+                const questionSlug = questions[questionId].slug;
+                window.open(
+                  `https://leetcode.com/problems/${questionSlug}/`,
+                  '_blank',
+                );
+              };
+              return (
+                <>
+                  <div
+                    style={{ whiteSpace: 'nowrap', display: 'inline-block' }}
+                  >
+                    Questions{' '}
+                    <Button
+                      onClick={randomQuestion}
+                      color="dark"
+                      id="random-question-button"
+                      size="sm"
+                    >
+                      <span data-tip="Try a random question!">
+                        <FaRandom />
+                      </span>
+                    </Button>
+                  </div>
+                </>
+              );
+            },
             accessor: 'questions',
             disableSortBy: true,
             Cell: cellInfo => {
