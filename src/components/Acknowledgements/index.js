@@ -14,7 +14,7 @@ import { Event } from '../Shared/Tracking';
 
 import './styles.scss';
 
-const imagePath = `${process.env.PUBLIC_URL}/assets/images/`;
+const imagePath = `${process.env.PUBLIC_URL}/static/images/`;
 const Blind = `${imagePath}Blind.png`;
 const Educative = `${imagePath}Educative.png`;
 const Hackernoon = `${imagePath}Hackernoon.png`;

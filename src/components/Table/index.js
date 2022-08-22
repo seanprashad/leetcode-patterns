@@ -24,23 +24,23 @@ import {
   DefaultColumnFilter,
   SelectDifficultyColumnFilter,
   SelectColumnFilter,
+  SelectCheckedColumnFilter,
 } from './filters';
 import { Event } from '../Shared/Tracking';
 
-import questions from '../../data';
+import questions, { updated } from '../../data';
 
 import 'react-toggle/style.css';
 import './styles.scss';
 import PatternFrequencies from '../PatternFrequencies';
 
-const iconPath = `${process.env.PUBLIC_URL}/assets/icons/`;
+const iconPath = `${process.env.PUBLIC_URL}/static/icons/`;
 
 const Table = () => {
-  const data = React.useMemo(() => questions, []);
   const [resetCount, setResetCount] = useState(0);
   let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
-    new Array(data.length).fill(false);
+    new Array(questions.length).fill(false);
 
   /* If the user has previously visited the website, then an array in
   LocalStorage would exist of a certain length which corresponds to which
@@ -48,8 +48,8 @@ const Table = () => {
   to the list, then we would need to resize and copy the existing 'checked'
   array before updating it in LocalStorage in order to transfer their saved
   progress. */
-  if (checkedList.length !== data.length) {
-    const resizedCheckedList = new Array(data.length).fill(false);
+  if (checkedList.length !== questions.length) {
+    const resizedCheckedList = new Array(questions.length).fill(false);
 
     for (let i = 0; i < checkedList.length; i += 1) {
       resizedCheckedList[i] = checkedList[i];
@@ -59,13 +59,30 @@ const Table = () => {
     window.localStorage.setItem('checked', JSON.stringify(checkedList));
   }
 
-  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
-  const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
-  for (let i = 0; i < data.length; i += 1) {
-    difficultyMap[data[i].difficulty] += checkedList[data[i].id];
-    totalDifficultyCount[data[i].difficulty] += 1;
+  const filteredByCheckbox = () => {
+    const checkbox = localStorage.getItem('checkbox') || '';
+    return questions.filter(question => {
+      if (!checkbox) return true;
+      return question.checkbox === checkbox;
+    });
+  };
+
+  for (let i = 0; i < questions.length; i += 1) {
+    if (checkedList[questions[i].id]) {
+      questions[i].checkbox = 'Checked';
+    } else {
+      questions[i].checkbox = 'Unchecked';
+    }
   }
 
+  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
+  const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
+  for (let i = 0; i < questions.length; i += 1) {
+    difficultyMap[questions[i].difficulty] += checkedList[questions[i].id];
+    totalDifficultyCount[questions[i].difficulty] += 1;
+  }
+
+  const [data, setData] = useState(filteredByCheckbox());
   const [difficultyCount, setDifficultyCount] = useState(difficultyMap);
   const [checked, setChecked] = useState(checkedList);
   const [showPatterns, setShowPatterns] = useState(
@@ -179,7 +196,12 @@ const Table = () => {
                 </span>
               );
             },
-            id: 'Checkbox',
+            accessor: 'checkbox',
+            id: 'checkbox',
+            filterByCheckbox: () => {
+              setData(filteredByCheckbox());
+            },
+            disableSortBy: true,
             Cell: cellInfo => {
               return (
                 <span data-tip={`Question #${Number(cellInfo.row.id) + 1}`}>
@@ -190,7 +212,14 @@ const Table = () => {
                       checked[cellInfo.row.original.id] = !checked[
                         cellInfo.row.original.id
                       ];
-
+                      const question = questions.find(
+                        q => q.id === cellInfo.row.original.id,
+                      );
+                      if (checked[cellInfo.row.original.id]) {
+                        question.checkbox = 'Checked';
+                      } else {
+                        question.checkbox = 'Unchecked';
+                      }
                       const additive = checked[cellInfo.row.original.id]
                         ? 1
                         : -1;
@@ -199,11 +228,13 @@ const Table = () => {
                       ] += additive;
                       setDifficultyCount(difficultyCount);
                       setChecked([...checked]);
+                      setData(filteredByCheckbox());
                     }}
                   />
                 </span>
               );
             },
+            Filter: SelectCheckedColumnFilter,
           },
           {
             Header: () => {
@@ -242,12 +273,12 @@ const Table = () => {
               return (
                 <NavLink
                   target="_blank"
-                  href={cellInfo.row.original.url}
+                  href={`https://leetcode.com/problems/${cellInfo.row.original.slug}/`}
                   onClick={() => {
                     Event(
                       'Table',
-                      'Clicked question url',
-                      `${cellInfo.row.original.name} question url`,
+                      'Clicked question title',
+                      `${cellInfo.row.original.title} question title`,
                     );
                   }}
                 >
@@ -258,7 +289,7 @@ const Table = () => {
                   ) : (
                     ''
                   )}
-                  {cellInfo.row.original.name}
+                  {cellInfo.row.original.title}
                 </NavLink>
               );
             },
@@ -269,9 +300,7 @@ const Table = () => {
             accessor: 'solutions',
             disableSortBy: true,
             Cell: cellInfo => {
-              const url = cellInfo.row.original.premium
-                ? `${cellInfo.row.original.url}/`
-                : cellInfo.row.original.url;
+              const url = `https://leetcode.com/problems/${cellInfo.row.original.slug}/`;
               return (
                 <NavLink
                   target="_blank"
@@ -280,7 +309,7 @@ const Table = () => {
                     Event(
                       'Table',
                       'Clicked solution',
-                      `${cellInfo.row.original.name} solution`,
+                      `${cellInfo.row.original.slug} solution`,
                     );
                   }}
                 >
@@ -358,20 +387,28 @@ const Table = () => {
           },
           {
             Header: () => {
+              const date = new Date(updated);
+              const month = date.toLocaleString('default', {
+                month: 'long',
+              });
+              const day = date.getDate();
+              const year = date.getFullYear();
               return (
                 <>
                   <div
                     style={{ whiteSpace: 'nowrap', display: 'inline-block' }}
                   >
                     Companies{' '}
-                    <span data-tip="Companies retrieved from Leetcode Premium (January 2022)">
+                    <span
+                      data-tip={`Companies that have asked these questions in the past year; retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
+                    >
                       <FaQuestionCircle />
                     </span>
                   </div>
                 </>
               );
             },
-            accessor: 'companies',
+            accessor: 'companyNames',
             sortType: (a, b) => {
               if (a.original.companies.length === b.original.companies.length) {
                 return 0;
@@ -381,13 +418,15 @@ const Table = () => {
                 : -1;
             },
             Cell: cellInfo => {
+              const questionSlug = cellInfo.row.original.slug;
               const companies = cellInfo.row.original.companies.map(company => {
+                const tooltipText = `Asked by ${company.name} ${company.frequency} times`;
                 return (
                   <img
-                    key={company}
-                    src={`${iconPath}${company}.png`}
-                    alt={company}
-                    data-tip={company}
+                    key={`${questionSlug}-${company.name}`}
+                    src={`${iconPath}${company.slug}.png`}
+                    alt={company.name}
+                    data-tip={tooltipText}
                   />
                 );
               });
@@ -419,6 +458,10 @@ const Table = () => {
       initialState: {
         filters: [
           {
+            id: 'checkbox',
+            value: localStorage.getItem('checkbox') || '',
+          },
+          {
             id: 'difficulty',
             value: localStorage.getItem('difficulty') || '',
           },
@@ -427,8 +470,8 @@ const Table = () => {
             value: localStorage.getItem('pattern') || '',
           },
           {
-            id: 'companies',
-            value: localStorage.getItem('companies') || '',
+            id: 'companyNames',
+            value: localStorage.getItem('companyNames') || '',
           },
         ],
       },

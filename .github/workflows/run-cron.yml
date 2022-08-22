@@ -1,0 +1,27 @@
+name: run-cron
+
+on:
+  schedule:
+    - cron: '0 12 * * 0'
+
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - run: |
+          python -m pip install --upgrade pip
+          pip install requests python-leetcode
+      - run: |
+          python cron/update_questions.py
+        env:
+          LEETCODE_SESSION_TOKEN: ${{ secrets.LEETCODE_SESSION_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update questions via run-cron GitHub Action
