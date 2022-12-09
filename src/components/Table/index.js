@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Table as ReactTable,
   Container,
   Row,
   Badge,
+  Progress,
   NavLink,
   Button,
   Modal,
@@ -13,6 +15,7 @@ import {
 } from 'reactstrap';
 import Toggle from 'react-toggle';
 import ReactTooltip from 'react-tooltip';
+import { PieChart } from 'react-minimal-pie-chart';
 import { useTable, useFilters, useSortBy } from 'react-table';
 import {
   FaLock,
@@ -75,10 +78,16 @@ const Table = () => {
     }
   }
 
-  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0 };
-  const totalDifficultyCount = { Easy: 0, Medium: 0, Hard: 0 };
+  const difficultyMap = { Easy: 0, Medium: 0, Hard: 0, Total: 0 };
+  const totalDifficultyCount = {
+    Easy: 0,
+    Medium: 0,
+    Hard: 0,
+    Total: questions.length,
+  };
   for (let i = 0; i < questions.length; i += 1) {
     difficultyMap[questions[i].difficulty] += checkedList[questions[i].id];
+    difficultyMap.Total += checkedList[questions[i].id];
     totalDifficultyCount[questions[i].difficulty] += 1;
   }
 
@@ -109,7 +118,7 @@ const Table = () => {
   const resetHandler = () => {
     setChecked(new Array(checked.length).fill(false));
     setDifficultyCount(() => {
-      return { Easy: 0, Medium: 0, Hard: 0 };
+      return { Easy: 0, Medium: 0, Hard: 0, Total: 0 };
     });
     const count = resetCount + 1;
     setResetCount(count);
@@ -128,51 +137,30 @@ const Table = () => {
               };
 
               return (
-                <span>
-                  <Badge className="" pill>
-                    <span
-                      data-tip={`You've completed ${difficultyCount.Easy +
-                        difficultyCount.Medium +
-                        difficultyCount.Hard}/${totalDifficultyCount.Easy +
-                        totalDifficultyCount.Medium +
-                        totalDifficultyCount.Hard} total questions`}
-                    >
-                      Total:{' '}
-                      {difficultyCount.Easy +
-                        difficultyCount.Medium +
-                        difficultyCount.Hard}
-                      /
-                      {totalDifficultyCount.Easy +
-                        totalDifficultyCount.Medium +
-                        totalDifficultyCount.Hard}
-                    </span>
-                  </Badge>
-                  <br />
-                  <Badge className="easy" pill>
-                    <span
-                      data-tip={`You've completed ${difficultyCount.Easy}/${totalDifficultyCount.Easy} easy questions`}
-                    >
-                      Easy: {difficultyCount.Easy}/{totalDifficultyCount.Easy}
-                    </span>
-                  </Badge>
-                  <br />
-                  <Badge className="medium" pill>
-                    <span
-                      data-tip={`You've completed ${difficultyCount.Medium}/${totalDifficultyCount.Medium} medium questions`}
-                    >
-                      Medium: {difficultyCount.Medium}/
-                      {totalDifficultyCount.Medium}
-                    </span>
-                  </Badge>
-                  <br />
-                  <Badge className="hard" pill>
-                    <span
-                      data-tip={`You've completed ${difficultyCount.Hard}/${totalDifficultyCount.Hard} hard questions`}
-                    >
-                      Hard: {difficultyCount.Hard}/{totalDifficultyCount.Hard}
-                    </span>
-                  </Badge>
-                  <br />
+                <span className="d-flex flex-column justify-content-between">
+                  <PieChart
+                    data={[
+                      {
+                        title: 'One',
+                        value: difficultyCount.Total,
+                        color: '#ffa929',
+                      },
+                    ]}
+                    totalValue={totalDifficultyCount.Total}
+                    label={() =>
+                      `${difficultyCount.Total} /
+                      ${totalDifficultyCount.Total}`
+                    }
+                    labelPosition={0}
+                    labelStyle={{
+                      // Needed for Dark Reader to work
+                      fill: 'black',
+                    }}
+                    startAngle={-90}
+                    lineWidth={12}
+                    className="progress-pie"
+                    background="#e9ecef"
+                  />
                   <Button
                     className="reset-button"
                     outline
@@ -226,6 +214,7 @@ const Table = () => {
                       difficultyCount[
                         cellInfo.row.original.difficulty
                       ] += additive;
+                      difficultyCount.Total += additive;
                       setDifficultyCount(difficultyCount);
                       setChecked([...checked]);
                       setData(filteredByCheckbox());
@@ -249,6 +238,27 @@ const Table = () => {
               };
               return (
                 <>
+                  <div id="difficultyProgress">
+                    <ProgressBar
+                      style={{ marginBottom: 10 }}
+                      name="Easy"
+                      value={difficultyCount.Easy}
+                      total={totalDifficultyCount.Easy}
+                      barClassName="easy"
+                    />
+                    <ProgressBar
+                      name="Medium"
+                      value={difficultyCount.Medium}
+                      total={totalDifficultyCount.Medium}
+                      barClassName="medium"
+                    />
+                    <ProgressBar
+                      name="Hard"
+                      value={difficultyCount.Hard}
+                      total={totalDifficultyCount.Hard}
+                      barClassName="hard"
+                    />
+                  </div>
                   <div
                     style={{ whiteSpace: 'nowrap', display: 'inline-block' }}
                   >
@@ -523,6 +533,37 @@ const Table = () => {
       </ReactTable>
     </Container>
   );
+};
+
+const ProgressBar = ({ name, value, total, className, barClassName }) => {
+  return (
+    <div>
+      <div className="d-flex justify-content-between">
+        <div>{name}</div>
+        <div>
+          {value}/{total}
+        </div>
+      </div>
+      <Progress
+        className={className}
+        barClassName={barClassName}
+        value={(value / total) * 100}
+      />
+    </div>
+  );
+};
+
+ProgressBar.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  className: PropTypes.string,
+  barClassName: PropTypes.string,
+};
+
+ProgressBar.defaultProps = {
+  className: 'progress-bar-sm',
+  barClassName: null,
 };
 
 export default Table;

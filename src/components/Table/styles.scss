@@ -19,6 +19,23 @@
     padding: 0;
   }
 
+  #difficultyProgress {
+    margin-bottom: 25px;
+    font-size: 11.5px;
+  }
+
+  #difficultyProgress > div:nth-child(n + 2) {
+    margin-top: 12px;
+  }
+
+  .progress-pie {
+    height: 75px;
+  }
+
+  .progress-bar-sm {
+    height: 5px;
+  }
+
   .easy {
     background-color: #5cb85c;
   }
