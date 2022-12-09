@@ -158,7 +158,7 @@ const Table = () => {
                     }}
                     startAngle={-90}
                     lineWidth={12}
-                    style={{ height: '75px' }}
+                    className="progress-pie"
                     background="#e9ecef"
                   />
                   <Button
@@ -237,7 +237,7 @@ const Table = () => {
                 );
               };
               return (
-                <div>
+                <>
                   <div id="difficultyProgress">
                     <ProgressBar
                       style={{ marginBottom: 10 }}
@@ -274,7 +274,7 @@ const Table = () => {
                       </span>
                     </Button>
                   </div>
-                </div>
+                </>
               );
             },
             accessor: 'questions',
