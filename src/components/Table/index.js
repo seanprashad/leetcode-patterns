@@ -437,6 +437,7 @@ const Table = () => {
                     src={`${iconPath}${company.slug}.png`}
                     alt={company.name}
                     data-tip={tooltipText}
+                    title={company.name}
                   />
                 );
               });
