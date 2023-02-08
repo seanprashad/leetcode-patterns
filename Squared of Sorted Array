@@ -1,0 +1,18 @@
+two pointer solution : squared of sorted array
+- notes: two pointers, abs value used when negative numbers , used three pointers for trackins
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        i, j, n = 0, len(nums)-1,len(nums)-1
+        newlst = [0]*len(nums)
+        while n>=0:
+            if abs(nums[i])>abs(nums[j]):
+                newlst[n] = nums[i]**2
+                i+=1
+            else:
+                newlst[n] = nums[j]**2
+                j-=1
+            n-=1
+
+
+        return newlst
