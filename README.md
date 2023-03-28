@@ -1,6 +1,6 @@
 # Leetcode Patterns [![github-pages](https://github.com/seanprashad/leetcode-patterns/actions/workflows/github-pages.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/github-pages.yml) [![run-cron](https://github.com/seanprashad/leetcode-patterns/actions/workflows/run-cron.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/run-cron.yml)
 
-## Table of Contents
+## Table of Contents 📈
 
 - [Background](#background)
 - [Fundamentals](#fundamentals)
@@ -10,7 +10,7 @@
 - [Suggestions](#suggestions)
 - [Acknowledgements](#acknowledgements)
 
-## Background
+## Background 📜
 
 This repo is intended for any individual wanting to improve their problem
 solving skills for software engineering interviews.
@@ -20,7 +20,7 @@ repeatedly applying common patterns rather than randomly tackling questions.
 
 All questions are available on [leetcode.com] with some requiring [leetcode premium].
 
-## Fundamentals
+## Fundamentals 🔎
 
 To find the greatest amount of success when practicing, it is highly recommended
 to know the methods and runtimes of the following data structures and their
@@ -42,28 +42,28 @@ In addition, you should have a good grasp on common algorithms such as:
 - Binary search
 - Recursion
 
-## Notes
+## Notes ✏
 
 [This pdf] contains information for the main data structures in Java.
 
 Other useful methods to know include [`substring()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-int-), [`toCharArray()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toCharArray--), [`Math.max()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#max-int-int-),
 [`Math.min()`](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#min-int-int-), and [`Arrays.fill()`](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#fill-int:A-int-).
 
-## Question List
+## Question List ❓
 
 The entire question list can be found here:
 https://seanprashad.com/leetcode-patterns/.
 
-## Solutions
+## Solutions 💡
 
 Solutions written in Java can be found in the [solutions] branch.
 
-## Suggestions
+## Suggestions 🧠
 
 Think a question should/shouldn't be included? Wish there was another feature?
 Feel free to open an [issue] with your suggestion!
 
-## Acknowledgements
+## Acknowledgements 👻
 
 This list is heavily inspired from [Grokking the Coding Interview] with
 additional problems extracted from the [Blind 75 list] and this hackernoon article
