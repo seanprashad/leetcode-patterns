@@ -16,7 +16,7 @@ import './styles.scss';
 
 const imagePath = `${process.env.PUBLIC_URL}/static/images/`;
 const Blind = `${imagePath}Blind.png`;
-const Educative = `${imagePath}Educative.png`;
+const DesignGurus = `${imagePath}DesignGurus.png`;
 const Hackernoon = `${imagePath}Hackernoon.png`;
 
 const Acknowledgements = () => {
@@ -49,22 +49,24 @@ const Acknowledgements = () => {
         </Col>
         <Col sm={3}>
           <Card>
-            <CardImg top width="100%" src={Educative} alt="Educative.io" />
+            <CardImg top width="100%" src={DesignGurus} alt="DesignGurus.io" />
             <CardBody>
-              <CardTitle>Grokking the Coding Interview</CardTitle>
+              <CardTitle>
+                Grokking the Coding Interview: Patterns for Coding Questions
+              </CardTitle>
               <CardSubtitle>
                 <NavLink
                   target="_blank"
-                  href="https://www.educative.io/courses/grokking-the-coding-interview"
+                  href="https://www.designgurus.io/course/grokking-the-coding-interview"
                   onClick={() => {
                     Event(
                       'Acknowledgements',
                       'Clicked URL',
-                      'Educative.io url',
+                      'DesignGurus.io url',
                     );
                   }}
                 >
-                  https://www.educative.io/courses/grokking-the-coding-interview
+                  https://www.designgurus.io/course/grokking-the-coding-interview
                 </NavLink>
               </CardSubtitle>
             </CardBody>
