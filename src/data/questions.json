@@ -1160,7 +1160,7 @@
       "id": 23,
       "title": "Target Sum",
       "slug": "target-sum",
-      "pattern": ["DFS", "Dynamic Programming"],
+      "pattern": ["Backtracking", "DFS", "Dynamic Programming"],
       "difficulty": "Medium",
       "premium": false,
       "companies": [
@@ -7733,6 +7733,33 @@
       "slug": "is-subsequence",
       "pattern": ["Two Pointers"],
       "difficulty": "Easy",
+      "premium": false,
+      "companies": []
+    },
+    {
+      "id": 173,
+      "title": "Binary Tree Paths",
+      "slug": "binary-tree-paths",
+      "pattern": ["DFS", "Backtracking"],
+      "difficulty": "Easy",
+      "premium": false,
+      "companies": []
+    },
+    {
+      "id": 174,
+      "title": "Factor Combinations",
+      "slug": "factor-combinations",
+      "pattern": ["Array", "Backtracking"],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": []
+    },
+    {
+      "id": 175,
+      "title": "Split a String Into the Max Number of Unique Substrings",
+      "slug": "split-a-string-into-the-max-number-of-unique-substrings",
+      "pattern": ["Backtracking"],
+      "difficulty": "Medium",
       "premium": false,
       "companies": []
     }
