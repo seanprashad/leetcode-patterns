@@ -1,5 +1,5 @@
 {
-  "updated": "2023-06-22T11:28:02.807943",
+  "updated": "2023-06-24T13:02:50.016265",
   "data": [
     {
       "id": 0,
@@ -8230,7 +8230,13 @@
       ],
       "difficulty": "Easy",
       "premium": false,
-      "companies": []
+      "companies": [
+        {
+          "name": "Facebook",
+          "slug": "facebook",
+          "frequency": 2
+        }
+      ]
     },
     {
       "id": 177,
@@ -8241,7 +8247,13 @@
       ],
       "difficulty": "Medium",
       "premium": false,
-      "companies": []
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 2
+        }
+      ]
     },
     {
       "id": 178,
@@ -8252,7 +8264,43 @@
       ],
       "difficulty": "Medium",
       "premium": false,
-      "companies": []
+      "companies": [
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 6
+        },
+        {
+          "name": "Facebook",
+          "slug": "facebook",
+          "frequency": 3
+        },
+        {
+          "name": "DE Shaw",
+          "slug": "de-shaw",
+          "frequency": 3
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 2
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 2
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 2
+        },
+        {
+          "name": "MathWorks",
+          "slug": "mathworks",
+          "frequency": 2
+        }
+      ]
     },
     {
       "id": 179,
@@ -8264,7 +8312,13 @@
       ],
       "difficulty": "Medium",
       "premium": false,
-      "companies": []
+      "companies": [
+        {
+          "name": "Yandex",
+          "slug": "yandex",
+          "frequency": 11
+        }
+      ]
     }
   ]
 }
