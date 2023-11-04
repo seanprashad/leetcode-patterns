@@ -228,9 +228,14 @@ const Table = () => {
           {
             Header: () => {
               const randomQuestion = () => {
-                const random = Math.floor(Math.random() * questions.length);
-                const questionId = questions[random].id;
-                const questionSlug = questions[questionId].slug;
+                const filteredByCheckboxQuestions = filteredByCheckbox();
+                const filteredQuestions = filteredByCheckboxQuestions.length
+                  ? filteredByCheckboxQuestions
+                  : questions;
+                const random = Math.floor(
+                  Math.random() * filteredQuestions.length,
+                );
+                const questionSlug = filteredQuestions[random].slug;
                 window.open(
                   `https://leetcode.com/problems/${questionSlug}/`,
                   '_blank',
