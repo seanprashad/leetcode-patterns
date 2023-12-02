@@ -226,16 +226,16 @@ const Table = () => {
             Filter: SelectCheckedColumnFilter,
           },
           {
-            Header: () => {
+            /* eslint-disable react/prop-types */
+            Header: ({ filteredRows }) => {
+              const disableRandomQuestionButton = filteredRows.length === 0;
+
               const randomQuestion = () => {
-                const filteredByCheckboxQuestions = filteredByCheckbox();
-                const filteredQuestions = filteredByCheckboxQuestions.length
-                  ? filteredByCheckboxQuestions
-                  : questions;
-                const random = Math.floor(
-                  Math.random() * filteredQuestions.length,
-                );
-                const questionSlug = filteredQuestions[random].slug;
+                const random = Math.floor(Math.random() * filteredRows.length);
+                const randomFilteredRow = filteredRows[random];
+                const questionSlug = randomFilteredRow.original.slug;
+                /* eslint-enable react/prop-types */
+
                 window.open(
                   `https://leetcode.com/problems/${questionSlug}/`,
                   '_blank',
@@ -269,6 +269,7 @@ const Table = () => {
                   >
                     Questions{' '}
                     <Button
+                      disabled={disableRandomQuestionButton}
                       onClick={randomQuestion}
                       color="dark"
                       id="random-question-button"
