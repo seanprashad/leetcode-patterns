@@ -8,7 +8,7 @@ from leetcode.rest import ApiException
 
 def create_leetcode_api():
     LEETCODE_SESSION_TOKEN = os.environ.get("LEETCODE_SESSION_TOKEN")
-    csrf_token = leetcode.auth.get_csrf_cookie(LEETCODE_SESSION_TOKEN)
+    csrf_token = os.environ.get("LEETCODE_CSRF_TOKEN")
 
     configuration = leetcode.Configuration()
 
