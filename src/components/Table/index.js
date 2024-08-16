@@ -45,6 +45,10 @@ const Table = () => {
     JSON.parse(localStorage.getItem('checked')) ||
     new Array(questions.length).fill(false);
 
+  let checkedAtList =
+    JSON.parse(localStorage.getItem('checkedAt')) ||
+    new Array(questions.length).fill('');
+
   /* If the user has previously visited the website, then an array in
   LocalStorage would exist of a certain length which corresponds to which
   questions they have/have not completed. In the event that we add new questions
@@ -60,6 +64,17 @@ const Table = () => {
 
     checkedList = resizedCheckedList;
     window.localStorage.setItem('checked', JSON.stringify(checkedList));
+  }
+
+  if (checkedAtList.length !== questions.length) {
+    const resizedCheckedAtList = new Array(questions.length).fill('');
+
+    for (let i = 0; i < checkedAtList.length; i += 1) {
+      resizedCheckedAtList[i] = checkedAtList[i];
+    }
+
+    checkedAtList = resizedCheckedAtList;
+    window.localStorage.setItem('checkedAt', JSON.stringify(checkedAtList));
   }
 
   const filteredByCheckbox = () => {
@@ -91,6 +106,7 @@ const Table = () => {
     totalDifficultyCount[questions[i].difficulty] += 1;
   }
 
+  const [checkedAt, setCheckedAt] = useState(checkedAtList);
   const [data, setData] = useState(filteredByCheckbox());
   const [difficultyCount, setDifficultyCount] = useState(difficultyMap);
   const [checked, setChecked] = useState(checkedList);
@@ -101,6 +117,10 @@ const Table = () => {
   useEffect(() => {
     window.localStorage.setItem('checked', JSON.stringify(checked));
   }, [checked]);
+
+  useEffect(() => {
+    window.localStorage.setItem('checkedAt', JSON.stringify(checkedAt));
+  }, [checkedAt]);
 
   useEffect(() => {
     window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
@@ -134,6 +154,8 @@ const Table = () => {
               const [resetModal, setResetModal] = React.useState(false);
               const toggleResetModal = () => {
                 setResetModal(!resetModal);
+                const clearedCheckedAt = checkedAt.map(() => null);
+                setCheckedAt(clearedCheckedAt);
               };
 
               return (
@@ -200,6 +222,13 @@ const Table = () => {
                       checked[cellInfo.row.original.id] = !checked[
                         cellInfo.row.original.id
                       ];
+                      const currentTime = new Date().toISOString().slice(0, 10);
+                      // const updatedCheckedAt = [...checkedAt];
+                      checkedAt[cellInfo.row.original.id] = checked[
+                        cellInfo.row.original.id
+                      ]
+                        ? currentTime
+                        : null;
                       const question = questions.find(
                         q => q.id === cellInfo.row.original.id,
                       );
@@ -218,6 +247,7 @@ const Table = () => {
                       setDifficultyCount(difficultyCount);
                       setChecked([...checked]);
                       setData(filteredByCheckbox());
+                      setCheckedAt([...checkedAt]);
                     }}
                   />
                 </span>
@@ -450,6 +480,19 @@ const Table = () => {
               return <Row className="companies">{companies}</Row>;
             },
             Filter: SelectColumnFilter,
+          },
+          {
+            Header: 'Last Solved On',
+            accessor: 'LastSolvedOn',
+            disableSortBy: true,
+            Cell: cellInfo => {
+              return (
+                <div className="lastSolvedOn">
+                  {checkedAt[cellInfo.row.original.id]}
+                </div>
+              );
+            },
+            disableFilters: true,
           },
         ],
       },

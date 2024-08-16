@@ -12,6 +12,7 @@
       background: white;
       position: sticky;
       top: 0;
+      text-wrap: nowrap;
     }
   }
 
@@ -66,5 +67,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 0.7rem;
+  }
+  .lastSolvedOn {
+    text-wrap: nowrap;
   }
 }
