@@ -11,10 +11,11 @@ import { FaGithub } from 'react-icons/fa';
 import { Event } from '../Shared/Tracking';
 
 import './styles.scss';
+import DarkMode from '../Dark-Mode';
 
 const Navigation = () => {
   return (
-    <Navbar color="light" light>
+    <Navbar className="navbar">
       <Container>
         <NavbarBrand
           onClick={() =>
@@ -34,6 +35,7 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
         </Nav>
+        <DarkMode />
       </Container>
     </Navbar>
   );

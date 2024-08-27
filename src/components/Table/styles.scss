@@ -1,3 +1,54 @@
+body.light-mode .table {
+  background-color: #ffffff;
+  color: #000000;
+}
+body.light-mode .table thead > tr th {
+  background-color: #ffffff;
+}
+body.light-mode .pattern-count {
+  background-color: #ffffff;
+  color: #000000;
+}
+body.light-mode .table tr:nth-child(odd) {
+  background-color: #f1f2f4;
+}
+body.light-mode .table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+body.light-mode .table tbody tr:hover {
+  background-color: #dcdfe4;
+  color: #000000;
+}
+
+body.dark-mode .table {
+  background-color: #161a1d;
+  color: #ffffff;
+}
+body.dark-mode .table thead > tr th {
+  background-color: #161a1d;
+}
+body.dark-mode .pattern-count {
+  background-color: #161a1d;
+  color: #ffffff;
+}
+body.dark-mode .table tr:nth-child(odd) {
+  background-color: #22272b;
+}
+body.dark-mode .table tr:nth-child(even) {
+  background-color: #161a1d;
+}
+body.dark-mode .table tbody tr:hover {
+  background-color: #101214;
+  color: #ffffff;
+}
+body.dark-mode .modal-content {
+  background-color: #1d2125;
+  color: #ffffff;
+  .close {
+    color: #ffffff;
+  }
+}
+
 .table {
   .row {
     justify-content: center;

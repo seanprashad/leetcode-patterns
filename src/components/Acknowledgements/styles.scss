@@ -13,3 +13,13 @@
     padding: 0;
   }
 }
+
+body.dark-mode .acknowledgements {
+  background-color: #161a1d;
+  color: #ffffff;
+
+  .card {
+    background-color: #1d2125;
+    color: #ffffff;
+  }
+}
