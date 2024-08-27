@@ -176,7 +176,7 @@ const Table = () => {
                     labelPosition={0}
                     labelStyle={{
                       // Needed for Dark Reader to work
-                      fill: 'black',
+                      fill: '#A54800',
                     }}
                     startAngle={-90}
                     lineWidth={12}

@@ -11,8 +11,14 @@ body.light-mode {
   background-color: #ffffff;
   color: #000000;
 }
+body.light-mode a {
+  color: #0c66e4;
+}
 
 body.dark-mode {
   background-color: #161a1d;
   color: #ffffff;
+}
+body.dark-mode a {
+  color: #579dff;
 }

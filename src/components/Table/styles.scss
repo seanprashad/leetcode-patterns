@@ -15,6 +15,10 @@ body.light-mode .table tr:nth-child(odd) {
 body.light-mode .table tr:nth-child(even) {
   background-color: #ffffff;
 }
+body.light-mode .table tbody tr:hover {
+  background-color: #dcdfe4;
+  color: #000000;
+}
 
 body.dark-mode .table {
   background-color: #161a1d;
@@ -32,6 +36,10 @@ body.dark-mode .table tr:nth-child(odd) {
 }
 body.dark-mode .table tr:nth-child(even) {
   background-color: #161a1d;
+}
+body.dark-mode .table tbody tr:hover {
+  background-color: #101214;
+  color: #ffffff;
 }
 body.dark-mode .modal-content {
   background-color: #1d2125;

@@ -24,7 +24,6 @@ const Navigation = () => {
         >
           Leetcode Patterns
         </NavbarBrand>
-        <DarkMode />
         <Nav className="ml-auto" navbar>
           <NavItem>
             <NavLink
@@ -36,6 +35,7 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
         </Nav>
+        <DarkMode />
       </Container>
     </Navbar>
   );
