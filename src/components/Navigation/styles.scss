@@ -1,3 +1,13 @@
+body.light-mode .navbar {
+  background-color: #f7f8f9;
+  color: #000000;
+}
+
+body.dark-mode .navbar {
+  background-color: #1d2125;
+  color: #ffffff;
+}
+
 .navbar-brand {
   font-weight: 600;
   letter-spacing: 1px;

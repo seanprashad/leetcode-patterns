@@ -7,3 +7,17 @@
   color: #333;
   background: #f8f8f8;
 }
+body.light-mode .tips {
+  background-color: #f7f8f9;
+  color: #333;
+}
+
+body.dark-mode .tips {
+  background-color: #1d2125;
+  color: #ffffff;
+}
+body.dark-mode .tips pre,
+body.dark-mode .tips code {
+  background-color: #1d2125;
+  color: #ffffff;
+}
