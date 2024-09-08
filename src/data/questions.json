@@ -1,5 +1,5 @@
 {
-  "updated": "2024-09-01T12:03:02.310377",
+  "updated": "2024-09-08T12:02:58.232030",
   "data": [
     {
       "id": 0,
@@ -12,28 +12,33 @@
       "premium": false,
       "companies": [
         {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 9
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 7
+          "frequency": 8
         },
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 6
+          "frequency": 7
         },
         {
           "name": "Uber",
           "slug": "uber",
-          "frequency": 5
-        },
-        {
-          "name": "Amazon",
-          "slug": "amazon",
           "frequency": 4
         },
         {
           "name": "Google",
           "slug": "google",
+          "frequency": 3
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
           "frequency": 3
         },
         {
@@ -52,8 +57,8 @@
           "frequency": 3
         },
         {
-          "name": "Apple",
-          "slug": "apple",
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         }
       ]
@@ -72,7 +77,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 10
+          "frequency": 9
         },
         {
           "name": "Google",
@@ -152,7 +157,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 11
+          "frequency": 10
         },
         {
           "name": "Google",
@@ -199,7 +204,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 20
+          "frequency": 19
         },
         {
           "name": "Microsoft",
@@ -209,7 +214,12 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 6
+          "frequency": 7
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 5
         },
         {
           "name": "Asana",
@@ -222,24 +232,24 @@
           "frequency": 5
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 4
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 4
-        },
-        {
-          "name": "Uber",
-          "slug": "uber",
           "frequency": 4
         },
         {
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 4
+        },
+        {
+          "name": "Uber",
+          "slug": "uber",
+          "frequency": 3
+        },
+        {
+          "name": "Yahoo",
+          "slug": "yahoo",
+          "frequency": 3
         },
         {
           "name": "Intuit",
@@ -250,11 +260,6 @@
           "name": "Warnermedia",
           "slug": "warnermedia",
           "frequency": 3
-        },
-        {
-          "name": "Yahoo",
-          "slug": "yahoo",
-          "frequency": 2
         },
         {
           "name": "Oracle",
@@ -326,11 +331,6 @@
           "frequency": 4
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 4
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
           "frequency": 4
@@ -339,6 +339,11 @@
           "name": "Citadel",
           "slug": "citadel",
           "frequency": 4
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 3
         },
         {
           "name": "Adobe",
@@ -385,7 +390,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 10
+          "frequency": 9
         },
         {
           "name": "Microsoft",
@@ -401,6 +406,11 @@
           "name": "Meta",
           "slug": "facebook",
           "frequency": 2
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 2
         }
       ]
     },
@@ -415,13 +425,13 @@
       "premium": false,
       "companies": [
         {
-          "name": "Meta",
-          "slug": "facebook",
-          "frequency": 8
-        },
-        {
           "name": "Google",
           "slug": "google",
+          "frequency": 7
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
           "frequency": 7
         },
         {
@@ -452,6 +462,11 @@
         {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 2
+        },
+        {
+          "name": "Goldman Sachs",
+          "slug": "goldman-sachs",
           "frequency": 2
         },
         {
@@ -489,16 +504,16 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 8
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 5
+          "frequency": 7
         },
         {
           "name": "Cisco",
           "slug": "cisco",
+          "frequency": 6
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 5
         },
         {
@@ -522,13 +537,13 @@
           "frequency": 3
         },
         {
-          "name": "Epic Systems",
-          "slug": "epic-systems",
-          "frequency": 3
-        },
-        {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 2
+        },
+        {
+          "name": "Epic Systems",
+          "slug": "epic-systems",
           "frequency": 2
         },
         {
@@ -561,12 +576,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 15
-        },
-        {
-          "name": "Cisco",
-          "slug": "cisco",
-          "frequency": 9
+          "frequency": 14
         },
         {
           "name": "Google",
@@ -576,6 +586,11 @@
         {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 7
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 7
         },
         {
@@ -619,13 +634,18 @@
           "frequency": 3
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
+          "name": "Salesforce",
+          "slug": "salesforce",
+          "frequency": 2
+        },
+        {
+          "name": "Cisco",
+          "slug": "cisco",
           "frequency": 2
         },
         {
@@ -668,12 +688,12 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 10
+          "frequency": 11
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 8
+          "frequency": 9
         },
         {
           "name": "TikTok",
@@ -683,7 +703,7 @@
         {
           "name": "Uber",
           "slug": "uber",
-          "frequency": 5
+          "frequency": 6
         },
         {
           "name": "Meta",
@@ -736,8 +756,18 @@
           "frequency": 2
         },
         {
+          "name": "Wix",
+          "slug": "wix",
+          "frequency": 2
+        },
+        {
           "name": "Epic Systems",
           "slug": "epic-systems",
+          "frequency": 2
+        },
+        {
+          "name": "Grammarly",
+          "slug": "grammarly",
           "frequency": 2
         }
       ]
@@ -778,6 +808,11 @@
           "frequency": 4
         },
         {
+          "name": "MakeMyTrip",
+          "slug": "makemytrip",
+          "frequency": 4
+        },
+        {
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 3
@@ -800,11 +835,6 @@
         {
           "name": "Apple",
           "slug": "apple",
-          "frequency": 2
-        },
-        {
-          "name": "MakeMyTrip",
-          "slug": "makemytrip",
           "frequency": 2
         },
         {
@@ -842,21 +872,16 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 19
+          "frequency": 20
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 14
+          "frequency": 15
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 7
-        },
-        {
-          "name": "Oracle",
-          "slug": "oracle",
           "frequency": 7
         },
         {
@@ -867,6 +892,11 @@
         {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 6
+        },
+        {
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 6
         },
         {
@@ -953,23 +983,18 @@
           "frequency": 5
         },
         {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 4
+        },
+        {
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 3
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 3
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 3
-        },
-        {
-          "name": "Yahoo",
-          "slug": "yahoo",
           "frequency": 3
         },
         {
@@ -985,6 +1010,11 @@
         {
           "name": "Mastercard",
           "slug": "mastercard",
+          "frequency": 2
+        },
+        {
+          "name": "Yahoo",
+          "slug": "yahoo",
           "frequency": 2
         },
         {
@@ -1012,7 +1042,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 8
+          "frequency": 7
         },
         {
           "name": "Bloomberg",
@@ -1027,16 +1057,11 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 2
+          "frequency": 3
         },
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 2
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
           "frequency": 2
         },
         {
@@ -1082,6 +1107,11 @@
           "frequency": 4
         },
         {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 3
+        },
+        {
           "name": "Bloomberg",
           "slug": "bloomberg",
           "frequency": 2
@@ -1092,8 +1122,8 @@
           "frequency": 2
         },
         {
-          "name": "TikTok",
-          "slug": "tiktok",
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         },
         {
@@ -1161,14 +1191,14 @@
       "premium": false,
       "companies": [
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 3
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 2
         },
         {
           "name": "Bloomberg",
@@ -1228,11 +1258,6 @@
           "frequency": 4
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 4
-        },
-        {
           "name": "Zoho",
           "slug": "zoho",
           "frequency": 4
@@ -1240,6 +1265,11 @@
         {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 3
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 3
         },
         {
@@ -1356,7 +1386,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 12
+          "frequency": 11
         },
         {
           "name": "Google",
@@ -1364,18 +1394,13 @@
           "frequency": 8
         },
         {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
-          "frequency": 5
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 5
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 4
         },
         {
@@ -1391,6 +1416,11 @@
         {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 3
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 3
         },
         {
@@ -1540,11 +1570,6 @@
           "frequency": 2
         },
         {
-          "name": "Yahoo",
-          "slug": "yahoo",
-          "frequency": 2
-        },
-        {
           "name": "Infosys",
           "slug": "infosys",
           "frequency": 2
@@ -1564,17 +1589,22 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 19
+          "frequency": 18
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 17
+          "frequency": 16
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 12
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 6
         },
         {
           "name": "Google",
@@ -1597,13 +1627,18 @@
           "frequency": 4
         },
         {
-          "name": "Uber",
-          "slug": "uber",
+          "name": "IBM",
+          "slug": "ibm",
           "frequency": 3
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Siemens",
+          "slug": "siemens",
+          "frequency": 3
+        },
+        {
+          "name": "Uber",
+          "slug": "uber",
           "frequency": 2
         },
         {
@@ -1612,18 +1647,13 @@
           "frequency": 2
         },
         {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 2
+        },
+        {
           "name": "DE Shaw",
           "slug": "de-shaw",
-          "frequency": 2
-        },
-        {
-          "name": "IBM",
-          "slug": "ibm",
-          "frequency": 2
-        },
-        {
-          "name": "Siemens",
-          "slug": "siemens",
           "frequency": 2
         },
         {
@@ -1672,16 +1702,16 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 5
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 3
+          "frequency": 6
         },
         {
           "name": "Citadel",
           "slug": "citadel",
+          "frequency": 4
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 3
         },
         {
@@ -1747,6 +1777,11 @@
           "frequency": 4
         },
         {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 3
+        },
+        {
           "name": "Meta",
           "slug": "facebook",
           "frequency": 3
@@ -1755,11 +1790,6 @@
           "name": "Apple",
           "slug": "apple",
           "frequency": 3
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 2
         },
         {
           "name": "Uber",
@@ -1786,12 +1816,12 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 16
+          "frequency": 18
         },
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 14
+          "frequency": 15
         },
         {
           "name": "Amazon",
@@ -1801,7 +1831,7 @@
         {
           "name": "Apple",
           "slug": "apple",
-          "frequency": 10
+          "frequency": 11
         },
         {
           "name": "Zoho",
@@ -1809,14 +1839,14 @@
           "frequency": 9
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 7
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 5
+          "frequency": 6
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 6
         },
         {
           "name": "Bloomberg",
@@ -1826,11 +1856,6 @@
         {
           "name": "Yahoo",
           "slug": "yahoo",
-          "frequency": 4
-        },
-        {
-          "name": "Nvidia",
-          "slug": "nvidia",
           "frequency": 3
         },
         {
@@ -1859,8 +1884,8 @@
           "frequency": 2
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
+          "name": "Nvidia",
+          "slug": "nvidia",
           "frequency": 2
         },
         {
@@ -1891,18 +1916,23 @@
       "premium": false,
       "companies": [
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 10
-        },
-        {
           "name": "Cisco",
           "slug": "cisco",
-          "frequency": 9
+          "frequency": 14
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 12
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 7
+        },
+        {
+          "name": "Google",
+          "slug": "google",
           "frequency": 6
         },
         {
@@ -1911,19 +1941,9 @@
           "frequency": 6
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 5
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
           "frequency": 5
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 4
         },
         {
           "name": "Bloomberg",
@@ -1931,8 +1951,18 @@
           "frequency": 4
         },
         {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 3
+        },
+        {
           "name": "PhonePe",
           "slug": "phonepe",
+          "frequency": 3
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
           "frequency": 3
         },
         {
@@ -1971,13 +2001,13 @@
           "frequency": 2
         },
         {
-          "name": "TikTok",
-          "slug": "tiktok",
+          "name": "Infosys",
+          "slug": "infosys",
           "frequency": 2
         },
         {
-          "name": "Infosys",
-          "slug": "infosys",
+          "name": "Zoho",
+          "slug": "zoho",
           "frequency": 2
         },
         {
@@ -2040,22 +2070,17 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 31
+          "frequency": 33
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 18
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 9
+          "frequency": 19
         },
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 8
+          "frequency": 10
         },
         {
           "name": "Meta",
@@ -2065,6 +2090,11 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 7
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 7
         },
         {
@@ -2078,6 +2108,11 @@
           "frequency": 6
         },
         {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 6
+        },
+        {
           "name": "Goldman Sachs",
           "slug": "goldman-sachs",
           "frequency": 6
@@ -2086,11 +2121,6 @@
           "name": "Nvidia",
           "slug": "nvidia",
           "frequency": 6
-        },
-        {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 5
         },
         {
           "name": "Media.net",
@@ -2130,11 +2160,6 @@
         {
           "name": "ServiceNow",
           "slug": "servicenow",
-          "frequency": 3
-        },
-        {
-          "name": "DRW",
-          "slug": "drw",
           "frequency": 3
         },
         {
@@ -2188,11 +2213,6 @@
           "frequency": 2
         },
         {
-          "name": "Morgan Stanley",
-          "slug": "morgan-stanley",
-          "frequency": 2
-        },
-        {
           "name": "SAP",
           "slug": "sap",
           "frequency": 2
@@ -2218,8 +2238,18 @@
           "frequency": 2
         },
         {
+          "name": "Atlassian",
+          "slug": "atlassian",
+          "frequency": 2
+        },
+        {
           "name": "Samsung",
           "slug": "samsung",
+          "frequency": 2
+        },
+        {
+          "name": "DRW",
+          "slug": "drw",
           "frequency": 2
         },
         {
@@ -2255,9 +2285,9 @@
           "frequency": 13
         },
         {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
-          "frequency": 9
+          "name": "Google",
+          "slug": "google",
+          "frequency": 13
         },
         {
           "name": "Meta",
@@ -2265,9 +2295,9 @@
           "frequency": 9
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 8
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 7
         },
         {
           "name": "Goldman Sachs",
@@ -2305,6 +2335,11 @@
           "frequency": 3
         },
         {
+          "name": "Oracle",
+          "slug": "oracle",
+          "frequency": 3
+        },
+        {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
           "frequency": 3
@@ -2315,8 +2350,8 @@
           "frequency": 2
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
+          "name": "Cisco",
+          "slug": "cisco",
           "frequency": 2
         },
         {
@@ -2345,11 +2380,6 @@
           "frequency": 2
         },
         {
-          "name": "J.P. Morgan",
-          "slug": "jpmorgan",
-          "frequency": 2
-        },
-        {
           "name": "Samsung",
           "slug": "samsung",
           "frequency": 2
@@ -2367,23 +2397,23 @@
       "premium": false,
       "companies": [
         {
-          "name": "Meta",
-          "slug": "facebook",
-          "frequency": 3
-        },
-        {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 2
         },
         {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 2
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 2
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
           "frequency": 2
         }
       ]
@@ -2404,11 +2434,6 @@
           "frequency": 5
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 5
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 4
@@ -2416,6 +2441,11 @@
         {
           "name": "Databricks",
           "slug": "databricks",
+          "frequency": 4
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
           "frequency": 4
         },
         {
@@ -2468,7 +2498,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 15
+          "frequency": 17
         },
         {
           "name": "Bloomberg",
@@ -2476,14 +2506,19 @@
           "frequency": 10
         },
         {
-          "name": "Datadog",
-          "slug": "datadog",
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 6
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 4
+          "frequency": 5
+        },
+        {
+          "name": "Datadog",
+          "slug": "datadog",
+          "frequency": 5
         },
         {
           "name": "TikTok",
@@ -2501,8 +2536,8 @@
           "frequency": 2
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         },
         {
@@ -2540,7 +2575,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 9
+          "frequency": 10
         },
         {
           "name": "LinkedIn",
@@ -2560,7 +2595,7 @@
         {
           "name": "Wayfair",
           "slug": "wayfair",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "Adobe",
@@ -2593,11 +2628,6 @@
           "frequency": 2
         },
         {
-          "name": "Yahoo",
-          "slug": "yahoo",
-          "frequency": 2
-        },
-        {
           "name": "DE Shaw",
           "slug": "de-shaw",
           "frequency": 2
@@ -2610,6 +2640,11 @@
         {
           "name": "Arcesium",
           "slug": "arcesium",
+          "frequency": 2
+        },
+        {
+          "name": "Nvidia",
+          "slug": "nvidia",
           "frequency": 2
         },
         {
@@ -2640,18 +2675,13 @@
           "frequency": 7
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
-          "frequency": 5
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 5
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 5
+        },
+        {
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 4
         },
         {
@@ -2670,14 +2700,19 @@
           "frequency": 4
         },
         {
-          "name": "Goldman Sachs",
-          "slug": "goldman-sachs",
-          "frequency": 3
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 4
         },
         {
           "name": "Atlassian",
           "slug": "atlassian",
           "frequency": 3
+        },
+        {
+          "name": "Goldman Sachs",
+          "slug": "goldman-sachs",
+          "frequency": 2
         },
         {
           "name": "Adobe",
@@ -2714,12 +2749,12 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 21
+          "frequency": 22
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 15
+          "frequency": 18
         },
         {
           "name": "Meta",
@@ -2732,6 +2767,11 @@
           "frequency": 9
         },
         {
+          "name": "Cisco",
+          "slug": "cisco",
+          "frequency": 8
+        },
+        {
           "name": "Oracle",
           "slug": "oracle",
           "frequency": 7
@@ -2740,11 +2780,6 @@
           "name": "Zoho",
           "slug": "zoho",
           "frequency": 7
-        },
-        {
-          "name": "Cisco",
-          "slug": "cisco",
-          "frequency": 5
         },
         {
           "name": "Uber",
@@ -2757,6 +2792,11 @@
           "frequency": 4
         },
         {
+          "name": "Accenture",
+          "slug": "accenture",
+          "frequency": 4
+        },
+        {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
           "frequency": 4
@@ -2765,16 +2805,6 @@
           "name": "Wayfair",
           "slug": "wayfair",
           "frequency": 4
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 3
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 3
         },
         {
           "name": "tcs",
@@ -2802,8 +2832,18 @@
           "frequency": 3
         },
         {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 2
+        },
+        {
           "name": "Pure Storage",
           "slug": "pure-storage",
+          "frequency": 2
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 2
         },
         {
@@ -2812,13 +2852,13 @@
           "frequency": 2
         },
         {
-          "name": "Accenture",
-          "slug": "accenture",
+          "name": "ThoughtWorks",
+          "slug": "thoughtworks",
           "frequency": 2
         },
         {
-          "name": "ThoughtWorks",
-          "slug": "thoughtworks",
+          "name": "Turing",
+          "slug": "turing",
           "frequency": 2
         },
         {
@@ -2871,16 +2911,21 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 9
+          "frequency": 11
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 8
+          "frequency": 7
         },
         {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 6
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 5
         },
         {
@@ -2902,11 +2947,6 @@
           "name": "Oracle",
           "slug": "oracle",
           "frequency": 3
-        },
-        {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
-          "frequency": 2
         },
         {
           "name": "Grammarly",
@@ -2968,19 +3008,29 @@
       "premium": false,
       "companies": [
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 5
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 5
         },
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 4
+        },
+        {
           "name": "Goldman Sachs",
           "slug": "goldman-sachs",
           "frequency": 4
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 3
+        },
+        {
+          "name": "Zoho",
+          "slug": "zoho",
+          "frequency": 3
         },
         {
           "name": "TikTok",
@@ -2998,18 +3048,8 @@
           "frequency": 3
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 2
-        },
-        {
           "name": "Apple",
           "slug": "apple",
-          "frequency": 2
-        },
-        {
-          "name": "Zoho",
-          "slug": "zoho",
           "frequency": 2
         },
         {
@@ -3040,14 +3080,14 @@
           "frequency": 7
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 7
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 7
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 6
         },
         {
           "name": "Meta",
@@ -3057,11 +3097,6 @@
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 4
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
           "frequency": 4
         },
         {
@@ -3080,8 +3115,8 @@
           "frequency": 2
         },
         {
-          "name": "Uber",
-          "slug": "uber",
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 2
         }
       ]
@@ -3100,7 +3135,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 19
+          "frequency": 22
         },
         {
           "name": "Google",
@@ -3118,11 +3153,6 @@
           "frequency": 6
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 6
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 5
@@ -3130,6 +3160,11 @@
         {
           "name": "Uber",
           "slug": "uber",
+          "frequency": 5
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 5
         },
         {
@@ -3153,13 +3188,13 @@
           "frequency": 2
         },
         {
-          "name": "Meesho",
-          "slug": "meesho",
+          "name": "TikTok",
+          "slug": "tiktok",
           "frequency": 2
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
+          "name": "Meesho",
+          "slug": "meesho",
           "frequency": 2
         },
         {
@@ -3168,18 +3203,8 @@
           "frequency": 2
         },
         {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 2
-        },
-        {
           "name": "Media.net",
           "slug": "medianet",
-          "frequency": 2
-        },
-        {
-          "name": "MakeMyTrip",
-          "slug": "makemytrip",
           "frequency": 2
         }
       ]
@@ -3318,7 +3343,7 @@
         {
           "name": "LinkedIn",
           "slug": "linkedin",
-          "frequency": 3
+          "frequency": 5
         },
         {
           "name": "Meta",
@@ -3342,11 +3367,6 @@
       "difficulty": "Medium",
       "premium": false,
       "companies": [
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 2
-        },
         {
           "name": "Visa",
           "slug": "visa",
@@ -3385,7 +3405,7 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 5
+          "frequency": 6
         },
         {
           "name": "Amazon",
@@ -3393,14 +3413,14 @@
           "frequency": 4
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Microsoft",
+          "slug": "microsoft",
           "frequency": 3
         },
         {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 2
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 3
         },
         {
           "name": "Oracle",
@@ -3408,8 +3428,8 @@
           "frequency": 2
         },
         {
-          "name": "Apple",
-          "slug": "apple",
+          "name": "Uber",
+          "slug": "uber",
           "frequency": 2
         },
         {
@@ -3432,16 +3452,16 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 7
+          "frequency": 6
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 4
+          "frequency": 3
         },
         {
-          "name": "Apple",
-          "slug": "apple",
+          "name": "Meta",
+          "slug": "facebook",
           "frequency": 3
         },
         {
@@ -3450,8 +3470,8 @@
           "frequency": 3
         },
         {
-          "name": "Meta",
-          "slug": "facebook",
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 2
         },
         {
@@ -3467,11 +3487,6 @@
         {
           "name": "Uber",
           "slug": "uber",
-          "frequency": 2
-        },
-        {
-          "name": "Salesforce",
-          "slug": "salesforce",
           "frequency": 2
         }
       ]
@@ -3489,7 +3504,7 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 10
+          "frequency": 9
         },
         {
           "name": "Google",
@@ -3497,14 +3512,9 @@
           "frequency": 9
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 5
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 4
+          "frequency": 5
         },
         {
           "name": "Apple",
@@ -3517,9 +3527,19 @@
           "frequency": 3
         },
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 3
+        },
+        {
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 3
+        },
+        {
+          "name": "Nvidia",
+          "slug": "nvidia",
+          "frequency": 2
         },
         {
           "name": "ByteDance",
@@ -3559,6 +3579,11 @@
           "frequency": 5
         },
         {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 5
+        },
+        {
           "name": "Bloomberg",
           "slug": "bloomberg",
           "frequency": 4
@@ -3569,18 +3594,13 @@
           "frequency": 4
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 3
-        },
-        {
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 2
         },
         {
-          "name": "Apple",
-          "slug": "apple",
+          "name": "Google",
+          "slug": "google",
           "frequency": 2
         },
         {
@@ -3709,12 +3729,12 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 21
+          "frequency": 22
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 18
+          "frequency": 20
         },
         {
           "name": "Meta",
@@ -3724,6 +3744,11 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 12
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 12
         },
         {
@@ -3744,11 +3769,6 @@
         {
           "name": "Apple",
           "slug": "apple",
-          "frequency": 3
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
           "frequency": 2
         },
         {
@@ -3811,7 +3831,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 10
+          "frequency": 12
         },
         {
           "name": "Amazon",
@@ -3821,16 +3841,11 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 5
+          "frequency": 4
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 3
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
           "frequency": 3
         },
         {
@@ -3844,8 +3859,8 @@
           "frequency": 3
         },
         {
-          "name": "Nvidia",
-          "slug": "nvidia",
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 2
         },
         {
@@ -3881,6 +3896,11 @@
           "frequency": 3
         },
         {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 2
+        },
+        {
           "name": "Google",
           "slug": "google",
           "frequency": 2
@@ -3888,11 +3908,6 @@
         {
           "name": "TikTok",
           "slug": "tiktok",
-          "frequency": 2
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
           "frequency": 2
         },
         {
@@ -3973,7 +3988,7 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "Uber",
@@ -3993,11 +4008,6 @@
         {
           "name": "Adobe",
           "slug": "adobe",
-          "frequency": 2
-        },
-        {
-          "name": "Nutanix",
-          "slug": "nutanix",
           "frequency": 2
         }
       ]
@@ -4022,32 +4032,37 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 27
+          "frequency": 28
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 23
-        },
-        {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 18
+          "frequency": 22
         },
         {
           "name": "Apple",
           "slug": "apple",
-          "frequency": 16
+          "frequency": 18
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 17
         },
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 16
+          "frequency": 17
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 15
+          "frequency": 16
+        },
+        {
+          "name": "Uber",
+          "slug": "uber",
+          "frequency": 9
         },
         {
           "name": "Goldman Sachs",
@@ -4090,11 +4105,6 @@
           "frequency": 4
         },
         {
-          "name": "Uber",
-          "slug": "uber",
-          "frequency": 3
-        },
-        {
           "name": "Siemens",
           "slug": "siemens",
           "frequency": 3
@@ -4130,8 +4140,8 @@
           "frequency": 2
         },
         {
-          "name": "Nvidia",
-          "slug": "nvidia",
+          "name": "Cisco",
+          "slug": "cisco",
           "frequency": 2
         },
         {
@@ -4150,18 +4160,13 @@
           "frequency": 2
         },
         {
-          "name": "Yahoo",
-          "slug": "yahoo",
-          "frequency": 2
-        },
-        {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
           "frequency": 2
         },
         {
-          "name": "Cisco",
-          "slug": "cisco",
+          "name": "Nvidia",
+          "slug": "nvidia",
           "frequency": 2
         },
         {
@@ -4217,7 +4222,7 @@
         {
           "name": "LinkedIn",
           "slug": "linkedin",
-          "frequency": 3
+          "frequency": 4
         },
         {
           "name": "Microsoft",
@@ -4230,11 +4235,6 @@
           "frequency": 3
         },
         {
-          "name": "Snowflake",
-          "slug": "snowflake",
-          "frequency": 3
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 2
@@ -4242,6 +4242,11 @@
         {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 2
+        },
+        {
+          "name": "Snowflake",
+          "slug": "snowflake",
           "frequency": 2
         }
       ]
@@ -4322,6 +4327,11 @@
           "frequency": 3
         },
         {
+          "name": "Nvidia",
+          "slug": "nvidia",
+          "frequency": 3
+        },
+        {
           "name": "Amazon",
           "slug": "amazon",
           "frequency": 2
@@ -4329,11 +4339,6 @@
         {
           "name": "Adobe",
           "slug": "adobe",
-          "frequency": 2
-        },
-        {
-          "name": "Nvidia",
-          "slug": "nvidia",
           "frequency": 2
         },
         {
@@ -4356,32 +4361,22 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 4
+          "frequency": 5
         },
         {
           "name": "Amazon",
           "slug": "amazon",
+          "frequency": 4
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 3
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 3
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 3
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 3
-        },
-        {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
-          "frequency": 2
         },
         {
           "name": "LinkedIn",
@@ -4391,6 +4386,16 @@
         {
           "name": "Siemens",
           "slug": "siemens",
+          "frequency": 2
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 2
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 2
         }
       ]
@@ -4411,28 +4416,28 @@
           "frequency": 6
         },
         {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 5
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 5
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
+          "name": "Microsoft",
+          "slug": "microsoft",
           "frequency": 4
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 4
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 3
         },
         {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 3
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 3
         },
         {
@@ -4460,7 +4465,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 5
+          "frequency": 4
         },
         {
           "name": "Apple",
@@ -4500,14 +4505,14 @@
       "premium": false,
       "companies": [
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 10
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 8
-        },
-        {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 7
         },
         {
           "name": "TikTok",
@@ -4522,7 +4527,7 @@
         {
           "name": "Arista Networks",
           "slug": "arista-networks",
-          "frequency": 4
+          "frequency": 5
         },
         {
           "name": "Bloomberg",
@@ -4584,7 +4589,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 11
+          "frequency": 10
         },
         {
           "name": "Google",
@@ -4595,6 +4600,11 @@
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 9
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 7
         },
         {
           "name": "Media.net",
@@ -4627,16 +4637,6 @@
           "frequency": 3
         },
         {
-          "name": "Yandex",
-          "slug": "yandex",
-          "frequency": 3
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 2
-        },
-        {
           "name": "Siemens",
           "slug": "siemens",
           "frequency": 2
@@ -4649,6 +4649,11 @@
         {
           "name": "Arista Networks",
           "slug": "arista-networks",
+          "frequency": 2
+        },
+        {
+          "name": "Yandex",
+          "slug": "yandex",
           "frequency": 2
         },
         {
@@ -4687,17 +4692,17 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 5
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
           "frequency": 4
         },
         {
           "name": "TikTok",
           "slug": "tiktok",
           "frequency": 4
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 3
         },
         {
           "name": "Salesforce",
@@ -4751,17 +4756,17 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 33
+          "frequency": 32
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 22
+          "frequency": 21
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 16
+          "frequency": 17
         },
         {
           "name": "Apple",
@@ -4779,11 +4784,6 @@
           "frequency": 4
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
-          "frequency": 4
-        },
-        {
           "name": "Yandex",
           "slug": "yandex",
           "frequency": 4
@@ -4791,6 +4791,11 @@
         {
           "name": "Google",
           "slug": "google",
+          "frequency": 3
+        },
+        {
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         },
         {
@@ -4887,17 +4892,17 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 52
+          "frequency": 54
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 34
+          "frequency": 32
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 17
+          "frequency": 14
         },
         {
           "name": "TikTok",
@@ -4917,7 +4922,7 @@
         {
           "name": "Oracle",
           "slug": "oracle",
-          "frequency": 10
+          "frequency": 9
         },
         {
           "name": "Apple",
@@ -4925,28 +4930,38 @@
           "frequency": 7
         },
         {
-          "name": "Yandex",
-          "slug": "yandex",
+          "name": "Zoho",
+          "slug": "zoho",
           "frequency": 6
+        },
+        {
+          "name": "Grammarly",
+          "slug": "grammarly",
+          "frequency": 5
         },
         {
           "name": "Roblox",
           "slug": "roblox",
-          "frequency": 6
+          "frequency": 5
+        },
+        {
+          "name": "J.P. Morgan",
+          "slug": "jpmorgan",
+          "frequency": 5
         },
         {
           "name": "Uber",
           "slug": "uber",
-          "frequency": 5
-        },
-        {
-          "name": "Zoho",
-          "slug": "zoho",
-          "frequency": 5
+          "frequency": 4
         },
         {
           "name": "Netflix",
           "slug": "netflix",
+          "frequency": 4
+        },
+        {
+          "name": "Yandex",
+          "slug": "yandex",
           "frequency": 4
         },
         {
@@ -4957,11 +4972,6 @@
         {
           "name": "IXL",
           "slug": "ixl",
-          "frequency": 4
-        },
-        {
-          "name": "Grammarly",
-          "slug": "grammarly",
           "frequency": 4
         },
         {
@@ -5010,11 +5020,6 @@
           "frequency": 2
         },
         {
-          "name": "J.P. Morgan",
-          "slug": "jpmorgan",
-          "frequency": 2
-        },
-        {
           "name": "Tesco",
           "slug": "tesco",
           "frequency": 2
@@ -5042,21 +5047,6 @@
         {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
-          "frequency": 2
-        },
-        {
-          "name": "Nvidia",
-          "slug": "nvidia",
-          "frequency": 2
-        },
-        {
-          "name": "Accenture",
-          "slug": "accenture",
-          "frequency": 2
-        },
-        {
-          "name": "PhonePe",
-          "slug": "phonepe",
           "frequency": 2
         },
         {
@@ -5144,14 +5134,14 @@
           "frequency": 6
         },
         {
-          "name": "Meta",
-          "slug": "facebook",
-          "frequency": 5
-        },
-        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 5
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 4
         },
         {
           "name": "Zoho",
@@ -5204,7 +5194,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 13
+          "frequency": 12
         },
         {
           "name": "IBM",
@@ -5217,23 +5207,23 @@
           "frequency": 10
         },
         {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 6
+        },
+        {
           "name": "Oracle",
           "slug": "oracle",
           "frequency": 5
         },
         {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 4
-        },
-        {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 3
         },
         {
-          "name": "Apple",
-          "slug": "apple",
+          "name": "Snap",
+          "slug": "snapchat",
           "frequency": 3
         },
         {
@@ -5242,8 +5232,8 @@
           "frequency": 2
         },
         {
-          "name": "Snap",
-          "slug": "snapchat",
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 2
         },
         {
@@ -5310,11 +5300,6 @@
       "premium": false,
       "companies": [
         {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 9
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 7
@@ -5322,7 +5307,12 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 6
+          "frequency": 7
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 7
         },
         {
           "name": "Microsoft",
@@ -5392,13 +5382,13 @@
           "frequency": 3
         },
         {
-          "name": "Apple",
-          "slug": "apple",
+          "name": "Adobe",
+          "slug": "adobe",
           "frequency": 2
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 2
         }
       ]
@@ -5436,7 +5426,7 @@
         {
           "name": "Apple",
           "slug": "apple",
-          "frequency": 3
+          "frequency": 4
         },
         {
           "name": "TikTok",
@@ -5509,6 +5499,11 @@
       "premium": false,
       "companies": [
         {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 5
+        },
+        {
           "name": "Apple",
           "slug": "apple",
           "frequency": 4
@@ -5531,11 +5526,6 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 2
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
           "frequency": 2
         }
       ]
@@ -5572,8 +5562,8 @@
           "frequency": 2
         },
         {
-          "name": "Google",
-          "slug": "google",
+          "name": "Meta",
+          "slug": "facebook",
           "frequency": 2
         },
         {
@@ -5582,8 +5572,8 @@
           "frequency": 2
         },
         {
-          "name": "Meta",
-          "slug": "facebook",
+          "name": "Google",
+          "slug": "google",
           "frequency": 2
         },
         {
@@ -5619,14 +5609,14 @@
           "frequency": 5
         },
         {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 5
+        },
+        {
           "name": "Apple",
           "slug": "apple",
           "frequency": 4
-        },
-        {
-          "name": "Meta",
-          "slug": "facebook",
-          "frequency": 3
         },
         {
           "name": "Microsoft",
@@ -5658,17 +5648,17 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 54
+          "frequency": 51
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 9
+          "frequency": 11
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 6
+          "frequency": 7
         },
         {
           "name": "Adobe",
@@ -5740,7 +5730,12 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 11
+          "frequency": 12
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 7
         },
         {
           "name": "Google",
@@ -5748,14 +5743,14 @@
           "frequency": 7
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 6
+          "name": "LinkedIn",
+          "slug": "linkedin",
+          "frequency": 7
         },
         {
           "name": "Goldman Sachs",
           "slug": "goldman-sachs",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "TikTok",
@@ -5768,13 +5763,13 @@
           "frequency": 4
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
-          "frequency": 4
-        },
-        {
           "name": "Zoho",
           "slug": "zoho",
+          "frequency": 3
+        },
+        {
+          "name": "Nvidia",
+          "slug": "nvidia",
           "frequency": 3
         },
         {
@@ -5783,18 +5778,23 @@
           "frequency": 3
         },
         {
-          "name": "LinkedIn",
-          "slug": "linkedin",
-          "frequency": 2
-        },
-        {
-          "name": "Nvidia",
-          "slug": "nvidia",
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         },
         {
           "name": "Visa",
           "slug": "visa",
+          "frequency": 2
+        },
+        {
+          "name": "MongoDB",
+          "slug": "mongodb",
+          "frequency": 2
+        },
+        {
+          "name": "Yahoo",
+          "slug": "yahoo",
           "frequency": 2
         },
         {
@@ -5847,7 +5847,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 2
+          "frequency": 3
         },
         {
           "name": "Bloomberg",
@@ -5869,17 +5869,22 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 10
+          "frequency": 9
         },
         {
-          "name": "Meta",
-          "slug": "facebook",
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 5
         },
         {
           "name": "Goldman Sachs",
           "slug": "goldman-sachs",
           "frequency": 5
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 4
         },
         {
           "name": "Google",
@@ -5895,11 +5900,6 @@
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 3
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 2
         },
         {
           "name": "Yahoo",
@@ -5939,6 +5939,11 @@
           "frequency": 4
         },
         {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 4
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 3
@@ -5946,11 +5951,6 @@
         {
           "name": "Oracle",
           "slug": "oracle",
-          "frequency": 3
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
           "frequency": 3
         },
         {
@@ -5983,17 +5983,17 @@
         {
           "name": "Yandex",
           "slug": "yandex",
-          "frequency": 15
+          "frequency": 14
         },
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 8
+          "frequency": 10
         },
         {
           "name": "DoorDash",
           "slug": "doordash",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "Google",
@@ -6006,6 +6006,11 @@
           "frequency": 4
         },
         {
+          "name": "LinkedIn",
+          "slug": "linkedin",
+          "frequency": 4
+        },
+        {
           "name": "Amazon",
           "slug": "amazon",
           "frequency": 3
@@ -6013,11 +6018,6 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 3
-        },
-        {
-          "name": "LinkedIn",
-          "slug": "linkedin",
           "frequency": 3
         },
         {
@@ -6033,11 +6033,6 @@
         {
           "name": "Uber",
           "slug": "uber",
-          "frequency": 2
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
           "frequency": 2
         }
       ]
@@ -6118,7 +6113,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 4
+          "frequency": 2
         },
         {
           "name": "Meta",
@@ -6160,12 +6155,17 @@
         {
           "name": "Yandex",
           "slug": "yandex",
-          "frequency": 13
+          "frequency": 12
         },
         {
           "name": "Google",
           "slug": "google",
           "frequency": 5
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 3
         },
         {
           "name": "Goldman Sachs",
@@ -6181,11 +6181,6 @@
           "name": "Amazon",
           "slug": "amazon",
           "frequency": 3
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 2
         },
         {
           "name": "Apple",
@@ -6210,11 +6205,6 @@
       "premium": false,
       "companies": [
         {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 13
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 11
@@ -6225,19 +6215,14 @@
           "frequency": 6
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 5
-        },
-        {
           "name": "Uber",
           "slug": "uber",
           "frequency": 4
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 4
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 3
         },
         {
           "name": "Adobe",
@@ -6255,6 +6240,11 @@
           "frequency": 2
         },
         {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 2
+        },
+        {
           "name": "Goldman Sachs",
           "slug": "goldman-sachs",
           "frequency": 2
@@ -6262,6 +6252,11 @@
         {
           "name": "Yahoo",
           "slug": "yahoo",
+          "frequency": 2
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
           "frequency": 2
         },
         {
@@ -6284,7 +6279,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 15
+          "frequency": 16
         },
         {
           "name": "Google",
@@ -6302,23 +6297,28 @@
           "frequency": 6
         },
         {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 5
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 4
+        },
+        {
           "name": "Booking.com",
           "slug": "bookingcom",
           "frequency": 4
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 4
-        },
-        {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
+          "name": "Goldman Sachs",
+          "slug": "goldman-sachs",
           "frequency": 3
         },
         {
-          "name": "Goldman Sachs",
-          "slug": "goldman-sachs",
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 3
         },
         {
@@ -6342,8 +6342,8 @@
           "frequency": 2
         },
         {
-          "name": "Oracle",
-          "slug": "oracle",
+          "name": "tcs",
+          "slug": "tcs",
           "frequency": 2
         },
         {
@@ -6376,12 +6376,17 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 49
+          "frequency": 50
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 20
+          "frequency": 19
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 15
         },
         {
           "name": "Meta",
@@ -6389,29 +6394,24 @@
           "frequency": 15
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 12
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 9
-        },
-        {
           "name": "Oracle",
           "slug": "oracle",
           "frequency": 9
         },
         {
-          "name": "TikTok",
-          "slug": "tiktok",
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 8
         },
         {
           "name": "Yandex",
           "slug": "yandex",
-          "frequency": 7
+          "frequency": 8
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 8
         },
         {
           "name": "Zoho",
@@ -6429,13 +6429,18 @@
           "frequency": 6
         },
         {
-          "name": "Adobe",
-          "slug": "adobe",
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 5
         },
         {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 4
+        },
+        {
+          "name": "Salesforce",
+          "slug": "salesforce",
           "frequency": 4
         },
         {
@@ -6469,16 +6474,6 @@
           "frequency": 3
         },
         {
-          "name": "Tinkoff",
-          "slug": "tinkoff",
-          "frequency": 3
-        },
-        {
-          "name": "Salesforce",
-          "slug": "salesforce",
-          "frequency": 3
-        },
-        {
           "name": "opentext",
           "slug": "opentext",
           "frequency": 2
@@ -6509,13 +6504,13 @@
           "frequency": 2
         },
         {
-          "name": "Palo Alto Networks",
-          "slug": "palo-alto-networks",
+          "name": "Tinkoff",
+          "slug": "tinkoff",
           "frequency": 2
         },
         {
-          "name": "Lucid",
-          "slug": "lucid",
+          "name": "Palo Alto Networks",
+          "slug": "palo-alto-networks",
           "frequency": 2
         },
         {
@@ -6549,11 +6544,6 @@
           "frequency": 2
         },
         {
-          "name": "MakeMyTrip",
-          "slug": "makemytrip",
-          "frequency": 2
-        },
-        {
           "name": "BNY Mellon",
           "slug": "bny-mellon",
           "frequency": 2
@@ -6561,6 +6551,11 @@
         {
           "name": "FreshWorks",
           "slug": "freshworks",
+          "frequency": 2
+        },
+        {
+          "name": "Lucid",
+          "slug": "lucid",
           "frequency": 2
         }
       ]
@@ -6622,12 +6617,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 16
-        },
-        {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 9
+          "frequency": 14
         },
         {
           "name": "Airbnb",
@@ -6665,6 +6655,16 @@
           "frequency": 3
         },
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 2
+        },
+        {
+          "name": "LinkedIn",
+          "slug": "linkedin",
+          "frequency": 2
+        },
+        {
           "name": "Google",
           "slug": "google",
           "frequency": 2
@@ -6682,11 +6682,6 @@
         {
           "name": "SoFi",
           "slug": "sofi",
-          "frequency": 2
-        },
-        {
-          "name": "LinkedIn",
-          "slug": "linkedin",
           "frequency": 2
         },
         {
@@ -6798,7 +6793,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 52
+          "frequency": 51
         },
         {
           "name": "Amazon",
@@ -6835,7 +6830,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 44
+          "frequency": 45
         },
         {
           "name": "Amazon",
@@ -6863,28 +6858,13 @@
           "frequency": 5
         },
         {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
-          "frequency": 4
-        },
-        {
           "name": "Uber",
           "slug": "uber",
           "frequency": 4
         },
         {
-          "name": "Avito",
-          "slug": "avito",
-          "frequency": 4
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 3
-        },
-        {
-          "name": "Walmart Labs",
-          "slug": "walmart-labs",
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 3
         },
         {
@@ -6908,6 +6888,16 @@
           "frequency": 3
         },
         {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 2
+        },
+        {
+          "name": "Walmart Labs",
+          "slug": "walmart-labs",
+          "frequency": 2
+        },
+        {
           "name": "PayPal",
           "slug": "paypal",
           "frequency": 2
@@ -6915,6 +6905,11 @@
         {
           "name": "TikTok",
           "slug": "tiktok",
+          "frequency": 2
+        },
+        {
+          "name": "Avito",
+          "slug": "avito",
           "frequency": 2
         },
         {
@@ -6955,11 +6950,6 @@
           "frequency": 3
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
-        },
-        {
           "name": "Apple",
           "slug": "apple",
           "frequency": 3
@@ -6968,6 +6958,11 @@
           "name": "Meta",
           "slug": "facebook",
           "frequency": 3
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 2
         },
         {
           "name": "tcs",
@@ -7020,17 +7015,17 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 119
+          "frequency": 115
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 17
+          "frequency": 18
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 7
+          "frequency": 9
         },
         {
           "name": "TikTok",
@@ -7053,11 +7048,6 @@
           "frequency": 3
         },
         {
-          "name": "LinkedIn",
-          "slug": "linkedin",
-          "frequency": 3
-        },
-        {
           "name": "Apple",
           "slug": "apple",
           "frequency": 3
@@ -7066,6 +7056,11 @@
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 3
+        },
+        {
+          "name": "LinkedIn",
+          "slug": "linkedin",
+          "frequency": 2
         },
         {
           "name": "Oracle",
@@ -7096,11 +7091,6 @@
           "name": "Samsung",
           "slug": "samsung",
           "frequency": 2
-        },
-        {
-          "name": "Yandex",
-          "slug": "yandex",
-          "frequency": 2
         }
       ]
     },
@@ -7118,12 +7108,12 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 27
+          "frequency": 26
         },
         {
           "name": "Roblox",
           "slug": "roblox",
-          "frequency": 14
+          "frequency": 12
         },
         {
           "name": "TikTok",
@@ -7133,7 +7123,7 @@
         {
           "name": "Pinterest",
           "slug": "pinterest",
-          "frequency": 7
+          "frequency": 6
         },
         {
           "name": "Google",
@@ -7144,11 +7134,6 @@
           "name": "Adobe",
           "slug": "adobe",
           "frequency": 4
-        },
-        {
-          "name": "Oracle",
-          "slug": "oracle",
-          "frequency": 3
         },
         {
           "name": "Apple",
@@ -7163,6 +7148,11 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 2
+        },
+        {
+          "name": "Oracle",
+          "slug": "oracle",
           "frequency": 2
         },
         {
@@ -7277,17 +7267,17 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 15
+          "frequency": 14
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 8
+          "frequency": 9
         },
         {
           "name": "TikTok",
           "slug": "tiktok",
-          "frequency": 7
+          "frequency": 6
         },
         {
           "name": "Google",
@@ -7315,6 +7305,11 @@
           "frequency": 3
         },
         {
+          "name": "Oracle",
+          "slug": "oracle",
+          "frequency": 3
+        },
+        {
           "name": "Yahoo",
           "slug": "yahoo",
           "frequency": 3
@@ -7328,11 +7323,6 @@
           "name": "Walmart Labs",
           "slug": "walmart-labs",
           "frequency": 3
-        },
-        {
-          "name": "Oracle",
-          "slug": "oracle",
-          "frequency": 2
         },
         {
           "name": "Snap",
@@ -7377,12 +7367,17 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 25
+          "frequency": 26
         },
         {
           "name": "TikTok",
           "slug": "tiktok",
-          "frequency": 10
+          "frequency": 12
+        },
+        {
+          "name": "Intuit",
+          "slug": "intuit",
+          "frequency": 8
         },
         {
           "name": "Microsoft",
@@ -7397,11 +7392,6 @@
         {
           "name": "Oracle",
           "slug": "oracle",
-          "frequency": 7
-        },
-        {
-          "name": "Intuit",
-          "slug": "intuit",
           "frequency": 6
         },
         {
@@ -7452,11 +7442,6 @@
         {
           "name": "Salesforce",
           "slug": "salesforce",
-          "frequency": 2
-        },
-        {
-          "name": "Tesla",
-          "slug": "tesla",
           "frequency": 2
         },
         {
@@ -7522,11 +7507,6 @@
           "frequency": 4
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
           "frequency": 3
@@ -7549,6 +7529,11 @@
         {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 2
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
           "frequency": 2
         },
         {
@@ -7632,14 +7617,14 @@
       "premium": false,
       "companies": [
         {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
+          "name": "Amazon",
+          "slug": "amazon",
           "frequency": 4
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 4
         },
         {
           "name": "Meta",
@@ -7724,11 +7709,6 @@
           "frequency": 3
         },
         {
-          "name": "Walmart Labs",
-          "slug": "walmart-labs",
-          "frequency": 3
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 2
@@ -7741,6 +7721,16 @@
         {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 2
+        },
+        {
+          "name": "Walmart Labs",
+          "slug": "walmart-labs",
+          "frequency": 2
+        },
+        {
+          "name": "Sigmoid",
+          "slug": "sigmoid",
           "frequency": 2
         },
         {
@@ -7779,7 +7769,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 7
+          "frequency": 6
         },
         {
           "name": "Microsoft",
@@ -7794,6 +7784,11 @@
         {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 3
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 2
         },
         {
@@ -7835,24 +7830,19 @@
           "frequency": 8
         },
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 5
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 5
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 4
-        },
-        {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
           "frequency": 4
-        },
-        {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 2
         },
         {
           "name": "Apple",
@@ -7879,6 +7869,16 @@
         {
           "name": "Google",
           "slug": "google",
+          "frequency": 4
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 3
+        },
+        {
+          "name": "tcs",
+          "slug": "tcs",
           "frequency": 3
         },
         {
@@ -7894,16 +7894,6 @@
         {
           "name": "LinkedIn",
           "slug": "linkedin",
-          "frequency": 2
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 2
-        },
-        {
-          "name": "tcs",
-          "slug": "tcs",
           "frequency": 2
         }
       ]
@@ -7929,6 +7919,11 @@
           "frequency": 3
         },
         {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 3
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 2
@@ -7941,11 +7936,6 @@
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 2
-        },
-        {
-          "name": "TikTok",
-          "slug": "tiktok",
           "frequency": 2
         }
       ]
@@ -7973,7 +7963,7 @@
         {
           "name": "LinkedIn",
           "slug": "linkedin",
-          "frequency": 5
+          "frequency": 4
         },
         {
           "name": "Yahoo",
@@ -8005,17 +7995,12 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 50
+          "frequency": 48
         },
         {
           "name": "Amazon",
           "slug": "amazon",
           "frequency": 7
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 5
         },
         {
           "name": "Google",
@@ -8025,6 +8010,11 @@
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
+          "frequency": 4
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
           "frequency": 4
         },
         {
@@ -8077,6 +8067,11 @@
       "premium": false,
       "companies": [
         {
+          "name": "LinkedIn",
+          "slug": "linkedin",
+          "frequency": 6
+        },
+        {
           "name": "Meta",
           "slug": "facebook",
           "frequency": 4
@@ -8087,18 +8082,13 @@
           "frequency": 4
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 4
-        },
-        {
-          "name": "LinkedIn",
-          "slug": "linkedin",
-          "frequency": 4
-        },
-        {
           "name": "Google",
           "slug": "google",
+          "frequency": 3
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
           "frequency": 3
         },
         {
@@ -8131,11 +8121,6 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 2
-        },
-        {
-          "name": "TikTok",
-          "slug": "tiktok",
           "frequency": 2
         }
       ]
@@ -8175,11 +8160,21 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 8
+          "frequency": 7
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 2
         },
         {
           "name": "Oracle",
           "slug": "oracle",
+          "frequency": 2
+        },
+        {
+          "name": "Google",
+          "slug": "google",
           "frequency": 2
         },
         {
@@ -8190,11 +8185,6 @@
         {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
-          "frequency": 2
-        },
-        {
-          "name": "TikTok",
-          "slug": "tiktok",
           "frequency": 2
         }
       ]
@@ -8220,11 +8210,6 @@
           "frequency": 3
         },
         {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 2
-        },
-        {
           "name": "Amazon",
           "slug": "amazon",
           "frequency": 2
@@ -8232,6 +8217,11 @@
         {
           "name": "Apple",
           "slug": "apple",
+          "frequency": 2
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
           "frequency": 2
         },
         {
@@ -8259,7 +8249,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 69
+          "frequency": 65
         },
         {
           "name": "Amazon",
@@ -8277,6 +8267,16 @@
           "frequency": 4
         },
         {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 4
+        },
+        {
+          "name": "Oracle",
+          "slug": "oracle",
+          "frequency": 3
+        },
+        {
           "name": "GE Healthcare",
           "slug": "ge-healthcare",
           "frequency": 3
@@ -8289,16 +8289,6 @@
         {
           "name": "LinkedIn",
           "slug": "linkedin",
-          "frequency": 2
-        },
-        {
-          "name": "Oracle",
-          "slug": "oracle",
-          "frequency": 2
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
           "frequency": 2
         },
         {
@@ -8372,6 +8362,11 @@
       "premium": false,
       "companies": [
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 10
+        },
+        {
           "name": "TikTok",
           "slug": "tiktok",
           "frequency": 7
@@ -8379,7 +8374,7 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 4
+          "frequency": 5
         },
         {
           "name": "Adobe",
@@ -8392,9 +8387,9 @@
           "frequency": 3
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 2
         },
         {
           "name": "Google",
@@ -8426,7 +8421,7 @@
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 11
+          "frequency": 12
         },
         {
           "name": "Apple",
@@ -8434,9 +8429,14 @@
           "frequency": 6
         },
         {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 4
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 5
+          "frequency": 4
         },
         {
           "name": "Oracle",
@@ -8454,23 +8454,8 @@
           "frequency": 4
         },
         {
-          "name": "Amazon",
-          "slug": "amazon",
-          "frequency": 3
-        },
-        {
           "name": "Yandex",
           "slug": "yandex",
-          "frequency": 3
-        },
-        {
-          "name": "Nvidia",
-          "slug": "nvidia",
-          "frequency": 3
-        },
-        {
-          "name": "SIG",
-          "slug": "sig",
           "frequency": 3
         },
         {
@@ -8494,6 +8479,11 @@
           "frequency": 2
         },
         {
+          "name": "Nvidia",
+          "slug": "nvidia",
+          "frequency": 2
+        },
+        {
           "name": "eBay",
           "slug": "ebay",
           "frequency": 2
@@ -8512,13 +8502,13 @@
       "premium": false,
       "companies": [
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 5
-        },
-        {
           "name": "DoorDash",
           "slug": "doordash",
+          "frequency": 7
+        },
+        {
+          "name": "Google",
+          "slug": "google",
           "frequency": 5
         },
         {
@@ -8529,6 +8519,11 @@
         {
           "name": "Amazon",
           "slug": "amazon",
+          "frequency": 2
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 2
         },
         {
@@ -8581,12 +8576,12 @@
         {
           "name": "DoorDash",
           "slug": "doordash",
-          "frequency": 23
+          "frequency": 25
         },
         {
           "name": "Citadel",
           "slug": "citadel",
-          "frequency": 10
+          "frequency": 8
         },
         {
           "name": "Amazon",
@@ -8599,24 +8594,19 @@
           "frequency": 7
         },
         {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 6
+        },
+        {
           "name": "Microsoft",
           "slug": "microsoft",
           "frequency": 6
         },
         {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 5
-        },
-        {
           "name": "Oracle",
           "slug": "oracle",
           "frequency": 4
-        },
-        {
-          "name": "Nvidia",
-          "slug": "nvidia",
-          "frequency": 3
         },
         {
           "name": "Apple",
@@ -8629,8 +8619,18 @@
           "frequency": 3
         },
         {
+          "name": "Salesforce",
+          "slug": "salesforce",
+          "frequency": 3
+        },
+        {
           "name": "TikTok",
           "slug": "tiktok",
+          "frequency": 2
+        },
+        {
+          "name": "Nvidia",
+          "slug": "nvidia",
           "frequency": 2
         },
         {
@@ -8646,11 +8646,6 @@
         {
           "name": "Arista Networks",
           "slug": "arista-networks",
-          "frequency": 2
-        },
-        {
-          "name": "Salesforce",
-          "slug": "salesforce",
           "frequency": 2
         },
         {
@@ -8681,19 +8676,14 @@
       "premium": false,
       "companies": [
         {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 11
-        },
-        {
           "name": "Amazon",
           "slug": "amazon",
           "frequency": 9
         },
         {
-          "name": "DoorDash",
-          "slug": "doordash",
-          "frequency": 4
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 9
         },
         {
           "name": "Citadel",
@@ -8704,6 +8694,11 @@
           "name": "TikTok",
           "slug": "tiktok",
           "frequency": 4
+        },
+        {
+          "name": "DoorDash",
+          "slug": "doordash",
+          "frequency": 3
         },
         {
           "name": "Meta",
@@ -8746,7 +8741,7 @@
         {
           "name": "Uber",
           "slug": "uber",
-          "frequency": 17
+          "frequency": 15
         },
         {
           "name": "Amazon",
@@ -8754,13 +8749,13 @@
           "frequency": 12
         },
         {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 6
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
+          "frequency": 5
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
           "frequency": 5
         },
         {
@@ -8791,6 +8786,11 @@
         {
           "name": "Cisco",
           "slug": "cisco",
+          "frequency": 2
+        },
+        {
+          "name": "Wix",
+          "slug": "wix",
           "frequency": 2
         },
         {
@@ -8833,7 +8833,7 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 9
+          "frequency": 10
         },
         {
           "name": "Oracle",
@@ -8843,12 +8843,12 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "Pinterest",
           "slug": "pinterest",
-          "frequency": 5
+          "frequency": 4
         },
         {
           "name": "Nvidia",
@@ -8861,13 +8861,13 @@
           "frequency": 3
         },
         {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
+          "name": "Uber",
+          "slug": "uber",
           "frequency": 3
         },
         {
-          "name": "Uber",
-          "slug": "uber",
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 2
         },
         {
@@ -8910,7 +8910,7 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "Datadog",
@@ -8937,37 +8937,37 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 101
+          "frequency": 104
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 86
+          "frequency": 91
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 43
+          "frequency": 41
         },
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 27
-        },
-        {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 20
+          "frequency": 26
         },
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
+          "frequency": 18
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
           "frequency": 17
         },
         {
           "name": "tcs",
           "slug": "tcs",
-          "frequency": 10
+          "frequency": 12
         },
         {
           "name": "Yandex",
@@ -8975,18 +8975,18 @@
           "frequency": 9
         },
         {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 6
+        },
+        {
           "name": "Oracle",
           "slug": "oracle",
-          "frequency": 7
+          "frequency": 6
         },
         {
           "name": "Goldman Sachs",
           "slug": "goldman-sachs",
-          "frequency": 5
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
           "frequency": 5
         },
         {
@@ -9085,11 +9085,6 @@
           "frequency": 2
         },
         {
-          "name": "Deloitte",
-          "slug": "deloitte",
-          "frequency": 2
-        },
-        {
           "name": "Samsung",
           "slug": "samsung",
           "frequency": 2
@@ -9140,11 +9135,6 @@
           "frequency": 2
         },
         {
-          "name": "Tinkoff",
-          "slug": "tinkoff",
-          "frequency": 2
-        },
-        {
           "name": "Mastercard",
           "slug": "mastercard",
           "frequency": 2
@@ -9167,13 +9157,18 @@
       "premium": false,
       "companies": [
         {
-          "name": "Yandex",
-          "slug": "yandex",
-          "frequency": 5
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 4
         },
         {
           "name": "Uber",
           "slug": "uber",
+          "frequency": 4
+        },
+        {
+          "name": "Yandex",
+          "slug": "yandex",
           "frequency": 4
         },
         {
@@ -9184,11 +9179,6 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 2
-        },
-        {
-          "name": "Amazon",
-          "slug": "amazon",
           "frequency": 2
         },
         {
@@ -9244,6 +9234,11 @@
           "frequency": 2
         },
         {
+          "name": "IBM",
+          "slug": "ibm",
+          "frequency": 2
+        },
+        {
           "name": "Booking.com",
           "slug": "bookingcom",
           "frequency": 2
@@ -9278,17 +9273,22 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 39
+          "frequency": 38
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 21
+          "frequency": 23
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 12
+          "frequency": 14
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 8
         },
         {
           "name": "Bloomberg",
@@ -9296,14 +9296,9 @@
           "frequency": 7
         },
         {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 7
-        },
-        {
           "name": "Cloudflare",
           "slug": "cloudflare",
-          "frequency": 6
+          "frequency": 5
         },
         {
           "name": "Apple",
@@ -9313,6 +9308,11 @@
         {
           "name": "Uber",
           "slug": "uber",
+          "frequency": 3
+        },
+        {
+          "name": "Altimetrik",
+          "slug": "altimetrik",
           "frequency": 3
         },
         {
@@ -9351,23 +9351,18 @@
           "frequency": 2
         },
         {
+          "name": "BNY Mellon",
+          "slug": "bny-mellon",
+          "frequency": 2
+        },
+        {
           "name": "Walmart Labs",
           "slug": "walmart-labs",
           "frequency": 2
         },
         {
-          "name": "Cisco",
-          "slug": "cisco",
-          "frequency": 2
-        },
-        {
           "name": "Docusign",
           "slug": "docusign",
-          "frequency": 2
-        },
-        {
-          "name": "Altimetrik",
-          "slug": "altimetrik",
           "frequency": 2
         },
         {
@@ -9388,11 +9383,6 @@
       "premium": false,
       "companies": [
         {
-          "name": "Meta",
-          "slug": "facebook",
-          "frequency": 5
-        },
-        {
           "name": "Google",
           "slug": "google",
           "frequency": 4
@@ -9400,11 +9390,16 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 2
+          "frequency": 3
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
+          "frequency": 3
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
           "frequency": 2
         },
         {
@@ -9445,11 +9440,6 @@
           "frequency": 6
         },
         {
-          "name": "IBM",
-          "slug": "ibm",
-          "frequency": 4
-        },
-        {
           "name": "Meta",
           "slug": "facebook",
           "frequency": 3
@@ -9457,6 +9447,11 @@
         {
           "name": "Apple",
           "slug": "apple",
+          "frequency": 3
+        },
+        {
+          "name": "IBM",
+          "slug": "ibm",
           "frequency": 3
         },
         {
@@ -9591,16 +9586,16 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 39
-        },
-        {
-          "name": "Microsoft",
-          "slug": "microsoft",
-          "frequency": 20
+          "frequency": 41
         },
         {
           "name": "Google",
           "slug": "google",
+          "frequency": 21
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
           "frequency": 20
         },
         {
@@ -9763,12 +9758,12 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 21
+          "frequency": 22
         },
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 16
+          "frequency": 18
         },
         {
           "name": "Microsoft",
@@ -9778,12 +9773,12 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 8
+          "frequency": 9
         },
         {
           "name": "Adobe",
           "slug": "adobe",
-          "frequency": 8
+          "frequency": 7
         },
         {
           "name": "Oracle",
@@ -9796,11 +9791,6 @@
           "frequency": 5
         },
         {
-          "name": "Goldman Sachs",
-          "slug": "goldman-sachs",
-          "frequency": 3
-        },
-        {
           "name": "Apple",
           "slug": "apple",
           "frequency": 3
@@ -9811,9 +9801,9 @@
           "frequency": 3
         },
         {
-          "name": "Flipkart",
-          "slug": "flipkart",
-          "frequency": 3
+          "name": "Goldman Sachs",
+          "slug": "goldman-sachs",
+          "frequency": 2
         },
         {
           "name": "TikTok",
@@ -9821,13 +9811,13 @@
           "frequency": 2
         },
         {
-          "name": "Citadel",
-          "slug": "citadel",
+          "name": "Flipkart",
+          "slug": "flipkart",
           "frequency": 2
         },
         {
-          "name": "Accenture",
-          "slug": "accenture",
+          "name": "Citadel",
+          "slug": "citadel",
           "frequency": 2
         }
       ]
@@ -9894,7 +9884,7 @@
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 14
+          "frequency": 13
         },
         {
           "name": "eBay",
@@ -9944,11 +9934,6 @@
           "name": "Airbnb",
           "slug": "airbnb",
           "frequency": 8
-        },
-        {
-          "name": "Google",
-          "slug": "google",
-          "frequency": 2
         },
         {
           "name": "Yandex",
@@ -10051,7 +10036,7 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 17
+          "frequency": 19
         },
         {
           "name": "Meta",
@@ -10066,17 +10051,12 @@
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 10
-        },
-        {
-          "name": "Bloomberg",
-          "slug": "bloomberg",
-          "frequency": 5
+          "frequency": 11
         },
         {
           "name": "Wix",
           "slug": "wix",
-          "frequency": 5
+          "frequency": 7
         },
         {
           "name": "Uber",
@@ -10091,6 +10071,11 @@
         {
           "name": "Adobe",
           "slug": "adobe",
+          "frequency": 4
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
           "frequency": 4
         },
         {
@@ -10121,11 +10106,6 @@
         {
           "name": "Wipro",
           "slug": "wipro",
-          "frequency": 2
-        },
-        {
-          "name": "VMware",
-          "slug": "vmware",
           "frequency": 2
         },
         {
@@ -10168,7 +10148,7 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 11
+          "frequency": 12
         },
         {
           "name": "Microsoft",
@@ -10178,7 +10158,7 @@
         {
           "name": "Bloomberg",
           "slug": "bloomberg",
-          "frequency": 8
+          "frequency": 7
         },
         {
           "name": "Meta",
@@ -10221,11 +10201,6 @@
           "frequency": 2
         },
         {
-          "name": "Uber",
-          "slug": "uber",
-          "frequency": 2
-        },
-        {
           "name": "Accenture",
           "slug": "accenture",
           "frequency": 2
@@ -10253,8 +10228,18 @@
       "premium": false,
       "companies": [
         {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 2
+        },
+        {
           "name": "Amazon",
           "slug": "amazon",
+          "frequency": 2
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
           "frequency": 2
         }
       ]
@@ -10273,22 +10258,22 @@
         {
           "name": "Meta",
           "slug": "facebook",
-          "frequency": 39
+          "frequency": 40
         },
         {
           "name": "Microsoft",
           "slug": "microsoft",
-          "frequency": 10
+          "frequency": 11
         },
         {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 10
+          "frequency": 9
         },
         {
           "name": "Yandex",
           "slug": "yandex",
-          "frequency": 10
+          "frequency": 9
         },
         {
           "name": "Zoho",
@@ -10298,17 +10283,27 @@
         {
           "name": "Google",
           "slug": "google",
-          "frequency": 7
-        },
-        {
-          "name": "Adobe",
-          "slug": "adobe",
-          "frequency": 4
+          "frequency": 6
         },
         {
           "name": "Nvidia",
           "slug": "nvidia",
           "frequency": 4
+        },
+        {
+          "name": "TikTok",
+          "slug": "tiktok",
+          "frequency": 4
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 3
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 3
         },
         {
           "name": "Oracle",
@@ -10326,14 +10321,14 @@
           "frequency": 3
         },
         {
-          "name": "ServiceNow",
-          "slug": "servicenow",
+          "name": "Walmart Labs",
+          "slug": "walmart-labs",
           "frequency": 3
         },
         {
-          "name": "Apple",
-          "slug": "apple",
-          "frequency": 2
+          "name": "ServiceNow",
+          "slug": "servicenow",
+          "frequency": 3
         },
         {
           "name": "Bloomberg",
@@ -10346,11 +10341,6 @@
           "frequency": 2
         },
         {
-          "name": "TikTok",
-          "slug": "tiktok",
-          "frequency": 2
-        },
-        {
           "name": "josh technology",
           "slug": "josh-technology",
           "frequency": 2
@@ -10358,11 +10348,6 @@
         {
           "name": "Yahoo",
           "slug": "yahoo",
-          "frequency": 2
-        },
-        {
-          "name": "Walmart Labs",
-          "slug": "walmart-labs",
           "frequency": 2
         },
         {
@@ -10501,11 +10486,6 @@
       "premium": false,
       "companies": [
         {
-          "name": "Meta",
-          "slug": "facebook",
-          "frequency": 5
-        },
-        {
           "name": "Apple",
           "slug": "apple",
           "frequency": 5
@@ -10516,9 +10496,14 @@
           "frequency": 4
         },
         {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 3
+        },
+        {
           "name": "Amazon",
           "slug": "amazon",
-          "frequency": 4
+          "frequency": 3
         }
       ]
     }
