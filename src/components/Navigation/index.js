@@ -15,7 +15,7 @@ import DarkMode from '../Dark-Mode';
 
 const Navigation = () => {
   return (
-    <Navbar className="navbar">
+    <Navbar className="navbar sticky">
       <Container>
         <NavbarBrand
           onClick={() =>

@@ -1,3 +1,9 @@
+.navbar.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 body.light-mode .navbar {
   background-color: #f7f8f9;
   color: #000000;
