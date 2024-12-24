@@ -5,12 +5,11 @@ import './styles.scss';
 import Navigation from './Navigation';
 import Tabs from './Tabs';
 
-import { initGA, PageView } from './Shared/Tracking';
+import { initGA } from './Shared/Tracking';
 
 class App extends React.Component {
   componentDidMount() {
-    initGA('G-GKMJ4KP806', { debug: false });
-    PageView();
+    initGA('G-J7FBQPGZTW');
   }
 
   render() {
