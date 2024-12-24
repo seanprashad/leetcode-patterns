@@ -1,19 +1,20 @@
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 const initGA = (trackingID, options) => {
-  ReactGA.initialize(trackingID, { ...options });
-};
-
-const PageView = () => {
-  ReactGA.pageview(window.location.pathname + window.location.search);
+  ReactGA.initialize([
+    {
+      trackingId: trackingID,
+      gaOptions: { ...options },
+    },
+  ]);
 };
 
 const Event = (category, action, label) => {
   ReactGA.event({
-    category,
-    action,
-    label,
+    category: category,
+    action: action,
+    label: label,
   });
 };
 
-export { initGA, PageView, Event };
+export { initGA, Event };
