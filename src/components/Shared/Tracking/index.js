@@ -11,9 +11,9 @@ const initGA = (trackingID, options) => {
 
 const Event = (category, action, label) => {
   ReactGA.event({
-    category: category,
-    action: action,
-    label: label,
+    category,
+    action,
+    label,
   });
 };
 
