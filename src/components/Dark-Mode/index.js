@@ -23,7 +23,10 @@ const DarkMode = () => {
       id="darkMode-toggle"
       checked={darkMode}
       onChange={toggleDarkMode}
-      icons={{ checked: '🌙', unchecked: '☀️' }}
+      icons={{
+        checked: <span style={{ fontSize: 12 }}>🌙</span>,
+        unchecked: <span style={{ fontSize: 12 }}>☀️</span>,
+      }}
     />
   );
 };

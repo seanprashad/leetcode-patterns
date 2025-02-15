@@ -22,3 +22,12 @@ body.dark-mode {
 body.dark-mode a {
   color: #579dff;
 }
+
+.react-toggle-track-check,
+.react-toggle-track-x {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+  height: 100% !important;
+}
