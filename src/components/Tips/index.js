@@ -33,6 +33,7 @@ If must solve in-place then
 
 If asked for maximum/minimum subarray/subset/options then
 - Dynamic programming
+- Sliding window
 
 If asked for top/least K items then
 - Heap
