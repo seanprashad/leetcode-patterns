@@ -11,7 +11,7 @@ class Solution {
             s.add(nums[i]);
         }
 
-        for (int num : nums) {
+        for (int num : s) {
             if (!s.contains(num - 1)) {
                 int start = num;
 
