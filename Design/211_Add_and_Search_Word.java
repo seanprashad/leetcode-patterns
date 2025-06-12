@@ -1,10 +1,10 @@
 class WordDictionary {
-    class TrieNode {
-        private TrieNode[] children;
+    private class TrieNode {
+        private TrieNode[] letters;
         private boolean isWord;
 
         public TrieNode() {
-            children = new TrieNode[26];
+            letters = new TrieNode[26];
             isWord = false;
         }
     }
@@ -16,39 +16,40 @@ class WordDictionary {
     }
 
     public void addWord(String word) {
-        TrieNode curr = root;
+        TrieNode runner = root;
 
         for (char c : word.toCharArray()) {
-            if (curr.children[c - 'a'] == null) {
-                curr.children[c - 'a'] = new TrieNode();
+            int pos = (int)(c - 'a');
+            if (runner.letters[pos] == null) {
+                runner.letters[pos] = new TrieNode();
             }
-            curr = curr.children[c - 'a'];
+            runner = runner.letters[pos];
         }
 
-        curr.isWord = true;
+        runner.isWord = true;
     }
 
     public boolean search(String word) {
-        return helper(word, 0, root);
+        return searchHelper(word.toCharArray(), 0, root);
     }
 
-    private boolean helper(String word, int idx, TrieNode t) {
-        if (idx >= word.length()) {
-            return t.isWord;
-        }
-
-        char c = word.charAt(idx);
-
-        if (c == '.') {
-            for (int i = 0; i < 26; i++) {
-                if (t.children[i] != null && helper(word, idx + 1, t.children[i])) {
-                    return true;
+    private boolean searchHelper(char[] word, int idx, TrieNode root) {
+        for (int i = idx; i < word.length; i++) {
+            if (word[i] == '.') {
+                for (TrieNode child : root.letters) {
+                    if (child != null && searchHelper(word, i + 1, child)) {
+                        return true;
+                    }
                 }
+
+                return false;
             }
 
-            return false;
+            int pos = word[i] - 'a';
+            if (root.letters[pos] == null) { return false; }
+            root = root.letters[pos];
         }
 
-        return t.children[c - 'a'] != null && helper(word, idx + 1, t.children[c - 'a']);
+        return root.isWord;
     }
 }
