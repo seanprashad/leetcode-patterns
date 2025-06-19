@@ -1,43 +1,60 @@
 class Solution {
-    public String reorganizeString(String S) {
-        if (S == null || S.length() == 0) {
-            return new String();
-        }
+    private class LetterCount {
+        private char letter;
+        private int count;
 
+        public LetterCount(char letter, int count) {
+            this.letter = letter;
+            this.count = count;
+        }
+    }
+
+    public String reorganizeString(String s) {
         Map<Character, Integer> hm = new HashMap<>();
-        char maxChar = S.charAt(0);
 
-        for (char c : S.toCharArray()) {
+        for (char c : s.toCharArray()) {
             hm.put(c, hm.getOrDefault(c, 0) + 1);
-
-            if (hm.get(c) > hm.get(maxChar)) {
-                maxChar = c;
-            }
         }
 
-        if (hm.get(maxChar) > (S.length() + 1) / 2) {
-            return "";
+        PriorityQueue<LetterCount> pq = new PriorityQueue<>((a, b) -> Integer.compare(b.count, a.count));
+
+        for (Map.Entry<Character, Integer> entry : hm.entrySet()) {
+            pq.offer(new LetterCount(entry.getKey(), entry.getValue()));
         }
 
         int idx = 0;
-        char[] result = new char[S.length()];
+        char[] result = new char[s.length()];
 
-        while (idx < S.length() && hm.get(maxChar) > 0) {
-            result[idx] = maxChar;
-            idx += 2;
-            hm.put(maxChar, hm.get(maxChar) - 1);
-        }
+        while (!pq.isEmpty()) {
+            if (idx == 0 || pq.peek().letter != result[idx - 1]) {
+                LetterCount l = pq.poll();
+                result[idx] = l.letter;
+                l.count--;
 
-        for (char c : hm.keySet()) {
-            while (hm.get(c) > 0) {
-                if (idx >= S.length()) {
-                    idx = 1;
+                if (l.count > 0) {
+                    pq.offer(l);
+                }
+            } else {
+                LetterCount firstResult = pq.poll();
+
+                if (pq.isEmpty()) {
+                    return "";
                 }
 
-                result[idx] = c;
-                idx += 2;
-                hm.put(c, hm.get(c) - 1);
+                LetterCount secondResult = pq.poll();
+                result[idx] = secondResult.letter;
+                secondResult.count--;
+
+                if (secondResult.count > 0) {
+                    pq.offer(secondResult);
+                }
+
+                if (firstResult.count > 0) {
+                    pq.offer(firstResult);
+                }
             }
+
+            ++idx;
         }
 
         return String.valueOf(result);
