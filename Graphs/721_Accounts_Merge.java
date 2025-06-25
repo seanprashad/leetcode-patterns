@@ -1,70 +1,62 @@
 class Solution {
+    private class UnionFind {
+        private Map<String, String> parent;
+
+        public UnionFind() {
+            parent = new HashMap<>();
+        }
+
+        public String find(String x) {
+            // Upon adding a new item, its parent is itself
+            parent.putIfAbsent(x, x);
+
+            if (!parent.get(x).equals(x)) {
+                parent.put(x, find(parent.get(x))); // Path compression; directly specify the parent via recursion
+            }
+
+            return parent.get(x);
+        }
+
+        public void union(String x, String y) {
+            String rootX = find(x);
+            String rootY = find(y);
+
+            if (!rootX.equals(rootY)) {
+                parent.put(rootX, rootY);
+            }
+        }
+    }
+
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        UnionFind uf = new UnionFind(accounts.size());
+        Map<String, String> emailToName = new HashMap<>();
+        UnionFind uf = new UnionFind();
 
-        Map<String, Integer> emailToAcc = new HashMap<>();
+        for (List<String> account : accounts) {
+            String name = account.get(0);
+            String initialEmail = account.get(1);
 
-        for (int i = 0; i < accounts.size(); i++) {
-            for (int j = 1; j < accounts.get(i).size(); j++) {
-                String email = accounts.get(i).get(j);
-
-                if (emailToAcc.containsKey(email)) {
-                    int prevParent = emailToAcc.get(email);
-                    uf.union(prevParent, i);
-                } else {
-                    emailToAcc.put(email, i);
-                }
+            for (int i = 1; i < account.size(); i++) {
+                String email = account.get(i);
+                emailToName.putIfAbsent(email, name);
+                uf.union(initialEmail, email);
             }
         }
 
-        Map<Integer, Set<String>> emailsForAcc = new HashMap<>();
-
-        for (int i = 0; i < accounts.size(); i++) {
-            int parent = uf.find(i);
-            List<String> emails = accounts.get(i);
-
-            emailsForAcc.putIfAbsent(parent, new HashSet<>());
-            emailsForAcc.get(parent).addAll(emails.subList(1, emails.size()));
+        Map<String, TreeSet<String>> unions = new HashMap<>();
+        for (String email : emailToName.keySet()) {
+            String root = uf.find(email);
+            unions.computeIfAbsent(root, x -> new TreeSet<>()).add(email);
         }
 
         List<List<String>> result = new ArrayList<>();
 
-        for (int key : emailsForAcc.keySet()) {
+        for (Map.Entry<String, TreeSet<String>> entry : unions.entrySet()) {
             List<String> temp = new ArrayList<>();
-            temp.addAll(emailsForAcc.get(key));
-            Collections.sort(temp);
-            temp.add(0, accounts.get(key).get(0));
+            temp.add(emailToName.get(entry.getKey()));
+            temp.addAll(entry.getValue());
             result.add(temp);
         }
 
         return result;
-    }
-
-    private class UnionFind {
-        private int[] parents;
-
-        public UnionFind(int n) {
-            parents = new int[n];
-
-            for (int i = 0; i < parents.length; i++) {
-                parents[i] = i;
-            }
-        }
-
-        public int find(int node) {
-            if (parents[node] == node) {
-                return node;
-            }
-            parents[node] = find(parents[parents[node]]);
-            return parents[node];
-        }
-
-        public void union(int i, int j) {
-            int p1 = find(i), p2 = find(j);
-            if (p1 == p2) {
-                return;
-            }
-            parents[p2] = p1;
-        }
     }
 }
