@@ -1,57 +1,34 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        if (nums == null || nums.length == 0) {
-            return new int[0];
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        List<List<Integer>> buckets = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            freqMap.merge(nums[i], 1, Integer::sum);
         }
 
-        Map<Integer, Integer> hm = new HashMap<>();
-
-        for (int num : nums) {
-            hm.put(num, hm.getOrDefault(num, 0) + 1);
+        for (int i = 0; i <= nums.length; i++) {
+            buckets.add(new ArrayList<>());
         }
 
-        int i = 0;
-        int[] unique = new int[hm.size()];
-        for (int key : hm.keySet()) {
-            unique[i++] = key;
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+            int number = entry.getKey();
+            int freq = entry.getValue();
+
+            buckets.get(freq).add(number);
         }
 
-        int low = 0, high = unique.length - 1;
+        int[] result = new int[k];
+        int idx = 0;
 
-        while (low < high) {
-            int idx = quickSelect(unique, hm, low, high);
-
-            if (idx == k) {
-                break;
-            } else if (idx < k) {
-                low = idx + 1;
-            } else {
-                high = idx - 1;
-            }
-        }
-
-        return Arrays.copyOf(unique, k);
-    }
-
-    private int quickSelect(int[] nums, Map<Integer, Integer> hm, int low, int high) {
-        int idx = low, pivot = high;
-        int pivot_frequency = hm.get(nums[pivot]);
-
-        for (int i = low; i < high; i++) {
-            if (hm.get(nums[i]) > pivot_frequency) {
-                swap(nums, i, idx);
+        for (int i = buckets.size() - 1; i >= 0 && idx < k; i--) {
+            for (int n : buckets.get(i)) {
+                result[idx] = n;
                 ++idx;
+                if (idx == k) { break; }
             }
         }
 
-        swap(nums, idx, high);
-        return idx;
-    }
-
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-        return;
+        return result;
     }
 }
