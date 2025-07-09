@@ -50,11 +50,11 @@ const Table = () => {
     new Array(questions.length).fill('');
 
   /* If the user has previously visited the website, then an array in
-  LocalStorage would exist of a certain length which corresponds to which
-  questions they have/have not completed. In the event that we add new questions
-  to the list, then we would need to resize and copy the existing 'checked'
-  array before updating it in LocalStorage in order to transfer their saved
-  progress. */
+    LocalStorage would exist of a certain length which corresponds to which
+    questions they have/have not completed. In the event that we add new questions
+    to the list, then we would need to resize and copy the existing 'checked'
+    array before updating it in LocalStorage in order to transfer their saved
+    progress. */
   if (checkedList.length !== questions.length) {
     const resizedCheckedList = new Array(questions.length).fill(false);
 
@@ -114,6 +114,15 @@ const Table = () => {
     JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
   );
 
+  const [important, setImportant] = useState(
+    JSON.parse(localStorage.getItem('importantProblems')) ||
+      new Array(questions.length).fill(false),
+  );
+
+  useEffect(() => {
+    localStorage.setItem('importantProblems', JSON.stringify(important));
+  }, [important]);
+
   useEffect(() => {
     window.localStorage.setItem('checked', JSON.stringify(checked));
   }, [checked]);
@@ -171,7 +180,7 @@ const Table = () => {
                     totalValue={totalDifficultyCount.Total}
                     label={() =>
                       `${difficultyCount.Total} /
-                      ${totalDifficultyCount.Total}`
+                        ${totalDifficultyCount.Total}`
                     }
                     labelPosition={0}
                     labelStyle={{
@@ -481,7 +490,46 @@ const Table = () => {
             },
             Filter: SelectColumnFilter,
           },
+          /* eslint-disable react/prop-types */
           {
+            Header: '⭐',
+            accessor: 'important',
+            disableSortBy: true,
+            disableFilters: true,
+            Cell: ({ row }) => {
+              const id = Number(row?.original?.id);
+              if (Number.isNaN(id)) return '❌';
+
+              const handleKeyPress = e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  const updatedImportant = [...important];
+                  updatedImportant[id] = !updatedImportant[id];
+                  setImportant(updatedImportant);
+                  console.log('Toggled important:', updatedImportant);
+                }
+              };
+
+              return (
+                <span
+                  role="button"
+                  tabIndex={0}
+                  style={{ cursor: 'pointer', fontSize: '1.2em' }}
+                  onClick={() => {
+                    console.log('Star clicked!', id); // add this
+                    const updatedImportant = [...important];
+                    updatedImportant[id] = !updatedImportant[id];
+                    setImportant(updatedImportant);
+                  }}
+                  onKeyDown={handleKeyPress}
+                  aria-label="Mark as important for revision"
+                  data-tip="Mark as important for revision"
+                >
+                  {important[id] ? '⭐' : '☆'}
+                </span>
+              );
+            },
+          }, // Optional
+          /* eslint-enable react/prop-types */ {
             Header: 'Last Solved On',
             accessor: 'LastSolvedOn',
             disableSortBy: true,
