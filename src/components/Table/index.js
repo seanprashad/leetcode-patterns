@@ -41,6 +41,7 @@ const iconPath = `${process.env.PUBLIC_URL}/static/icons/`;
 
 const Table = () => {
   const [resetCount, setResetCount] = useState(0);
+
   let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
     new Array(questions.length).fill(false);
@@ -114,11 +115,12 @@ const Table = () => {
     JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
   );
 
+  const savedImportant = JSON.parse(localStorage.getItem('importantProblems'));
   const [important, setImportant] = useState(
-    JSON.parse(localStorage.getItem('importantProblems')) ||
-      new Array(questions.length).fill(false),
+    savedImportant && savedImportant.length === questions.length
+      ? savedImportant
+      : new Array(questions.length).fill(false),
   );
-
   useEffect(() => {
     localStorage.setItem('importantProblems', JSON.stringify(important));
   }, [important]);
@@ -498,6 +500,8 @@ const Table = () => {
             disableFilters: true,
             Cell: ({ row }) => {
               const id = Number(row?.original?.id);
+              console.log('⭐ Row ID:', id, row?.original);
+
               if (Number.isNaN(id)) return '❌';
 
               const handleKeyPress = e => {
@@ -546,7 +550,7 @@ const Table = () => {
       },
     ],
     // eslint-disable-next-line
-    [resetCount],
+    [resetCount, important],
   );
 
   const {
