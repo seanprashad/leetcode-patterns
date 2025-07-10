@@ -79,6 +79,22 @@ const Table = () => {
     window.localStorage.setItem('checkedAt', JSON.stringify(checkedAtList));
   }
 
+  let importantList =
+    JSON.parse(localStorage.getItem('importantProblems')) ||
+    new Array(questions.length).fill(false);
+
+  if (importantList.length !== questions.length) {
+    const resizedImportantList = new Array(questions.length).fill(false);
+    for (let i = 0; i < importantList.length; i += 1) {
+      resizedImportantList[i] = importantList[i];
+    }
+    importantList = resizedImportantList;
+    window.localStorage.setItem(
+      'importantProblems',
+      JSON.stringify(importantList),
+    );
+  }
+
   const filteredByCheckbox = () => {
     const checkbox = localStorage.getItem('checkbox') || '';
     return questions.filter(question => {
@@ -123,14 +139,6 @@ const Table = () => {
   );
   const [starAnimation, setStarAnimation] = useState({});
 
-  // Returns an array of question objects that are starred
-  const getStarredQuestions = () => {
-    return questions.filter((q, idx) => important[idx]);
-  };
-  useEffect(() => {
-    localStorage.setItem('importantProblems', JSON.stringify(important));
-  }, [important]);
-
   useEffect(() => {
     window.localStorage.setItem('checked', JSON.stringify(checked));
   }, [checked]);
@@ -142,6 +150,10 @@ const Table = () => {
   useEffect(() => {
     window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
   }, [showPatterns]);
+
+  useEffect(() => {
+    window.localStorage.setItem('importantProblems', JSON.stringify(important));
+  }, [important]);
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -619,11 +631,12 @@ const Table = () => {
   const [showOnlyStarred, setShowOnlyStarred] = useState(false);
 
   useEffect(() => {
+    // Always start from the full questions list
+    let filtered = filteredByCheckbox();
     if (showOnlyStarred) {
-      setData(getStarredQuestions());
-    } else {
-      setData(filteredByCheckbox());
+      filtered = filtered.filter(q => important[q.id]);
     }
+    setData(filtered);
     // eslint-disable-next-line
   }, [showOnlyStarred, important, checked, resetCount]);
 
