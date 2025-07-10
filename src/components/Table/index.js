@@ -121,6 +121,11 @@ const Table = () => {
       ? savedImportant
       : new Array(questions.length).fill(false),
   );
+
+  // Returns an array of question objects that are starred
+  const getStarredQuestions = () => {
+    return questions.filter((q, idx) => important[idx]);
+  };
   useEffect(() => {
     localStorage.setItem('importantProblems', JSON.stringify(important));
   }, [important]);
@@ -591,10 +596,48 @@ const Table = () => {
     useSortBy,
   );
 
+  const [showOnlyStarred, setShowOnlyStarred] = useState(false);
+
+  useEffect(() => {
+    if (showOnlyStarred) {
+      setData(getStarredQuestions());
+    } else {
+      setData(filteredByCheckbox());
+    }
+    // eslint-disable-next-line
+  }, [showOnlyStarred, important, checked, resetCount]);
+
   return (
     <Container className="table">
       <ReactTooltip />
       <PatternFrequencies filters={filters} rows={filteredRows} />
+
+      {/* Minimal Show Only Starred Button */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginBottom: '1rem',
+        }}
+      >
+        <Button
+          color={showOnlyStarred ? 'warning' : 'secondary'}
+          outline={!showOnlyStarred}
+          size="sm"
+          style={{
+            fontWeight: 600,
+            letterSpacing: '0.5px',
+            boxShadow: showOnlyStarred
+              ? '0 0 0 2px #ffd666'
+              : '0 0 0 1px #d9d9d9',
+            transition: 'box-shadow 0.2s',
+          }}
+          onClick={() => setShowOnlyStarred(!showOnlyStarred)}
+        >
+          {showOnlyStarred ? 'Show All Questions' : 'Show Only Starred ⭐'}
+        </Button>
+      </div>
+
       <ReactTable borderless striped hover {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
