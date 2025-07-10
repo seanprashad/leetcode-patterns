@@ -115,13 +115,13 @@ const Table = () => {
   const [showPatterns, setShowPatterns] = useState(
     JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
   );
-
   const savedImportant = JSON.parse(localStorage.getItem('importantProblems'));
   const [important, setImportant] = useState(
     savedImportant && savedImportant.length === questions.length
       ? savedImportant
       : new Array(questions.length).fill(false),
   );
+  const [starAnimation, setStarAnimation] = useState({});
 
   // Returns an array of question objects that are starred
   const getStarredQuestions = () => {
@@ -508,22 +508,31 @@ const Table = () => {
               const id = Number(row?.original?.id);
               if (Number.isNaN(id)) return '❌';
 
+              const handleToggle = () => {
+                const updatedImportant = [...important];
+                updatedImportant[id] = !updatedImportant[id];
+                setImportant(updatedImportant);
+                toast(
+                  updatedImportant[id]
+                    ? 'Marked as Important'
+                    : 'Removed from Important',
+                  {
+                    type: updatedImportant[id] ? 'success' : 'info',
+                    autoClose: 1200,
+                    hideProgressBar: true,
+                    position: 'bottom-center',
+                  },
+                );
+                // Trigger animation
+                setStarAnimation(prev => ({ ...prev, [id]: true }));
+                setTimeout(() => {
+                  setStarAnimation(prev => ({ ...prev, [id]: false }));
+                }, 400);
+              };
+
               const handleKeyPress = e => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  const updatedImportant = [...important];
-                  updatedImportant[id] = !updatedImportant[id];
-                  setImportant(updatedImportant);
-                  toast(
-                    updatedImportant[id]
-                      ? 'Marked as Important'
-                      : 'Removed from Important',
-                    {
-                      type: updatedImportant[id] ? 'success' : 'info',
-                      autoClose: 1200,
-                      hideProgressBar: true,
-                      position: 'bottom-center',
-                    },
-                  );
+                  handleToggle();
                 }
               };
 
@@ -531,23 +540,15 @@ const Table = () => {
                 <span
                   role="button"
                   tabIndex={0}
-                  style={{ cursor: 'pointer', fontSize: '1.2em' }}
-                  onClick={() => {
-                    const updatedImportant = [...important];
-                    updatedImportant[id] = !updatedImportant[id];
-                    setImportant(updatedImportant);
-                    toast(
-                      updatedImportant[id]
-                        ? 'Marked as Important'
-                        : 'Removed from Important',
-                      {
-                        type: updatedImportant[id] ? 'success' : 'info',
-                        autoClose: 1200,
-                        hideProgressBar: true,
-                        position: 'bottom-center',
-                      },
-                    );
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '1.2em',
+                    transition: 'color 0.2s',
                   }}
+                  className={
+                    important[id] && starAnimation[id] ? 'star-animate' : ''
+                  }
+                  onClick={handleToggle}
                   onKeyDown={handleKeyPress}
                   aria-label="Mark as important for revision"
                   data-tip="Mark as important for revision"
