@@ -23,6 +23,8 @@ import {
   FaRandom,
   FaQuestionCircle,
 } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   DefaultColumnFilter,
   SelectDifficultyColumnFilter,
@@ -30,7 +32,6 @@ import {
   SelectCheckedColumnFilter,
 } from './filters';
 import { Event } from '../Shared/Tracking';
-
 import questions, { updated } from '../../data';
 
 import 'react-toggle/style.css';
@@ -505,8 +506,6 @@ const Table = () => {
             disableFilters: true,
             Cell: ({ row }) => {
               const id = Number(row?.original?.id);
-              console.log('⭐ Row ID:', id, row?.original);
-
               if (Number.isNaN(id)) return '❌';
 
               const handleKeyPress = e => {
@@ -514,7 +513,17 @@ const Table = () => {
                   const updatedImportant = [...important];
                   updatedImportant[id] = !updatedImportant[id];
                   setImportant(updatedImportant);
-                  console.log('Toggled important:', updatedImportant);
+                  toast(
+                    updatedImportant[id]
+                      ? 'Marked as Important'
+                      : 'Removed from Important',
+                    {
+                      type: updatedImportant[id] ? 'success' : 'info',
+                      autoClose: 1200,
+                      hideProgressBar: true,
+                      position: 'bottom-center',
+                    },
+                  );
                 }
               };
 
@@ -524,10 +533,20 @@ const Table = () => {
                   tabIndex={0}
                   style={{ cursor: 'pointer', fontSize: '1.2em' }}
                   onClick={() => {
-                    console.log('Star clicked!', id); // add this
                     const updatedImportant = [...important];
                     updatedImportant[id] = !updatedImportant[id];
                     setImportant(updatedImportant);
+                    toast(
+                      updatedImportant[id]
+                        ? 'Marked as Important'
+                        : 'Removed from Important',
+                      {
+                        type: updatedImportant[id] ? 'success' : 'info',
+                        autoClose: 1200,
+                        hideProgressBar: true,
+                        position: 'bottom-center',
+                      },
+                    );
                   }}
                   onKeyDown={handleKeyPress}
                   aria-label="Mark as important for revision"
@@ -609,6 +628,7 @@ const Table = () => {
 
   return (
     <Container className="table">
+      <ToastContainer />
       <ReactTooltip />
       <PatternFrequencies filters={filters} rows={filteredRows} />
 
