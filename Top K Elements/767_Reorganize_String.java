@@ -1,60 +1,41 @@
 class Solution {
-    private class LetterCount {
-        private char letter;
-        private int count;
-
-        public LetterCount(char letter, int count) {
-            this.letter = letter;
-            this.count = count;
-        }
-    }
-
     public String reorganizeString(String s) {
-        Map<Character, Integer> hm = new HashMap<>();
+        int[] counts = new int[26];
 
         for (char c : s.toCharArray()) {
-            hm.put(c, hm.getOrDefault(c, 0) + 1);
+            counts[c - 'a']++;
         }
 
-        PriorityQueue<LetterCount> pq = new PriorityQueue<>((a, b) -> Integer.compare(b.count, a.count));
+        int maxCount = 0, letter = 0;
 
-        for (Map.Entry<Character, Integer> entry : hm.entrySet()) {
-            pq.offer(new LetterCount(entry.getKey(), entry.getValue()));
-        }
-
-        int idx = 0;
-        char[] result = new char[s.length()];
-
-        while (!pq.isEmpty()) {
-            if (idx == 0 || pq.peek().letter != result[idx - 1]) {
-                LetterCount l = pq.poll();
-                result[idx] = l.letter;
-                l.count--;
-
-                if (l.count > 0) {
-                    pq.offer(l);
-                }
-            } else {
-                LetterCount firstResult = pq.poll();
-
-                if (pq.isEmpty()) {
-                    return "";
-                }
-
-                LetterCount secondResult = pq.poll();
-                result[idx] = secondResult.letter;
-                secondResult.count--;
-
-                if (secondResult.count > 0) {
-                    pq.offer(secondResult);
-                }
-
-                if (firstResult.count > 0) {
-                    pq.offer(firstResult);
-                }
+        for (int i = 0; i < 26; i++) {
+            if (counts[i] > maxCount) {
+                letter = i;
+                maxCount = counts[i];
             }
+        }
 
-            ++idx;
+        if (maxCount > (s.length() + 1) / 2) { return ""; }
+        
+        char[] result = new char[s.length()];
+        int idx = 0;
+
+        while (counts[letter] > 0) {
+            result[idx] = (char) (letter + 'a');
+            counts[letter]--;
+            idx += 2;
+        }
+
+        for (int i = 0; i < 26; i++) {
+            while (counts[i] > 0) {
+                if (idx >= result.length) {
+                    idx = 1;
+                }
+
+                result[idx] = (char) (i + 'a');
+                counts[i]--;
+                idx += 2;
+            }
         }
 
         return String.valueOf(result);
