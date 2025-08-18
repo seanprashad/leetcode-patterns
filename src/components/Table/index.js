@@ -23,6 +23,8 @@ import {
   FaRandom,
   FaQuestionCircle,
 } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   DefaultColumnFilter,
   SelectDifficultyColumnFilter,
@@ -30,7 +32,6 @@ import {
   SelectCheckedColumnFilter,
 } from './filters';
 import { Event } from '../Shared/Tracking';
-
 import questions, { updated } from '../../data';
 
 import 'react-toggle/style.css';
@@ -41,6 +42,7 @@ const iconPath = `${process.env.PUBLIC_URL}/static/icons/`;
 
 const Table = () => {
   const [resetCount, setResetCount] = useState(0);
+
   let checkedList =
     JSON.parse(localStorage.getItem('checked')) ||
     new Array(questions.length).fill(false);
@@ -50,11 +52,11 @@ const Table = () => {
     new Array(questions.length).fill('');
 
   /* If the user has previously visited the website, then an array in
-  LocalStorage would exist of a certain length which corresponds to which
-  questions they have/have not completed. In the event that we add new questions
-  to the list, then we would need to resize and copy the existing 'checked'
-  array before updating it in LocalStorage in order to transfer their saved
-  progress. */
+    LocalStorage would exist of a certain length which corresponds to which
+    questions they have/have not completed. In the event that we add new questions
+    to the list, then we would need to resize and copy the existing 'checked'
+    array before updating it in LocalStorage in order to transfer their saved
+    progress. */
   if (checkedList.length !== questions.length) {
     const resizedCheckedList = new Array(questions.length).fill(false);
 
@@ -75,6 +77,22 @@ const Table = () => {
 
     checkedAtList = resizedCheckedAtList;
     window.localStorage.setItem('checkedAt', JSON.stringify(checkedAtList));
+  }
+
+  let importantList =
+    JSON.parse(localStorage.getItem('importantProblems')) ||
+    new Array(questions.length).fill(false);
+
+  if (importantList.length !== questions.length) {
+    const resizedImportantList = new Array(questions.length).fill(false);
+    for (let i = 0; i < importantList.length; i += 1) {
+      resizedImportantList[i] = importantList[i];
+    }
+    importantList = resizedImportantList;
+    window.localStorage.setItem(
+      'importantProblems',
+      JSON.stringify(importantList),
+    );
   }
 
   const filteredByCheckbox = () => {
@@ -113,6 +131,13 @@ const Table = () => {
   const [showPatterns, setShowPatterns] = useState(
     JSON.parse(localStorage.getItem('showPatterns')) || new Array(1).fill(true),
   );
+  const savedImportant = JSON.parse(localStorage.getItem('importantProblems'));
+  const [important, setImportant] = useState(
+    savedImportant && savedImportant.length === questions.length
+      ? savedImportant
+      : new Array(questions.length).fill(false),
+  );
+  const [starAnimation, setStarAnimation] = useState({});
 
   useEffect(() => {
     window.localStorage.setItem('checked', JSON.stringify(checked));
@@ -125,6 +150,10 @@ const Table = () => {
   useEffect(() => {
     window.localStorage.setItem('showPatterns', JSON.stringify(showPatterns));
   }, [showPatterns]);
+
+  useEffect(() => {
+    window.localStorage.setItem('importantProblems', JSON.stringify(important));
+  }, [important]);
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -171,7 +200,7 @@ const Table = () => {
                     totalValue={totalDifficultyCount.Total}
                     label={() =>
                       `${difficultyCount.Total} /
-                      ${totalDifficultyCount.Total}`
+                        ${totalDifficultyCount.Total}`
                     }
                     labelPosition={0}
                     labelStyle={{
@@ -481,7 +510,67 @@ const Table = () => {
             },
             Filter: SelectColumnFilter,
           },
+          /* eslint-disable react/prop-types */
           {
+            Header: '⭐',
+            accessor: 'important',
+            disableSortBy: true,
+            disableFilters: true,
+            Cell: ({ row }) => {
+              const id = Number(row?.original?.id);
+              if (Number.isNaN(id)) return '❌';
+
+              const handleToggle = () => {
+                const updatedImportant = [...important];
+                updatedImportant[id] = !updatedImportant[id];
+                setImportant(updatedImportant);
+                toast(
+                  updatedImportant[id]
+                    ? 'Marked as Important'
+                    : 'Removed from Important',
+                  {
+                    type: updatedImportant[id] ? 'success' : 'info',
+                    autoClose: 1200,
+                    hideProgressBar: true,
+                    position: 'bottom-center',
+                  },
+                );
+                // Trigger animation
+                setStarAnimation(prev => ({ ...prev, [id]: true }));
+                setTimeout(() => {
+                  setStarAnimation(prev => ({ ...prev, [id]: false }));
+                }, 400);
+              };
+
+              const handleKeyPress = e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleToggle();
+                }
+              };
+
+              return (
+                <span
+                  role="button"
+                  tabIndex={0}
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '1.2em',
+                    transition: 'color 0.2s',
+                  }}
+                  className={
+                    important[id] && starAnimation[id] ? 'star-animate' : ''
+                  }
+                  onClick={handleToggle}
+                  onKeyDown={handleKeyPress}
+                  aria-label="Mark as important for revision"
+                  data-tip="Mark as important for revision"
+                >
+                  {important[id] ? '⭐' : '☆'}
+                </span>
+              );
+            },
+          }, // Optional
+          /* eslint-enable react/prop-types */ {
             Header: 'Last Solved On',
             accessor: 'LastSolvedOn',
             disableSortBy: true,
@@ -498,7 +587,7 @@ const Table = () => {
       },
     ],
     // eslint-disable-next-line
-    [resetCount],
+    [resetCount, important],
   );
 
   const {
@@ -539,10 +628,50 @@ const Table = () => {
     useSortBy,
   );
 
+  const [showOnlyStarred, setShowOnlyStarred] = useState(false);
+
+  useEffect(() => {
+    // Always start from the full questions list
+    let filtered = filteredByCheckbox();
+    if (showOnlyStarred) {
+      filtered = filtered.filter(q => important[q.id]);
+    }
+    setData(filtered);
+    // eslint-disable-next-line
+  }, [showOnlyStarred, important, checked, resetCount]);
+
   return (
     <Container className="table">
+      <ToastContainer />
       <ReactTooltip />
       <PatternFrequencies filters={filters} rows={filteredRows} />
+
+      {/* Minimal Show Only Starred Button */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginBottom: '1rem',
+        }}
+      >
+        <Button
+          color={showOnlyStarred ? 'warning' : 'secondary'}
+          outline={!showOnlyStarred}
+          size="sm"
+          style={{
+            fontWeight: 600,
+            letterSpacing: '0.5px',
+            boxShadow: showOnlyStarred
+              ? '0 0 0 2px #ffd666'
+              : '0 0 0 1px #d9d9d9',
+            transition: 'box-shadow 0.2s',
+          }}
+          onClick={() => setShowOnlyStarred(!showOnlyStarred)}
+        >
+          {showOnlyStarred ? 'Show All Questions' : 'Show Only Starred ⭐'}
+        </Button>
+      </div>
+
       <ReactTable borderless striped hover {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
