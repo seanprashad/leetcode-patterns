@@ -48,7 +48,7 @@ Else
 - Sort input for O(nlogn) time and O(1) space
 \`\`\``;
 
-  return <ReactMarkdown className="tips" source={input} />;
+  return <ReactMarkdown className="tips">{input}</ReactMarkdown>;
 };
 
 export default Tips;

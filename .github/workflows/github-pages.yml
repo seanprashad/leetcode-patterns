@@ -15,16 +15,24 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies and build
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
-      - run: npm ci
-      - run: npm run build
+          node-version: '22.2.0'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --registry=https://registry.npmjs.org/
+        timeout-minutes: 10
+      
+      - name: Build
+        run: npm run build
 
       - name: Check GitHub Pages status
         uses: crazy-max/ghaction-github-status@v3
