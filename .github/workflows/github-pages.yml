@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies and build
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '22.2.0'
       - run: npm ci
       - run: npm run build
 
