@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
+  extends: ['airbnb', 'plugin:prettier/recommended', 'prettier'],
   env: {
     browser: true,
     commonjs: true,
@@ -10,13 +10,12 @@ module.exports = {
   rules: {
     'jsx-a11y/href-no-hash': ['off'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
-    'react/destructuring-assignment': [
-      'warn',
-      'always',
-      {
-        ignoreClassFields: false,
-      },
-    ],
+    'react/destructuring-assignment': ['off'],
+    'react/function-component-definition': ['off'],
+    'react/no-unstable-nested-components': ['off'],
+    'react/jsx-no-useless-fragment': ['off'],
+    'react/require-default-props': ['off'],
+    'prettier/prettier': ['off'],
     'max-len': [
       'warn',
       {

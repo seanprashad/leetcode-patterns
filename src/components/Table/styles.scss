@@ -1,83 +1,195 @@
+// ============================================
+// THEME STYLES - Light & Dark Mode
+// ============================================
+
 body.light-mode .table {
   background-color: #ffffff;
   color: #000000;
-}
-body.light-mode .table thead > tr th {
-  background-color: #ffffff;
-}
-body.light-mode .pattern-count {
-  background-color: #ffffff;
-  color: #000000;
-}
-body.light-mode .table tr:nth-child(odd) {
-  background-color: #f1f2f4;
-}
-body.light-mode .table tr:nth-child(even) {
-  background-color: #ffffff;
-}
-body.light-mode .table tbody tr:hover {
-  background-color: #dcdfe4;
-  color: #000000;
+
+  table {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  thead > tr th,
+  table thead > tr th {
+    background-color: #ffffff !important;
+  }
+
+  tbody tr,
+  table tbody tr {
+    background-color: #ffffff !important;
+  }
+
+  table tbody tr:nth-child(odd) {
+    background-color: #f1f2f4 !important;
+  }
+
+  table tbody tr:nth-child(even) {
+    background-color: #ffffff !important;
+  }
+
+  tbody tr:hover,
+  table tbody tr:hover {
+    background-color: #dcdfe4 !important;
+    color: #000000 !important;
+  }
 }
 
 body.dark-mode .table {
-  background-color: #161a1d;
-  color: #ffffff;
+  background-color: #161a1d !important;
+  color: #ffffff !important;
+
+  table {
+    background-color: #161a1d !important;
+    color: #ffffff !important;
+  }
+
+  thead > tr th,
+  table thead > tr th {
+    background-color: #161a1d !important;
+    color: #ffffff !important;
+  }
+
+  tbody tr,
+  table tbody tr {
+    background-color: #161a1d !important;
+  }
+
+  tr:nth-child(odd),
+  table tbody tr:nth-child(odd) {
+    background-color: #22272b !important;
+  }
+
+  tr:nth-child(even),
+  table tbody tr:nth-child(even) {
+    background-color: #161a1d !important;
+  }
+
+  tbody tr:hover,
+  table tbody tr:hover {
+    background-color: #101214 !important;
+    color: #ffffff !important;
+  }
 }
-body.dark-mode .table thead > tr th {
-  background-color: #161a1d;
+
+// Override Bootstrap table defaults in dark mode
+body.dark-mode table.custom-table {
+  --bs-table-bg: #161a1d !important;
+  --bs-table-striped-bg: #22272b !important;
+  --bs-table-hover-bg: #101214 !important;
+  --bs-table-color: #ffffff !important;
+  background-color: #161a1d !important;
+  color: #ffffff !important;
+
+  thead tr th {
+    background-color: #161a1d !important;
+    color: #ffffff !important;
+    border-color: #22272b !important;
+  }
+
+  tbody tr {
+    background-color: #161a1d !important;
+    color: #ffffff !important;
+    
+    &:nth-of-type(odd) {
+      --bs-table-accent-bg: #22272b !important;
+      background-color: #22272b !important;
+    }
+
+    &:nth-of-type(even) {
+      background-color: #161a1d !important;
+    }
+
+    &:hover {
+      --bs-table-accent-bg: #101214 !important;
+      background-color: #101214 !important;
+    }
+
+    td {
+      background-color: inherit !important;
+      color: #ffffff !important;
+      border-color: #22272b !important;
+    }
+  }
 }
-body.dark-mode .pattern-count {
-  background-color: #161a1d;
-  color: #ffffff;
-}
-body.dark-mode .table tr:nth-child(odd) {
-  background-color: #22272b;
-}
-body.dark-mode .table tr:nth-child(even) {
-  background-color: #161a1d;
-}
-body.dark-mode .table tbody tr:hover {
-  background-color: #101214;
-  color: #ffffff;
-}
+
 body.dark-mode .modal-content {
   background-color: #1d2125;
   color: #ffffff;
+
   .close {
     color: #ffffff;
   }
 }
+
+// ============================================
+// TABLE STRUCTURE
+// ============================================
 
 .table {
   .row {
     justify-content: center;
   }
 
+  .nav-link {
+    padding: 0;
+  }
+
+  .lastSolvedOn {
+    text-wrap: nowrap;
+  }
+
+  // Sticky table header
   thead {
     > tr:first-child {
       display: none;
     }
 
     > tr th {
-      background: white;
       position: sticky;
-      top: 50px;
+      top: 70px;
       text-wrap: nowrap;
+      z-index: 10;
     }
   }
+}
 
-  .nav-link {
-    padding: 0;
+// ============================================
+// DIFFICULTY INDICATORS
+// ============================================
+
+.table {
+  // Difficulty badge & progress bar colors
+  .easy,
+  .progress-bar.easy,
+  .progress .easy {
+    background-color: #5cb85c !important;
+    color: #ffffff !important;
   }
 
+  .medium,
+  .progress-bar.medium,
+  .progress .medium {
+    background-color: #f0ad4e !important;
+    color: #ffffff !important;
+  }
+
+  .hard,
+  .progress-bar.hard,
+  .progress .hard {
+    background-color: #d9534f !important;
+    color: #ffffff !important;
+  }
+
+  // Difficulty progress section
   #difficultyProgress {
     margin-bottom: 25px;
     font-size: 11.5px;
-  }
 
-  #difficultyProgress > div:nth-child(n + 2) {
-    margin-top: 12px;
+    > div:nth-child(n + 2) {
+      margin-top: 12px;
+    }
   }
 
   .progress-pie {
@@ -88,38 +200,81 @@ body.dark-mode .modal-content {
     height: 5px;
   }
 
-  .easy {
-    background-color: #5cb85c;
+  .reset-button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 0.7rem;
+  }
+}
+
+// ============================================
+// BADGES & PATTERNS
+// ============================================
+
+.table {
+  .badge {
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
   }
 
-  .medium {
-    background-color: #f0ad4e;
-  }
-
-  .hard {
-    background-color: #d9534f;
+  .badge-secondary,
+  .patterns .badge,
+  .patterns .badge-secondary {
+    background-color: #6c757d !important;
+    color: #ffffff !important;
   }
 
   .companies,
   .patterns {
     justify-content: space-evenly;
     margin: 0;
+    flex-wrap: wrap;
   }
 
-  .companies img {
-    padding: 5px;
+  .patterns {
+    gap: 0.5rem;
+
+    .badge {
+      display: inline-block;
+      width: auto;
+      white-space: nowrap;
+    }
   }
 
-  .react-toggle {
-    top: 7px;
+  #pattern-toggle {
+    transform: scale(0.7);
+    margin: 0;
   }
+}
 
-  .reset-button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 0.7rem;
-  }
-  .lastSolvedOn {
-    text-wrap: nowrap;
-  }
+// ============================================
+// COMPANY ICONS
+// ============================================
+
+.table .companies img {
+  padding: 5px;
+  max-width: 30px;
+  max-height: 30px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: #6c757d;
+  min-width: fit-content;
+}
+
+// Dark mode alt text color for company images
+body.dark-mode .table .companies img {
+  color: #ffffff;
+}
+
+// ============================================
+// TOOLTIPS
+// ============================================
+
+.react-tooltip {
+  z-index: 1000 !important;
 }

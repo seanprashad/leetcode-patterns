@@ -4,7 +4,7 @@ function CreateDropDownListHelper(options, filterValue, setFilter, id) {
   return (
     <select
       value={filterValue}
-      onChange={e => {
+      onChange={(e) => {
         localStorage.setItem(id, e.target.value);
         setFilter(e.target.value || '');
       }}
@@ -29,7 +29,7 @@ export function DefaultColumnFilter({
   return (
     <input
       value={filterValue || ''}
-      onChange={e => {
+      onChange={(e) => {
         setFilter(e.target.value || '');
       }}
       placeholder={`Search ${count} questions`}
@@ -51,10 +51,10 @@ export function SelectColumnFilter({
   const options = React.useMemo(() => {
     const set = new Set();
 
-    preFilteredRows.forEach(row => {
+    preFilteredRows.forEach((row) => {
       const values = String(row.values[id]).split(',');
 
-      values.forEach(value => {
+      values.forEach((value) => {
         set.add(value);
       });
     });
@@ -69,7 +69,7 @@ export function SelectCheckedColumnFilter({
   column: { filterValue, setFilter, id, filterByCheckbox },
 }) {
   const options = ['Checked', 'Unchecked'];
-  const filter = val => {
+  const filter = (val) => {
     setFilter(val);
     filterByCheckbox();
   };
