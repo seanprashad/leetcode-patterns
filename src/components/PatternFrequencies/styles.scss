@@ -1,3 +1,7 @@
+// ============================================
+// PATTERN FREQUENCY COMPONENT
+// ============================================
+
 .pattern-count {
   padding: 0.75em;
 
@@ -5,7 +9,34 @@
     font-weight: bold;
   }
 
+  // Base badge styles
   .badge {
     margin: 0.25em 0.25em;
+    background-color: #6c757d !important;
+    color: #ffffff !important;
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .badge-secondary {
+    background-color: #6c757d !important;
+    color: #ffffff !important;
+  }
+
+  // Difficulty-based badges
+  .badge.easy {
+    background-color: #5cb85c !important;
+    color: #ffffff !important;
+  }
+
+  .badge.medium {
+    background-color: #f0ad4e !important;
+    color: #ffffff !important;
+  }
+
+  .badge.hard {
+    background-color: #d9534f !important;
+    color: #ffffff !important;
   }
 }

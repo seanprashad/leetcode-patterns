@@ -15,11 +15,11 @@ const PatternFrequencies = ({ filters, rows }) => {
   const sortedPatternsByFrequency = Object.keys(patternsMap).sort(
     (a, b) => patternsMap[b] - patternsMap[a],
   );
-  const showComponent = filters.find(filter =>
+  const showComponent = filters.find((filter) =>
     ['companies', 'difficulty'].includes(filter.id),
   );
 
-  const getFrequencyClass = rate => {
+  const getFrequencyClass = (rate) => {
     const highestFrequency = Math.round(
       patternsMap[sortedPatternsByFrequency[0]],
     );
@@ -34,7 +34,7 @@ const PatternFrequencies = ({ filters, rows }) => {
       hard: highestFrequency,
     };
 
-    return Object.keys(frequencyRate).find(key => rate <= frequencyRate[key]);
+    return Object.keys(frequencyRate).find((key) => rate <= frequencyRate[key]);
   };
 
   return showComponent ? (
@@ -46,9 +46,10 @@ const PatternFrequencies = ({ filters, rows }) => {
           key={pattern + index}
           className={`${getFrequencyClass(patternsMap[pattern])}`}
           pill
+          color="secondary"
         >
           <span
-            data-tip={`${patternsMap[pattern]} "${pattern}" related problems`}
+            data-tooltip-content={`${patternsMap[pattern]} "${pattern}" related problems`}
           >
             {pattern} : {patternsMap[pattern]}
           </span>

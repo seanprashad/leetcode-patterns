@@ -14,7 +14,7 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import Toggle from 'react-toggle';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import { PieChart } from 'react-minimal-pie-chart';
 import { useTable, useFilters, useSortBy } from 'react-table';
 import {
@@ -35,7 +35,6 @@ import questions, { updated } from '../../data';
 
 import 'react-toggle/style.css';
 import './styles.scss';
-import PatternFrequencies from '../PatternFrequencies';
 
 const iconPath = `${process.env.PUBLIC_URL}/static/icons/`;
 
@@ -79,7 +78,7 @@ const Table = () => {
 
   const filteredByCheckbox = () => {
     const checkbox = localStorage.getItem('checkbox') || '';
-    return questions.filter(question => {
+    return questions.filter((question) => {
       if (!checkbox) return true;
       return question.checkbox === checkbox;
     });
@@ -212,16 +211,20 @@ const Table = () => {
               setData(filteredByCheckbox());
             },
             disableSortBy: true,
-            Cell: cellInfo => {
+            Cell: (cellInfo) => {
               return (
-                <span data-tip={`Question #${Number(cellInfo.row.id) + 1}`}>
+                <span
+                  data-tooltip-id="main-tooltip"
+                  data-tooltip-content={`Question #${
+                    Number(cellInfo.row.id) + 1
+                  }`}
+                >
                   <input
                     type="checkbox"
                     checked={checked[cellInfo.row.original.id]}
                     onChange={() => {
-                      checked[cellInfo.row.original.id] = !checked[
-                        cellInfo.row.original.id
-                      ];
+                      checked[cellInfo.row.original.id] =
+                        !checked[cellInfo.row.original.id];
                       const currentTime = new Date().toISOString().slice(0, 10);
                       // const updatedCheckedAt = [...checkedAt];
                       checkedAt[cellInfo.row.original.id] = checked[
@@ -230,7 +233,7 @@ const Table = () => {
                         ? currentTime
                         : null;
                       const question = questions.find(
-                        q => q.id === cellInfo.row.original.id,
+                        (q) => q.id === cellInfo.row.original.id,
                       );
                       if (checked[cellInfo.row.original.id]) {
                         question.checkbox = 'Checked';
@@ -240,9 +243,8 @@ const Table = () => {
                       const additive = checked[cellInfo.row.original.id]
                         ? 1
                         : -1;
-                      difficultyCount[
-                        cellInfo.row.original.difficulty
-                      ] += additive;
+                      difficultyCount[cellInfo.row.original.difficulty] +=
+                        additive;
                       difficultyCount.Total += additive;
                       setDifficultyCount(difficultyCount);
                       setChecked([...checked]);
@@ -305,7 +307,10 @@ const Table = () => {
                       id="random-question-button"
                       size="sm"
                     >
-                      <span data-tip="Try a random question!">
+                      <span
+                        data-tooltip-id="main-tooltip"
+                        data-tooltip-content="Try a random question!"
+                      >
                         <FaRandom />
                       </span>
                     </Button>
@@ -315,7 +320,7 @@ const Table = () => {
             },
             accessor: 'questions',
             disableSortBy: true,
-            Cell: cellInfo => {
+            Cell: (cellInfo) => {
               return (
                 <NavLink
                   target="_blank"
@@ -329,7 +334,10 @@ const Table = () => {
                   }}
                 >
                   {cellInfo.row.original.premium ? (
-                    <span data-tip="Requires leetcode premium to view">
+                    <span
+                      data-tooltip-id="main-tooltip"
+                      data-tooltip-content="Requires leetcode premium to view"
+                    >
                       <FaLock />{' '}
                     </span>
                   ) : (
@@ -345,7 +353,7 @@ const Table = () => {
             Header: 'Solutions',
             accessor: 'solutions',
             disableSortBy: true,
-            Cell: cellInfo => {
+            Cell: (cellInfo) => {
               const url = `https://leetcode.com/problems/${cellInfo.row.original.slug}/`;
               return (
                 <NavLink
@@ -390,20 +398,20 @@ const Table = () => {
             accessor: 'pattern',
             disableSortBy: true,
             id: 'pattern',
-            Cell: cellInfo => {
+            Cell: (cellInfo) => {
               const patterns = `${cellInfo.row.original.pattern}`
                 .split(',')
-                .map(pattern => {
+                .map((pattern) => {
                   if (showPatterns[0] || checked[cellInfo.row.original.id]) {
                     return (
-                      <Badge key={pattern} pill>
+                      <Badge key={pattern} pill color="secondary">
                         {pattern}
                       </Badge>
                     );
                   }
 
                   return (
-                    <Badge key={pattern} pill>
+                    <Badge key={pattern} pill color="secondary">
                       ***
                     </Badge>
                   );
@@ -419,11 +427,12 @@ const Table = () => {
             accessor: 'difficulty',
             id: 'difficulty',
             disableSortBy: true,
-            Cell: cellInfo => (
+            Cell: (cellInfo) => (
               <Row>
                 <Badge
                   className={cellInfo.row.original.difficulty.toLowerCase()}
                   pill
+                  color="secondary"
                 >
                   {cellInfo.row.original.difficulty}
                 </Badge>
@@ -446,7 +455,8 @@ const Table = () => {
                   >
                     Companies{' '}
                     <span
-                      data-tip={`Companies that have asked these questions in the past year; retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
+                      data-tooltip-id="main-tooltip"
+                      data-tooltip-content={`Companies that have asked these questions in the past year; retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
                     >
                       <FaQuestionCircle />
                     </span>
@@ -463,19 +473,22 @@ const Table = () => {
                 ? 1
                 : -1;
             },
-            Cell: cellInfo => {
+            Cell: (cellInfo) => {
               const questionSlug = cellInfo.row.original.slug;
-              const companies = cellInfo.row.original.companies.map(company => {
-                const tooltipText = `Asked by ${company.name} ${company.frequency} times`;
-                return (
+              const companies = cellInfo.row.original.companies.map(
+                (company) => {
+                  const tooltipText = `Asked by ${company.name} ${company.frequency} times`;
+                  return (
                   <img
                     key={`${questionSlug}-${company.name}`}
                     src={`${iconPath}${company.slug}.png`}
                     alt={company.name}
-                    data-tip={tooltipText}
+                    data-tooltip-id="main-tooltip"
+                    data-tooltip-content={tooltipText}
                   />
-                );
-              });
+                  );
+                },
+              );
 
               return <Row className="companies">{companies}</Row>;
             },
@@ -485,7 +498,7 @@ const Table = () => {
             Header: 'Last Solved On',
             accessor: 'LastSolvedOn',
             disableSortBy: true,
-            Cell: cellInfo => {
+            Cell: (cellInfo) => {
               return (
                 <div className="lastSolvedOn">
                   {checkedAt[cellInfo.row.original.id]}
@@ -505,8 +518,6 @@ const Table = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    filteredRows,
-    state: { filters },
     rows,
     prepareRow,
   } = useTable(
@@ -541,38 +552,51 @@ const Table = () => {
 
   return (
     <Container className="table">
-      <ReactTooltip />
-      <PatternFrequencies filters={filters} rows={filteredRows} />
-      <ReactTable borderless striped hover {...getTableProps()}>
+      <Tooltip id="main-tooltip" closeOnScroll />
+      <ReactTable borderless hover className="custom-table" {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>
-                  <div {...column.getSortByToggleProps({ title: null })}>
-                    {column.render('Header')}
-                    {/* eslint-disable-next-line no-nested-ternary */}
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </div>
-                  <div>{column.canFilter ? column.render('Filter') : null}</div>
-                </th>
-              ))}
-            </tr>
-          ))}
+          {headerGroups.map((headerGroup) => {
+            const { key: headerGroupKey, ...headerGroupProps } =
+              headerGroup.getHeaderGroupProps();
+            return (
+              <tr key={headerGroupKey} {...headerGroupProps}>
+                {headerGroup.headers.map((column) => {
+                  const { key: columnKey, ...columnProps } =
+                    column.getHeaderProps();
+                  return (
+                    <th key={columnKey} {...columnProps}>
+                      <div {...column.getSortByToggleProps({ title: null })}>
+                        {column.render('Header')}
+                        {/* eslint-disable-next-line no-nested-ternary */}
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? ' 🔽'
+                            : ' 🔼'
+                          : ''}
+                      </div>
+                      <div>
+                        {column.canFilter ? column.render('Filter') : null}
+                      </div>
+                    </th>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
+          {rows.map((row) => {
             prepareRow(row);
+            const { key: rowKey, ...rowProps } = row.getRowProps();
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
+              <tr key={rowKey} {...rowProps}>
+                {row.cells.map((cell) => {
+                  const { key: cellKey, ...cellProps } = cell.getCellProps();
                   return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    <td key={cellKey} {...cellProps}>
+                      {cell.render('Cell')}
+                    </td>
                   );
                 })}
               </tr>
@@ -584,7 +608,13 @@ const Table = () => {
   );
 };
 
-const ProgressBar = ({ name, value, total, className, barClassName }) => {
+const ProgressBar = ({
+  name,
+  value,
+  total,
+  className = 'progress-bar-sm',
+  barClassName = null,
+}) => {
   return (
     <div>
       <div className="d-flex justify-content-between">
@@ -608,11 +638,6 @@ ProgressBar.propTypes = {
   total: PropTypes.number.isRequired,
   className: PropTypes.string,
   barClassName: PropTypes.string,
-};
-
-ProgressBar.defaultProps = {
-  className: 'progress-bar-sm',
-  barClassName: null,
 };
 
 export default Table;

@@ -15,7 +15,7 @@ import DarkMode from '../Dark-Mode';
 
 const Navigation = () => {
   return (
-    <Navbar className="navbar sticky">
+    <Navbar className="navbar sticky" expand="lg">
       <Container>
         <NavbarBrand
           onClick={() =>
@@ -24,7 +24,7 @@ const Navigation = () => {
         >
           Leetcode Patterns
         </NavbarBrand>
-        <Nav className="ml-auto" navbar>
+        <Nav className="ms-auto d-flex flex-row align-items-center" navbar>
           <NavItem>
             <NavLink
               target="_blank"
@@ -34,8 +34,10 @@ const Navigation = () => {
               <FaGithub />
             </NavLink>
           </NavItem>
+          <NavItem>
+            <DarkMode />
+          </NavItem>
         </Nav>
-        <DarkMode />
       </Container>
     </Navbar>
   );

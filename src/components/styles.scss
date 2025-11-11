@@ -7,20 +7,26 @@
   -webkit-font-smoothing: antialiased !important;
 }
 
+.container {
+  max-width: 1200px !important;
+}
+
 body.light-mode {
   background-color: #ffffff;
   color: #000000;
-}
-body.light-mode a {
-  color: #0c66e4;
+
+  a {
+    color: #0c66e4;
+  }
 }
 
 body.dark-mode {
   background-color: #161a1d;
   color: #ffffff;
-}
-body.dark-mode a {
-  color: #579dff;
+
+  a {
+    color: #579dff;
+  }
 }
 
 .react-toggle-track-check,

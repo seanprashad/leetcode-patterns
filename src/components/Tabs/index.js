@@ -19,7 +19,7 @@ import './styles.scss';
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('1');
 
-  const toggle = tab => {
+  const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 

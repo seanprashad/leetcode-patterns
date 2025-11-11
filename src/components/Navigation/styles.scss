@@ -1,62 +1,100 @@
+// ============================================
+// NAVBAR STRUCTURE
+// ============================================
+
 .navbar.sticky {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 100;
+
+  .container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav {
+    flex-direction: row !important;
+  }
 }
+
+// ============================================
+// THEME STYLES - Light & Dark Mode
+// ============================================
 
 body.light-mode .navbar {
   background-color: #f7f8f9;
   color: #000000;
-}
-body.light-mode .navbar a {
-  color: #212529;
+
+  a {
+    color: #212529;
+  }
 }
 
 body.dark-mode .navbar {
   background-color: #1d2125;
   color: #ffffff;
+
+  a {
+    color: #ffffff;
+  }
 }
-body.dark-mode .navbar a {
-  color: #ffffff;
+
+body.dark-mode .navbar-nav {
+  svg {
+    color: #ffffff;
+
+    &:hover {
+      color: #ffc952;
+    }
+  }
 }
-body.dark-mode .navbar-nav svg {
-  color: #ffffff;
-}
-body.dark-mode .navbar-nav svg:hover {
-  color: #ffc952;
-}
+
+// ============================================
+// NAVBAR BRAND
+// ============================================
 
 .navbar-brand {
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
+  margin-right: 0;
+  padding: 0;
 }
 
+// ============================================
+// NAVBAR NAVIGATION
+// ============================================
+
 .navbar-nav {
+  gap: 10px;
+
   .nav-item {
     letter-spacing: 1px;
-    margin-left: 20px;
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
-  }
+    display: flex;
+    align-items: center;
 
-  .nav-item:hover {
-    color: #ffc952 !important;
+    &:hover {
+      color: #ffc952 !important;
+    }
   }
 
   a {
     color: #212529 !important;
     display: inline;
     font-size: 1rem;
-  }
 
-  a:hover {
-    color: #ffc952 !important;
+    &:hover {
+      color: #ffc952 !important;
+    }
   }
 
   svg {
     font-size: 2em;
-    margin: 0px 10px;
+    margin: 0;
   }
 }
