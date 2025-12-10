@@ -141,6 +141,7 @@ const Table = () => {
     });
     const count = resetCount + 1;
     setResetCount(count);
+    setCheckedAt(checkedAt.map(() => ''));
   };
 
   const columns = React.useMemo(
@@ -153,8 +154,6 @@ const Table = () => {
               const [resetModal, setResetModal] = React.useState(false);
               const toggleResetModal = () => {
                 setResetModal(!resetModal);
-                const clearedCheckedAt = checkedAt.map(() => null);
-                setCheckedAt(clearedCheckedAt);
               };
 
               return (
