@@ -6,6 +6,9 @@
 - [Fundamentals](#fundamentals)
 - [Notes](#notes)
 - [Question List](#question-list)
+- [New Features](#new-features)
+  - [Time & Space Complexity Analysis](#time--space-complexity-analysis)
+  - [Pattern Deep-Dive Guides](#pattern-deep-dive-guides)
 - [Solutions](#solutions)
 - [Suggestions](#suggestions)
 - [Acknowledgements](#acknowledgements)
@@ -53,6 +56,40 @@ Other useful methods to know include [`substring()`](https://docs.oracle.com/jav
 
 The entire question list can be found here:
 https://seanprashad.com/leetcode-patterns/.
+
+## New Features
+
+### Time & Space Complexity Analysis
+
+Each problem now includes **optimal time and space complexity** information. This helps you:
+- Understand the efficiency of solutions
+- Prioritize problems based on complexity
+- Prepare for interview discussions about optimization
+
+The complexity values are displayed in the main question table and reflect the optimal pattern-based solution for each problem.
+
+### Pattern Deep-Dive Guides
+
+Comprehensive guides for each coding pattern are now available in the `/guides` directory. Each guide includes:
+
+- **Core Concept**: Clear explanation of what the pattern is and why it exists
+- **When to Use**: Key problem characteristics that signal this pattern is applicable
+- **Template Code**: Generalized code templates in Python and JavaScript showing the structure
+- **Related Problems**: Links back to relevant problems in the main list
+- **Time & Space Complexity**: Complexity analysis for the pattern
+- **Tips & Best Practices**: Practical advice for applying the pattern
+
+Access the guides:
+- Through the **Pattern Guides** tab in the web interface
+- Directly in the repository: [`/guides`](./guides/)
+- Pattern badges in the question table are clickable and link to their respective guides
+
+Available patterns:
+- Arrays, BFS, Backtracking, Binary Search, Bit Manipulation, Bucket Sort
+- DFS, Design, Dynamic Programming, Fast & Slow Pointers
+- Graph, Greedy, Heap, In-place reversal of a linked list
+- Intervals, QuickSelect, Sliding Window, Sorting
+- Topological Sort, Trie, Two Pointers, Union Find
 
 ## Solutions
 

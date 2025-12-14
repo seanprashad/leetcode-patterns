@@ -398,19 +398,63 @@ const Table = () => {
             disableSortBy: true,
             id: 'pattern',
             Cell: (cellInfo) => {
+              // Map pattern names to guide slugs
+              const patternToSlug = {
+                'Arrays': 'arrays',
+                'BFS': 'bfs',
+                'Backtracking': 'backtracking',
+                'Binary Search': 'binary-search',
+                'Bit Manipulation': 'bit-manipulation',
+                'Bucket Sort': 'bucket-sort',
+                'DFS': 'dfs',
+                'Design': 'design',
+                'Dynamic Programming': 'dynamic-programming',
+                'Fast & Slow Pointers': 'fast-slow-pointers',
+                'Graph': 'graph',
+                'Greedy': 'greedy',
+                'Heap': 'heap',
+                'In-place reversal of a linked list': 'in-place-reversal-linked-list',
+                'Intervals': 'intervals',
+                'QuickSelect': 'quickselect',
+                'Sliding Window': 'sliding-window',
+                'Sorting': 'sorting',
+                'Topological Sort': 'topological-sort',
+                'Trie': 'trie',
+                'Two Pointers': 'two-pointers',
+                'Union Find': 'union-find',
+              };
+
               const patterns = `${cellInfo.row.original.pattern}`
                 .split(',')
                 .map((pattern) => {
+                  const trimmedPattern = pattern.trim();
+                  const slug = patternToSlug[trimmedPattern];
+                  const guideUrl = slug
+                    ? `https://github.com/SeanPrashad/leetcode-patterns/blob/main/guides/${slug}.md`
+                    : null;
+
                   if (showPatterns[0] || checked[cellInfo.row.original.id]) {
                     return (
-                      <Badge key={pattern} pill color="secondary">
-                        {pattern}
+                      <Badge
+                        key={trimmedPattern}
+                        pill
+                        color="secondary"
+                        style={{ cursor: guideUrl ? 'pointer' : 'default' }}
+                        onClick={() => {
+                          if (guideUrl) {
+                            window.open(guideUrl, '_blank');
+                            Event('Table', 'Clicked pattern badge', trimmedPattern);
+                          }
+                        }}
+                        title={guideUrl ? `Click to view ${trimmedPattern} guide` : ''}
+                      >
+                        {trimmedPattern}
                       </Badge>
                     );
                   }
 
                   return (
-                    <Badge key={pattern} pill color="secondary">
+                    <Badge key={trimmedPattern} pill color="secondary">
                       ***
                     </Badge>
                   );
@@ -438,6 +482,30 @@ const Table = () => {
               </Row>
             ),
             Filter: SelectDifficultyColumnFilter,
+          },
+          {
+            Header: 'Time Complexity',
+            accessor: 'timeComplexity',
+            id: 'timeComplexity',
+            disableSortBy: true,
+            Cell: (cellInfo) => (
+              <div style={{ fontFamily: 'monospace', fontSize: '0.9em' }}>
+                {cellInfo.row.original.timeComplexity || 'N/A'}
+              </div>
+            ),
+            disableFilters: true,
+          },
+          {
+            Header: 'Space Complexity',
+            accessor: 'spaceComplexity',
+            id: 'spaceComplexity',
+            disableSortBy: true,
+            Cell: (cellInfo) => (
+              <div style={{ fontFamily: 'monospace', fontSize: '0.9em' }}>
+                {cellInfo.row.original.spaceComplexity || 'N/A'}
+              </div>
+            ),
+            disableFilters: true,
           },
           {
             Header: () => {

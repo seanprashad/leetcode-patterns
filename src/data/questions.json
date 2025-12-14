@@ -51,7 +51,9 @@
           "slug": "visa",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 1,
@@ -104,7 +106,9 @@
           "slug": "arista-networks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 2,
@@ -126,7 +130,9 @@
           "slug": "amazon",
           "frequency": 4
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 3,
@@ -169,7 +175,9 @@
           "slug": "bloomberg",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 4,
@@ -261,7 +269,9 @@
           "slug": "zs-associates",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 5,
@@ -315,7 +325,9 @@
           "slug": "goldman-sachs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 6,
@@ -352,7 +364,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 7,
@@ -434,7 +448,9 @@
           "slug": "jpmorgan",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 8,
@@ -581,7 +597,9 @@
           "slug": "pornhub",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 9,
@@ -678,7 +696,9 @@
           "slug": "rakuten",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 10,
@@ -795,7 +815,9 @@
           "slug": "grammarly",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 11,
@@ -877,7 +899,9 @@
           "slug": "cognizant",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 12,
@@ -964,7 +988,9 @@
           "slug": "deloitte",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 13,
@@ -981,7 +1007,9 @@
           "slug": "facebook",
           "frequency": 5
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 14,
@@ -1033,7 +1061,9 @@
           "slug": "wix",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 15,
@@ -1070,7 +1100,9 @@
           "slug": "bloomberg",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 16,
@@ -1142,7 +1174,9 @@
           "slug": "american-express",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 17,
@@ -1189,7 +1223,9 @@
           "slug": "apple",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 18,
@@ -1221,7 +1257,9 @@
           "slug": "microsoft",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 19,
@@ -1308,7 +1346,9 @@
           "slug": "hpe",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 20,
@@ -1365,7 +1405,9 @@
           "slug": "tiktok",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 21,
@@ -1387,7 +1429,9 @@
           "slug": "google",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 22,
@@ -1484,7 +1528,9 @@
           "slug": "epam-systems",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 23,
@@ -1533,7 +1579,9 @@
           "slug": "myntra",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 24,
@@ -1570,7 +1618,9 @@
           "slug": "bloomberg",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 25,
@@ -1657,7 +1707,9 @@
           "slug": "de-shaw",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 26,
@@ -1668,7 +1720,9 @@
       ],
       "difficulty": "Medium",
       "premium": true,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 27,
@@ -1710,7 +1764,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 28,
@@ -1772,7 +1828,9 @@
           "slug": "ibm",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 29,
@@ -1844,7 +1902,9 @@
           "slug": "qualcomm",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 30,
@@ -1926,7 +1986,9 @@
           "slug": "tcs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 31,
@@ -2153,7 +2215,9 @@
           "slug": "ozon",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 32,
@@ -2300,7 +2364,9 @@
           "slug": "zomato",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 33,
@@ -2332,7 +2398,9 @@
           "slug": "bloomberg",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 34,
@@ -2389,7 +2457,9 @@
           "slug": "docusign",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 35,
@@ -2486,7 +2556,9 @@
           "slug": "mastercard",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 36,
@@ -2553,7 +2625,9 @@
           "slug": "siemens",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 37,
@@ -2640,7 +2714,9 @@
           "slug": "nvidia",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 38,
@@ -2822,7 +2898,9 @@
           "slug": "autodesk",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 39,
@@ -2899,7 +2977,9 @@
           "slug": "millennium",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 40,
@@ -2926,7 +3006,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 41,
@@ -2998,7 +3080,9 @@
           "slug": "flipkart",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 42,
@@ -3050,7 +3134,9 @@
           "slug": "akamai",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 43,
@@ -3143,7 +3229,9 @@
           "slug": "navi",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 44,
@@ -3225,7 +3313,9 @@
           "slug": "netskope",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 45,
@@ -3242,7 +3332,9 @@
           "slug": "google",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 46,
@@ -3289,7 +3381,9 @@
           "slug": "tiktok",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 47,
@@ -3316,7 +3410,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 48,
@@ -3343,7 +3439,9 @@
           "slug": "tiktok",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 49,
@@ -3381,7 +3479,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n) or O(n²)",
+      "spaceComplexity": "O(n) or O(n²)"
     },
     {
       "id": 50,
@@ -3423,7 +3523,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 51,
@@ -3470,7 +3572,9 @@
           "slug": "apple",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 52,
@@ -3547,7 +3651,9 @@
           "slug": "epam-systems",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 53,
@@ -3589,7 +3695,9 @@
           "slug": "ebay",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 54,
@@ -3626,7 +3734,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 55,
@@ -3668,7 +3778,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 56,
@@ -3705,7 +3817,9 @@
           "slug": "american-express",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 57,
@@ -3782,7 +3896,9 @@
           "slug": "zoho",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 58,
@@ -3859,7 +3975,9 @@
           "slug": "tiktok",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 59,
@@ -3906,7 +4024,9 @@
           "slug": "oracle",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 60,
@@ -3958,7 +4078,9 @@
           "slug": "arista-networks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 61,
@@ -3996,7 +4118,9 @@
           "slug": "nutanix",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 62,
@@ -4230,7 +4354,9 @@
           "slug": "barclays",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 63,
@@ -4260,7 +4386,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 64,
@@ -4300,7 +4428,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 65,
@@ -4362,7 +4492,9 @@
           "slug": "nutanix",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 66,
@@ -4409,7 +4541,9 @@
           "slug": "linkedin",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 67,
@@ -4456,7 +4590,9 @@
           "slug": "yandex",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 68,
@@ -4493,7 +4629,9 @@
           "slug": "bloomberg",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 69,
@@ -4570,7 +4708,9 @@
           "slug": "cadence",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 70,
@@ -4667,7 +4807,9 @@
           "slug": "palo-alto-networks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 71,
@@ -4705,7 +4847,9 @@
           "slug": "apple",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 72,
@@ -4742,7 +4886,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 73,
@@ -4854,7 +5000,9 @@
           "slug": "yandex",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 74,
@@ -4876,7 +5024,9 @@
           "slug": "linkedin",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 75,
@@ -4923,7 +5073,9 @@
           "slug": "apple",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 76,
@@ -5195,7 +5347,9 @@
           "slug": "ripple",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 77,
@@ -5242,7 +5396,9 @@
           "slug": "nuro",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 78,
@@ -5294,7 +5450,9 @@
           "slug": "goldman-sachs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 79,
@@ -5412,7 +5570,9 @@
           "slug": "snowflake",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 80,
@@ -5505,7 +5665,9 @@
           "slug": "goldman-sachs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 81,
@@ -5542,7 +5704,9 @@
           "slug": "goldman-sachs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 82,
@@ -5584,7 +5748,9 @@
           "slug": "phonepe",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 83,
@@ -5607,7 +5773,9 @@
           "slug": "google",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 84,
@@ -5649,7 +5817,9 @@
           "slug": "pure-storage",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 85,
@@ -5681,7 +5851,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 86,
@@ -5718,7 +5890,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 87,
@@ -5775,7 +5949,9 @@
           "slug": "yandex",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 88,
@@ -5867,7 +6043,9 @@
           "slug": "waymo",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 89,
@@ -6014,7 +6192,9 @@
           "slug": "palo-alto-networks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 90,
@@ -6051,7 +6231,9 @@
           "slug": "google",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 91,
@@ -6118,7 +6300,9 @@
           "slug": "nutanix",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 92,
@@ -6165,7 +6349,9 @@
           "slug": "paypal",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 93,
@@ -6232,7 +6418,9 @@
           "slug": "uber",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 94,
@@ -6243,7 +6431,9 @@
       ],
       "difficulty": "Hard",
       "premium": false,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 95,
@@ -6290,7 +6480,9 @@
           "slug": "oracle",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 96,
@@ -6332,7 +6524,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 97,
@@ -6384,7 +6578,9 @@
           "slug": "cisco",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 98,
@@ -6451,7 +6647,9 @@
           "slug": "uipath",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 99,
@@ -6568,7 +6766,9 @@
           "slug": "zeta",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 100,
@@ -6820,7 +7020,9 @@
           "slug": "kpmg",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 101,
@@ -6837,7 +7039,9 @@
           "slug": "google",
           "frequency": 4
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 102,
@@ -6854,7 +7058,9 @@
           "slug": "amazon",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 103,
@@ -6956,7 +7162,9 @@
           "slug": "meesho",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 104,
@@ -6993,7 +7201,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 105,
@@ -7040,7 +7250,9 @@
           "slug": "bloomberg",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 106,
@@ -7087,7 +7299,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 107,
@@ -7254,7 +7468,9 @@
           "slug": "robinhood",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 108,
@@ -7301,7 +7517,9 @@
           "slug": "epam-systems",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 109,
@@ -7394,7 +7612,9 @@
           "slug": "coupang",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 110,
@@ -7452,7 +7672,9 @@
           "slug": "audible",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 111,
@@ -7464,7 +7686,9 @@
       ],
       "difficulty": "Hard",
       "premium": true,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 112,
@@ -7482,7 +7706,9 @@
           "slug": "amazon",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 113,
@@ -7520,7 +7746,9 @@
           "slug": "nutanix",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 114,
@@ -7640,7 +7868,9 @@
           "slug": "ixl",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 115,
@@ -7775,7 +8005,9 @@
           "slug": "remitly",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 116,
@@ -7799,7 +8031,9 @@
           "slug": "splunk",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 117,
@@ -7852,7 +8086,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 118,
@@ -7870,7 +8106,9 @@
           "slug": "google",
           "frequency": 5
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 119,
@@ -7892,7 +8130,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 120,
@@ -7914,7 +8154,9 @@
           "slug": "google",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 121,
@@ -7942,7 +8184,9 @@
           "slug": "amazon",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 122,
@@ -7994,7 +8238,9 @@
           "slug": "palo-alto-networks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 123,
@@ -8071,7 +8317,9 @@
           "slug": "tiktok",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 124,
@@ -8129,7 +8377,9 @@
           "slug": "servicenow",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 125,
@@ -8177,7 +8427,9 @@
           "slug": "google",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 126,
@@ -8224,7 +8476,9 @@
           "slug": "apple",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 127,
@@ -8266,7 +8520,9 @@
           "slug": "goldman-sachs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 128,
@@ -8323,7 +8579,9 @@
           "slug": "facebook",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 129,
@@ -8370,7 +8628,9 @@
           "slug": "verkada",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 130,
@@ -8407,7 +8667,9 @@
           "slug": "josh-technology",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 131,
@@ -8449,7 +8711,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 132,
@@ -8476,7 +8740,9 @@
           "slug": "facebook",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 133,
@@ -8518,7 +8784,9 @@
           "slug": "palo-alto-networks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 134,
@@ -8560,7 +8828,9 @@
           "slug": "oracle",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 135,
@@ -8602,7 +8872,9 @@
           "slug": "salesforce",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 136,
@@ -8679,7 +8951,9 @@
           "slug": "adobe",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 137,
@@ -8690,7 +8964,9 @@
       ],
       "difficulty": "Medium",
       "premium": false,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 138,
@@ -8732,7 +9008,9 @@
           "slug": "bytedance",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 139,
@@ -8769,7 +9047,9 @@
           "slug": "bloomberg",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 140,
@@ -8826,7 +9106,9 @@
           "slug": "salesforce",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 141,
@@ -8904,7 +9186,9 @@
           "slug": "grammarly",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "Varies",
+      "spaceComplexity": "Varies"
     },
     {
       "id": 142,
@@ -8976,7 +9260,9 @@
           "slug": "snapchat",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 143,
@@ -9058,7 +9344,9 @@
           "slug": "tcs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "Varies",
+      "spaceComplexity": "Varies"
     },
     {
       "id": 144,
@@ -9136,7 +9424,9 @@
           "slug": "aurora",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 145,
@@ -9273,7 +9563,9 @@
           "slug": "kla",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 146,
@@ -9310,7 +9602,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log k)",
+      "spaceComplexity": "O(k)"
     },
     {
       "id": 147,
@@ -9587,7 +9881,9 @@
           "slug": "thoughtworks",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 148,
@@ -9634,7 +9930,9 @@
           "slug": "microsoft",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 149,
@@ -9676,7 +9974,9 @@
           "slug": "agoda",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 150,
@@ -9783,7 +10083,9 @@
           "slug": "meesho",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 151,
@@ -9825,7 +10127,9 @@
           "slug": "flipkart",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 152,
@@ -9882,7 +10186,9 @@
           "slug": "squarepoint-capital",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 153,
@@ -9984,7 +10290,9 @@
           "slug": "capgemini",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 154,
@@ -10181,7 +10489,9 @@
           "slug": "qualcomm",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 155,
@@ -10283,7 +10593,9 @@
           "slug": "hashedin",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 156,
@@ -10294,7 +10606,9 @@
       ],
       "difficulty": "Medium",
       "premium": false,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 157,
@@ -10305,7 +10619,9 @@
       ],
       "difficulty": "Easy",
       "premium": true,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 158,
@@ -10327,7 +10643,9 @@
           "slug": "amazon",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 159,
@@ -10344,7 +10662,9 @@
           "slug": "amazon",
           "frequency": 11
         }
-      ]
+      ],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 160,
@@ -10355,7 +10675,9 @@
       ],
       "difficulty": "Hard",
       "premium": false,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 161,
@@ -10387,7 +10709,9 @@
           "slug": "airbnb",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 162,
@@ -10439,7 +10763,9 @@
           "slug": "mongodb",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 163,
@@ -10450,7 +10776,9 @@
       ],
       "difficulty": "Hard",
       "premium": true,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(m)",
+      "spaceComplexity": "O(ALPHABET_SIZE * N * M)"
     },
     {
       "id": 164,
@@ -10474,7 +10802,9 @@
           "slug": "bloomberg",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(V + E)",
+      "spaceComplexity": "O(V)"
     },
     {
       "id": 165,
@@ -10561,7 +10891,9 @@
           "slug": "autodesk",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 166,
@@ -10623,7 +10955,9 @@
           "slug": "autodesk",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 167,
@@ -10634,7 +10968,9 @@
       ],
       "difficulty": "Easy",
       "premium": false,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 168,
@@ -10732,7 +11068,9 @@
           "slug": "netapp",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 169,
@@ -10774,7 +11112,9 @@
           "slug": "tinkoff",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 170,
@@ -10812,7 +11152,9 @@
           "slug": "bloomberg",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 171,
@@ -10830,7 +11172,9 @@
           "slug": "linkedin",
           "frequency": 3
         }
-      ]
+      ],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 172,
@@ -10841,7 +11185,9 @@
       ],
       "difficulty": "Medium",
       "premium": false,
-      "companies": []
+      "companies": [],
+      "timeComplexity": "O(2^n) or O(n!)",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": 173,
@@ -10878,7 +11224,9 @@
           "slug": "goldman-sachs",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": 174,
@@ -10955,7 +11303,9 @@
           "slug": "visa",
           "frequency": 2
         }
-      ]
+      ],
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)"
     }
   ]
 }

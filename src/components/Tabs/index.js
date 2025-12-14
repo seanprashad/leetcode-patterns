@@ -13,6 +13,7 @@ import { Event } from '../Shared/Tracking';
 import Table from '../Table';
 import Tips from '../Tips';
 import Acknowledgements from '../Acknowledgements';
+import PatternGuides from '../PatternGuides';
 
 import './styles.scss';
 
@@ -53,6 +54,17 @@ const Tabs = () => {
             className={classnames({ active: activeTab === '3' })}
             onClick={() => {
               toggle('3');
+              Event('Tabs', 'Clicked Tab', 'Pattern Guides tab');
+            }}
+          >
+            Pattern Guides
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '4' })}
+            onClick={() => {
+              toggle('4');
               Event('Tabs', 'Clicked Tab', 'Acknowledgements tab');
             }}
           >
@@ -68,6 +80,9 @@ const Tabs = () => {
           <Tips />
         </TabPane>
         <TabPane tabId="3">
+          <PatternGuides />
+        </TabPane>
+        <TabPane tabId="4">
           <Acknowledgements />
         </TabPane>
       </TabContent>
