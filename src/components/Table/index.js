@@ -212,11 +212,8 @@ const Table = () => {
             disableSortBy: true,
             Cell: (cellInfo) => {
               return (
-                <span
-                  data-tooltip-id="main-tooltip"
-                  data-tooltip-content={`Question #${
-                    Number(cellInfo.row.id) + 1
-                  }`}
+                <label // eslint-disable-line jsx-a11y/label-has-associated-control
+                  className="checkbox-cell"
                 >
                   <input
                     type="checkbox"
@@ -251,7 +248,7 @@ const Table = () => {
                       setCheckedAt([...checkedAt]);
                     }}
                   />
-                </span>
+                </label>
               );
             },
             Filter: SelectCheckedColumnFilter,
@@ -356,6 +353,7 @@ const Table = () => {
               const url = `https://leetcode.com/problems/${cellInfo.row.original.slug}/`;
               return (
                 <NavLink
+                  className="solution-cell"
                   target="_blank"
                   href={`${url}discuss/?currentPage=1&orderBy=most_votes`}
                   onClick={() => {
@@ -455,7 +453,7 @@ const Table = () => {
                     Companies{' '}
                     <span
                       data-tooltip-id="main-tooltip"
-                      data-tooltip-content={`Leetcode Premium - Companies who have asked the question 0-3 months ago - retrieved on ${month} ${day}, ${year}`}
+                      data-tooltip-content={`[Leetcode Premium] Companies who have asked the question 0-3 months ago - retrieved on ${month} ${day}, ${year}`}
                     >
                       <FaQuestionCircle />
                     </span>

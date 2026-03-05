@@ -110,6 +110,7 @@ body.dark-mode table.custom-table {
       background-color: inherit !important;
       color: #ffffff !important;
       border-color: #22272b !important;
+      vertical-align: middle !important;
     }
   }
 }
@@ -136,8 +137,27 @@ body.dark-mode .modal-content {
     padding: 0;
   }
 
+  // Make click targets fill the entire cell
+  td:has(.checkbox-cell),
+  td:has(.solution-cell) {
+    padding: 0;
+    position: relative;
+  }
+
+  .checkbox-cell,
+  .solution-cell {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+  }
+
   .lastSolvedOn {
     text-wrap: nowrap;
+    text-align: center;
   }
 
   // Sticky table header
