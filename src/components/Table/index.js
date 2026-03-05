@@ -455,7 +455,7 @@ const Table = () => {
                     Companies{' '}
                     <span
                       data-tooltip-id="main-tooltip"
-                      data-tooltip-content={`Companies that have asked these questions in the past year; retrieved from Leetcode Premium on ${month} ${day}, ${year} - thanks to @leo-step!`}
+                      data-tooltip-content={`Leetcode Premium - Companies who have asked the question 0-3 months ago - retrieved on ${month} ${day}, ${year}`}
                     >
                       <FaQuestionCircle />
                     </span>
