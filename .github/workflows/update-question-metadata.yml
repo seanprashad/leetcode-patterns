@@ -21,6 +21,8 @@ jobs:
       - run: |
           python cron/update_questions.py
         env:
+          LEETCODE_CF_CLEARANCE: ${{ secrets.LEETCODE_CF_CLEARANCE }}
+          LEETCODE_CSRF_TOKEN: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           LEETCODE_SESSION_TOKEN: ${{ secrets.LEETCODE_SESSION_TOKEN }}
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
