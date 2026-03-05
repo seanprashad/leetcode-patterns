@@ -524,6 +524,7 @@ const Table = () => {
       columns,
       data,
       defaultColumn,
+      autoResetSortBy: false,
       initialState: {
         filters: [
           {
