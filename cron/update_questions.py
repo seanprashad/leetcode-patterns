@@ -67,8 +67,8 @@ def construct_company_tag_list(company_tag_stats_v2):
     companies = []
 
     tag_stats = json.loads(company_tag_stats_v2)
-    for tag in tag_stats["three_months"]:
-        # Number of times the question was asked by this company in the past 0-3 months
+    # "three_months" = 0-3 months, "six_months" = 3-6 months, "more_than_six_months" = 6+ months
+    for tag in tag_stats["three_months"] + tag_stats["six_months"]:
         companies.append({
             "name": tag["name"],
             "slug": tag["slug"],
