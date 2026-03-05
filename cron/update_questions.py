@@ -7,14 +7,28 @@ from leetcode.rest import ApiException
 
 
 def create_leetcode_api():
-    LEETCODE_SESSION_TOKEN = os.environ.get("LEETCODE_SESSION_TOKEN")
+    leetcode_session_token = os.environ.get("LEETCODE_SESSION_TOKEN")
     csrf_token = os.environ.get("LEETCODE_CSRF_TOKEN")
+    cf_clearance = os.environ.get("LEETCODE_CF_CLEARANCE")
+
+    if not leetcode_session_token:
+        print("❌ LEETCODE_SESSION_TOKEN environment variable is required")
+        exit(1)
+
+    if not csrf_token:
+        print("❌ LEETCODE_CSRF_TOKEN environment variable is required")
+        exit(1)
+
+    if not cf_clearance:
+        print("❌ LEETCODE_CF_CLEARANCE environment variable is required")
+        exit(1)
 
     configuration = leetcode.Configuration()
 
     configuration.api_key["x-csrftoken"] = csrf_token
     configuration.api_key["csrftoken"] = csrf_token
-    configuration.api_key["LEETCODE_SESSION"] = LEETCODE_SESSION_TOKEN
+    configuration.api_key["LEETCODE_SESSION"] = leetcode_session_token
+    configuration.api_key["cf_clearance"] = cf_clearance
     configuration.api_key["Referer"] = "https://leetcode.com"
     configuration.debug = False
 
@@ -25,9 +39,10 @@ def get_question_metadata(api, title_slug):
     graphql_request = leetcode.GraphqlQuery(
         query='''query questionData($titleSlug: String!) {
             question(titleSlug: $titleSlug) {
+                questionId
                 title
                 difficulty
-                companyTagStats
+                companyTagStatsV2
                 isPaidOnly
             }
         }
@@ -38,6 +53,9 @@ def get_question_metadata(api, title_slug):
 
     try:
         response = api.graphql_post(body=graphql_request)
+        if not response.data.question:
+            print(f'❌ Empty response body for question: {title_slug}')
+            exit(1)
         return response
     except ApiException as e:
         print(
@@ -45,16 +63,17 @@ def get_question_metadata(api, title_slug):
         exit()
 
 
-def construct_company_tag_list(company_tags_json, sections):
+def construct_company_tag_list(company_tag_stats_v2):
     companies = []
 
-    for section in sections:
-        for company in company_tags_json[section]:
-            companies.append({
-                "name": company["name"],
-                "slug": company["slug"],
-                "frequency": company["timesEncountered"]
-            })
+    tag_stats = json.loads(company_tag_stats_v2)
+    for tag in tag_stats["three_months"]:
+        # Number of times the question was asked by this company in the past 0-3 months
+        companies.append({
+            "name": tag["name"],
+            "slug": tag["slug"],
+            "frequency": tag["timesEncountered"]
+        })
 
     return sorted(companies, key=lambda d: d['frequency'], reverse=True)
 
@@ -64,16 +83,10 @@ def update_question_metadata(question, response):
 
     question_title = response.data.question.title
     question_difficulty = response.data.question.difficulty
-    question_company_tags = json.loads(
-        response.data.question.company_tag_stats)
+    question_company_tag_stats_v2 = response.data.question.company_tag_stats_v2
     question_is_premium = response.data.question.is_paid_only
 
-    # Retrieve companies who have asked this question for the following two
-    # company_tag_stat sections:
-    #   1. 0-6 months
-    #   2. 6 months to 1 year
-    companies = construct_company_tag_list(
-        question_company_tags, ["1", "2"])
+    companies = construct_company_tag_list(question_company_tag_stats_v2)
 
     question["title"] = question_title
     question["difficulty"] = question_difficulty
