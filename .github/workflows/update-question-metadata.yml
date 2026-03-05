@@ -1,4 +1,4 @@
-name: run-cron
+name: update-question-metadata
 
 on:
   schedule:
@@ -24,4 +24,4 @@ jobs:
           LEETCODE_SESSION_TOKEN: ${{ secrets.LEETCODE_SESSION_TOKEN }}
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Update questions via run-cron GitHub Action
+          commit_message: Update company metadata via the `update-question-metadata` GitHub Action
