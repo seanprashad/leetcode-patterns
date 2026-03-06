@@ -25,12 +25,13 @@ class GraphqlQueryGetQuestionDetailVariables:
 
 class GraphqlQuestionDetail:
     def __init__(self, question_id=None, title=None, difficulty=None,
-                 company_tag_stats_v2=None, is_paid_only=None):
+                 company_tag_stats_v2=None, is_paid_only=None, topic_tags=None):
         self.question_id = question_id
         self.title = title
         self.difficulty = difficulty
         self.company_tag_stats_v2 = company_tag_stats_v2
         self.is_paid_only = is_paid_only
+        self.topic_tags = topic_tags
 
 
 class GraphqlData:
@@ -92,12 +93,16 @@ class DefaultApi:
 
         question_data = resp_data.get("data", {}).get("question", {})
 
+        topic_tags_raw = question_data.get("topicTags")
+        topic_tags = [type("Tag", (), {"name": t["name"]}) for t in topic_tags_raw]
+
         question = GraphqlQuestionDetail(
             question_id=question_data.get("questionId"),
             title=question_data.get("title"),
             difficulty=question_data.get("difficulty"),
             company_tag_stats_v2=question_data.get("companyTagStatsV2"),
             is_paid_only=question_data.get("isPaidOnly"),
+            topic_tags=topic_tags,
         )
 
         return GraphqlResponse(data=GraphqlData(question=question))
