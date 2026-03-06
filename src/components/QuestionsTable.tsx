@@ -80,11 +80,6 @@ const makeColumns = (
     ),
     meta: { clickable: true },
   }),
-  columnHelper.accessor("id", {
-    header: "#",
-    cell: (info) => info.getValue() + 1,
-    size: 50,
-  }),
   columnHelper.accessor("title", {
     header: "Title",
     cell: (info) => (
