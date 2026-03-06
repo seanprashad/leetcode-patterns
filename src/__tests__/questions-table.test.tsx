@@ -218,6 +218,14 @@ describe("QuestionsTable analytics", () => {
     expect(mockTrackEvent).toHaveBeenCalledWith("reset_group", { difficulty: "Easy" });
   });
 
+  it("truncates long notes in the notes column", async () => {
+    const longNote = "a".repeat(300);
+    localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: longNote }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const noteBtn = screen.getByText(longNote);
+    expect(noteBtn).toHaveClass("truncate", "max-w-[200px]");
+  });
+
   it("tracks import_progress when importing a file", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
