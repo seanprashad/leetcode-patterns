@@ -81,6 +81,7 @@ def construct_company_tag_list(company_tag_stats_v2):
 def update_question_metadata(question, response):
     print(f'''🔄 Updating question metadata for {question["title"]}''')
 
+    question_id = response.data.question.question_id
     question_title = response.data.question.title
     question_difficulty = response.data.question.difficulty
     question_company_tag_stats_v2 = response.data.question.company_tag_stats_v2
@@ -88,6 +89,7 @@ def update_question_metadata(question, response):
 
     companies = construct_company_tag_list(question_company_tag_stats_v2)
 
+    question["id"] = int(question_id)
     question["title"] = question_title
     question["difficulty"] = question_difficulty
     question["companies"] = companies
