@@ -212,7 +212,7 @@ const makeColumns = (
           onClick={() =>
             openNoteModal(info.row.original.id, info.row.original.title)
           }
-          className="w-full cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
+          className="block max-w-[200px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
         >
           {note || "Add a note..."}
         </button>
