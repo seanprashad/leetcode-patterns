@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef, Fragment } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   useReactTable,
   getCoreRowModel,
@@ -249,7 +249,6 @@ function parseInitialFilters(searchParams: URLSearchParams) {
 export default function QuestionsTable({ data }: { data: Question[] }) {
   const isMobile = useIsMobile();
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(() =>
@@ -280,8 +279,7 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
     const companies = columnFilters.find((f) => f.id === "companies")?.value as string[] | undefined;
     if (companies?.length) params.set("companies", companies.join(","));
     const qs = params.toString();
-    router.replace(qs ? `?${qs}` : "/", { scroll: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
   }, [globalFilter, columnFilters]);
 
   const toggleCompleted = useCallback((id: number) => {
