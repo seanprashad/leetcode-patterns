@@ -61,7 +61,8 @@ const makeColumns = (
   notes: Record<number, string>,
   openNoteModal: (id: number, title: string) => void,
   hidePatterns: boolean,
-  companyFilter: string[]
+  companyFilter: string[],
+  updatedDate: string
 ) => [
   columnHelper.display({
     id: "completed",
@@ -152,7 +153,14 @@ const makeColumns = (
     },
   }),
   columnHelper.accessor("companies", {
-    header: "Companies",
+    header: () => (
+      <span>
+        Companies
+        <span className="ml-1.5 text-[10px] font-normal text-zinc-400 dark:text-zinc-500">
+          (updated {new Date(updatedDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })})
+        </span>
+      </span>
+    ),
     meta: { hideOnMobile: true },
     cell: (info) => (
       <div className="flex w-[156px] flex-wrap gap-1">
@@ -236,7 +244,7 @@ function parseInitialFilters(searchParams: URLSearchParams) {
   return filters;
 }
 
-export default function QuestionsTable({ data }: { data: Question[] }) {
+export default function QuestionsTable({ data, updatedDate }: { data: Question[]; updatedDate: string }) {
   const isMobile = useIsMobile();
   const searchParams = useSearchParams();
 
@@ -325,6 +333,11 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
     [columnFilters]
   );
 
+  const columns = useMemo(
+    () => makeColumns(completed, toggleCompleted, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate),
+    [completed, toggleCompleted, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate]
+  );
+
   useEffect(() => {
     if (activeCompanyFilter.length === 1) {
       setSorting([{ id: "companies", desc: true }]);
@@ -336,11 +349,6 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
       );
     }
   }, [activeCompanyFilter]);
-
-  const columns = useMemo(
-    () => makeColumns(completed, toggleCompleted, notes, openNoteModal, hidePatterns, activeCompanyFilter),
-    [completed, toggleCompleted, notes, openNoteModal, hidePatterns, activeCompanyFilter]
-  );
 
   const filteredData = useMemo(
     () => (hideCompleted ? data.filter((q) => !completed.has(q.id)) : data),
@@ -559,8 +567,22 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
 
   const pct = stats.total > 0 ? Math.round((stats.totalDone / stats.total) * 100) : 0;
 
+  const companySortActive = sorting.some((s) => s.id === "companies");
+  const companySortDesc = sorting.find((s) => s.id === "companies")?.desc ?? true;
+
   const groupedRows = useMemo(() => {
     const rows = table.getRowModel().rows;
+
+    if (companySortActive && activeCompanyFilter.length === 1) {
+      const slug = activeCompanyFilter[0];
+      const sorted = [...rows].sort((a, b) => {
+        const freqA = a.original.companies.find((c) => c.slug === slug)?.frequency ?? 0;
+        const freqB = b.original.companies.find((c) => c.slug === slug)?.frequency ?? 0;
+        return companySortDesc ? freqB - freqA : freqA - freqB;
+      });
+      return [{ key: null as string | null, rows: sorted }];
+    }
+
     const groupMap = new Map<string, typeof rows>();
     for (const row of rows) {
       const key = row.original.difficulty;
@@ -570,8 +592,8 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
 
     return ["Easy", "Medium", "Hard"]
       .filter((k) => groupMap.has(k))
-      .map((key) => ({ key, rows: groupMap.get(key)! }));
-  }, [table, sorting, columnFilters, globalFilter, hideCompleted, completed]);
+      .map((key) => ({ key: key as string | null, rows: groupMap.get(key)! }));
+  }, [table, sorting, columnFilters, globalFilter, hideCompleted, completed, companySortActive, companySortDesc, activeCompanyFilter]);
 
   return (
     <div className="space-y-4">
@@ -1018,17 +1040,18 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
           </thead>
           <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
             {groupedRows.map((group) => {
-              const isCollapsed = collapsedGroups.has(group.key);
+              const isCollapsed = group.key !== null && collapsedGroups.has(group.key);
               const groupDone = group.rows.filter((r) => completed.has(r.original.id)).length;
               return (
-                <Fragment key={group.key}>
+                <Fragment key={group.key ?? "all"}>
+                  {group.key !== null && (
                   <tr
                     className={`cursor-pointer select-none border-l-4 ${{
                       Easy: "border-l-green-500 bg-green-50 hover:bg-green-100 dark:bg-green-900/30 dark:hover:bg-green-900/50",
                       Medium: "border-l-yellow-500 bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-900/30 dark:hover:bg-yellow-900/50",
                       Hard: "border-l-red-500 bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50",
                     }[group.key] ?? ""}`}
-                    onClick={() => toggleGroup(group.key)}
+                    onClick={() => toggleGroup(group.key!)}
                   >
                     <td
                       colSpan={columns.length}
@@ -1050,7 +1073,7 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              setResetConfirmGroup(group.key);
+                              setResetConfirmGroup(group.key!);
                             }}
                             className="ml-auto flex items-center gap-1 rounded px-1.5 py-1 text-xs text-zinc-400 transition-colors hover:bg-zinc-200 hover:text-zinc-600 dark:hover:bg-zinc-600 dark:hover:text-zinc-300"
                           >
@@ -1061,6 +1084,7 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
                       </span>
                     </td>
                   </tr>
+                  )}
                   {!isCollapsed &&
                     group.rows.map((row) => (
                       <tr
