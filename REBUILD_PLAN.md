@@ -22,40 +22,40 @@ Each batch ends with a working site you can preview via `npm run dev`.
 
 ### Phase 1 — Project Scaffolding
 
-| Step | Detail |
-|------|--------|
-| 1.1 | Initialize a new **Next.js 15** app with the App Router, TypeScript, Tailwind CSS, and ESLint (`npx create-next-app@latest`) |
-| 1.2 | Configure `next.config.ts` for **static export** (`output: 'export'`) + `basePath: '/leetcode-patterns'` for GitHub Pages |
-| 1.3 | Set up **Vitest** + **React Testing Library** + **jsdom** for unit/component testing |
-| 1.4 | Add **Prettier**, **ESLint** (flat config), and **Husky** pre-commit hook |
-| 1.5 | Copy over `src/data/questions.json`, `public/static/` (icons, images), and `favicon.ico` |
-| 1.6 | Copy over `cron/` directory unchanged (Python, independent of the web framework) |
+| Step | Status | Detail |
+|------|--------|--------|
+| 1.1 | ✅ | Initialize a new **Next.js 15** app with the App Router, TypeScript, Tailwind CSS, and ESLint |
+| 1.2 | ✅ | Configure `next.config.ts` for **static export** (`output: 'export'`) + conditional `basePath` for GitHub Pages |
+| 1.3 | ✅ | Set up **Vitest** + **React Testing Library** + **jsdom** for unit/component testing |
+| 1.4 | ✅ | Add **Prettier** and **Husky** pre-commit hook (ESLint flat config included from scaffolding) |
+| 1.5 | ✅ | Copy over `src/data/questions.json`, `public/static/` (icons, images), and `favicon.ico` |
+| 1.6 | ✅ | Copy over `cron/` directory unchanged (Python, independent of the web framework) |
 
 ### Phase 2 — Shared Foundation
 
-| Step | Detail |
-|------|--------|
-| 2.1 | **Types** — Create `types/question.ts` with `Question`, `Company`, `QuestionsData` interfaces derived from `questions.json` shape |
-| 2.2 | **Data layer** — Create `lib/questions.ts`: import JSON, sort by difficulty, compute `companyNames`, export `questions` array and `updated` date |
-| 2.3 | **localStorage hooks** — Create `hooks/use-local-storage.ts` (generic typed hook) to replace all raw `localStorage.getItem/setItem` calls |
-| 2.4 | **Analytics** — Create `lib/analytics.ts` wrapping `react-ga4` (`initGA`, `trackEvent`) |
-| 2.5 | **Dark mode** — Create `hooks/use-dark-mode.ts` using `localStorage` + Tailwind's built-in `dark:` variant (toggles `dark` class on `<html>`) |
+| Step | Status | Detail |
+|------|--------|--------|
+| 2.1 | ✅ | **Types** — `types/question.ts` with `Question`, `Company`, `QuestionsData` interfaces |
+| 2.2 | ✅ | **Data layer** — `lib/questions.ts`: import JSON, sort by difficulty, compute `companyNames` |
+| 2.3 | ✅ | **localStorage hooks** — `hooks/use-local-storage.ts` (generic typed hook, SSR-safe) |
+| 2.4 | ✅ | **Analytics** — `lib/analytics.ts` wrapping `react-ga4` (`initGA`, `trackEvent`) |
+| 2.5 | ✅ | **Dark mode** — `hooks/use-dark-mode.ts` using `localStorage` + Tailwind's built-in `dark:` variant (toggles `dark` class on `<html>`) |
 
-**Tests:**
+**Tests:** ✅ 11 passing
 
-- `use-local-storage.test.ts` — read/write/default values
-- `questions.test.ts` — correct sort order, `companyNames` computed
-- `use-dark-mode.test.ts` — toggle, persistence, body class
+- `use-local-storage.test.ts` — read/write/default values (4 tests)
+- `questions.test.ts` — correct sort order, `companyNames` computed (4 tests)
+- `use-dark-mode.test.ts` — toggle, persistence, html class (3 tests)
 
 ### Phase 3 — Layout & Navigation
 
-| Step | Detail |
-|------|--------|
-| 3.1 | `app/layout.tsx` — Root layout with `<html>`, Google font (Open Sans), Tailwind globals, `ThemeProvider`, GA init |
-| 3.2 | `app/page.tsx` — Main page (client component) rendering `<Navigation>` + `<Tabs>` |
-| 3.3 | `components/Navigation.tsx` — Sticky navbar with title, GitHub link icon, dark mode toggle (replaces Reactstrap `Navbar`) |
+| Step | Status | Detail |
+|------|--------|--------|
+| 3.1 | ✅ | `app/layout.tsx` — Root layout with Open Sans via `next/font/google`, Tailwind globals |
+| 3.2 | ✅ | `app/page.tsx` — Client component with GA init, renders `<Navigation>` + placeholder for Tabs |
+| 3.3 | ✅ | `components/Navigation.tsx` — Sticky navbar with title, GitHub link, dark mode toggle using `dark:` variants |
 
-**Tests:**
+**Tests:** ✅ 3 passing
 
 - `Navigation.test.tsx` — renders brand, GitHub link, dark mode toggle
 

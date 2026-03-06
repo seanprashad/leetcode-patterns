@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-surface: #ffffff;
+  --color-surface-dark: #161a1d;
+  --color-on-surface: #000000;
+  --color-on-surface-dark: #ffffff;
+  --color-link: #0c66e4;
+  --color-link-dark: #579dff;
+}
+
+body {
+  @apply bg-surface text-on-surface dark:bg-surface-dark dark:text-on-surface-dark;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  @apply text-link dark:text-link-dark;
+}
