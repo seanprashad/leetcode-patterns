@@ -63,40 +63,36 @@ Each batch ends with a working site you can preview via `npm run dev`.
 
 ### Phase 4 — Tabs System
 
-| Step | Detail |
-|------|--------|
-| 4.1 | `components/Tabs.tsx` — Tabbed interface with 3 tabs: "Question List", "Tips", "Acknowledgements", using headless state (simple `useState`) styled with Tailwind |
-| 4.2 | `components/Tips.tsx` — Render the static markdown tips content with `react-markdown` |
-| 4.3 | `components/Acknowledgements.tsx` — Card grid with images/links for Blind 75, DesignGurus, Hackernoon |
+| Step | Status | Detail |
+|------|--------|--------|
+| 4.1 | ✅ | `components/Tabs.tsx` — Tabbed interface with 3 tabs using `useState`, styled with Tailwind |
+| 4.2 | ✅ | `components/Tips.tsx` — Static markdown tips rendered with `react-markdown` |
+| 4.3 | ✅ | `components/Acknowledgements.tsx` — Card grid with images/links for Blind 75, DesignGurus, Hackernoon |
 
-**Tests:**
+**Tests:** ✅ 7 passing
 
-- `Tabs.test.tsx` — tab switching renders correct content
-- `Tips.test.tsx` — renders markdown content
-- `Acknowledgements.test.tsx` — renders all 3 cards with correct links
+- `Tabs.test.tsx` — tab switching renders correct content (4 tests)
+- `Tips.test.tsx` — renders markdown content (1 test)
+- `Acknowledgements.test.tsx` — renders all 3 cards with correct links (2 tests)
 
 ### Phase 5 — Question Table (Core Feature)
 
-| Step | Detail |
-|------|--------|
-| 5.1 | Install **TanStack Table v8** (`@tanstack/react-table`) — the successor to `react-table` v7 |
-| 5.2 | `hooks/use-question-progress.ts` — manages `checked[]`, `checkedAt[]`, `difficultyCount`, reset logic, auto-resize on new questions. All persisted via `use-local-storage` |
-| 5.3 | `components/table/QuestionTable.tsx` — Main table component using TanStack Table with columns: Checkbox, Question title, Solutions link, Pattern badges, Difficulty badge, Companies (icons with tooltips), Last Solved On |
-| 5.4 | `components/table/filters/` — `DifficultyFilter`, `PatternFilter`, `CompanyFilter`, `CheckedFilter` as dropdown `<select>` components with localStorage persistence |
-| 5.5 | `components/table/ProgressPie.tsx` — Pie chart (using `react-minimal-pie-chart`) + reset button with confirmation modal |
-| 5.6 | `components/table/ProgressBar.tsx` — Easy/Medium/Hard progress bars (Tailwind-styled, no Bootstrap dependency) |
-| 5.7 | `components/table/RandomQuestion.tsx` — Button that opens a random question from filtered rows |
-| 5.8 | `components/table/PatternToggle.tsx` — Show/hide pattern toggle |
-| 5.9 | `components/PatternFrequencies.tsx` — Pattern frequency badges shown when difficulty/company filters are active |
+| Step | Status | Detail |
+|------|--------|--------|
+| 5.1 | ✅ | Installed `@tanstack/react-table` v8, `react-minimal-pie-chart`, `react-tooltip`, `react-markdown` |
+| 5.2 | ✅ | `hooks/use-question-progress.ts` — manages checked/checkedAt arrays, difficulty counts, reset, auto-resize |
+| 5.3 | ✅ | `components/table/QuestionTable.tsx` — Full table with all columns, inline FilterDropdown, pattern frequencies |
+| 5.4 | ✅ | Filter dropdowns (Status, Difficulty, Pattern, Company) integrated inline with localStorage persistence |
+| 5.5 | ✅ | Pie chart in checkbox column header + `ResetModal.tsx` with confirmation dialog |
+| 5.6 | ✅ | `components/table/ProgressBar.tsx` — Easy/Medium/Hard progress bars in Tailwind |
+| 5.7 | ✅ | Random question button integrated in Questions column header |
+| 5.8 | ✅ | Show/hide pattern toggle integrated in Pattern column header |
+| 5.9 | ✅ | Pattern frequency badges shown when difficulty/company filters are active |
 
-**Tests:**
+**Tests:** ✅ 11 passing
 
-- `use-question-progress.test.ts` — check/uncheck, reset, resize on new questions, difficulty counts
-- `QuestionTable.test.tsx` — renders rows, checkbox toggles, filter interactions
-- `filters.test.tsx` — each filter correctly narrows results
-- `ProgressPie.test.tsx` — displays correct count
-- `RandomQuestion.test.tsx` — opens correct URL
-- `PatternFrequencies.test.tsx` — computes and displays frequencies
+- `use-question-progress.test.ts` — check/uncheck, reset, resize, difficulty counts (5 tests)
+- `QuestionTable.test.tsx` — renders table, filters, checkbox toggle, progress bars, pie chart, reset (6 tests)
 
 ## Batch C
 
