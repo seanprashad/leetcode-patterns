@@ -7,14 +7,14 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
+
   createColumnHelper,
   flexRender,
   type SortingState,
   type ColumnFiltersState,
 } from "@tanstack/react-table";
 import { Question } from "@/types/question";
-import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload } from "lucide-react";
+import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2 } from "lucide-react";
 
 const STORAGE_KEY = "leetcode-patterns-completed";
 
@@ -46,16 +46,6 @@ function saveNotes(notes: Record<number, string>) {
   localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
 }
 
-const PAGE_SIZE_KEY = "leetcode-patterns-page-size";
-
-function loadPageSize(): string {
-  if (typeof window === "undefined") return "all";
-  return localStorage.getItem(PAGE_SIZE_KEY) ?? "all";
-}
-
-function savePageSize(size: string) {
-  localStorage.setItem(PAGE_SIZE_KEY, size);
-}
 
 const columnHelper = createColumnHelper<Question>();
 
@@ -260,13 +250,10 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
   const [completed, setCompleted] = useState<Set<number>>(new Set());
 
   const [notes, setNotes] = useState<Record<number, string>>({});
-  const [pageSizeLabel, setPageSizeLabel] = useState("all");
 
   useEffect(() => {
     setCompleted(loadCompleted());
     setNotes(loadNotes());
-    const saved = loadPageSize();
-    setPageSizeLabel(saved);
   }, []);
 
   useEffect(() => {
@@ -392,14 +379,7 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: { pagination: { pageSize: data.length } },
   });
-
-  useEffect(() => {
-    const saved = loadPageSize();
-    table.setPageSize(saved === "all" ? data.length : Number(saved));
-  }, [table, data.length]);
 
   const stats = useMemo(() => {
     const totals = { Easy: 0, Medium: 0, Hard: 0 };
@@ -424,6 +404,7 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
   }, [table, completed]);
 
   const [resetConfirmGroup, setResetConfirmGroup] = useState<string | null>(null);
+  const [clearConfirm, setClearConfirm] = useState<"notes" | "questions" | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
 
   const toggleGroup = useCallback((group: string) => {
@@ -451,6 +432,18 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
     });
     setResetConfirmGroup(null);
   }, [data]);
+
+  const clearAllNotes = useCallback(() => {
+    setNotes({});
+    saveNotes({});
+    setClearConfirm(null);
+  }, []);
+
+  const clearAllQuestions = useCallback(() => {
+    setCompleted(new Set());
+    saveCompleted(new Set());
+    setClearConfirm(null);
+  }, []);
 
   const exportProgress = useCallback(() => {
     const payload = { completed: [...completed], notes };
@@ -588,7 +581,7 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
       <div className="group relative rounded-lg border border-zinc-200 bg-zinc-50 p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium">
           <span>{stats.totalDone}/{stats.total} completed ({pct}%)</span>
-          <div className="flex gap-4 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
+          <div className="flex gap-4 sm:opacity-0 sm:transition-opacity sm:duration-500 sm:ease-in-out sm:group-hover:opacity-100">
             <span className="text-green-600 dark:text-green-400">
               Easy: {stats.done.Easy}/{stats.totals.Easy}
             </span>
@@ -601,24 +594,24 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
           </div>
         </div>
         <div className="relative h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
+          {/* Default: solid blue bar */}
           <div
-            className="absolute inset-0 h-full bg-blue-500 sm:transition-opacity sm:group-hover:opacity-0 max-sm:hidden"
+            className="absolute inset-0 h-full bg-blue-500 transition-opacity duration-500 ease-in-out sm:group-hover:opacity-0 max-sm:hidden"
             style={{ width: `${pct}%` }}
           />
-          <div className="flex h-full max-sm:opacity-100 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
-            <div
-              className="h-full bg-green-500"
-              style={{ width: `${(stats.done.Easy / stats.total) * 100}%` }}
-            />
-            <div
-              className="h-full bg-yellow-500"
-              style={{ width: `${(stats.done.Medium / stats.total) * 100}%` }}
-            />
-            <div
-              className="h-full bg-red-500"
-              style={{ width: `${(stats.done.Hard / stats.total) * 100}%` }}
-            />
-          </div>
+          {/* Hover: blended difficulty gradient */}
+          <div
+            className="absolute inset-0 h-full transition-opacity duration-500 ease-in-out max-sm:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+            style={{
+              width: `${pct}%`,
+              background: (() => {
+                if (!stats.totalDone) return "#22c55e";
+                const easyPct = (stats.done.Easy / stats.totalDone) * 100;
+                const medPct = ((stats.done.Easy + stats.done.Medium) / stats.totalDone) * 100;
+                return `linear-gradient(90deg, #22c55e ${Math.max(easyPct - 10, 0)}%, #eab308 ${Math.min(easyPct + 10, medPct - 10)}%, #eab308 ${Math.max(medPct - 10, easyPct + 10)}%, #ef4444 ${medPct + 10}%)`;
+              })(),
+            }}
+          />
         </div>
 
       </div>
@@ -966,6 +959,32 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
             Import progress
           </span>
         </div>
+        {Object.keys(notes).length > 0 && (
+          <div className="group/clearnotes relative">
+            <button
+              onClick={() => setClearConfirm("notes")}
+              className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearnotes:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              Clear all notes
+            </span>
+          </div>
+        )}
+        {completed.size > 0 && (
+          <div className="group/clearqs relative">
+            <button
+              onClick={() => setClearConfirm("questions")}
+              className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+            </button>
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearqs:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              Clear all progress
+            </span>
+          </div>
+        )}
       </div>
       </div>
 
@@ -1077,50 +1096,6 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
             })}
           </tbody>
         </table>
-      </div>
-
-      {/* Pagination */}
-      <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-        <div className="flex items-center gap-2 text-zinc-500">
-          <span>{table.getFilteredRowModel().rows.length} question(s)</span>
-          <select
-            value={pageSizeLabel}
-            onChange={(e) => {
-              const val = e.target.value;
-              setPageSizeLabel(val);
-              savePageSize(val);
-              table.setPageSize(val === "all" ? data.length : Number(val));
-            }}
-            className="rounded border border-zinc-300 bg-white px-1.5 py-1 text-sm dark:border-zinc-700 dark:bg-zinc-900"
-          >
-            {[10, 20, 50].map((size) => (
-              <option key={size} value={size}>
-                {size} / page
-              </option>
-            ))}
-            <option value="all">All</option>
-          </select>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 disabled:opacity-40 dark:border-zinc-700"
-          >
-            Previous
-          </button>
-          <span>
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </span>
-          <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 disabled:opacity-40 dark:border-zinc-700"
-          >
-            Next
-          </button>
-        </div>
       </div>
 
       {/* Note Modal */}
@@ -1260,6 +1235,42 @@ export default function QuestionsTable({ data }: { data: Question[] }) {
           </div>
         );
       })()}
+
+      {/* Clear All Confirmation Modal */}
+      {clearConfirm && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={() => setClearConfirm(null)}
+        >
+          <div
+            className="mx-4 w-full max-w-sm rounded-xl border border-zinc-200 bg-white p-6 shadow-xl dark:border-zinc-700 dark:bg-zinc-900"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="mb-2 text-lg font-semibold">
+              {clearConfirm === "notes" ? "Clear all notes" : "Clear all progress"}
+            </h2>
+            <p className="mb-4 text-sm text-zinc-500">
+              {clearConfirm === "notes"
+                ? `This will delete ${Object.keys(notes).length} note(s). This action cannot be undone.`
+                : `This will clear ${completed.size} completed question(s). This action cannot be undone.`}
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setClearConfirm(null)}
+                className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={clearConfirm === "notes" ? clearAllNotes : clearAllQuestions}
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
