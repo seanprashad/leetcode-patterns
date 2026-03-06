@@ -443,7 +443,7 @@ export default function QuestionTable() {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full min-w-[800px] text-sm">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
@@ -453,7 +453,7 @@ export default function QuestionTable() {
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-2 py-2 text-left text-xs font-medium"
+                    className="px-2 py-2 text-left text-xs font-medium dark:text-gray-300"
                     style={{
                       width:
                         header.column.getSize() !== 150
@@ -519,7 +519,7 @@ function FilterDropdown({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800"
+      className="rounded border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
       aria-label={`Filter by ${label}`}
     >
       <option value="">All {label}</option>

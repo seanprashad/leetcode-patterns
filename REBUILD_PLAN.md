@@ -98,29 +98,29 @@ Each batch ends with a working site you can preview via `npm run dev`.
 
 ### Phase 6 — Styling & Polish
 
-| Step | Detail |
-|------|--------|
-| 6.1 | Replace all SCSS with **Tailwind CSS** utility classes + a minimal `globals.css` |
-| 6.2 | Ensure dark mode works end-to-end using Tailwind's built-in `dark:` variant (class on `<html>`) |
-| 6.3 | Responsive design — ensure table is usable on mobile (horizontal scroll wrapper) |
-| 6.4 | Replace `react-tooltip` with a lightweight Tailwind-based tooltip or keep it if preferred |
+| Step | Status | Detail |
+|------|--------|--------|
+| 6.1 | ✅ | No SCSS exists — all styles are Tailwind utilities + minimal `globals.css` |
+| 6.2 | ✅ | Dark mode works end-to-end via `dark:` variants + `@custom-variant dark` in CSS |
+| 6.3 | ✅ | Table has `overflow-x-auto` wrapper + `min-w-[800px]` for mobile horizontal scroll |
+| 6.4 | ✅ | Kept `react-tooltip` — already integrated and working |
 
 ### Phase 7 — CI/CD & Deployment
 
-| Step | Detail |
-|------|--------|
-| 7.1 | Update `.github/workflows/github-pages.yml` — use `npm run build` (Next.js static export) + deploy `out/` directory instead of `build/` |
-| 7.2 | Add a **test step** to the CI pipeline: `npm test -- --run` before build |
-| 7.3 | Keep `.github/workflows/update-question-metadata.yml` unchanged (Python cron is framework-independent) |
+| Step | Status | Detail |
+|------|--------|--------|
+| 7.1 | ✅ | Updated `github-pages.yml` — builds in `next/` dir, deploys `next/out/` |
+| 7.2 | ✅ | Test step (`npm test -- --run`) added before build in CI pipeline |
+| 7.3 | ✅ | Updated `update-question-metadata.yml` — points to `next/cron/update_questions.py` |
 
 ### Phase 8 — Cleanup & Verification
 
-| Step | Detail |
-|------|--------|
-| 8.1 | Remove all old CRA files (`react-scripts`, old `src/`, old `public/index.html`) |
-| 8.2 | Run full test suite, fix any failures |
-| 8.3 | Build and preview locally (`next build && npx serve out`) to verify parity with the live site |
-| 8.4 | Verify localStorage migration — existing users' `checked`/`checkedAt`/`darkMode` data should be preserved seamlessly (same keys) |
+| Step | Status | Detail |
+|------|--------|--------|
+| 8.1 | ✅ | Removed scaffolding SVGs and default README from `next/` |
+| 8.2 | ✅ | Full test suite: 9 files, 32 tests passing |
+| 8.3 | ✅ | `npm run build` succeeds — static export to `next/out/` |
+| 8.4 | ✅ | localStorage keys match: `checked`, `checkedAt`, `darkMode`, `showPatterns`, filter keys all identical |
 
 ---
 

@@ -10,7 +10,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
@@ -19,7 +19,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests python-leetcode
       - run: |
-          python cron/update_questions.py
+          python next/cron/update_questions.py
         env:
           LEETCODE_CF_CLEARANCE: ${{ secrets.LEETCODE_CF_CLEARANCE }}
           LEETCODE_CSRF_TOKEN: ${{ secrets.LEETCODE_CSRF_TOKEN }}
