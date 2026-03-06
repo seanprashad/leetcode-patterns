@@ -4,6 +4,9 @@ import QuestionsTable from "@/components/QuestionsTable";
 import ThemeToggle from "@/components/ThemeToggle";
 import GitHubLink from "@/components/GitHubLink";
 import Logo from "@/components/Logo";
+import TipsPanel from "@/components/TipsPanel";
+import AcknowledgementsPanel from "@/components/AcknowledgementsPanel";
+import AboutPanel from "@/components/AboutPanel";
 import questionsJson from "@/data/questions.json";
 import { QuestionsData } from "@/types/question";
 
@@ -51,8 +54,11 @@ export default function Home() {
           <ThemeToggle />
         </div>
       </div>
+      <AboutPanel />
+      <TipsPanel />
+      <AcknowledgementsPanel />
       <Suspense>
-        <QuestionsTable data={questions} />
+        <QuestionsTable data={questions} updatedDate={questionsJson.updated} />
       </Suspense>
     </div>
   );
