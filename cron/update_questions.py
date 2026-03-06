@@ -44,6 +44,9 @@ def get_question_metadata(api, title_slug):
                 difficulty
                 companyTagStatsV2
                 isPaidOnly
+                topicTags {
+                    name
+                }
             }
         }
         ''',
@@ -86,12 +89,15 @@ def update_question_metadata(question, response):
     question_difficulty = response.data.question.difficulty
     question_company_tag_stats_v2 = response.data.question.company_tag_stats_v2
     question_is_premium = response.data.question.is_paid_only
+    question_topic_tags = response.data.question.topic_tags
 
     companies = construct_company_tag_list(question_company_tag_stats_v2)
+    patterns = [tag.name for tag in question_topic_tags]
 
     question["id"] = int(question_id)
     question["title"] = question_title
     question["difficulty"] = question_difficulty
+    question["pattern"] = patterns
     question["companies"] = companies
     question["premium"] = question_is_premium
 
