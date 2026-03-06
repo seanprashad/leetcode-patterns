@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Info, X } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export default function AboutPanel() {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function AboutPanel() {
     <>
       {/* Tab button on left edge, first position */}
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => { setOpen(true); trackEvent("panel_open", { panel: "about" }); }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={`fixed left-0 top-1/2 max-sm:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-emerald-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-emerald-700`}
@@ -36,7 +37,7 @@ export default function AboutPanel() {
             About
           </h2>
           <button
-            onClick={() => setOpen(false)}
+            onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "about" }); }}
             className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
           >
             <X className="h-4 w-4" />
@@ -52,7 +53,19 @@ export default function AboutPanel() {
             <p>
               In <span className="font-semibold text-zinc-900 dark:text-zinc-100">2020</span>, I built this project as a college student who couldn&apos;t afford paid interview
               content. Instead, I sought out free resources and taught myself everything I needed to know to pass technical interviews - this website is a culmination of my own study plan.
-              It has helped me land roles at <span className="font-semibold text-zinc-900 dark:text-zinc-100">Twitter</span> and <span className="font-semibold text-zinc-900 dark:text-zinc-100">Square</span>, along with over <span className="font-semibold text-zinc-900 dark:text-zinc-100">6 offers</span> in my last interview season.
+              It has helped me land roles at <span className="font-semibold text-zinc-900 dark:text-zinc-100">Twitter</span> and <span className="font-semibold text-zinc-900 dark:text-zinc-100">Square</span>, along with over <span className="font-semibold text-zinc-900 dark:text-zinc-100">6 offers</span> in my last interview gauntlet.
+            </p>
+            <p>
+              A huge thank you to all the{" "}
+              <a
+                href="https://github.com/seanprashad/leetcode-patterns/graphs/contributors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+              >
+                contributors
+              </a>{" "}
+              who have helped improve this project - your PRs, bug reports, and suggestions help make this resource better for everyone.
             </p>
             <p>
               I plan to keep this project open source and free for as long as I can. If you find it
@@ -74,31 +87,6 @@ export default function AboutPanel() {
               </a>{" "}
               - thank you and good luck!
             </p>
-            <p>
-              A huge thank you to all the{" "}
-              <a
-                href="https://github.com/seanprashad/leetcode-patterns/graphs/contributors"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-              >
-                contributors
-              </a>{" "}
-              who have helped improve this project - your PRs, bug reports, and suggestions help make this resource better for everyone.
-            </p>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800/50">
-              <p className="text-xs text-zinc-500">
-                Made with ❤️ by{" "}
-                <a
-                  href="https://github.com/SeanPrashad"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-                >
-                  Sean Prashad
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Lightbulb, X } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const tips = [
   { condition: "If input array is sorted", approaches: ["Binary search", "Two pointers"] },
@@ -26,7 +27,7 @@ export default function TipsPanel() {
     <>
       {/* Tab button on left edge, below About */}
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => { setOpen(true); trackEvent("panel_open", { panel: "tips" }); }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={`fixed left-0 top-[calc(50%+5rem)] max-sm:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-blue-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-blue-700`}
@@ -50,7 +51,7 @@ export default function TipsPanel() {
             Helpful Tips
           </h2>
           <button
-            onClick={() => setOpen(false)}
+            onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "tips" }); }}
             className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
           >
             <X className="h-4 w-4" />

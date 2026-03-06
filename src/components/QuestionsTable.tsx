@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-table";
 import { Question } from "@/types/question";
 import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2 } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "leetcode-patterns-completed";
 
@@ -280,9 +281,11 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const toggleCompleted = useCallback((id: number) => {
     setCompleted((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      const completing = !next.has(id);
+      if (completing) next.add(id);
+      else next.delete(id);
       saveCompleted(next);
+      trackEvent("question_toggle", { question_id: id, completed: completing });
       return next;
     });
   }, []);
@@ -310,6 +313,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       if (value) next[id] = value;
       else delete next[id];
       saveNotes(next);
+      trackEvent("note_save", { question_id: id, has_content: !!value });
       return next;
     });
   }, []);
@@ -405,6 +409,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       .rows.filter((r) => !completed.has(r.original.id));
     if (unsolved.length === 0) return;
     const pick = unsolved[Math.floor(Math.random() * unsolved.length)];
+    trackEvent("random_question", { question_id: pick.original.id, slug: pick.original.slug });
     window.open(
       `https://leetcode.com/problems/${pick.original.slug}/description/`,
       "_blank"
@@ -438,18 +443,21 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       saveNotes(next);
       return next;
     });
+    trackEvent("reset_group", { difficulty });
     setResetConfirmGroup(null);
   }, [data]);
 
   const clearAllNotes = useCallback(() => {
     setNotes({});
     saveNotes({});
+    trackEvent("clear_all_notes");
     setClearConfirm(null);
   }, []);
 
   const clearAllQuestions = useCallback(() => {
     setCompleted(new Set());
     saveCompleted(new Set());
+    trackEvent("clear_all_progress");
     setClearConfirm(null);
   }, []);
 
@@ -462,6 +470,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     a.download = `leetcode-patterns-progress-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
+    trackEvent("export_progress", { completed_count: completed.size, notes_count: Object.keys(notes).length });
   }, [completed, notes]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -480,6 +489,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           setNotes(parsed.notes);
           saveNotes(parsed.notes);
         }
+        trackEvent("import_progress", { completed_count: parsed.completed?.length ?? 0, notes_count: parsed.notes ? Object.keys(parsed.notes).length : 0 });
       } catch {}
     };
     reader.readAsText(file);
@@ -501,6 +511,48 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [pickRandom]);
+
+  // Track filter changes
+  const activeDifficultyFilter = useMemo(
+    () => (columnFilters.find((f) => f.id === "difficulty")?.value as string[])?.join(",") ?? "",
+    [columnFilters]
+  );
+  const activePatternFilter = useMemo(
+    () => (columnFilters.find((f) => f.id === "pattern")?.value as string[])?.join(",") ?? "",
+    [columnFilters]
+  );
+  const activeCompanyFilterStr = useMemo(
+    () => activeCompanyFilter.join(","),
+    [activeCompanyFilter]
+  );
+
+  useEffect(() => {
+    if (activeDifficultyFilter) trackEvent("filter_difficulty", { values: activeDifficultyFilter });
+  }, [activeDifficultyFilter]);
+
+  useEffect(() => {
+    if (activePatternFilter) trackEvent("filter_pattern", { values: activePatternFilter });
+  }, [activePatternFilter]);
+
+  useEffect(() => {
+    if (activeCompanyFilterStr) trackEvent("filter_company", { values: activeCompanyFilterStr });
+  }, [activeCompanyFilterStr]);
+
+  // Track search with debounce
+  useEffect(() => {
+    if (!globalFilter) return;
+    const timer = setTimeout(() => {
+      trackEvent("search", { query: globalFilter });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [globalFilter]);
+
+  // Track sorting
+  useEffect(() => {
+    if (sorting.length > 0) {
+      trackEvent("sort_column", { column: sorting[0].id, direction: sorting[0].desc ? "desc" : "asc" });
+    }
+  }, [sorting]);
 
   const difficultyFilter =
     (table.getColumn("difficulty")?.getFilterValue() as string[]) ?? [];
@@ -923,7 +975,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           <input
             type="checkbox"
             checked={hideCompleted}
-            onChange={(e) => setHideCompleted(e.target.checked)}
+            onChange={(e) => { setHideCompleted(e.target.checked); trackEvent("hide_completed", { enabled: e.target.checked }); }}
             className="h-3.5 w-3.5 accent-blue-600"
           />
           Hide completed
@@ -932,7 +984,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           <input
             type="checkbox"
             checked={hidePatterns}
-            onChange={(e) => setHidePatterns(e.target.checked)}
+            onChange={(e) => { setHidePatterns(e.target.checked); trackEvent("hide_patterns", { enabled: e.target.checked }); }}
             className="h-3.5 w-3.5 accent-blue-600"
           />
           Hide patterns
