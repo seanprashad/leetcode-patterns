@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export default function ThemeToggle() {
   const [dark, setDark] = useState(false);
@@ -17,6 +18,7 @@ export default function ThemeToggle() {
     setDark(next);
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
+    trackEvent("theme_toggle", { theme: next ? "dark" : "light" });
   };
 
   if (!mounted) return <div className="h-9 w-9" />;
