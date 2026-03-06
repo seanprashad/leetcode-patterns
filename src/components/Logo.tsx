@@ -24,7 +24,7 @@ export default function Logo() {
 
   return (
     <img
-      src={dark ? "/logo-dark.png" : "/logo-light.png"}
+      src={dark ? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/logo-dark.png` : `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/logo-light.png`}
       alt="Leetcode Patterns"
       className="h-8 sm:h-10"
     />

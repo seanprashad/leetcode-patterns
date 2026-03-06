@@ -169,7 +169,7 @@ const makeColumns = (
         {info.getValue().map((c) => (
           <span key={c.slug} className="group/icon relative">
             <img
-              src={`/icons/${c.slug}.png`}
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/${c.slug}.png`}
               alt={c.name}
               className="h-5 w-5 rounded-sm object-contain dark:brightness-90"
               onError={(e) => {

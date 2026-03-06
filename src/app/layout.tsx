@@ -16,7 +16,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Leetcode Patterns",
   description: "A curated list of Leetcode questions grouped by pattern for interview prep",
-  icons: { icon: "/favicon.ico" },
   manifest: "/manifest.json",
 };
 

@@ -1,4 +1,4 @@
-# Leetcode Patterns [![github-pages](https://github.com/seanprashad/leetcode-patterns/actions/workflows/github-pages.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/github-pages.yml) [![update-question-metadata](https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-question-metadata.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-question-metadata.yml)
+# Leetcode Patterns [![Deploy to GitHub Pages](https://github.com/seanprashad/leetcode-patterns/actions/workflows/deploy.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/deploy.yml) [![Update Questions](https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-questions.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-questions.yml)
 
 ## Table of Contents
 
