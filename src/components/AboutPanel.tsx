@@ -74,6 +74,18 @@ export default function AboutPanel() {
               </a>{" "}
               - thank you and good luck!
             </p>
+            <p>
+              A huge thank you to all the{" "}
+              <a
+                href="https://github.com/seanprashad/leetcode-patterns/graphs/contributors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+              >
+                contributors
+              </a>{" "}
+              who have helped improve this project - your PRs, bug reports, and suggestions help make this resource better for everyone.
+            </p>
             <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800/50">
               <p className="text-xs text-zinc-500">
                 Made with ❤️ by{" "}
