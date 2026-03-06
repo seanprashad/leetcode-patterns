@@ -74,7 +74,7 @@ export default function AcknowledgementsPanel() {
                 className="block overflow-hidden rounded-lg border border-zinc-200 transition-colors hover:border-blue-300 dark:border-zinc-800 dark:hover:border-blue-700"
               >
                 <img
-                  src={source.image}
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${source.image}`}
                   alt={source.title}
                   className="h-32 w-full object-cover"
                 />
