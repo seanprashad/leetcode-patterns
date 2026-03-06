@@ -137,7 +137,7 @@ def main(file_name):
 
 
 if __name__ == "__main__":
-    file_name = os.getcwd() + "/src/data/questions.json"
+    file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "data", "questions.json")
     startTime = datetime.now()
 
     main(file_name)
