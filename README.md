@@ -7,6 +7,7 @@
 - [Notes](#notes)
 - [Question List](#question-list)
 - [Solutions](#solutions)
+- [Contributing](#contributing)
 - [Suggestions](#suggestions)
 - [Acknowledgements](#acknowledgements)
 
@@ -58,10 +59,18 @@ https://seanprashad.com/leetcode-patterns/.
 
 Solutions written in Java can be found in the [solutions] branch.
 
-## Suggestions
+## Contributing
 
-Think a question should/shouldn't be included? Wish there was another feature?
-Feel free to open an [issue] with your suggestion!
+The app is built with [Next.js] (App Router), [React] 19, [TypeScript], [Tailwind CSS] v4, [TanStack Table] v8, [Lucide React] for icons, and Google Analytics via `@next/third-parties`. Tests use [Vitest] + [React Testing Library].
+
+```bash
+npm install
+npm run dev         # http://localhost:3000
+npm test            # single run
+npm run test:watch  # watch mode
+```
+
+A [Husky] `pre-push` hook runs `npm test` automatically before every push. This is set up for every clone via the `prepare` script.
 
 ## Acknowledgements
 
@@ -71,6 +80,15 @@ on [14 patterns to ace any coding interview question].
 
 [leetcode.com]: https://leetcode.com
 [leetcode premium]: https://leetcode.com/subscribe/
+[next.js]: https://nextjs.org
+[react]: https://react.dev
+[typescript]: https://www.typescriptlang.org
+[tailwind css]: https://tailwindcss.com
+[tanstack table]: https://tanstack.com/table
+[lucide react]: https://lucide.dev
+[vitest]: https://vitest.dev
+[react testing library]: https://testing-library.com/docs/react-testing-library/intro
+[husky]: https://typicode.github.io/husky
 [this pdf]: https://drive.google.com/open?id=1ao4ZA28zzBttDkuS6MLQI52gDs_CJZEm
 [solutions]: https://github.com/SeanPrashad/leetcode-patterns/tree/solutions
 [grokking the coding interview]: https://www.educative.io/courses/grokking-the-coding-interview
