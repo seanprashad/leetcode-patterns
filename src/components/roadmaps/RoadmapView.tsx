@@ -22,7 +22,9 @@ function InlineMarkdown({ text }: { text: string }) {
       {lines.map((line, li) => (
         <Fragment key={li}>
           {li > 0 && <br />}
-          {line.split(/(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g).map((part, pi) => {
+          {line.split(/(\*\*\*[^*]+\*\*\*|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g).map((part, pi) => {
+            if (/^\*\*\*(.+)\*\*\*$/.test(part))
+              return <strong key={pi}><em>{part.slice(3, -3)}</em></strong>;
             if (/^\*\*(.+)\*\*$/.test(part))
               return <strong key={pi}>{part.slice(2, -2)}</strong>;
             if (/^\*(.+)\*$/.test(part))

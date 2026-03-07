@@ -9,14 +9,14 @@ import { Question } from "@/types/question";
 import { beginnerRoadmap, experiencedRoadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
 
-type View = "table" | "beginner" | "blind75";
+type View = "table" | "beginner" | "experienced";
 
 const VIEW_KEY = "leetcode-patterns-view";
 
 const views: { id: View; label: string; icon: typeof TableProperties; description: string }[] = [
   { id: "table", label: "All Questions", icon: TableProperties, description: "Browse all questions with filters" },
   { id: "beginner", label: "Beginner Roadmap", icon: Map, description: "Structured path for newcomers" },
-  { id: "blind75", label: "Blind 75", icon: Trophy, description: "Must-know problems for experienced engineers" },
+  { id: "experienced", label: "Experienced Roadmap", icon: Trophy, description: "Must-know problems for experienced engineers" },
 ];
 
 function isValidView(v: string | null): v is View {
@@ -124,7 +124,7 @@ export default function ViewSwitcher({
         {displayedView === "beginner" && (
           <RoadmapView roadmap={beginnerRoadmap} questions={questions} />
         )}
-        {displayedView === "blind75" && (
+        {displayedView === "experienced" && (
           <RoadmapView roadmap={experiencedRoadmap} questions={questions} />
         )}
       </div>
