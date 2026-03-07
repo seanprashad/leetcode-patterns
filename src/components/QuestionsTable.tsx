@@ -235,12 +235,17 @@ const makeColumns = (
   }),
   columnHelper.accessor("companies", {
     header: () => (
-      <span>
-        Companies
-        <span className="ml-1.5 text-[10px] font-normal text-zinc-400 dark:text-zinc-500">
-          (updated {new Date(updatedDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })})
-        </span>
-      </span>
+      <div>
+        <span>Companies</span>
+        <div className="text-[10px] font-normal text-zinc-400 dark:text-zinc-500">
+          0–6 months, via{" "}
+          <a href="https://leetcode.com/subscribe/" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted">
+            LC Premium
+          </a>
+          {", "}
+          {new Date(updatedDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+        </div>
+      </div>
     ),
     meta: { hideOnMobile: true },
     cell: (info) => (
@@ -260,7 +265,7 @@ const makeColumns = (
               {c.name}
             </span>
             <span className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/icon:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-              Asked {c.frequency} {c.frequency === 1 ? "time" : "times"} by {c.name}
+              {c.name} - asked {c.frequency} {c.frequency === 1 ? "time" : "times"} in the last 6 months
             </span>
           </span>
         ))}
