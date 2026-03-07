@@ -1,4 +1,15 @@
-# Leetcode Patterns [![Deploy to GitHub Pages](https://github.com/seanprashad/leetcode-patterns/actions/workflows/deploy.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/deploy.yml) [![Update Questions](https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-questions.yml/badge.svg)](https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-questions.yml)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/images/logo-dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="public/images/logo-light.png" />
+    <img alt="Leetcode Patterns" src="public/images/logo-light.png" width="500" />
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://github.com/seanprashad/leetcode-patterns/actions/workflows/deploy.yml"><img src="https://github.com/seanprashad/leetcode-patterns/actions/workflows/deploy.yml/badge.svg" alt="Deploy to GitHub Pages" /></a>
+  <a href="https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-questions.yml"><img src="https://github.com/seanprashad/leetcode-patterns/actions/workflows/update-questions.yml/badge.svg" alt="Update Questions" /></a>
+</p>
 
 ## Table of Contents
 
