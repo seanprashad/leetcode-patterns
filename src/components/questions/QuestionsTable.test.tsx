@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, act, waitFor, cleanup, within } from "@testing-library/react";
+import { render, screen, waitFor, cleanup, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { Question } from "@/types/question";
 
@@ -255,7 +255,7 @@ describe("QuestionsTable analytics", () => {
     await user.click(screen.getByLabelText("Hide completed"));
 
     // Row is hidden but progress bar still shows 1/3
-    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText("Two Sum")).not.toBeInTheDocument());
     expect(screen.getByText("1/3 completed (33%)")).toBeInTheDocument();
   });
 
@@ -287,7 +287,7 @@ describe("QuestionsTable analytics", () => {
     await user.click(screen.getByLabelText("Hide completed"));
 
     // Two Sum (Easy, completed) is hidden from table but still counted in progress
-    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText("Two Sum")).not.toBeInTheDocument());
     expect(screen.getByText("1/1 completed (100%)")).toBeInTheDocument();
   });
 
@@ -302,7 +302,7 @@ describe("QuestionsTable analytics", () => {
     await user.click(screen.getByLabelText("Hide completed"));
 
     // Two Sum is the only Arrays question, completed and hidden, but still in progress
-    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText("Two Sum")).not.toBeInTheDocument());
     expect(screen.getByText("1/1 completed (100%)")).toBeInTheDocument();
   });
 
@@ -354,7 +354,7 @@ describe("QuestionsTable analytics", () => {
 
     await user.click(screen.getByLabelText("Starred only"));
     expect(screen.getByText("Two Sum")).toBeInTheDocument();
-    expect(screen.queryByText("Add Two Numbers")).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText("Add Two Numbers")).not.toBeInTheDocument());
     expect(screen.queryByText("Median of Two Sorted Arrays")).not.toBeInTheDocument();
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect, useRef, Fragment } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef, useSyncExternalStore, Fragment } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   useReactTable,
@@ -161,6 +161,7 @@ const makeColumns = (
       <div className="flex w-[156px] flex-wrap gap-1">
         {info.getValue().map((c) => (
           <span key={c.slug} className="group/icon relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/${c.slug}.png`}
               alt={c.name}
@@ -216,16 +217,24 @@ const makeColumns = (
   }),
 ];
 
+const mobileQuery = "(max-width: 639px)";
+
+function subscribeMobile(callback: () => void) {
+  const mq = window.matchMedia(mobileQuery);
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
+function getMobileSnapshot() {
+  return window.matchMedia(mobileQuery).matches;
+}
+
+function getMobileServerSnapshot() {
+  return false;
+}
+
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return isMobile;
+  return useSyncExternalStore(subscribeMobile, getMobileSnapshot, getMobileServerSnapshot);
 }
 
 function parseInitialFilters(searchParams: URLSearchParams) {
@@ -250,24 +259,19 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const [globalFilter, setGlobalFilter] = useState(
     () => searchParams.get("q") ?? ""
   );
-  const [completed, setCompleted] = useState<Set<number>>(new Set());
-  const [starred, setStarred] = useState<Set<number>>(new Set());
-  const [shuffleOrder, setShuffleOrder] = useState<number[] | null>(null);
-
-  const [notes, setNotes] = useState<Record<number, string>>({});
-  const [migrationToast, setMigrationToast] = useState<string | null>(null);
-  const [toastFading, setToastFading] = useState(false);
-
-  useEffect(() => {
+  const [{ completed: initialCompleted, migrationToast: initialToast }] = useState(() => {
     const migrated = migrateLegacyProgress(data);
-    setCompleted(migrated ?? loadCompleted());
-    if (migrated) {
-      setMigrationToast(`Migrated ${migrated.size} completed question${migrated.size === 1 ? "" : "s"} from V1`);
-    }
-    setStarred(loadStarred());
-    setShuffleOrder(loadShuffleOrder());
-    setNotes(loadNotes());
-  }, []);
+    return {
+      completed: migrated ?? loadCompleted(),
+      migrationToast: migrated ? `Migrated ${migrated.size} completed question${migrated.size === 1 ? "" : "s"} from V1` : null,
+    };
+  });
+  const [completed, setCompleted] = useState(initialCompleted);
+  const [starred, setStarred] = useState(loadStarred);
+  const [shuffleOrder, setShuffleOrder] = useState(loadShuffleOrder);
+  const [notes, setNotes] = useState(loadNotes);
+  const [migrationToast, setMigrationToast] = useState(initialToast);
+  const [toastFading, setToastFading] = useState(false);
 
   useEffect(() => {
     if (!migrationToast) return;
@@ -352,21 +356,19 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setEditingNote({ id, title, draft: notes[id] ?? "", confirmDiscard: false });
   }, [notes]);
 
-  const [hideCompleted, setHideCompleted] = useState(false);
-  const [showStarredOnly, setShowStarredOnly] = useState(false);
-  const [hidePatterns, setHidePatterns] = useState(false);
-  const [checkboxesHydrated, setCheckboxesHydrated] = useState(false);
+  const [hideCompleted, setHideCompleted] = useState(
+    () => typeof window !== "undefined" && localStorage.getItem("leetcode-patterns-hide-completed") === "true"
+  );
+  const [showStarredOnly, setShowStarredOnly] = useState(
+    () => typeof window !== "undefined" && localStorage.getItem("leetcode-patterns-starred-only") === "true"
+  );
+  const [hidePatterns, setHidePatterns] = useState(
+    () => typeof window !== "undefined" && localStorage.getItem("leetcode-patterns-hide-patterns") === "true"
+  );
 
-  useEffect(() => {
-    setHideCompleted(localStorage.getItem("leetcode-patterns-hide-completed") === "true");
-    setShowStarredOnly(localStorage.getItem("leetcode-patterns-starred-only") === "true");
-    setHidePatterns(localStorage.getItem("leetcode-patterns-hide-patterns") === "true");
-    setCheckboxesHydrated(true);
-  }, []);
-
-  useEffect(() => { if (checkboxesHydrated) localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted, checkboxesHydrated]);
-  useEffect(() => { if (checkboxesHydrated) localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly, checkboxesHydrated]);
-  useEffect(() => { if (checkboxesHydrated) localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns, checkboxesHydrated]);
+  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted]);
+  useEffect(() => { localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly]);
+  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns]);
 
   const activeCompanyFilter = useMemo(
     () => (columnFilters.find((f) => f.id === "companies")?.value as string[]) ?? [],
@@ -409,6 +411,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return vis;
   }, [isMobile, columns]);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: filteredData,
     columns,
@@ -664,13 +667,17 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     }
   }, [sorting]);
 
-  const difficultyFilter =
-    (table.getColumn("difficulty")?.getFilterValue() as string[]) ?? [];
+  const difficultyFilter = useMemo(
+    () => (table.getColumn("difficulty")?.getFilterValue() as string[]) ?? [],
+    [table]
+  );
   const [difficultyDropdownOpen, setDifficultyDropdownOpen] = useState(false);
   const difficultyDropdownRef = useRef<HTMLDivElement>(null);
 
-  const patternFilter =
-    (table.getColumn("pattern")?.getFilterValue() as string[]) ?? [];
+  const patternFilter = useMemo(
+    () => (table.getColumn("pattern")?.getFilterValue() as string[]) ?? [],
+    [table]
+  );
   const [patternDropdownOpen, setPatternDropdownOpen] = useState(false);
   const [patternSearch, setPatternSearch] = useState("");
   const patternDropdownRef = useRef<HTMLDivElement>(null);
@@ -689,8 +696,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     });
   }, [patterns, patternSearch, patternFilter]);
 
-  const companyFilter =
-    (table.getColumn("companies")?.getFilterValue() as string[]) ?? [];
+  const companyFilter = useMemo(
+    () => (table.getColumn("companies")?.getFilterValue() as string[]) ?? [],
+    [table]
+  );
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [companySearch, setCompanySearch] = useState("");
   const companyDropdownRef = useRef<HTMLDivElement>(null);
@@ -732,12 +741,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const companySortActive = sorting.some((s) => s.id === "companies");
   const companySortDesc = sorting.find((s) => s.id === "companies")?.desc ?? true;
 
-  const groupedRows = useMemo(() => {
-    const rows = table.getRowModel().rows;
+  const tableRows = table.getRowModel().rows;
 
+  const groupedRows = useMemo(() => {
     if (shuffleOrder) {
       const orderMap = new Map(shuffleOrder.map((id, i) => [id, i]));
-      const sorted = [...rows].sort((a, b) => {
+      const sorted = [...tableRows].sort((a, b) => {
         const ai = orderMap.get(a.original.id) ?? Infinity;
         const bi = orderMap.get(b.original.id) ?? Infinity;
         return ai - bi;
@@ -747,7 +756,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
 
     if (companySortActive && activeCompanyFilter.length === 1) {
       const slug = activeCompanyFilter[0];
-      const sorted = [...rows].sort((a, b) => {
+      const sorted = [...tableRows].sort((a, b) => {
         const freqA = a.original.companies.find((c) => c.slug === slug)?.frequency ?? 0;
         const freqB = b.original.companies.find((c) => c.slug === slug)?.frequency ?? 0;
         return companySortDesc ? freqB - freqA : freqA - freqB;
@@ -755,8 +764,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       return [{ key: null as string | null, rows: sorted }];
     }
 
-    const groupMap = new Map<string, typeof rows>();
-    for (const row of rows) {
+    const groupMap = new Map<string, typeof tableRows>();
+    for (const row of tableRows) {
       const key = row.original.difficulty;
       if (!groupMap.has(key)) groupMap.set(key, []);
       groupMap.get(key)!.push(row);
@@ -765,7 +774,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return ["Easy", "Medium", "Hard"]
       .filter((k) => groupMap.has(k))
       .map((key) => ({ key: key as string | null, rows: groupMap.get(key)! }));
-  }, [table, sorting, columnFilters, globalFilter, hideCompleted, showStarredOnly, starred, completed, shuffleOrder, companySortActive, companySortDesc, activeCompanyFilter]);
+  }, [tableRows, shuffleOrder, companySortActive, companySortDesc, activeCompanyFilter]);
 
   return (
     <div className="space-y-4">
