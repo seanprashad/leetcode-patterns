@@ -1,11 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Info, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 export default function AboutPanel() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(false); trackEvent("panel_close", { panel: "about" }); }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open]);
+
   return (
     <>
       {/* Tab button – rendered inline inside the fixed flex wrapper in page.tsx */}
@@ -79,7 +89,7 @@ export default function AboutPanel() {
               my commitment to you that this site will remain {" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span> for as long as it can.
             </p>
-            <p className="pt-2 italic">
+            <p className="pt-2">
               Thank you and best of luck studying!
             </p>
             <p className="text-2xl text-zinc-900 dark:text-zinc-100" style={{ fontFamily: "var(--font-dancing-script)" }}>

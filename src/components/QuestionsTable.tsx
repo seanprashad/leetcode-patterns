@@ -687,6 +687,19 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (clearConfirm) { setClearConfirm(null); return; }
+        if (resetConfirmGroup) { setResetConfirmGroup(null); return; }
+        if (editingNote) {
+          const saved = notes[editingNote.id] ?? "";
+          if (editingNote.draft !== saved) {
+            setEditingNote({ ...editingNote, confirmDiscard: true });
+          } else {
+            setEditingNote(null);
+          }
+          return;
+        }
+      }
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key === "/" ) {
@@ -698,7 +711,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [pickRandom]);
+  }, [pickRandom, editingNote, notes, clearConfirm, resetConfirmGroup]);
 
   // Track filter changes
   const activeDifficultyFilter = useMemo(
@@ -1462,7 +1475,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                   </p>
                   <div className="mb-4 rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm dark:border-zinc-700 dark:bg-zinc-800">
                     <p className="mb-1 text-xs font-medium text-zinc-400">Your unsaved note:</p>
-                    <p className="whitespace-pre-wrap text-zinc-600 dark:text-zinc-300">
+                    <p className="whitespace-pre-wrap break-words text-zinc-600 dark:text-zinc-300">
                       {editingNote.draft || <span className="italic text-zinc-400">(empty)</span>}
                     </p>
                   </div>
@@ -1494,14 +1507,30 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                     onChange={(e) =>
                       setEditingNote({ ...editingNote, draft: e.target.value })
                     }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+                        e.preventDefault();
+                        updateNote(editingNote.id, editingNote.draft);
+                        setEditingNote(null);
+                      }
+                    }}
                     placeholder="Write your notes here..."
-                    className="w-full resize-none rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-zinc-700"
+                    className="w-full resize-y rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm break-words focus:border-blue-500 focus:outline-none dark:border-zinc-700"
                   />
-                  {hasChanges && (
-                    <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">
-                      ⚠ You have unsaved changes
-                    </p>
-                  )}
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-xs text-zinc-400">
+                      {editingNote.draft.length} character{editingNote.draft.length !== 1 ? "s" : ""}
+                    </span>
+                    {hasChanges ? (
+                      <span className="text-xs text-amber-600 dark:text-amber-400">
+                        ⚠ Unsaved changes · {navigator.platform?.includes("Mac") ? "⌘" : "Ctrl"}+Enter to save
+                      </span>
+                    ) : (
+                      <span className="text-xs text-zinc-400">
+                        {navigator.platform?.includes("Mac") ? "⌘" : "Ctrl"}+Enter to save
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-4 flex justify-end gap-2">
                     <button
                       onClick={tryDismiss}

@@ -61,6 +61,15 @@ export default function TipsPanel() {
   const [copied, setCopied] = useState(false);
   const [toastFading, setToastFading] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(false); trackEvent("panel_close", { panel: "tips" }); }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open]);
+
   const copyToClipboard = useCallback(() => {
     const text = tipGroups
       .map((group) => {
