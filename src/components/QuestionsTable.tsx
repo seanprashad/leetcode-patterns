@@ -112,9 +112,9 @@ function saveShuffleOrder(order: number[] | null) {
 const columnHelper = createColumnHelper<Question>();
 
 const difficultyColor: Record<string, string> = {
-  Easy: "text-green-600 dark:text-green-400",
-  Medium: "text-yellow-600 dark:text-yellow-400",
-  Hard: "text-red-600 dark:text-red-400",
+  Easy: "text-green-700 dark:text-green-400",
+  Medium: "text-yellow-700 dark:text-yellow-400",
+  Hard: "text-red-700 dark:text-red-400",
 };
 
 const difficultyPill: Record<string, string> = {
@@ -202,7 +202,7 @@ const makeColumns = (
   columnHelper.accessor("difficulty", {
     header: "Difficulty",
     cell: (info) => (
-      <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${difficultyPill[info.getValue()]}`}>
+      <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${difficultyPill[info.getValue()]} ${completed.has(info.row.original.id) ? "line-through opacity-60" : ""}`}>
         {info.getValue()}
       </span>
     ),
@@ -850,17 +850,17 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           <span>{stats.totalDone}/{stats.total} completed ({pct}%)</span>
           <div className="flex gap-4 sm:opacity-0 sm:transition-opacity sm:duration-500 sm:ease-in-out sm:group-hover:opacity-100">
             {stats.totals.Easy > 0 && (
-              <span className="text-green-600 dark:text-green-400">
+              <span className="text-green-700 dark:text-green-400">
                 Easy: {stats.done.Easy}/{stats.totals.Easy}
               </span>
             )}
             {stats.totals.Medium > 0 && (
-              <span className="text-yellow-600 dark:text-yellow-400">
+              <span className="text-yellow-700 dark:text-yellow-400">
                 Medium: {stats.done.Medium}/{stats.totals.Medium}
               </span>
             )}
             {stats.totals.Hard > 0 && (
-              <span className="text-red-600 dark:text-red-400">
+              <span className="text-red-700 dark:text-red-400">
                 Hard: {stats.done.Hard}/{stats.totals.Hard}
               </span>
             )}
@@ -878,10 +878,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
             style={{
               width: `${pct}%`,
               background: (() => {
-                if (!stats.totalDone) return "#22c55e";
+                if (!stats.totalDone) return "var(--color-green-500)";
                 const easyPct = (stats.done.Easy / stats.totalDone) * 100;
                 const medPct = ((stats.done.Easy + stats.done.Medium) / stats.totalDone) * 100;
-                return `linear-gradient(90deg, #22c55e ${Math.max(easyPct - 3, 0)}%, #eab308 ${Math.min(easyPct + 3, medPct - 3)}%, #eab308 ${Math.max(medPct - 3, easyPct + 3)}%, #ef4444 ${medPct + 3}%)`;
+                return `linear-gradient(90deg, var(--color-green-500) ${Math.max(easyPct - 3, 0)}%, var(--color-yellow-500) ${Math.min(easyPct + 3, medPct - 3)}%, var(--color-yellow-500) ${Math.max(medPct - 3, easyPct + 3)}%, var(--color-red-500) ${medPct + 3}%)`;
               })(),
             }}
           />
