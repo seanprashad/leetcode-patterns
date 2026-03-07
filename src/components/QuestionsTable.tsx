@@ -1611,7 +1611,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       {/* Migration Toast */}
       {migrationToast && (
         <div
-          className={`fixed bottom-6 left-1/2 z-50 -translate-x-1/2 animate-[fadeInUp_0.3s_ease-out] rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-800 shadow-lg transition-opacity duration-700 ease-in-out dark:border-green-800 dark:bg-green-950 dark:text-green-200 ${toastFading ? "opacity-0" : "opacity-100"}`}
+          className={`fixed inset-x-0 bottom-6 z-50 mx-auto w-fit animate-[fadeInUp_0.3s_ease-out] rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-800 shadow-lg transition-opacity duration-700 ease-in-out dark:border-green-800 dark:bg-green-950 dark:text-green-200 ${toastFading ? "opacity-0" : "opacity-100"}`}
         >
           ✓ {migrationToast}
         </div>

@@ -56,7 +56,8 @@ describe("TipsPanel analytics", () => {
     await user.click(screen.getByLabelText("Open tips"));
     mockTrackEvent.mockClear();
     const heading = screen.getByRole("heading", { name: /helpful tips/i });
-    const closeBtn = heading.closest("div")!.querySelector("button")!;
+    const buttons = heading.closest("div")!.querySelectorAll("button");
+    const closeBtn = buttons[buttons.length - 1];
     await user.click(closeBtn);
     expect(mockTrackEvent).toHaveBeenCalledWith("panel_close", { panel: "tips" });
   });
