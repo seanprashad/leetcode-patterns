@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { TableProperties, Map, Trophy } from "lucide-react";
 import QuestionsTable from "@/components/QuestionsTable";
 import RoadmapView from "@/components/RoadmapView";
@@ -31,7 +31,6 @@ export default function ViewSwitcher({
   updatedDate: string;
 }) {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [activeView, setActiveView] = useState<View>("table");
 
   useEffect(() => {
@@ -46,19 +45,19 @@ export default function ViewSwitcher({
     }
   }, [searchParams]);
 
-  const switchView = (view: View) => {
+  const switchView = useCallback((view: View) => {
     setActiveView(view);
     localStorage.setItem(VIEW_KEY, view);
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
     if (view === "table") {
       params.delete("view");
     } else {
       params.set("view", view);
     }
     const qs = params.toString();
-    router.replace(qs ? `?${qs}` : window.location.pathname, { scroll: false });
+    window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
     trackEvent("switch_view", { view });
-  };
+  }, []);
 
   return (
     <>
