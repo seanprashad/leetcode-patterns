@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Heart, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -24,6 +24,16 @@ const sources = [
 
 export default function AcknowledgementsPanel() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(false); trackEvent("panel_close", { panel: "acknowledgements" }); }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open]);
+
   return (
     <>
       {/* Tab button – rendered inline inside the fixed flex wrapper in page.tsx */}
