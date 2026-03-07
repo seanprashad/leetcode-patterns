@@ -280,22 +280,7 @@ export const beginnerRoadmap: Roadmap = {
       ],
     },
     {
-      title: "Phase 7: Stacks",
-      description:
-        "Stacks process things in LIFO order and are perfect for matching pairs, tracking state, and reversing operations.",
-      questions: [
-        {
-          slug: "backspace-string-compare",
-          note: "Push each character onto a stack. When you see '#', pop the top character off. After processing both strings, compare what's left in each stack.",
-        },
-        {
-          slug: "palindrome-linked-list",
-          note: "Push the first half of the list onto a stack, then pop values off and compare them with the second half one by one.",
-        },
-      ],
-    },
-    {
-      title: "Phase 8: Sorting & Intervals",
+      title: "Phase 7: Sorting & Intervals",
       description:
         "Sorting unlocks many techniques. Interval problems almost always start with sorting by start time.",
       mediumDescription:
@@ -378,7 +363,7 @@ export const beginnerRoadmap: Roadmap = {
       ],
     },
     {
-      title: "Phase 11: Matrix Traversal",
+      title: "Phase 10: Matrix Traversal",
       description:
         "Apply array and graph techniques to 2D grids. Row/column math and directional traversal are key skills.",
       mediumDescription:
@@ -403,7 +388,7 @@ export const beginnerRoadmap: Roadmap = {
       ],
     },
     {
-      title: "Phase 12: Prefix Sums",
+      title: "Phase 11: Prefix Sums",
       description:
         "Prefix sums let you compute range sums in O(1) after O(n) preprocessing. A powerful technique for subarray problems.",
       mediumDescription:
@@ -412,10 +397,6 @@ export const beginnerRoadmap: Roadmap = {
         {
           slug: "range-sum-query-immutable",
           note: "Pre-compute a running total array. To get the sum of any range, subtract the running total at the start from the running total at the end.",
-        },
-        {
-          slug: "product-of-array-except-self",
-          note: "Left prefix products and right prefix products. The answer at each index is left[i] * right[i].",
         },
       ],
     },
@@ -449,12 +430,20 @@ export const experiencedRoadmap: Roadmap = {
           note: "Set insertion check. If the element already exists in the Set, return true. O(n) time, O(n) space.",
         },
         {
-          slug: "product-of-array-except-self",
-          note: "Left/right prefix products. O(n) time, O(1) extra space if using the output array.",
+          slug: "valid-anagram",
+          note: "Count character frequencies with a hash map or array of 26. Compare counts. O(n) time.",
         },
         {
-          slug: "top-k-frequent-elements",
-          note: "Bucket sort by frequency: O(n). Or min-heap of size k: O(n log k).",
+          slug: "group-anagrams",
+          note: "Sort each word to get a key, or use character frequency tuple as key. Group by key in a hash map.",
+        },
+        {
+          slug: "encode-and-decode-strings",
+          note: "Prefix each string with its length and a delimiter (e.g., '5#hello'). Decode by reading length first.",
+        },
+        {
+          slug: "product-of-array-except-self",
+          note: "Left/right prefix products. O(n) time, O(1) extra space if using the output array.",
         },
         {
           slug: "longest-consecutive-sequence",
@@ -470,16 +459,16 @@ export const experiencedRoadmap: Roadmap = {
         "Combine sorting with two-pointer scans to handle multi-element sums and greedy boundary decisions.",
       questions: [
         {
+          slug: "valid-palindrome",
+          note: "Two pointers from both ends. Skip non-alphanumeric characters. Compare lowercase values.",
+        },
+        {
           slug: "3sum",
           note: "Sort + fix one element + two-pointer scan on the rest. Skip duplicates carefully.",
         },
         {
           slug: "container-with-most-water",
           note: "Greedy two pointers from both ends. Move the shorter line inward.",
-        },
-        {
-          slug: "trapping-rain-water",
-          note: "Two pointers tracking left_max and right_max. Water at each position = min(left_max, right_max) - height.",
         },
       ],
     },
@@ -505,6 +494,17 @@ export const experiencedRoadmap: Roadmap = {
         {
           slug: "minimum-window-substring",
           note: "Expand until all chars covered, then shrink to find minimum. Track 'formed' count vs required.",
+        },
+      ],
+    },
+    {
+      title: "Stack",
+      description:
+        "LIFO processing for matching pairs and nested structures.",
+      questions: [
+        {
+          slug: "valid-parentheses",
+          note: "Push opening brackets. On closing bracket, check if top matches. Stack must be empty at the end.",
         },
       ],
     },
@@ -619,6 +619,10 @@ export const experiencedRoadmap: Roadmap = {
           note: "TrieNode with children map + isEnd flag. Insert/search/startsWith all follow child pointers.",
         },
         {
+          slug: "design-add-and-search-words-data-structure",
+          note: "Trie with DFS for '.' wildcard. On '.', recurse into all children. Otherwise follow the exact child.",
+        },
+        {
           slug: "word-search-ii",
           note: "Build trie from words, then DFS on the board. Prune trie branches to optimize. Much faster than checking each word separately.",
         },
@@ -630,27 +634,12 @@ export const experiencedRoadmap: Roadmap = {
         "Efficiently track min/max in dynamic datasets.",
       questions: [
         {
+          slug: "top-k-frequent-elements",
+          note: "Bucket sort by frequency: O(n). Or min-heap of size k: O(n log k).",
+        },
+        {
           slug: "find-median-from-data-stream",
           note: "Two heaps: max-heap for lower half, min-heap for upper half. Balance sizes. Median from tops.",
-        },
-        {
-          slug: "merge-k-sorted-lists",
-          note: "Min-heap with one node from each list. Pop smallest, push its next. O(N log k).",
-        },
-      ],
-    },
-    {
-      title: "Backtracking",
-      description:
-        "Explore all possibilities by building solutions incrementally and pruning.",
-      questions: [
-        {
-          slug: "combination-sum",
-          note: "Sort + backtrack. Allow reuse of same element (start from current index, not i+1).",
-        },
-        {
-          slug: "word-search",
-          note: "DFS from each cell. Mark visited, explore 4 directions, unmark on backtrack. O(m·n·4^L).",
         },
       ],
     },
@@ -662,6 +651,10 @@ export const experiencedRoadmap: Roadmap = {
         {
           slug: "number-of-islands",
           note: "DFS/BFS from each '1', mark visited. Count the number of traversals started.",
+        },
+        {
+          slug: "clone-graph",
+          note: "BFS or DFS with a hash map from original node → cloned node. Clone neighbors recursively, reuse if already cloned.",
         },
         {
           slug: "pacific-atlantic-water-flow",
@@ -733,6 +726,10 @@ export const experiencedRoadmap: Roadmap = {
           note: "O(n²): dp[i] = max(dp[j]+1) for all j<i where nums[j]<nums[i]. O(n log n): patience sorting with binary search.",
         },
         {
+          slug: "longest-common-subsequence",
+          note: "2D DP: if chars match, dp[i][j] = dp[i-1][j-1] + 1. Otherwise max(dp[i-1][j], dp[i][j-1]). O(m·n).",
+        },
+        {
           slug: "unique-paths",
           note: "dp[i][j] = dp[i-1][j] + dp[i][j-1]. Can optimize to 1D array.",
         },
@@ -785,21 +782,25 @@ export const experiencedRoadmap: Roadmap = {
       ],
     },
     {
-      title: "Math & Geometry",
+      title: "Matrix",
       description:
         "Matrix transformations and spatial reasoning.",
       questions: [
         {
-          slug: "rotate-image",
-          note: "Transpose the matrix (swap [i][j] with [j][i]), then reverse each row. 90° clockwise rotation.",
+          slug: "set-matrix-zeroes",
+          note: "Use first row/column as markers. Two passes: mark which rows/cols need zeroing, then apply.",
         },
         {
           slug: "spiral-matrix",
           note: "Track four boundaries (top, bottom, left, right). Traverse right→down→left→up, shrinking each loop.",
         },
         {
-          slug: "set-matrix-zeroes",
-          note: "Use first row/column as markers. Two passes: mark which rows/cols need zeroing, then apply.",
+          slug: "rotate-image",
+          note: "Transpose the matrix (swap [i][j] with [j][i]), then reverse each row. 90° clockwise rotation.",
+        },
+        {
+          slug: "word-search",
+          note: "DFS from each cell. Mark visited, explore 4 directions, unmark on backtrack. O(m·n·4^L).",
         },
       ],
     },
@@ -809,12 +810,24 @@ export const experiencedRoadmap: Roadmap = {
         "Use bitwise operations for O(1) space tricks and efficient counting.",
       questions: [
         {
+          slug: "number-of-1-bits",
+          note: "Repeatedly clear the lowest set bit with n & (n-1) and count. Or check each bit with n & 1 and right-shift.",
+        },
+        {
           slug: "counting-bits",
           note: "dp[i] = dp[i >> 1] + (i & 1). Each number's bit count relates to its right-shifted value.",
         },
         {
+          slug: "reverse-bits",
+          note: "Extract each bit from right, place it in the reversed position. Or swap halves progressively (divide and conquer).",
+        },
+        {
           slug: "missing-number",
           note: "XOR all indices and values. Paired numbers cancel out, leaving the missing one. Or use sum formula.",
+        },
+        {
+          slug: "sum-of-two-integers",
+          note: "Use XOR for addition without carry, AND + left shift for carry. Repeat until carry is 0.",
         },
       ],
     },
