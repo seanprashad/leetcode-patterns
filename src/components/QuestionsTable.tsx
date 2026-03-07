@@ -831,7 +831,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                 if (!stats.totalDone) return "#22c55e";
                 const easyPct = (stats.done.Easy / stats.totalDone) * 100;
                 const medPct = ((stats.done.Easy + stats.done.Medium) / stats.totalDone) * 100;
-                return `linear-gradient(90deg, #22c55e ${Math.max(easyPct - 10, 0)}%, #eab308 ${Math.min(easyPct + 10, medPct - 10)}%, #eab308 ${Math.max(medPct - 10, easyPct + 10)}%, #ef4444 ${medPct + 10}%)`;
+                return `linear-gradient(90deg, #22c55e ${Math.max(easyPct - 3, 0)}%, #eab308 ${Math.min(easyPct + 3, medPct - 3)}%, #eab308 ${Math.max(medPct - 3, easyPct + 3)}%, #ef4444 ${medPct + 3}%)`;
               })(),
             }}
           />
