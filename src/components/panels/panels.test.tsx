@@ -10,9 +10,9 @@ vi.mock("@/lib/analytics", () => ({
   trackEvent: mockTrackEvent,
 }));
 
-import AboutPanel from "@/components/AboutPanel";
-import TipsPanel from "@/components/TipsPanel";
-import AcknowledgementsPanel from "@/components/AcknowledgementsPanel";
+import AboutPanel from "@/components/panels/AboutPanel";
+import TipsPanel from "@/components/panels/TipsPanel";
+import AcknowledgementsPanel from "@/components/panels/AcknowledgementsPanel";
 
 describe("AboutPanel analytics", () => {
   beforeEach(() => {

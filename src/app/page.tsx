@@ -1,13 +1,12 @@
 import { Suspense } from "react";
 import { MessageSquarePlus } from "lucide-react";
-import QuestionsTable from "@/components/QuestionsTable";
-import ThemeToggle from "@/components/ThemeToggle";
-import GitHubLink from "@/components/GitHubLink";
-import Logo from "@/components/Logo";
-import TipsPanel from "@/components/TipsPanel";
-import AcknowledgementsPanel from "@/components/AcknowledgementsPanel";
-import AboutPanel from "@/components/AboutPanel";
-import ViewSwitcher from "@/components/ViewSwitcher";
+import ThemeToggle from "@/components/layout/ThemeToggle";
+import GitHubLink from "@/components/layout/GitHubLink";
+import Logo from "@/components/layout/Logo";
+import ViewSwitcher from "@/components/layout/ViewSwitcher";
+import AboutPanel from "@/components/panels/AboutPanel";
+import AcknowledgementsPanel from "@/components/panels/AcknowledgementsPanel";
+import TipsPanel from "@/components/panels/TipsPanel";
 import questionsJson from "@/data/questions.json";
 import { QuestionsData } from "@/types/question";
 

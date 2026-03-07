@@ -10,7 +10,7 @@ vi.mock("@/lib/analytics", () => ({
   trackEvent: mockTrackEvent,
 }));
 
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 describe("ThemeToggle analytics", () => {
   beforeEach(() => {

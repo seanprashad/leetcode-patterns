@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { TableProperties, Map, Trophy } from "lucide-react";
-import QuestionsTable from "@/components/QuestionsTable";
-import RoadmapView from "@/components/RoadmapView";
+import QuestionsTable from "@/components/questions/QuestionsTable";
+import RoadmapView from "@/components/roadmaps/RoadmapView";
 import { Question } from "@/types/question";
 import { beginnerRoadmap, experiencedRoadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";

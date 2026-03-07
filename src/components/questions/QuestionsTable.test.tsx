@@ -16,7 +16,7 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn() }),
 }));
 
-import QuestionsTable from "@/components/QuestionsTable";
+import QuestionsTable from "@/components/questions/QuestionsTable";
 
 const testData: Question[] = [
   {

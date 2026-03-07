@@ -13,6 +13,7 @@ import {
 import { Question } from "@/types/question";
 import { Roadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
+import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes } from "@/lib/storage";
 
 function InlineMarkdown({ text }: { text: string }) {
   const lines = text.split("\n");
@@ -37,49 +38,6 @@ function InlineMarkdown({ text }: { text: string }) {
       ))}
     </>
   );
-}
-
-const STORAGE_KEY = "leetcode-patterns-completed";
-const STARRED_KEY = "leetcode-patterns-starred";
-const NOTES_KEY = "leetcode-patterns-notes";
-
-function loadCompleted(): Set<number> {
-  if (typeof window === "undefined") return new Set();
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return new Set(JSON.parse(raw) as number[]);
-  } catch {}
-  return new Set();
-}
-
-function saveCompleted(ids: Set<number>) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
-}
-
-function loadStarred(): Set<number> {
-  if (typeof window === "undefined") return new Set();
-  try {
-    const raw = localStorage.getItem(STARRED_KEY);
-    if (raw) return new Set(JSON.parse(raw) as number[]);
-  } catch {}
-  return new Set();
-}
-
-function saveStarred(ids: Set<number>) {
-  localStorage.setItem(STARRED_KEY, JSON.stringify([...ids]));
-}
-
-function loadNotes(): Record<number, string> {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = localStorage.getItem(NOTES_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch {}
-  return {};
-}
-
-function saveNotes(notes: Record<number, string>) {
-  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
 }
 
 const difficultyPill: Record<string, string> = {
