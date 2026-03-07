@@ -103,7 +103,7 @@ export default function ViewSwitcher({
             <button
               key={v.id}
               onClick={() => switchView(v.id)}
-              className={`relative flex flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+              className={`relative flex flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-bold transition-all ${
                 isActive
                   ? "bg-white/80 text-zinc-900 shadow-sm dark:bg-zinc-800/80 dark:text-amber-200 dark:shadow-amber-900/20"
                   : "text-amber-950 hover:bg-white/40 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/40 dark:hover:text-amber-200"
