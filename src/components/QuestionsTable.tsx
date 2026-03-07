@@ -14,7 +14,7 @@ import {
   type ColumnFiltersState,
 } from "@tanstack/react-table";
 import { Question } from "@/types/question";
-import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2, Star, StarOff } from "lucide-react";
+import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2, Star, StarOff, Dices, ListOrdered } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "leetcode-patterns-completed";
@@ -60,6 +60,22 @@ function loadStarred(): Set<number> {
 
 function saveStarred(ids: Set<number>) {
   localStorage.setItem(STARRED_KEY, JSON.stringify([...ids]));
+}
+
+const SHUFFLE_KEY = "leetcode-patterns-shuffle-order";
+
+function loadShuffleOrder(): number[] | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(SHUFFLE_KEY);
+    if (raw) return JSON.parse(raw) as number[];
+  } catch {}
+  return null;
+}
+
+function saveShuffleOrder(order: number[] | null) {
+  if (order) localStorage.setItem(SHUFFLE_KEY, JSON.stringify(order));
+  else localStorage.removeItem(SHUFFLE_KEY);
 }
 
 const columnHelper = createColumnHelper<Question>();
@@ -285,12 +301,14 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   );
   const [completed, setCompleted] = useState<Set<number>>(new Set());
   const [starred, setStarred] = useState<Set<number>>(new Set());
+  const [shuffleOrder, setShuffleOrder] = useState<number[] | null>(null);
 
   const [notes, setNotes] = useState<Record<number, string>>({});
 
   useEffect(() => {
     setCompleted(loadCompleted());
     setStarred(loadStarred());
+    setShuffleOrder(loadShuffleOrder());
     setNotes(loadNotes());
   }, []);
 
@@ -476,6 +494,24 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       "_blank"
     );
   }, [table, completed]);
+
+  const toggleShuffle = useCallback(() => {
+    if (shuffleOrder) {
+      setShuffleOrder(null);
+      saveShuffleOrder(null);
+      trackEvent("restore_order");
+    } else {
+      const rows = table.getFilteredRowModel().rows;
+      const ids = rows.map((r) => r.original.id);
+      for (let i = ids.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [ids[i], ids[j]] = [ids[j], ids[i]];
+      }
+      setShuffleOrder(ids);
+      saveShuffleOrder(ids);
+      trackEvent("shuffle_questions");
+    }
+  }, [table, shuffleOrder]);
 
   const [resetConfirmGroup, setResetConfirmGroup] = useState<string | null>(null);
   const [clearConfirm, setClearConfirm] = useState<"notes" | "questions" | "starred" | null>(null);
@@ -698,6 +734,16 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const groupedRows = useMemo(() => {
     const rows = table.getRowModel().rows;
 
+    if (shuffleOrder) {
+      const orderMap = new Map(shuffleOrder.map((id, i) => [id, i]));
+      const sorted = [...rows].sort((a, b) => {
+        const ai = orderMap.get(a.original.id) ?? Infinity;
+        const bi = orderMap.get(b.original.id) ?? Infinity;
+        return ai - bi;
+      });
+      return [{ key: null as string | null, rows: sorted }];
+    }
+
     if (companySortActive && activeCompanyFilter.length === 1) {
       const slug = activeCompanyFilter[0];
       const sorted = [...rows].sort((a, b) => {
@@ -718,7 +764,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return ["Easy", "Medium", "Hard"]
       .filter((k) => groupMap.has(k))
       .map((key) => ({ key: key as string | null, rows: groupMap.get(key)! }));
-  }, [table, sorting, columnFilters, globalFilter, hideCompleted, showStarredOnly, starred, completed, companySortActive, companySortDesc, activeCompanyFilter]);
+  }, [table, sorting, columnFilters, globalFilter, hideCompleted, showStarredOnly, starred, completed, shuffleOrder, companySortActive, companySortDesc, activeCompanyFilter]);
 
   return (
     <div className="space-y-4">
@@ -1077,87 +1123,115 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           />
           Hide patterns
         </label>
-        <div className="group/random relative">
-          <button
-            onClick={pickRandom}
-            className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
-          >
-            <Shuffle className="h-3.5 w-3.5" />
-          </button>
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/random:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            Random question <kbd className="ml-1 rounded bg-zinc-600 px-1 font-mono dark:bg-zinc-400">r</kbd>
-          </span>
-        </div>
-        <div className="group/export relative">
-          <button
-            onClick={exportProgress}
-            className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
-          >
-            <Download className="h-3.5 w-3.5" />
-          </button>
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/export:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            Export progress
-          </span>
-        </div>
-        <div className="group/import relative">
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
-          >
-            <Upload className="h-3.5 w-3.5" />
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) importProgress(file);
-              e.target.value = "";
-            }}
-          />
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/import:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            Import progress
-          </span>
-        </div>
-        {starred.size > 0 && (
-          <div className="group/clearstars relative">
+        {/* Random & Shuffle */}
+        <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
+          <div className="group/random relative">
             <button
-              onClick={() => setClearConfirm("starred")}
-              className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+              onClick={pickRandom}
+              className="rounded p-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
-              <StarOff className="h-3.5 w-3.5" />
+              <Shuffle className="h-3.5 w-3.5" />
             </button>
-            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearstars:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-              Clear all stars
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/random:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              Random question <kbd className="ml-1 rounded bg-zinc-600 px-1 font-mono dark:bg-zinc-400">r</kbd>
             </span>
           </div>
-        )}
-        {Object.keys(notes).length > 0 && (
-          <div className="group/clearnotes relative">
+          <div className="group/shuffle relative">
             <button
-              onClick={() => setClearConfirm("notes")}
-              className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+              onClick={toggleShuffle}
+              className={`rounded p-1.5 transition-colors ${
+                shuffleOrder
+                  ? "bg-violet-50 text-violet-600 hover:bg-violet-100 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
+                  : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              }`}
             >
-              <Trash2 className="h-3.5 w-3.5" />
+              {shuffleOrder ? <ListOrdered className="h-3.5 w-3.5" /> : <Dices className="h-3.5 w-3.5" />}
             </button>
-            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearnotes:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-              Clear all notes
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/shuffle:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              {shuffleOrder ? "Restore order" : "Shuffle questions"}
             </span>
           </div>
-        )}
-        {completed.size > 0 && (
-          <div className="group/clearqs relative">
+        </div>
+
+        {/* Import & Export */}
+        <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
+          <div className="group/export relative">
             <button
-              onClick={() => setClearConfirm("questions")}
-              className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+              onClick={exportProgress}
+              className="rounded p-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
-              <RotateCcw className="h-3.5 w-3.5" />
+              <Download className="h-3.5 w-3.5" />
             </button>
-            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearqs:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-              Clear all progress
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/export:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              Export progress
             </span>
+          </div>
+          <div className="group/import relative">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="rounded p-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            >
+              <Upload className="h-3.5 w-3.5" />
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) importProgress(file);
+                e.target.value = "";
+              }}
+            />
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/import:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              Import progress
+            </span>
+          </div>
+        </div>
+
+        {/* Clear */}
+        {(starred.size > 0 || Object.keys(notes).length > 0 || completed.size > 0) && (
+          <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
+            {starred.size > 0 && (
+              <div className="group/clearstars relative">
+                <button
+                  onClick={() => setClearConfirm("starred")}
+                  className="rounded p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+                >
+                  <StarOff className="h-3.5 w-3.5" />
+                </button>
+                <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearstars:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+                  Clear all stars
+                </span>
+              </div>
+            )}
+            {Object.keys(notes).length > 0 && (
+              <div className="group/clearnotes relative">
+                <button
+                  onClick={() => setClearConfirm("notes")}
+                  className="rounded p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+                <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearnotes:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+                  Clear all notes
+                </span>
+              </div>
+            )}
+            {completed.size > 0 && (
+              <div className="group/clearqs relative">
+                <button
+                  onClick={() => setClearConfirm("questions")}
+                  className="rounded p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                </button>
+                <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearqs:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+                  Clear all progress
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>

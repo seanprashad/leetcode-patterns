@@ -336,6 +336,96 @@ describe("QuestionsTable analytics", () => {
     expect(screen.getByLabelText("Hide patterns")).toBeChecked();
   });
 
+  it("tracks shuffle_questions when clicking shuffle", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
+    await user.click(shuffleBtn);
+    expect(mockTrackEvent).toHaveBeenCalledWith("shuffle_questions");
+  });
+
+  it("persists shuffle order to localStorage", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
+    await user.click(shuffleBtn);
+    const stored = localStorage.getItem("leetcode-patterns-shuffle-order");
+    expect(stored).not.toBeNull();
+    const order = JSON.parse(stored!);
+    expect(order).toHaveLength(3);
+    expect(order.sort()).toEqual([0, 1, 2]);
+  });
+
+  it("removes difficulty group headers when shuffled", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const getGroupHeaders = () =>
+      screen.getAllByRole("row").filter((row) =>
+        row.querySelector(".text-base.font-bold")
+      );
+    expect(getGroupHeaders()).toHaveLength(3);
+
+    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
+    await user.click(shuffleBtn);
+    expect(getGroupHeaders()).toHaveLength(0);
+  });
+
+  it("toggles between shuffle and restore on the same button", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const getGroupHeaders = () =>
+      screen.getAllByRole("row").filter((row) =>
+        row.querySelector(".text-base.font-bold")
+      );
+
+    // Initially shows "Shuffle questions"
+    expect(screen.getByText("Shuffle questions")).toBeInTheDocument();
+
+    // Click to shuffle
+    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
+    await user.click(shuffleBtn);
+    expect(mockTrackEvent).toHaveBeenCalledWith("shuffle_questions");
+    expect(getGroupHeaders()).toHaveLength(0);
+
+    // Button now shows "Restore order"
+    expect(screen.getByText("Restore order")).toBeInTheDocument();
+    expect(screen.queryByText("Shuffle questions")).not.toBeInTheDocument();
+
+    // Click to restore
+    const restoreBtn = screen.getByText("Restore order").closest("div")!.querySelector("button")!;
+    await user.click(restoreBtn);
+    expect(mockTrackEvent).toHaveBeenCalledWith("restore_order");
+    expect(getGroupHeaders().length).toBeGreaterThan(0);
+
+    // Button shows "Shuffle questions" again
+    expect(screen.getByText("Shuffle questions")).toBeInTheDocument();
+  });
+
+  it("clears shuffle order from localStorage on restore", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
+    await user.click(shuffleBtn);
+    expect(localStorage.getItem("leetcode-patterns-shuffle-order")).not.toBeNull();
+
+    const restoreBtn = screen.getByText("Restore order").closest("div")!.querySelector("button")!;
+    await user.click(restoreBtn);
+    expect(localStorage.getItem("leetcode-patterns-shuffle-order")).toBeNull();
+  });
+
+  it("restores shuffle order from localStorage on mount", () => {
+    localStorage.setItem("leetcode-patterns-shuffle-order", JSON.stringify([2, 0, 1]));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const groupHeaders = screen.getAllByRole("row").filter((row) =>
+      row.querySelector(".text-base.font-bold")
+    );
+    expect(groupHeaders).toHaveLength(0);
+    // Button shows "Restore order" since shuffle is active
+    expect(screen.getByText("Restore order")).toBeInTheDocument();
+    const rows = screen.getAllByRole("row").filter((row) => row.querySelector("td"));
+    expect(rows).toHaveLength(3);
+  });
+
   it("tracks import_progress when importing a file", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
