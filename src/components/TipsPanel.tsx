@@ -63,7 +63,7 @@ export default function TipsPanel() {
         onClick={() => { setOpen(true); trackEvent("panel_open", { panel: "tips" }); }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`fixed left-0 top-[calc(50%+5rem)] max-sm:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-blue-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-blue-700`}
+        className={`fixed left-0 top-[calc(50%+5rem)] max-[1439px]:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-blue-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-blue-700`}
         aria-label="Open tips"
       >
         <span className="flex items-center gap-2 text-sm font-semibold [writing-mode:vertical-lr]">
