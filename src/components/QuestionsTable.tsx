@@ -388,22 +388,21 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setEditingNote({ id, title, draft: notes[id] ?? "", confirmDiscard: false });
   }, [notes]);
 
-  const [hideCompleted, setHideCompleted] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("leetcode-patterns-hide-completed") === "true";
-  });
-  const [showStarredOnly, setShowStarredOnly] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("leetcode-patterns-starred-only") === "true";
-  });
-  const [hidePatterns, setHidePatterns] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("leetcode-patterns-hide-patterns") === "true";
-  });
+  const [hideCompleted, setHideCompleted] = useState(false);
+  const [showStarredOnly, setShowStarredOnly] = useState(false);
+  const [hidePatterns, setHidePatterns] = useState(false);
+  const [checkboxesHydrated, setCheckboxesHydrated] = useState(false);
 
-  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted]);
-  useEffect(() => { localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly]);
-  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns]);
+  useEffect(() => {
+    setHideCompleted(localStorage.getItem("leetcode-patterns-hide-completed") === "true");
+    setShowStarredOnly(localStorage.getItem("leetcode-patterns-starred-only") === "true");
+    setHidePatterns(localStorage.getItem("leetcode-patterns-hide-patterns") === "true");
+    setCheckboxesHydrated(true);
+  }, []);
+
+  useEffect(() => { if (checkboxesHydrated) localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted, checkboxesHydrated]);
+  useEffect(() => { if (checkboxesHydrated) localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly, checkboxesHydrated]);
+  useEffect(() => { if (checkboxesHydrated) localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns, checkboxesHydrated]);
 
   const activeCompanyFilter = useMemo(
     () => (columnFilters.find((f) => f.id === "companies")?.value as string[]) ?? [],
