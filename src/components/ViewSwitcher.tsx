@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { TableProperties, Map, Trophy } from "lucide-react";
 import QuestionsTable from "@/components/QuestionsTable";
 import RoadmapView from "@/components/RoadmapView";
@@ -8,15 +9,19 @@ import { Question } from "@/types/question";
 import { beginnerRoadmap, experiencedRoadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
 
-type View = "table" | "beginner" | "experienced";
+type View = "table" | "beginner" | "blind75";
 
 const VIEW_KEY = "leetcode-patterns-view";
 
 const views: { id: View; label: string; icon: typeof TableProperties; description: string }[] = [
   { id: "table", label: "All Questions", icon: TableProperties, description: "Browse all questions with filters" },
   { id: "beginner", label: "Beginner Roadmap", icon: Map, description: "Structured path for newcomers" },
-  { id: "experienced", label: "Blind 75", icon: Trophy, description: "Must-know problems for experienced engineers" },
+  { id: "blind75", label: "Blind 75", icon: Trophy, description: "Must-know problems for experienced engineers" },
 ];
+
+function isValidView(v: string | null): v is View {
+  return v !== null && views.some((view) => view.id === v);
+}
 
 export default function ViewSwitcher({
   questions,
@@ -25,18 +30,33 @@ export default function ViewSwitcher({
   questions: Question[];
   updatedDate: string;
 }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [activeView, setActiveView] = useState<View>("table");
 
   useEffect(() => {
+    const paramView = searchParams.get("view");
+    if (isValidView(paramView)) {
+      setActiveView(paramView);
+      return;
+    }
     const stored = localStorage.getItem(VIEW_KEY) as View | null;
-    if (stored && views.some((v) => v.id === stored)) {
+    if (stored && isValidView(stored)) {
       setActiveView(stored);
     }
-  }, []);
+  }, [searchParams]);
 
   const switchView = (view: View) => {
     setActiveView(view);
     localStorage.setItem(VIEW_KEY, view);
+    const params = new URLSearchParams(searchParams.toString());
+    if (view === "table") {
+      params.delete("view");
+    } else {
+      params.set("view", view);
+    }
+    const qs = params.toString();
+    router.replace(qs ? `?${qs}` : window.location.pathname, { scroll: false });
     trackEvent("switch_view", { view });
   };
 
@@ -71,7 +91,7 @@ export default function ViewSwitcher({
       {activeView === "beginner" && (
         <RoadmapView roadmap={beginnerRoadmap} questions={questions} />
       )}
-      {activeView === "experienced" && (
+      {activeView === "blind75" && (
         <RoadmapView roadmap={experiencedRoadmap} questions={questions} />
       )}
     </>
