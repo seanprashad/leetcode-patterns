@@ -7,6 +7,7 @@ import Logo from "@/components/Logo";
 import TipsPanel from "@/components/TipsPanel";
 import AcknowledgementsPanel from "@/components/AcknowledgementsPanel";
 import AboutPanel from "@/components/AboutPanel";
+import ViewSwitcher from "@/components/ViewSwitcher";
 import questionsJson from "@/data/questions.json";
 import { QuestionsData } from "@/types/question";
 
@@ -61,7 +62,10 @@ export default function Home() {
         <AcknowledgementsPanel />
       </div>
       <Suspense>
-        <QuestionsTable data={questions} updatedDate={questionsJson.updated} />
+        <ViewSwitcher
+          questions={questions}
+          updatedDate={questionsJson.updated}
+        />
       </Suspense>
     </div>
   );
