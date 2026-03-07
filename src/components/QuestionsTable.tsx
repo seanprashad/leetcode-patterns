@@ -14,7 +14,7 @@ import {
   type ColumnFiltersState,
 } from "@tanstack/react-table";
 import { Question } from "@/types/question";
-import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2, Star, StarOff, Dices, ListOrdered } from "lucide-react";
+import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2, Star, StarOff, Dices, ListOrdered, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "leetcode-patterns-completed";
@@ -99,7 +99,7 @@ const makeColumns = (
 ) => [
   columnHelper.display({
     id: "completed",
-    header: "✓",
+    header: () => <Check className="h-4 w-4" />,
     size: 40,
     cell: (info) => (
       <input
