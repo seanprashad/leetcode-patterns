@@ -17,7 +17,6 @@ const { mockSearchParams } = vi.hoisted(() => ({
 
 vi.mock("next/navigation", () => ({
   useSearchParams: () => mockSearchParams.current,
-  useRouter: () => ({ replace: vi.fn() }),
 }));
 
 import ViewSwitcher from "@/components/ViewSwitcher";
