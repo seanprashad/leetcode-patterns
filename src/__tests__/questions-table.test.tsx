@@ -518,4 +518,80 @@ describe("QuestionsTable analytics", () => {
       });
     });
   });
+
+  describe("legacy V1 migration", () => {
+    it("migrates old checked array to new completed format via slug matching", () => {
+      // Old V1 format: boolean array indexed by old 0-based id
+      // two-sum was at legacy index 147, add-two-numbers at 57
+      const checked = new Array(175).fill(false);
+      checked[147] = true; // two-sum
+      checked[57] = true;  // add-two-numbers
+      localStorage.setItem("checked", JSON.stringify(checked));
+      render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+      // Both questions should be checked
+      const checkboxes = screen.getAllByRole("checkbox", { name: "" });
+      expect(checkboxes[0]).toBeChecked(); // Two Sum (id: 0)
+      expect(checkboxes[1]).toBeChecked(); // Add Two Numbers (id: 1)
+      expect(checkboxes[2]).not.toBeChecked(); // Median of Two Sorted Arrays
+
+      // Old keys should be cleaned up
+      expect(localStorage.getItem("checked")).toBeNull();
+
+      // New format should be saved
+      const stored = JSON.parse(localStorage.getItem("leetcode-patterns-completed")!);
+      expect(stored.sort()).toEqual([0, 1]);
+    });
+
+    it("shows a toast after migration", () => {
+      const checked = new Array(175).fill(false);
+      checked[147] = true;
+      localStorage.setItem("checked", JSON.stringify(checked));
+      render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+      expect(screen.getByText(/Migrated 1 completed question from V1/)).toBeInTheDocument();
+    });
+
+    it("only runs migration once", () => {
+      const checked = new Array(175).fill(false);
+      checked[147] = true;
+      localStorage.setItem("checked", JSON.stringify(checked));
+      const { unmount } = render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+      unmount();
+
+      // Re-add old key to simulate a second visit
+      localStorage.setItem("checked", JSON.stringify(checked));
+      render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+      // Migration flag prevents re-running — old key should still be there
+      expect(localStorage.getItem("checked")).not.toBeNull();
+    });
+
+    it("merges legacy progress with existing new progress", () => {
+      localStorage.setItem("leetcode-patterns-completed", JSON.stringify([2]));
+      const checked = new Array(175).fill(false);
+      checked[147] = true; // two-sum -> id 0
+      localStorage.setItem("checked", JSON.stringify(checked));
+      render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+      const stored = JSON.parse(localStorage.getItem("leetcode-patterns-completed")!);
+      expect(stored.sort()).toEqual([0, 2]);
+    });
+
+    it("does nothing when no legacy data exists", () => {
+      render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+      expect(screen.queryByText(/Migrated/)).not.toBeInTheDocument();
+      expect(screen.getByText("0/3 completed (0%)")).toBeInTheDocument();
+    });
+
+    it("cleans up old showPatterns and hidePatterns keys", () => {
+      const checked = new Array(175).fill(false);
+      checked[147] = true;
+      localStorage.setItem("checked", JSON.stringify(checked));
+      localStorage.setItem("showPatterns", JSON.stringify([true]));
+      localStorage.setItem("hidePatterns", JSON.stringify([false]));
+      render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+      expect(localStorage.getItem("showPatterns")).toBeNull();
+      expect(localStorage.getItem("hidePatterns")).toBeNull();
+    });
+  });
 });
