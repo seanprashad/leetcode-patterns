@@ -13,7 +13,7 @@ import {
 import { Question } from "@/types/question";
 import { Roadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
-import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes } from "@/lib/storage";
+import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates } from "@/lib/storage";
 
 function InlineMarkdown({ text }: { text: string }) {
   const lines = text.split("\n");
@@ -62,6 +62,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
   const [completed, setCompleted] = useState<Set<number>>(new Set());
   const [starred, setStarred] = useState<Set<number>>(new Set());
   const [notes, setNotes] = useState<Record<number, string>>({});
+  const [solvedDates, setSolvedDates] = useState<Record<number, string>>({});
   const [collapsedPhases, setCollapsedPhases] = useState<Set<string | number>>(
     new Set()
   );
@@ -77,6 +78,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
     setCompleted(loadCompleted());
     setStarred(loadStarred());
     setNotes(loadNotes());
+    setSolvedDates(loadSolvedDates());
   }, []);
 
   const toggleCompleted = useCallback((id: number) => {
@@ -90,6 +92,12 @@ export default function RoadmapView({ roadmap, questions }: Props) {
         question_id: id,
         completed: completing,
       });
+      return next;
+    });
+    setSolvedDates((prev) => {
+      const next = { ...prev };
+      next[id] = new Date().toISOString();
+      saveSolvedDates(next);
       return next;
     });
   }, []);
