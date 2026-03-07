@@ -243,6 +243,83 @@ describe("QuestionsTable analytics", () => {
     expect(screen.queryByText(/Hard:/)).not.toBeInTheDocument();
   });
 
+  it("progress bar is not affected by hide completed toggle", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // Before hiding: 1 of 3 completed
+    expect(screen.getByText("1/3 completed (33%)")).toBeInTheDocument();
+
+    // Toggle hide completed
+    await user.click(screen.getByLabelText("Hide completed"));
+
+    // Row is hidden but progress bar still shows 1/3
+    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+    expect(screen.getByText("1/3 completed (33%)")).toBeInTheDocument();
+  });
+
+  it("progress bar reflects all difficulties when hide completed is on", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0, 1]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // 2 of 3 completed
+    expect(screen.getByText("2/3 completed (67%)")).toBeInTheDocument();
+
+    await user.click(screen.getByLabelText("Hide completed"));
+
+    // Progress bar still shows 2/3 with all difficulty breakdowns
+    expect(screen.getByText("2/3 completed (67%)")).toBeInTheDocument();
+    expect(screen.getByText(/Easy: 1\/1/)).toBeInTheDocument();
+    expect(screen.getByText(/Medium: 1\/1/)).toBeInTheDocument();
+    expect(screen.getByText(/Hard: 0\/1/)).toBeInTheDocument();
+  });
+
+  it("progress bar respects difficulty filter even when hide completed is on", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // Filter to Easy + hide completed
+    await user.click(screen.getByText("All Difficulties"));
+    await user.click(screen.getByLabelText("Easy"));
+    await user.click(screen.getByLabelText("Hide completed"));
+
+    // Two Sum (Easy, completed) is hidden from table but still counted in progress
+    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+    expect(screen.getByText("1/1 completed (100%)")).toBeInTheDocument();
+  });
+
+  it("progress bar respects pattern filter even when hide completed is on", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // Filter to Arrays pattern + hide completed
+    await user.click(screen.getByText("All Patterns"));
+    await user.click(screen.getByLabelText("Arrays"));
+    await user.click(screen.getByLabelText("Hide completed"));
+
+    // Two Sum is the only Arrays question, completed and hidden, but still in progress
+    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+    expect(screen.getByText("1/1 completed (100%)")).toBeInTheDocument();
+  });
+
+  it("progress bar excludes completed items that don't match active filters", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0, 1]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // Filter to Hard only + hide completed
+    await user.click(screen.getByText("All Difficulties"));
+    await user.click(screen.getByLabelText("Hard"));
+    await user.click(screen.getByLabelText("Hide completed"));
+
+    // Only the Hard question (id=2, not completed) should count — Easy/Medium are filtered out
+    expect(screen.getByText("0/1 completed (0%)")).toBeInTheDocument();
+  });
+
   it("tracks star_toggle when starring a question", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);

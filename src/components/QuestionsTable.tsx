@@ -470,16 +470,41 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const stats = useMemo(() => {
     const totals = { Easy: 0, Medium: 0, Hard: 0 };
     const done = { Easy: 0, Medium: 0, Hard: 0 };
+    // Use unfilteredData (ignores hideCompleted) so the progress bar always
+    // reflects overall progress regardless of the "Hide Completed" toggle.
+    const unfilteredData = showStarredOnly ? data.filter((q) => starred.has(q.id)) : data;
     const filteredRows = table.getFilteredRowModel().rows;
-    filteredRows.forEach((row) => {
-      const q = row.original;
+    // Build a set of IDs that pass column/global filters (pattern, difficulty, search, company, etc.)
+    const visibleIds = new Set(filteredRows.map((r) => r.original.id));
+    // Also include completed items that would be visible if not hidden
+    const baseRows = unfilteredData.filter(
+      (q) => visibleIds.has(q.id) || (hideCompleted && completed.has(q.id) && (() => {
+        // Re-check column/global filters for completed items hidden from the table
+        const patternFilter = columnFilters.find((f) => f.id === "pattern");
+        const diffFilter = columnFilters.find((f) => f.id === "difficulty");
+        const companyFilter = columnFilters.find((f) => f.id === "companies");
+        const patternOk = !patternFilter || q.pattern.some((p) =>
+          (patternFilter.value as string[]).some((f) => p.toLowerCase() === f.toLowerCase())
+        );
+        const diffOk = !diffFilter || (diffFilter.value as string[]).includes(q.difficulty);
+        const companyOk = !companyFilter || q.companies.some((c) =>
+          (companyFilter.value as string[]).includes(c.slug)
+        );
+        const searchOk = !globalFilter || q.title.toLowerCase().includes(globalFilter.toLowerCase()) ||
+          q.difficulty.toLowerCase().includes(globalFilter.toLowerCase()) ||
+          q.pattern.some((p) => p.toLowerCase().includes(globalFilter.toLowerCase())) ||
+          q.companies.some((c) => c.name.toLowerCase().includes(globalFilter.toLowerCase()));
+        return patternOk && diffOk && companyOk && searchOk;
+      })())
+    );
+    baseRows.forEach((q) => {
       totals[q.difficulty]++;
       if (completed.has(q.id)) done[q.difficulty]++;
     });
-    const total = filteredRows.length;
+    const total = baseRows.length;
     const totalDone = done.Easy + done.Medium + done.Hard;
     return { totals, done, total, totalDone };
-  }, [table, completed, columnFilters, globalFilter, hideCompleted, showStarredOnly]);
+  }, [table, data, completed, starred, columnFilters, globalFilter, hideCompleted, showStarredOnly]);
 
   const pickRandom = useCallback(() => {
     const unsolved = table
