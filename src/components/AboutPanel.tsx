@@ -26,14 +26,14 @@ export default function AboutPanel() {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-700">
+        <div className="flex items-center justify-between bg-emerald-600 px-4 py-3 text-white">
           <h2 className="flex items-center gap-2 text-base font-semibold">
             <Info className="h-4 w-4" />
             About
           </h2>
           <button
             onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "about" }); }}
-            className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            className="rounded p-1 transition-colors hover:bg-emerald-700"
           >
             <X className="h-4 w-4" />
           </button>
@@ -60,7 +60,7 @@ export default function AboutPanel() {
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">150k users every year</span> from{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">128 countries</span>.</p>
             <p>
-              Along the way, I&apos;ve <span className="font-semibold text-zinc-900 dark:text-zinc-100">turned down every ad offer</span> and
+              Along the way, I&apos;ve <span className="font-semibold text-zinc-900 dark:text-zinc-100">turned down multiple advertisement offers</span> and
               watched copycat sites pop up without credit. While frustrating, this will always be{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">the free original</span>, thanks to the{" "}
               <a

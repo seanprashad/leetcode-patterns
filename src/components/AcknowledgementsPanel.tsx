@@ -44,14 +44,14 @@ export default function AcknowledgementsPanel() {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-700">
+        <div className="flex items-center justify-between bg-amber-600 px-4 py-3 text-white">
           <h2 className="flex items-center gap-2 text-base font-semibold">
             <Heart className="h-4 w-4" />
             Acknowledgements
           </h2>
           <button
             onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "acknowledgements" }); }}
-            className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            className="rounded p-1 transition-colors hover:bg-amber-700"
           >
             <X className="h-4 w-4" />
           </button>

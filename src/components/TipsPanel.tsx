@@ -103,7 +103,7 @@ export default function TipsPanel() {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-700">
+        <div className="flex items-center justify-between bg-blue-600 px-4 py-3 text-white">
           <h2 className="flex items-center gap-2 text-base font-semibold">
             <Lightbulb className="h-4 w-4" />
             Helpful Tips
@@ -111,14 +111,14 @@ export default function TipsPanel() {
           <div className="flex items-center gap-1">
             <button
               onClick={copyToClipboard}
-              className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="rounded p-1 transition-colors hover:bg-blue-700"
               title="Copy to clipboard"
             >
-              {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </button>
             <button
               onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "tips" }); }}
-              className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="rounded p-1 transition-colors hover:bg-blue-700"
             >
               <X className="h-4 w-4" />
             </button>
