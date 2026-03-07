@@ -129,7 +129,7 @@ const makeColumns = (
         {info.getValue().map((p) => (
           <span
             key={p}
-            className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800"
+            className="whitespace-nowrap rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800"
           >
             {hidePatterns ? "•".repeat(p.length) : p}
           </span>
