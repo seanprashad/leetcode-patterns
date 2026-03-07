@@ -69,7 +69,7 @@ describe("ViewSwitcher", () => {
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     expect(screen.getByText("All Questions")).toBeInTheDocument();
     expect(screen.getByText("Beginner Roadmap")).toBeInTheDocument();
-    expect(screen.getByText("Blind 75")).toBeInTheDocument();
+    expect(screen.getByText("Experienced Roadmap")).toBeInTheDocument();
   });
 
   it("defaults to All Questions view", () => {
@@ -89,9 +89,9 @@ describe("ViewSwitcher", () => {
   it("switches to experienced roadmap view", async () => {
     const user = userEvent.setup();
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
-    await user.click(screen.getByText("Blind 75"));
+    await user.click(screen.getByText("Experienced Roadmap"));
     expect(await screen.findByText(/Originally shared on Blind by/)).toBeInTheDocument();
-    expect(mockTrackEvent).toHaveBeenCalledWith("switch_view", { view: "blind75" });
+    expect(mockTrackEvent).toHaveBeenCalledWith("switch_view", { view: "experienced" });
   });
 
   it("persists view selection to localStorage", async () => {
@@ -101,15 +101,15 @@ describe("ViewSwitcher", () => {
     expect(localStorage.getItem("leetcode-patterns-view")).toBe("beginner");
   });
 
-  it("persists blind75 view to localStorage", async () => {
+  it("persists experienced view to localStorage", async () => {
     const user = userEvent.setup();
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
-    await user.click(screen.getByText("Blind 75"));
-    expect(localStorage.getItem("leetcode-patterns-view")).toBe("blind75");
+    await user.click(screen.getByText("Experienced Roadmap"));
+    expect(localStorage.getItem("leetcode-patterns-view")).toBe("experienced");
   });
 
   it("restores view selection from localStorage", () => {
-    localStorage.setItem("leetcode-patterns-view", "blind75");
+    localStorage.setItem("leetcode-patterns-view", "experienced");
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     expect(screen.getByText(/Originally shared on Blind by/)).toBeInTheDocument();
   });
@@ -120,14 +120,14 @@ describe("ViewSwitcher", () => {
     expect(screen.getByText(/structured path for those new/)).toBeInTheDocument();
   });
 
-  it("deep links to Blind 75 via ?view=blind75", () => {
-    mockSearchParams.current = new URLSearchParams("view=blind75");
+  it("deep links to Experienced Roadmap via ?view=experienced", () => {
+    mockSearchParams.current = new URLSearchParams("view=experienced");
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     expect(screen.getByText(/Originally shared on Blind by/)).toBeInTheDocument();
   });
 
   it("URL param takes priority over localStorage", () => {
-    localStorage.setItem("leetcode-patterns-view", "blind75");
+    localStorage.setItem("leetcode-patterns-view", "experienced");
     mockSearchParams.current = new URLSearchParams("view=beginner");
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     expect(screen.getByText(/structured path for those new/)).toBeInTheDocument();

@@ -401,14 +401,15 @@ export const beginnerRoadmap: Roadmap = {
 
 export const experiencedRoadmap: Roadmap = {
   id: "experienced",
-  name: "Blind 75",
+  name: "Experienced",
   description:
     "Originally shared on Blind by [Yangshun Tay](https://www.techinterviewhandbook.org/), these problems represent the highest-value questions for coding interview preparation.\n\n**Guidance:**\n" +
-    "1. You're probably rusty with interviews but vaguely remember solutions to a few problems - ensure you're **not wasting time on re-learning syntax** and *stick with one language*.\n" +
-    "2. If stuck on a problem for **more than 15 minutes**, consult the **Helpful Tips** tab and then study the solution with an AI agent.\n" +
+    "1. If you're here, you are familiar with technical interviews and the patterns you need to know. **Pick a language** and begin working through Easy problems to build confidence.\n" +
+    "2. If you get stuck on a problem for **more than 15 minutes**, consult the **Helpful Tips** tab and then study the solution using an AI agent.\n" +
     "3. Once you have completed all questions, I would recommend **re-doing ones that gave you trouble** before moving onto Leetcode Premium company-specific lists.\n" +
-    "4. Ensure to leverage **mock interviews** to get accustomed to brain fog/interview anxiety - *you want to fail practicing and not during an interview*.\n" +
-    "5. Remember to **pace yourself and not get burned out** - take interviews with companies that are *not your first choice* for practice and space them out.",
+    "4. Ensure to leverage **mock interviews** to reacclimate to brain fog/interview anxiety - *you want to fail practicing and not during an interview*.\n" +
+    "5. Take interviews with companies that are **not your first choice** as practice before interviewing with your goal companies.\n" +
+    "6. **Pace yourself** with preparing and conducting actual interviews - *burn out is a real thing, especially with multiple companies doing 5-6 rounds*.",
   phases: [
     {
       title: "Arrays & Hashing",
