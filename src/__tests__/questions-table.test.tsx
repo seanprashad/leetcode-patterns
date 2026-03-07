@@ -243,6 +243,99 @@ describe("QuestionsTable analytics", () => {
     expect(screen.queryByText(/Hard:/)).not.toBeInTheDocument();
   });
 
+  it("tracks star_toggle when starring a question", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const starCells = screen.getAllByRole("row").slice(2).map((row) => row.querySelectorAll("td")[1]);
+    await user.click(starCells[0]);
+    expect(mockTrackEvent).toHaveBeenCalledWith("star_toggle", {
+      question_id: 0,
+      starred: true,
+    });
+  });
+
+  it("tracks star_toggle with starred=false when unstarring", async () => {
+    localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const starCells = screen.getAllByRole("row").slice(2).map((row) => row.querySelectorAll("td")[1]);
+    await user.click(starCells[0]);
+    expect(mockTrackEvent).toHaveBeenCalledWith("star_toggle", {
+      question_id: 0,
+      starred: false,
+    });
+  });
+
+  it("filters to starred only when toggling starred only checkbox", async () => {
+    localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // All 3 questions visible
+    expect(screen.getByText("Two Sum")).toBeInTheDocument();
+    expect(screen.getByText("Add Two Numbers")).toBeInTheDocument();
+
+    await user.click(screen.getByLabelText("Starred only"));
+    expect(screen.getByText("Two Sum")).toBeInTheDocument();
+    expect(screen.queryByText("Add Two Numbers")).not.toBeInTheDocument();
+    expect(screen.queryByText("Median of Two Sorted Arrays")).not.toBeInTheDocument();
+  });
+
+  it("tracks clear_all_starred when clearing all stars", async () => {
+    localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0, 1]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const clearStarsContainer = screen.getByText("Clear all stars").closest("div")!;
+    const clearStarsBtn = clearStarsContainer.querySelector("button")!;
+    await user.click(clearStarsBtn);
+    await user.click(screen.getByRole("button", { name: "Clear" }));
+    expect(mockTrackEvent).toHaveBeenCalledWith("clear_all_starred");
+  });
+
+  it("persists starred only checkbox to localStorage", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByLabelText("Starred only"));
+    expect(localStorage.getItem("leetcode-patterns-starred-only")).toBe("true");
+  });
+
+  it("restores starred only checkbox from localStorage", () => {
+    localStorage.setItem("leetcode-patterns-starred-only", "true");
+    localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0]));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByLabelText("Starred only")).toBeChecked();
+    expect(screen.getByText("Two Sum")).toBeInTheDocument();
+    expect(screen.queryByText("Add Two Numbers")).not.toBeInTheDocument();
+  });
+
+  it("persists hide completed checkbox to localStorage", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByLabelText("Hide completed"));
+    expect(localStorage.getItem("leetcode-patterns-hide-completed")).toBe("true");
+  });
+
+  it("restores hide completed checkbox from localStorage", () => {
+    localStorage.setItem("leetcode-patterns-hide-completed", "true");
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByLabelText("Hide completed")).toBeChecked();
+    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+  });
+
+  it("persists hide patterns checkbox to localStorage", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByLabelText("Hide patterns"));
+    expect(localStorage.getItem("leetcode-patterns-hide-patterns")).toBe("true");
+  });
+
+  it("restores hide patterns checkbox from localStorage", () => {
+    localStorage.setItem("leetcode-patterns-hide-patterns", "true");
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByLabelText("Hide patterns")).toBeChecked();
+  });
+
   it("tracks import_progress when importing a file", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);

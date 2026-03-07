@@ -14,7 +14,7 @@ import {
   type ColumnFiltersState,
 } from "@tanstack/react-table";
 import { Question } from "@/types/question";
-import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2 } from "lucide-react";
+import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2, Star, StarOff } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "leetcode-patterns-completed";
@@ -47,6 +47,20 @@ function saveNotes(notes: Record<number, string>) {
   localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
 }
 
+const STARRED_KEY = "leetcode-patterns-starred";
+
+function loadStarred(): Set<number> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(STARRED_KEY);
+    if (raw) return new Set(JSON.parse(raw) as number[]);
+  } catch {}
+  return new Set();
+}
+
+function saveStarred(ids: Set<number>) {
+  localStorage.setItem(STARRED_KEY, JSON.stringify([...ids]));
+}
 
 const columnHelper = createColumnHelper<Question>();
 
@@ -59,6 +73,8 @@ const difficultyColor: Record<string, string> = {
 const makeColumns = (
   completed: Set<number>,
   toggleCompleted: (id: number) => void,
+  starred: Set<number>,
+  toggleStarred: (id: number) => void,
   notes: Record<number, string>,
   openNoteModal: (id: number, title: string) => void,
   hidePatterns: boolean,
@@ -79,6 +95,22 @@ const makeColumns = (
       />
     ),
     meta: { clickable: true },
+  }),
+  columnHelper.display({
+    id: "starred",
+    header: "★",
+    size: 40,
+    cell: (info) => (
+      <Star
+        className={`h-4 w-4 pointer-events-none ${
+          starred.has(info.row.original.id)
+            ? "fill-amber-400 text-amber-400"
+            : "text-zinc-300 dark:text-zinc-600"
+        }`}
+      />
+    ),
+    meta: { clickable: true, toggleFn: "starred" },
+    enableSorting: false,
   }),
   columnHelper.accessor("title", {
     header: "Title",
@@ -252,11 +284,13 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     () => searchParams.get("q") ?? ""
   );
   const [completed, setCompleted] = useState<Set<number>>(new Set());
+  const [starred, setStarred] = useState<Set<number>>(new Set());
 
   const [notes, setNotes] = useState<Record<number, string>>({});
 
   useEffect(() => {
     setCompleted(loadCompleted());
+    setStarred(loadStarred());
     setNotes(loadNotes());
   }, []);
 
@@ -281,6 +315,18 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       else next.delete(id);
       saveCompleted(next);
       trackEvent("question_toggle", { question_id: id, completed: completing });
+      return next;
+    });
+  }, []);
+
+  const toggleStarred = useCallback((id: number) => {
+    setStarred((prev) => {
+      const next = new Set(prev);
+      const starring = !next.has(id);
+      if (starring) next.add(id);
+      else next.delete(id);
+      saveStarred(next);
+      trackEvent("star_toggle", { question_id: id, starred: starring });
       return next;
     });
   }, []);
@@ -324,8 +370,22 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setEditingNote({ id, title, draft: notes[id] ?? "", confirmDiscard: false });
   }, [notes]);
 
-  const [hideCompleted, setHideCompleted] = useState(false);
-  const [hidePatterns, setHidePatterns] = useState(false);
+  const [hideCompleted, setHideCompleted] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("leetcode-patterns-hide-completed") === "true";
+  });
+  const [showStarredOnly, setShowStarredOnly] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("leetcode-patterns-starred-only") === "true";
+  });
+  const [hidePatterns, setHidePatterns] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("leetcode-patterns-hide-patterns") === "true";
+  });
+
+  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted]);
+  useEffect(() => { localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly]);
+  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns]);
 
   const activeCompanyFilter = useMemo(
     () => (columnFilters.find((f) => f.id === "companies")?.value as string[]) ?? [],
@@ -333,8 +393,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   );
 
   const columns = useMemo(
-    () => makeColumns(completed, toggleCompleted, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate),
-    [completed, toggleCompleted, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate]
+    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate),
+    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate]
   );
 
   useEffect(() => {
@@ -349,10 +409,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     }
   }, [activeCompanyFilter]);
 
-  const filteredData = useMemo(
-    () => (hideCompleted ? data.filter((q) => !completed.has(q.id)) : data),
-    [data, completed, hideCompleted]
-  );
+  const filteredData = useMemo(() => {
+    let result = data;
+    if (hideCompleted) result = result.filter((q) => !completed.has(q.id));
+    if (showStarredOnly) result = result.filter((q) => starred.has(q.id));
+    return result;
+  }, [data, completed, starred, hideCompleted, showStarredOnly]);
 
   const columnVisibility = useMemo(() => {
     if (!isMobile) return {};
@@ -400,7 +462,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     const total = filteredRows.length;
     const totalDone = done.Easy + done.Medium + done.Hard;
     return { totals, done, total, totalDone };
-  }, [table, completed, columnFilters, globalFilter, hideCompleted]);
+  }, [table, completed, columnFilters, globalFilter, hideCompleted, showStarredOnly]);
 
   const pickRandom = useCallback(() => {
     const unsolved = table
@@ -416,7 +478,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   }, [table, completed]);
 
   const [resetConfirmGroup, setResetConfirmGroup] = useState<string | null>(null);
-  const [clearConfirm, setClearConfirm] = useState<"notes" | "questions" | null>(null);
+  const [clearConfirm, setClearConfirm] = useState<"notes" | "questions" | "starred" | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
 
   const toggleGroup = useCallback((group: string) => {
@@ -460,8 +522,15 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setClearConfirm(null);
   }, []);
 
+  const clearAllStarred = useCallback(() => {
+    setStarred(new Set());
+    saveStarred(new Set());
+    trackEvent("clear_all_starred");
+    setClearConfirm(null);
+  }, []);
+
   const exportProgress = useCallback(() => {
-    const payload = { completed: [...completed], notes };
+    const payload = { completed: [...completed], starred: [...starred], notes };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -470,7 +539,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     a.click();
     URL.revokeObjectURL(url);
     trackEvent("export_progress", { completed_count: completed.size, notes_count: Object.keys(notes).length });
-  }, [completed, notes]);
+  }, [completed, starred, notes]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -483,6 +552,11 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           const imported = new Set<number>(parsed.completed);
           setCompleted(imported);
           saveCompleted(imported);
+        }
+        if (Array.isArray(parsed.starred)) {
+          const imported = new Set<number>(parsed.starred);
+          setStarred(imported);
+          saveStarred(imported);
         }
         if (parsed.notes && typeof parsed.notes === "object") {
           setNotes(parsed.notes);
@@ -644,7 +718,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return ["Easy", "Medium", "Hard"]
       .filter((k) => groupMap.has(k))
       .map((key) => ({ key: key as string | null, rows: groupMap.get(key)! }));
-  }, [table, sorting, columnFilters, globalFilter, hideCompleted, completed, companySortActive, companySortDesc, activeCompanyFilter]);
+  }, [table, sorting, columnFilters, globalFilter, hideCompleted, showStarredOnly, starred, completed, companySortActive, companySortDesc, activeCompanyFilter]);
 
   return (
     <div className="space-y-4">
@@ -979,6 +1053,15 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <label className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap">
           <input
             type="checkbox"
+            checked={showStarredOnly}
+            onChange={(e) => { setShowStarredOnly(e.target.checked); trackEvent("show_starred_only", { enabled: e.target.checked }); }}
+            className="h-3.5 w-3.5 accent-amber-500"
+          />
+          Starred only
+        </label>
+        <label className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap">
+          <input
+            type="checkbox"
             checked={hideCompleted}
             onChange={(e) => { setHideCompleted(e.target.checked); trackEvent("hide_completed", { enabled: e.target.checked }); }}
             className="h-3.5 w-3.5 accent-blue-600"
@@ -1038,6 +1121,19 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
             Import progress
           </span>
         </div>
+        {starred.size > 0 && (
+          <div className="group/clearstars relative">
+            <button
+              onClick={() => setClearConfirm("starred")}
+              className="rounded border border-zinc-300 p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <StarOff className="h-3.5 w-3.5" />
+            </button>
+            <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearstars:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
+              Clear all stars
+            </span>
+          </div>
+        )}
         {Object.keys(notes).length > 0 && (
           <div className="group/clearnotes relative">
             <button
@@ -1159,12 +1255,16 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                         }
                       >
                         {row.getVisibleCells().map((cell) => {
-                          const isClickable = (cell.column.columnDef.meta as { clickable?: boolean })?.clickable;
+                          const meta = cell.column.columnDef.meta as { clickable?: boolean; toggleFn?: string } | undefined;
+                          const isClickable = meta?.clickable;
+                          const onClick = isClickable
+                            ? () => (meta?.toggleFn === "starred" ? toggleStarred : toggleCompleted)(row.original.id)
+                            : undefined;
                           return (
                             <td
                               key={cell.id}
                               className={`px-2 py-2 sm:px-4 sm:py-3 ${isClickable ? "cursor-pointer select-none" : ""}`}
-                              onClick={isClickable ? () => toggleCompleted(row.original.id) : undefined}
+                              onClick={onClick}
                             >
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </td>
@@ -1328,12 +1428,14 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="mb-2 text-lg font-semibold">
-              {clearConfirm === "notes" ? "Clear all notes" : "Clear all progress"}
+              {clearConfirm === "notes" ? "Clear all notes" : clearConfirm === "starred" ? "Clear all stars" : "Clear all progress"}
             </h2>
             <p className="mb-4 text-sm text-zinc-500">
               {clearConfirm === "notes"
                 ? `This will delete ${Object.keys(notes).length} note(s). This action cannot be undone.`
-                : `This will clear ${completed.size} completed question(s). This action cannot be undone.`}
+                : clearConfirm === "starred"
+                  ? `This will unstar ${starred.size} question(s). This action cannot be undone.`
+                  : `This will clear ${completed.size} completed question(s). This action cannot be undone.`}
             </p>
             <div className="flex justify-end gap-2">
               <button
@@ -1343,7 +1445,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                 Cancel
               </button>
               <button
-                onClick={clearConfirm === "notes" ? clearAllNotes : clearAllQuestions}
+                onClick={clearConfirm === "notes" ? clearAllNotes : clearConfirm === "starred" ? clearAllStarred : clearAllQuestions}
                 className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
               >
                 Clear
