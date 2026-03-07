@@ -91,7 +91,7 @@ export default function ViewSwitcher({
         style={{ background: "linear-gradient(90deg, #FFD200, #FFA500, #FF7800)" }}
       >
         <div className="pointer-events-none absolute inset-0 hidden dark:block"
-          style={{ background: "linear-gradient(90deg, rgba(255,210,0,0.15), rgba(255,165,0,0.15), rgba(255,120,0,0.15))" }}
+          style={{ background: "linear-gradient(90deg, rgba(255,210,0,0.08), rgba(255,165,0,0.08), rgba(255,120,0,0.08))", backgroundColor: "rgba(24,24,27,0.60)" }}
         />
         {views.map((v) => {
           const Icon = v.icon;
@@ -103,7 +103,7 @@ export default function ViewSwitcher({
               className={`relative flex flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-bold transition-all ${
                 isActive
                   ? "bg-white/80 text-zinc-900 shadow-sm dark:bg-zinc-800/80 dark:text-amber-200 dark:shadow-amber-900/20"
-                  : "text-amber-950 hover:bg-white/40 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/40 dark:hover:text-amber-200"
+                  : "text-amber-950 hover:bg-white/40 hover:text-zinc-900 dark:text-amber-200/70 dark:hover:bg-zinc-800/40 dark:hover:text-amber-200"
               }`}
             >
               <Icon className="h-4 w-4" />
