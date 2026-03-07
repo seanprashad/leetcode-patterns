@@ -46,46 +46,54 @@ export default function AboutPanel() {
         <div className="h-[calc(100%-49px)] overflow-y-auto px-4 py-4">
           <div className="space-y-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
             <p>
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span> is
-              a free, open-source collection of curated LeetCode questions grouped by pattern to help
-              you prepare for coding interviews.
+              In <span className="font-semibold text-zinc-900 dark:text-zinc-100">2019</span>, as a broke college
+              student who couldn&apos;t afford premium interview resources, I spent{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">countless hours</span> searching
+              for free materials, taught myself React, and built{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span> before{" "}
+              <a
+                href="https://www.reddit.com/r/csMajors/comments/cvy1fg/leetcode_pattern_study_guide/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+              >
+                sharing it with Reddit
+              </a>.
             </p>
             <p>
-              In <span className="font-semibold text-zinc-900 dark:text-zinc-100">2020</span>, I built this project as a college student who couldn&apos;t afford paid interview
-              content. Instead, I sought out free resources and taught myself everything I needed to know to pass technical interviews - this website is a culmination of my own study plan.
-              It has helped me land roles at <span className="font-semibold text-zinc-900 dark:text-zinc-100">Twitter</span> and <span className="font-semibold text-zinc-900 dark:text-zinc-100">Square</span>, along with over <span className="font-semibold text-zinc-900 dark:text-zinc-100">6 offers</span> in my last interview gauntlet.
-            </p>
+              Since opening, the site has attracted more than{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">150k users every year</span> from{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">128 countries</span>.</p>
             <p>
-              A huge thank you to all the{" "}
+              Along the way, I&apos;ve <span className="font-semibold text-zinc-900 dark:text-zinc-100">turned down every ad offer</span> and
+              watched copycat sites pop up without credit. While frustrating, this will always be{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">the free original</span>, thanks to the{" "}
               <a
                 href="https://github.com/seanprashad/leetcode-patterns/graphs/contributors"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-blue-600 hover:underline dark:text-blue-400"
               >
-                contributors
-              </a>{" "}
-              who have helped improve this project - your PRs, bug reports, and suggestions help make this resource better for everyone.
+                many contributors
+              </a>
+              {" "}who continue to make it better.
             </p>
             <p>
-              I plan to keep this project open source and free for as long as I can. If you find it
-              helpful, feel free to{" "}
-              <a
-                href="mailto:seanprashad@outlook.com"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-              >
-                let me know by e-mail
-              </a>
-              . You can also share it with others or{" "}
-              <a
-                href="https://github.com/SeanPrashad/leetcode-patterns"
+              I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
+              access to high-quality interview prep resources regardless of their financial situation. Therefore, it is
+              my commitment to you that this site will remain {" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span> for as long as it can.
+            </p>
+            <p className="pt-2 italic">
+              Thank you and best of luck studying!
+            </p>
+            <p className="text-2xl text-zinc-900 dark:text-zinc-100" style={{ fontFamily: "var(--font-dancing-script)" }}>
+              - <a
+                href="https://github.com/SeanPrashad"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-              >
-                star the repo on GitHub
-              </a>{" "}
-              - thank you and good luck!
+                className="underline decoration-dotted underline-offset-4 hover:text-blue-600 hover:decoration-solid dark:hover:text-blue-400"
+              >Sean</a>
             </p>
           </div>
         </div>
