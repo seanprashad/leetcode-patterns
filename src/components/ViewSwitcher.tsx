@@ -13,10 +13,10 @@ type View = "table" | "beginner" | "blind75";
 
 const VIEW_KEY = "leetcode-patterns-view";
 
-const views: { id: View; label: string; icon: typeof TableProperties; description: string }[] = [
-  { id: "table", label: "All Questions", icon: TableProperties, description: "Browse all questions with filters" },
-  { id: "beginner", label: "Beginner Roadmap", icon: Map, description: "Structured path for newcomers" },
-  { id: "blind75", label: "Blind 75", icon: Trophy, description: "Must-know problems for experienced engineers" },
+const views: { id: View; label: string; icon: typeof TableProperties; description: string; activeClass: string }[] = [
+  { id: "table", label: "All Questions", icon: TableProperties, description: "Browse all questions with filters", activeClass: "bg-emerald-100 text-emerald-800 shadow-sm dark:bg-emerald-900/40 dark:text-emerald-300" },
+  { id: "beginner", label: "Beginner Roadmap", icon: Map, description: "Structured path for newcomers", activeClass: "bg-blue-100 text-blue-800 shadow-sm dark:bg-blue-900/40 dark:text-blue-300" },
+  { id: "blind75", label: "Blind 75", icon: Trophy, description: "Must-know problems for experienced engineers", activeClass: "bg-amber-100 text-amber-800 shadow-sm dark:bg-amber-900/40 dark:text-amber-300" },
 ];
 
 function isValidView(v: string | null): v is View {
@@ -73,7 +73,7 @@ export default function ViewSwitcher({
               onClick={() => switchView(v.id)}
               className={`flex flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-zinc-100"
+                  ? v.activeClass
                   : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
               }`}
             >

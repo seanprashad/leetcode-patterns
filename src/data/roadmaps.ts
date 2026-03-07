@@ -258,10 +258,6 @@ export const beginnerRoadmap: Roadmap = {
           note: "Build a path string as you travel from root toward leaves. Each time you reach a leaf, save that path to your results.",
         },
         {
-          slug: "diameter-of-binary-tree",
-          note: "The longest path might pass through any node. At each node, add the left subtree height + right subtree height. Keep track of the biggest total you've seen.",
-        },
-        {
           slug: "merge-two-binary-trees",
           note: "Walk both trees together. When both nodes exist, add their values. When only one exists, use that node as-is.",
         },
