@@ -5,17 +5,50 @@ import { Lightbulb, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 const tips = [
-  { condition: "If input array is sorted", approaches: ["Binary search", "Two pointers"] },
-  { condition: "If asked for all permutations/subsets", approaches: ["Backtracking"] },
-  { condition: "If given a tree", approaches: ["DFS", "BFS"] },
-  { condition: "If given a graph", approaches: ["DFS", "BFS"] },
-  { condition: "If given a linked list", approaches: ["Two pointers"] },
-  { condition: "If recursion is banned", approaches: ["Stack"] },
-  { condition: "If must solve in-place", approaches: ["Swap corresponding values", "Store one or more different values in the same pointer"] },
-  { condition: "If asked for maximum/minimum subarray/subset/options", approaches: ["Dynamic programming", "Sliding window"] },
-  { condition: "If asked for top/least K items", approaches: ["Heap", "QuickSelect"] },
-  { condition: "If asked for common strings", approaches: ["Map", "Trie"] },
-  { condition: "Else", approaches: ["Map/Set for O(1) time & O(n) space", "Sort input for O(nlogn) time and O(1) space"] },
+  { condition: "If input array is sorted", approaches: ["Binary search", "Two pointers"], examples: [
+    { title: "Binary Search", slug: "binary-search" },
+    { title: "Squares of a Sorted Array", slug: "squares-of-a-sorted-array" },
+  ] },
+  { condition: "If asked for all permutations/subsets", approaches: ["Backtracking"], examples: [
+    { title: "Binary Tree Paths", slug: "binary-tree-paths" },
+    { title: "Combination Sum", slug: "combination-sum" },
+  ] },
+  { condition: "If given a tree", approaches: ["DFS", "BFS"], examples: [
+    { title: "Maximum Depth of Binary Tree", slug: "maximum-depth-of-binary-tree" },
+    { title: "Binary Tree Level Order Traversal", slug: "binary-tree-level-order-traversal" },
+  ] },
+  { condition: "If given a graph", approaches: ["DFS", "BFS"], examples: [
+    { title: "Number of Islands", slug: "number-of-islands" },
+    { title: "Number of Connected Components in an Undirected Graph", slug: "number-of-connected-components-in-an-undirected-graph" },
+  ] },
+  { condition: "If given a linked list", approaches: ["Two pointers"], examples: [
+    { title: "Linked List Cycle", slug: "linked-list-cycle" },
+    { title: "Reverse Linked List", slug: "reverse-linked-list" },
+  ] },
+  { condition: "If recursion is banned", approaches: ["Stack"], examples: [
+    { title: "Backspace String Compare", slug: "backspace-string-compare" },
+    { title: "Palindrome Linked List", slug: "palindrome-linked-list" },
+  ] },
+  { condition: "If must solve in-place", approaches: ["Swap corresponding values", "Store one or more different values in the same pointer"], examples: [
+    { title: "Move Zeroes", slug: "move-zeroes" },
+    { title: "Sort Colors", slug: "sort-colors" },
+  ] },
+  { condition: "If asked for maximum/minimum subarray/subset/options", approaches: ["Dynamic programming", "Sliding window"], examples: [
+    { title: "Best Time to Buy and Sell Stock", slug: "best-time-to-buy-and-sell-stock" },
+    { title: "Maximum Average Subarray I", slug: "maximum-average-subarray-i" },
+  ] },
+  { condition: "If asked for top/least K items", approaches: ["Heap", "QuickSelect"], examples: [
+    { title: "Kth Largest Element in an Array", slug: "kth-largest-element-in-an-array" },
+    { title: "Top K Frequent Elements", slug: "top-k-frequent-elements" },
+  ] },
+  { condition: "If asked for common strings", approaches: ["Map", "Trie"], examples: [
+    { title: "Index Pairs of a String", slug: "index-pairs-of-a-string" },
+    { title: "Implement Trie (Prefix Tree)", slug: "implement-trie-prefix-tree" },
+  ] },
+  { condition: "Else", approaches: ["Map/Set for O(1) time & O(n) space", "Sort input for O(nlogn) time and O(1) space"], examples: [
+    { title: "Two Sum", slug: "two-sum" },
+    { title: "Contains Duplicate", slug: "contains-duplicate" },
+  ] },
 ];
 
 export default function TipsPanel() {
@@ -79,6 +112,21 @@ export default function TipsPanel() {
                     </li>
                   ))}
                 </ul>
+                {tip.examples.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {tip.examples.map((ex) => (
+                      <a
+                        key={ex.slug}
+                        href={`https://leetcode.com/problems/${ex.slug}/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block rounded bg-blue-50 px-1.5 py-0.5 text-xs text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
+                      >
+                        {ex.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
