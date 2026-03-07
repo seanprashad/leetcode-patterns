@@ -54,9 +54,12 @@ export default function Home() {
           <ThemeToggle />
         </div>
       </div>
-      <AboutPanel />
-      <TipsPanel />
-      <AcknowledgementsPanel />
+      {/* Side panel tabs – stacked flush in a fixed column */}
+      <div className="fixed left-0 top-0 bottom-0 z-30 flex flex-col items-start justify-center max-[1439px]:hidden">
+        <AboutPanel />
+        <TipsPanel />
+        <AcknowledgementsPanel />
+      </div>
       <Suspense>
         <QuestionsTable data={questions} updatedDate={questionsJson.updated} />
       </Suspense>

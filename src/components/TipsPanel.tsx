@@ -1,69 +1,94 @@
 "use client";
 
-import { useState } from "react";
-import { Lightbulb, X } from "lucide-react";
+import { useState, useCallback, useEffect, Fragment } from "react";
+import { createPortal } from "react-dom";
+import { Lightbulb, X, Copy, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
-const tips = [
-  { condition: "If input array is sorted", approaches: ["Binary search", "Two pointers"], examples: [
-    { title: "Binary Search", slug: "binary-search" },
-    { title: "Squares of a Sorted Array", slug: "squares-of-a-sorted-array" },
-  ] },
-  { condition: "If asked for all permutations/subsets", approaches: ["Backtracking"], examples: [
-    { title: "Binary Tree Paths", slug: "binary-tree-paths" },
-    { title: "Combination Sum", slug: "combination-sum" },
-  ] },
-  { condition: "If given a tree", approaches: ["DFS", "BFS"], examples: [
-    { title: "Maximum Depth of Binary Tree", slug: "maximum-depth-of-binary-tree" },
-    { title: "Binary Tree Level Order Traversal", slug: "binary-tree-level-order-traversal" },
-  ] },
-  { condition: "If given a graph", approaches: ["DFS", "BFS"], examples: [
-    { title: "Number of Islands", slug: "number-of-islands" },
-    { title: "Number of Connected Components in an Undirected Graph", slug: "number-of-connected-components-in-an-undirected-graph" },
-  ] },
-  { condition: "If given a linked list", approaches: ["Two pointers"], examples: [
-    { title: "Linked List Cycle", slug: "linked-list-cycle" },
-    { title: "Reverse Linked List", slug: "reverse-linked-list" },
-  ] },
-  { condition: "If recursion is banned", approaches: ["Stack"], examples: [
-    { title: "Backspace String Compare", slug: "backspace-string-compare" },
-    { title: "Palindrome Linked List", slug: "palindrome-linked-list" },
-  ] },
-  { condition: "If must solve in-place", approaches: ["Swap corresponding values", "Store one or more different values in the same pointer"], examples: [
-    { title: "Move Zeroes", slug: "move-zeroes" },
-    { title: "Sort Colors", slug: "sort-colors" },
-  ] },
-  { condition: "If asked for maximum/minimum subarray/subset/options", approaches: ["Dynamic programming", "Sliding window"], examples: [
-    { title: "Best Time to Buy and Sell Stock", slug: "best-time-to-buy-and-sell-stock" },
-    { title: "Maximum Average Subarray I", slug: "maximum-average-subarray-i" },
-  ] },
-  { condition: "If asked for top/least K items", approaches: ["Heap", "QuickSelect"], examples: [
-    { title: "Kth Largest Element in an Array", slug: "kth-largest-element-in-an-array" },
-    { title: "Top K Frequent Elements", slug: "top-k-frequent-elements" },
-  ] },
-  { condition: "If asked for common strings", approaches: ["Map", "Trie"], examples: [
-    { title: "Index Pairs of a String", slug: "index-pairs-of-a-string" },
-    { title: "Implement Trie (Prefix Tree)", slug: "implement-trie-prefix-tree" },
-  ] },
-  { condition: "Else", approaches: ["Map/Set for O(1) time & O(n) space", "Sort input for O(nlogn) time and O(1) space"], examples: [
-    { title: "Two Sum", slug: "two-sum" },
-    { title: "Contains Duplicate", slug: "contains-duplicate" },
-  ] },
+function formatApproach(text: string) {
+  const parts = text.split(/(O\([^)]*\)|\bK\b)/g);
+  return parts.map((part, i) =>
+    /^O\(/.test(part) || /^\bK\b$/.test(part) ? (
+      <code key={i} className="rounded bg-zinc-100 px-1 py-0.5 font-mono text-xs dark:bg-zinc-800">{part}</code>
+    ) : (
+      part
+    )
+  );
+}
+
+const tipGroups = [
+  { label: "Arrays & Strings", tips: [
+    { condition: "If input array is sorted", approaches: ["Binary search", "Two pointers"] },
+    { condition: "If need O(1) lookup", approaches: ["Hash table", "Hash set"] },
+    { condition: "If must solve in-place", approaches: ["Swap corresponding values", "Store multiple values in the same pointer"] },
+    { condition: "If asked for common strings", approaches: ["Map", "Trie"] },
+    { condition: "If asked to count bits or use XOR", approaches: ["Bit manipulation"] },
+  ]},
+  { label: "Subarrays & Sequences", tips: [
+    { condition: "If asked for max/min subarray/subset", approaches: ["Dynamic programming", "Sliding window"] },
+    { condition: "If asked for sliding window max/min", approaches: ["Monotonic queue"] },
+    { condition: "If asked for next greater/smaller element", approaches: ["Monotonic stack"] },
+    { condition: "If need range sum/frequency queries", approaches: ["Prefix sum", "Binary indexed tree", "Segment tree"] },
+  ]},
+  { label: "Trees & Graphs", tips: [
+    { condition: "If given a tree", approaches: ["DFS", "BFS"] },
+    { condition: "If given a graph", approaches: ["DFS", "BFS", "Union-Find"] },
+    { condition: "If given a matrix", approaches: ["BFS", "DFS", "Dynamic programming"] },
+    { condition: "If asked for connectivity/grouping", approaches: ["Union-Find", "DFS"] },
+    { condition: "If asked for ordering/scheduling", approaches: ["Topological sort"] },
+  ]},
+  { label: "Linked Lists & Stacks", tips: [
+    { condition: "If given a linked list", approaches: ["Two pointers"] },
+    { condition: "If recursion is banned", approaches: ["Stack"] },
+  ]},
+  { label: "Sorting & Intervals", tips: [
+    { condition: "If asked for top/least K items", approaches: ["Heap", "Quickselect", "Bucket sort"] },
+    { condition: "If asked to merge sorted lists/intervals", approaches: ["Merge sort", "Heap"] },
+    { condition: "If asked for overlapping intervals", approaches: ["Sorting", "Sweep line"] },
+    { condition: "If given a stream of data", approaches: ["Heap", "Design"] },
+  ]},
+  { label: "Optimization", tips: [
+    { condition: "If asked for all permutations/subsets", approaches: ["Backtracking"] },
+    { condition: "If need to count/divide optimally", approaches: ["Greedy", "Dynamic programming"] },
+  ]},
+  { label: "General", tips: [
+    { condition: "Else", approaches: ["Map/Set for O(1) time & O(n) space", "Sort input for O(nlogn) time and O(1) space"] },
+  ]},
 ];
 
 export default function TipsPanel() {
   const [open, setOpen] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const btnZ = hovered || open ? "z-40" : "z-[31]";
+  const [copied, setCopied] = useState(false);
+  const [toastFading, setToastFading] = useState(false);
+
+  const copyToClipboard = useCallback(() => {
+    const text = tipGroups
+      .map((group) => {
+        const rows = group.tips
+          .map((tip) => `  ${tip.condition} → ${tip.approaches.join(", ")}`)
+          .join("\n");
+        return `${group.label}\n${rows}`;
+      })
+      .join("\n\n");
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setToastFading(false);
+    trackEvent("copy_tips");
+  }, []);
+
+  useEffect(() => {
+    if (!copied) return;
+    const fadeTimer = setTimeout(() => setToastFading(true), 1500);
+    const removeTimer = setTimeout(() => { setCopied(false); setToastFading(false); }, 2200);
+    return () => { clearTimeout(fadeTimer); clearTimeout(removeTimer); };
+  }, [copied]);
 
   return (
     <>
-      {/* Tab button on left edge, below About */}
+      {/* Tab button – rendered inline inside the fixed flex wrapper in page.tsx */}
       <button
         onClick={() => { setOpen(true); trackEvent("panel_open", { panel: "tips" }); }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className={`fixed left-0 top-[calc(50%+5rem)] max-[1439px]:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-blue-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-blue-700`}
+        className="rounded-r-xl bg-blue-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-blue-700"
         aria-label="Open tips"
       >
         <span className="flex items-center gap-2 text-sm font-semibold [writing-mode:vertical-lr]">
@@ -83,55 +108,67 @@ export default function TipsPanel() {
             <Lightbulb className="h-4 w-4" />
             Helpful Tips
           </h2>
-          <button
-            onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "tips" }); }}
-            className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          >
-            <X className="h-4 w-4" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={copyToClipboard}
+              className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              title="Copy to clipboard"
+            >
+              {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={() => { setOpen(false); trackEvent("panel_close", { panel: "tips" }); }}
+              className="rounded p-1 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
         </div>
         <div className="h-[calc(100%-49px)] overflow-y-auto px-4 py-4">
           <p className="mb-4 text-xs text-zinc-500">
-            Use these heuristics to identify which pattern to apply based on the problem constraints.
+            Based on the problem constraints, use these heuristics to identify possible approaches when unsure.
           </p>
-          <div className="space-y-3">
-            {tips.map((tip) => (
-              <div
-                key={tip.condition}
-                className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800/50"
-              >
-                <p className="mb-1.5 text-sm font-medium">{tip.condition}</p>
-                <ul className="space-y-0.5">
-                  {tip.approaches.map((a) => (
-                    <li
-                      key={a}
-                      className="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400"
-                    >
-                      <span className="text-blue-500">→</span>
-                      {a}
-                    </li>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-zinc-200 dark:border-zinc-700">
+                <th className="pb-2 text-left font-semibold">Condition</th>
+                <th className="pb-2 text-left font-semibold">Approach</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tipGroups.map((group) => (
+                <Fragment key={group.label}>
+                  <tr>
+                    <td colSpan={2} className="pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+                      {group.label}
+                    </td>
+                  </tr>
+                  {group.tips.map((tip) => (
+                    <tr key={tip.condition} className="border-b border-zinc-100 dark:border-zinc-800">
+                      <td className="py-2 pr-3 align-top text-zinc-700 dark:text-zinc-300">{formatApproach(tip.condition)}</td>
+                      <td className="py-2 align-top text-zinc-600 dark:text-zinc-400">
+                        {tip.approaches.map((a, i) => (
+                          <span key={i}>{i > 0 && ", "}{formatApproach(a)}</span>
+                        ))}
+                      </td>
+                    </tr>
                   ))}
-                </ul>
-                {tip.examples.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {tip.examples.map((ex) => (
-                      <a
-                        key={ex.slug}
-                        href={`https://leetcode.com/problems/${ex.slug}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block rounded bg-blue-50 px-1.5 py-0.5 text-xs text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
-                      >
-                        {ex.title}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
+
+      {/* Copy toast – portalled to body so it centres on the viewport */}
+      {copied && createPortal(
+        <div
+          className={`fixed inset-x-0 bottom-6 z-50 mx-auto w-fit animate-[fadeInUp_0.3s_ease-out] rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-800 shadow-lg transition-opacity duration-700 ease-in-out dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200 ${toastFading ? "opacity-0" : "opacity-100"}`}
+        >
+          ✓ Tips copied to clipboard
+        </div>,
+        document.body
+      )}
     </>
   );
 }
