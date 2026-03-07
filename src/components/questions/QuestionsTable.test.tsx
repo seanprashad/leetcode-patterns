@@ -212,7 +212,7 @@ describe("QuestionsTable analytics", () => {
     const resetBtns = screen.getAllByText("Reset");
     await user.click(resetBtns[0]);
     // Modal has heading "Reset Easy progress" — find the confirm button inside it
-    const modal = screen.getByText("Reset Easy progress").closest("div[class*='rounded-xl']")!;
+    const modal = screen.getByText("Reset Easy progress").closest("div[class*='rounded-xl']")! as HTMLElement;
     const confirmBtn = within(modal).getByRole("button", { name: "Reset" });
     await user.click(confirmBtn);
     expect(mockTrackEvent).toHaveBeenCalledWith("reset_group", { difficulty: "Easy" });

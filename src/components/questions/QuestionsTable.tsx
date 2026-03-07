@@ -16,7 +16,7 @@ import {
 import { Question } from "@/types/question";
 import { ExternalLink, RotateCcw, Shuffle, ChevronRight, ChevronDown, Download, Upload, Trash2, Star, StarOff, Dices, ListOrdered, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress } from "@/lib/storage";
+import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress } from "@/lib/storage";
 
 const columnHelper = createColumnHelper<Question>();
 
@@ -41,7 +41,8 @@ const makeColumns = (
   openNoteModal: (id: number, title: string) => void,
   hidePatterns: boolean,
   companyFilter: string[],
-  updatedDate: string
+  updatedDate: string,
+  solvedDates: Record<number, string>
 ) => [
   columnHelper.display({
     id: "completed",
@@ -215,6 +216,22 @@ const makeColumns = (
     },
     enableSorting: false,
   }),
+  columnHelper.display({
+    id: "lastSolved",
+    header: "Last Solved",
+    size: 110,
+    meta: { hideOnMobile: true },
+    cell: (info) => {
+      const date = solvedDates[info.row.original.id];
+      if (!date) return <span className="text-zinc-300 dark:text-zinc-700">—</span>;
+      return (
+        <span className="text-xs text-zinc-500 dark:text-zinc-400">
+          {new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+        </span>
+      );
+    },
+    enableSorting: false,
+  }),
 ];
 
 const mobileQuery = "(max-width: 639px)";
@@ -270,6 +287,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const [starred, setStarred] = useState(loadStarred);
   const [shuffleOrder, setShuffleOrder] = useState(loadShuffleOrder);
   const [notes, setNotes] = useState(loadNotes);
+  const [solvedDates, setSolvedDates] = useState(loadSolvedDates);
   const [migrationToast, setMigrationToast] = useState(initialToast);
   const [toastFading, setToastFading] = useState(false);
 
@@ -301,6 +319,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       else next.delete(id);
       saveCompleted(next);
       trackEvent("question_toggle", { question_id: id, completed: completing });
+      return next;
+    });
+    setSolvedDates((prev) => {
+      const next = { ...prev };
+      next[id] = new Date().toISOString();
+      saveSolvedDates(next);
       return next;
     });
   }, []);
@@ -376,8 +400,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   );
 
   const columns = useMemo(
-    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate),
-    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate]
+    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates),
+    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates]
   );
 
   useEffect(() => {
@@ -531,6 +555,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       saveNotes(next);
       return next;
     });
+    setSolvedDates((prev) => {
+      const next = { ...prev };
+      ids.forEach((id) => delete next[id]);
+      saveSolvedDates(next);
+      return next;
+    });
     trackEvent("reset_group", { difficulty });
     setResetConfirmGroup(null);
   }, [data]);
@@ -545,6 +575,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const clearAllQuestions = useCallback(() => {
     setCompleted(new Set());
     saveCompleted(new Set());
+    setSolvedDates({});
+    saveSolvedDates({});
     trackEvent("clear_all_progress");
     setClearConfirm(null);
   }, []);
@@ -557,7 +589,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   }, []);
 
   const exportProgress = useCallback(() => {
-    const payload = { completed: [...completed], starred: [...starred], notes };
+    const payload = { completed: [...completed], starred: [...starred], notes, solvedDates };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -566,7 +598,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     a.click();
     URL.revokeObjectURL(url);
     trackEvent("export_progress", { completed_count: completed.size, notes_count: Object.keys(notes).length });
-  }, [completed, starred, notes]);
+  }, [completed, starred, notes, solvedDates]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -588,6 +620,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         if (parsed.notes && typeof parsed.notes === "object") {
           setNotes(parsed.notes);
           saveNotes(parsed.notes);
+        }
+        if (parsed.solvedDates && typeof parsed.solvedDates === "object") {
+          setSolvedDates(parsed.solvedDates);
+          saveSolvedDates(parsed.solvedDates);
         }
         trackEvent("import_progress", { completed_count: parsed.completed?.length ?? 0, notes_count: parsed.notes ? Object.keys(parsed.notes).length : 0 });
       } catch {}
