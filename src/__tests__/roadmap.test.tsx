@@ -82,7 +82,7 @@ describe("ViewSwitcher", () => {
     const user = userEvent.setup();
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     await user.click(screen.getByText("Beginner Roadmap"));
-    expect(screen.getByText(/structured path for those new/)).toBeInTheDocument();
+    expect(await screen.findByText(/structured path for those new/)).toBeInTheDocument();
     expect(mockTrackEvent).toHaveBeenCalledWith("switch_view", { view: "beginner" });
   });
 
@@ -90,7 +90,7 @@ describe("ViewSwitcher", () => {
     const user = userEvent.setup();
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     await user.click(screen.getByText("Blind 75"));
-    expect(screen.getByText(/Originally shared on Blind by/)).toBeInTheDocument();
+    expect(await screen.findByText(/Originally shared on Blind by/)).toBeInTheDocument();
     expect(mockTrackEvent).toHaveBeenCalledWith("switch_view", { view: "blind75" });
   });
 
