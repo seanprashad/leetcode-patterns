@@ -226,6 +226,23 @@ describe("QuestionsTable analytics", () => {
     expect(noteBtn).toHaveClass("truncate", "max-w-[200px]");
   });
 
+  it("shows progress stats scoped to filtered questions", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0, 1]));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // Unfiltered: 2 of 3 completed
+    expect(screen.getByText("2/3 completed (67%)")).toBeInTheDocument();
+
+    // Filter to Easy only — 1 of 1 completed, only Easy breakdown shown
+    await user.click(screen.getByText("All Difficulties"));
+    await user.click(screen.getByLabelText("Easy"));
+    expect(screen.getByText("1/1 completed (100%)")).toBeInTheDocument();
+    expect(screen.getByText(/Easy: 1\/1/)).toBeInTheDocument();
+    expect(screen.queryByText(/Medium:/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Hard:/)).not.toBeInTheDocument();
+  });
+
   it("tracks import_progress when importing a file", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);

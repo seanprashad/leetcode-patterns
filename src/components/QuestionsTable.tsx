@@ -391,12 +391,16 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const stats = useMemo(() => {
     const totals = { Easy: 0, Medium: 0, Hard: 0 };
     const done = { Easy: 0, Medium: 0, Hard: 0 };
-    data.forEach((q) => {
+    const filteredRows = table.getFilteredRowModel().rows;
+    filteredRows.forEach((row) => {
+      const q = row.original;
       totals[q.difficulty]++;
       if (completed.has(q.id)) done[q.difficulty]++;
     });
-    return { totals, done, total: data.length, totalDone: completed.size };
-  }, [data, completed]);
+    const total = filteredRows.length;
+    const totalDone = done.Easy + done.Medium + done.Hard;
+    return { totals, done, total, totalDone };
+  }, [table, completed, columnFilters, globalFilter, hideCompleted]);
 
   const pickRandom = useCallback(() => {
     const unsolved = table
@@ -651,15 +655,21 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium">
           <span>{stats.totalDone}/{stats.total} completed ({pct}%)</span>
           <div className="flex gap-4 sm:opacity-0 sm:transition-opacity sm:duration-500 sm:ease-in-out sm:group-hover:opacity-100">
-            <span className="text-green-600 dark:text-green-400">
-              Easy: {stats.done.Easy}/{stats.totals.Easy}
-            </span>
-            <span className="text-yellow-600 dark:text-yellow-400">
-              Medium: {stats.done.Medium}/{stats.totals.Medium}
-            </span>
-            <span className="text-red-600 dark:text-red-400">
-              Hard: {stats.done.Hard}/{stats.totals.Hard}
-            </span>
+            {stats.totals.Easy > 0 && (
+              <span className="text-green-600 dark:text-green-400">
+                Easy: {stats.done.Easy}/{stats.totals.Easy}
+              </span>
+            )}
+            {stats.totals.Medium > 0 && (
+              <span className="text-yellow-600 dark:text-yellow-400">
+                Medium: {stats.done.Medium}/{stats.totals.Medium}
+              </span>
+            )}
+            {stats.totals.Hard > 0 && (
+              <span className="text-red-600 dark:text-red-400">
+                Hard: {stats.done.Hard}/{stats.totals.Hard}
+              </span>
+            )}
           </div>
         </div>
         <div className="relative h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
