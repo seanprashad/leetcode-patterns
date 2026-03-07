@@ -34,7 +34,7 @@ export default function AcknowledgementsPanel() {
         onClick={() => { setOpen(true); trackEvent("panel_open", { panel: "acknowledgements" }); }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`fixed left-0 top-[calc(50%+12rem)] max-sm:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-amber-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-amber-700`}
+        className={`fixed left-0 top-[calc(50%+12rem)] max-[1439px]:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-amber-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-amber-700`}
         aria-label="Open acknowledgements"
       >
         <span className="flex items-center gap-2 text-sm font-semibold [writing-mode:vertical-lr]">

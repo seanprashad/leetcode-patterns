@@ -36,7 +36,7 @@ export default function Home() {
             grouped by pattern to help you prep for coding interviews.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <GitHubLink />
           <span className="group/fb relative">
             <a

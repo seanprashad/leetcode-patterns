@@ -16,7 +16,7 @@ export default function AboutPanel() {
         onClick={() => { setOpen(true); trackEvent("panel_open", { panel: "about" }); }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`fixed left-0 top-1/2 max-sm:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-emerald-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-emerald-700`}
+        className={`fixed left-0 top-1/2 max-[1439px]:hidden ${btnZ} -translate-y-1/2 rounded-r-xl bg-emerald-600 px-2.5 py-4 text-white shadow-lg transition-colors hover:bg-emerald-700`}
         aria-label="Open about"
       >
         <span className="flex items-center gap-2 text-sm font-semibold [writing-mode:vertical-lr]">
