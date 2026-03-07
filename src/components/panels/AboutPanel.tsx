@@ -66,22 +66,9 @@ export default function AboutPanel() {
               </a>.
             </p>
             <p>
-              Since opening, the site has attracted more than{" "}
+              Since launching, the site has attracted more than{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">150k users every year</span> from{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">128 countries</span>.</p>
-            <p>
-              Along the way, I&apos;ve <span className="font-semibold text-zinc-900 dark:text-zinc-100">turned down multiple advertisement offers</span> and
-              watched copycat sites pop up without credit. While frustrating, this will always be{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">the free original</span>, thanks to the{" "}
-              <a
-                href="https://github.com/seanprashad/leetcode-patterns/graphs/contributors"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-              >
-                many contributors
-              </a>
-              {" "}who continue to make it better.
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">128 countries</span>.
             </p>
             <p>
               I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves

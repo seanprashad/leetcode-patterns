@@ -19,8 +19,8 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => mockSearchParams.current,
 }));
 
-import ViewSwitcher from "@/components/ViewSwitcher";
-import RoadmapView from "@/components/RoadmapView";
+import ViewSwitcher from "@/components/layout/ViewSwitcher";
+import RoadmapView from "@/components/roadmaps/RoadmapView";
 import { beginnerRoadmap, experiencedRoadmap } from "@/data/roadmaps";
 
 const testData: Question[] = [
