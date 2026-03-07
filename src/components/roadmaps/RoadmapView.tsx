@@ -301,6 +301,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
               <div className="flex flex-wrap gap-1">
                 {q.companies.map((c) => (
                   <span key={c.slug} className="group/icon relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/${c.slug}.png`}
                       alt={c.name}

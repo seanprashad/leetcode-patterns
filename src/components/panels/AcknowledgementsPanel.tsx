@@ -79,7 +79,8 @@ export default function AcknowledgementsPanel() {
                 rel="noopener noreferrer"
                 className="block overflow-hidden rounded-lg border border-zinc-200 transition-colors hover:border-blue-300 dark:border-zinc-800 dark:hover:border-blue-700"
               >
-                <img
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                   src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${source.image}`}
                   alt={source.title}
                   className="h-32 w-full object-cover"

@@ -1,27 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { Sun, Moon } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
+function subscribe(callback: () => void) {
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+
+function getSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getServerSnapshot() {
+  return false;
+}
+
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const dark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-    setMounted(true);
-  }, []);
-
-  const toggle = () => {
+  const toggle = useCallback(() => {
     const next = !dark;
-    setDark(next);
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
     trackEvent("theme_toggle", { theme: next ? "dark" : "light" });
-  };
-
-  if (!mounted) return <div className="h-9 w-9" />;
+  }, [dark]);
 
   return (
     <button
