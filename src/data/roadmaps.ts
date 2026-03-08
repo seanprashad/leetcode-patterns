@@ -15,6 +15,7 @@ export interface Roadmap {
   name: string;
   description: string;
   phases: RoadmapPhase[];
+  nextSteps?: string[];
 }
 
 export const beginnerRoadmap: Roadmap = {
@@ -25,8 +26,8 @@ export const beginnerRoadmap: Roadmap = {
     "1. Choose a programming language that you **feel most comfortable with** - for me that is Java. If you're new to programming, I would recommend **Python**.\n" +
     "2. **Spend no more than 30 minutes** trying to think of *any* solution, even if it's brute force. You want to try applying what you know, and if stuck, then expand your skillset by **studying the solution until you're able to fully explain it to another individual**.\n" +
     "3. **Expect to struggle at first** (*for my first time, it took at least a month to begin improving*).\n" + 
-    "4. **Do not solely memorize solutions** - this does not work in interviews when asked follow-up questions (*I speak from experience*).\n" +
-    "5. Don't be afraid to **ask an AI agent to explain the solution** to you - it's a *great alternative to watching a video solution*.\n" +
+    "4. **Do not memorize solutions** - this does not work in interviews when asked follow-up questions (*I speak from experience*).\n" +
+    "5. Don't be afraid to **ask an AI agent to explain the solution** to you - *it's a great alternative to watching a video solution*.\n" +
     "6. Reference the **Helpful Tips** tab for which tools to consider pulling out of your toolkit when solving a problem - *don't use a screwdriver when you need a hammer!*",
   phases: [
     {
@@ -396,6 +397,12 @@ export const beginnerRoadmap: Roadmap = {
         },
       ],
     },
+  ],
+  nextSteps: [
+    "**Re-solve problems that gave you trouble** - if a question stumped you, redo it until the approach clicks. Repetition is how patterns become second nature.",
+    "Remember to study solutions using an AI agent/YouTube video if you get stuck - I still have to do this occassionally for some questions!",
+    "Move onto the [Experienced Roadmap](?view=experienced) (Blind 75) to solidify your understanding of each pattern across all difficulty levels.",
+    "Complete additional questions from the [main question list](.) - filter by pattern or difficulty to target your weak areas.",
   ],
 };
 
@@ -827,6 +834,11 @@ export const experiencedRoadmap: Roadmap = {
         },
       ],
     },
+  ],
+  nextSteps: [
+    "**Re-solve problems that gave you trouble** - if you struggled with a question, redo it until the approach is second nature.",
+    "Work through remaining questions in the [main question list](.) or **company-specific lists** from [Leetcode Premium](https://leetcode.com/subscribe/), [InterviewDB](https://www.interviewdb.io/get-started), or [1point3acres](https://www.1point3acres.com/interview/thread/1167709) to target your upcoming interviews.",
+    "I highly recommend **taking advantage of free mock interviews** on [Pramp](https://www.pramp.com/#/) - *you want to fail as many times practicing and not during an interview*. I have also met friends there who went on to join Facebook, Google, Microsoft, and other big tech companies!",
   ],
 };
 

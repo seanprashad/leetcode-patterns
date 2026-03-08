@@ -32,8 +32,10 @@ function InlineMarkdown({ text }: { text: string }) {
             if (/^`(.+)`$/.test(part))
               return <code key={pi} className="rounded bg-zinc-100 px-1 py-0.5 font-mono text-xs dark:bg-zinc-800">{part.slice(1, -1)}</code>;
             const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-            if (linkMatch)
-              return <a key={pi} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline decoration-dotted hover:decoration-solid dark:text-blue-400">{linkMatch[1]}</a>;
+            if (linkMatch) {
+              const isExternal = /^https?:\/\//.test(linkMatch[2]);
+              return <a key={pi} href={linkMatch[2]} {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="text-blue-600 underline decoration-dotted hover:decoration-solid dark:text-blue-400">{linkMatch[1]}</a>;
+            }
             return part;
           })}
         </Fragment>
@@ -679,6 +681,32 @@ export default function RoadmapView({ roadmap, questions }: Props) {
               </Fragment>
             );
           })}
+        </div>
+      )}
+
+      {/* Next Steps */}
+      {roadmap.nextSteps && roadmap.nextSteps.length > 0 && (
+        <div className="mt-8 overflow-hidden rounded-xl border border-blue-300 dark:border-blue-800">
+          <div className="bg-blue-50 px-4 py-3 dark:bg-blue-950/30">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-bold text-blue-700 dark:bg-blue-900/50 dark:text-blue-400">
+                Next Steps
+              </span>
+            </div>
+            <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+              What to do after completing this roadmap
+            </p>
+          </div>
+          <div className="space-y-0 divide-y divide-zinc-100 px-4 dark:divide-zinc-800/50">
+            {roadmap.nextSteps.map((step, i) => (
+              <div key={i} className="flex items-start gap-3 py-3 text-sm text-zinc-600 dark:text-zinc-400">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700 dark:bg-blue-900/50 dark:text-blue-400">
+                  {i + 1}
+                </span>
+                <span><InlineMarkdown text={step} /></span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
