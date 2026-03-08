@@ -71,7 +71,7 @@ export default function AboutPanel() {
             </p>
             <p>
               I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
-              access to high-quality interview prep - regardless of their financial situation. It's why I chose to make this website{" "}
+              access to high-quality interview prep - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span>.
             </p>
             <p>

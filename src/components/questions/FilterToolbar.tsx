@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { type Table } from "@tanstack/react-table";
 import { Question } from "@/types/question";
 import { RotateCcw, Shuffle, Download, Upload, Trash2, StarOff, Dices, ListOrdered } from "lucide-react";
@@ -63,6 +63,7 @@ export default function FilterToolbar({
 }: FilterToolbarProps) {
   const difficultyFilter = useMemo(
     () => (table.getColumn("difficulty")?.getFilterValue() as string[]) ?? [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [table, columnFilters]
   );
   const [difficultyDropdownOpen, setDifficultyDropdownOpen] = useState(false);
@@ -70,6 +71,7 @@ export default function FilterToolbar({
 
   const patternFilter = useMemo(
     () => (table.getColumn("pattern")?.getFilterValue() as string[]) ?? [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [table, columnFilters]
   );
   const [patternDropdownOpen, setPatternDropdownOpen] = useState(false);
@@ -92,6 +94,7 @@ export default function FilterToolbar({
 
   const companyFilter = useMemo(
     () => (table.getColumn("companies")?.getFilterValue() as string[]) ?? [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [table, columnFilters]
   );
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);

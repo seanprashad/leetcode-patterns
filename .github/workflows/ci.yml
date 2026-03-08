@@ -2,10 +2,16 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
     branches: [main]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  test:
+  lint:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,8 +23,63 @@ jobs:
 
       - run: npm ci
 
-      - run: npm test
+      - run: npm run lint
 
-      - run: npm run build
+  test:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx vitest run --coverage
+
+  preview:
+    if: always() && (github.event.action == 'closed' || (needs.lint.result == 'success' && needs.test.result == 'success'))
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - if: github.event.action != 'closed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - if: github.event.action != 'closed'
+        run: npm ci
+
+      - if: github.event.action != 'closed'
+        name: Build
         env:
-          NEXT_PUBLIC_BASE_PATH: /leetcode-patterns
+          NEXT_PUBLIC_BASE_PATH: /leetcode-patterns/pr-preview/pr-${{ github.event.number }}
+        run: npx next build
+
+      - if: github.event.action != 'closed'
+        name: Remove service worker from preview
+        run: rm -f out/sw.js
+
+      - name: Ensure .nojekyll exists at gh-pages root
+        run: |
+          git fetch origin gh-pages:gh-pages || true
+          if git rev-parse --verify gh-pages >/dev/null 2>&1; then
+            if ! git show gh-pages:.nojekyll >/dev/null 2>&1; then
+              git checkout gh-pages
+              touch .nojekyll
+              git add .nojekyll
+              git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -m "Add .nojekyll for Next.js _next/ assets"
+              git push origin gh-pages
+              git checkout -
+            fi
+          fi
+
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: out

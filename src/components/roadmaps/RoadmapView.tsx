@@ -64,7 +64,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
   const [completed, setCompleted] = useState<Set<number>>(new Set());
   const [starred, setStarred] = useState<Set<number>>(new Set());
   const [notes, setNotes] = useState<Record<number, string>>({});
-  const [solvedDates, setSolvedDates] = useState<Record<number, string>>({});
+  const [, setSolvedDates] = useState<Record<number, string>>({});
   const [collapsedPhases, setCollapsedPhases] = useState<Set<string | number>>(
     new Set()
   );

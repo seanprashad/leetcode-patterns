@@ -457,7 +457,6 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return vis;
   }, [isMobile, columns]);
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: filteredData,
     columns,
@@ -784,6 +783,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const tableBodyRef = useRef<HTMLTableSectionElement>(null);
   const [scrollMargin, setScrollMargin] = useState(0);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (tableBodyRef.current) {
       setScrollMargin(tableBodyRef.current.offsetTop);
