@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useSyncExternalStore, useCallback, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { TableProperties, Map, Trophy } from "lucide-react";
 import QuestionsTable from "@/components/questions/QuestionsTable";
@@ -32,18 +32,20 @@ export default function ViewSwitcher({
 }) {
   const searchParams = useSearchParams();
 
-  const initialView = useMemo((): View => {
-    const paramView = searchParams.get("view");
-    if (isValidView(paramView)) return paramView;
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(VIEW_KEY) as View | null;
-      if (stored && isValidView(stored)) return stored;
-    }
-    return "table";
-  }, [searchParams]);
+  const paramView = searchParams.get("view");
 
-  const [activeView, setActiveView] = useState<View>(initialView);
-  const [displayedView, setDisplayedView] = useState<View>(initialView);
+  const storedView = useSyncExternalStore(
+    () => () => {},
+    () => {
+      if (isValidView(paramView)) return paramView;
+      const stored = localStorage.getItem(VIEW_KEY) as View | null;
+      return stored && isValidView(stored) ? stored : "table";
+    },
+    () => (isValidView(paramView) ? paramView : "table"),
+  );
+
+  const [activeView, setActiveView] = useState<View>(storedView);
+  const [displayedView, setDisplayedView] = useState<View>(storedView);
   const [fading, setFading] = useState(false);
   const pendingView = useRef<View | null>(null);
 

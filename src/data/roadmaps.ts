@@ -400,9 +400,9 @@ export const beginnerRoadmap: Roadmap = {
   ],
   nextSteps: [
     "**Re-solve problems that gave you trouble** - if a question stumped you, redo it until the approach clicks. Repetition is how patterns become second nature.",
-    "Remember to study solutions using an AI agent/YouTube video if you get stuck - I still have to do this occassionally for some questions!",
-    "Move onto the [Experienced Roadmap](?view=experienced) (Blind 75) to solidify your understanding of each pattern across all difficulty levels.",
-    "Complete additional questions from the [main question list](.) - filter by pattern or difficulty to target your weak areas.",
+    "Remember to **study solutions using an AI agent/YouTube video if you get stuck** - I still have to do this occassionally for some questions!",
+    "Move onto the **Experienced Roadmap** to solidify your understanding of each pattern across all difficulty levels.",
+    "Complete additional questions from the **All Questions** tab - filter by pattern or difficulty to target your weak areas.",
   ],
 };
 
@@ -413,7 +413,7 @@ export const experiencedRoadmap: Roadmap = {
     "Originally shared on [Blind.com](https://www.teamblind.com/post/new-year-gift-curated-list-of-top-75-leetcode-questions-to-save-your-time-oam1oreu) by [Yangshun Tay](https://www.techinterviewhandbook.org/), the Blind 75 problemset represents the highest-value questions for coding interview preparation.\n\n**Sean's Guidance:**\n" +
     "1. If you're here, you are familiar with technical interviews and the patterns you need to know. **Pick a language** and begin working through all Easy problems to build confidence.\n" +
     "2. If you get stuck on a problem for **more than 15 minutes**, consult the **Helpful Tips** tab and proceed to study the solution using an AI agent/YouTube video.\n" +
-    "3. Once you have completed all 75 questions, I would recommend **resolving ones that gave you trouble** before moving onto company-specific lists from [Leetcode Premium](https://leetcode.com/subscribe/), [InterviewDB](https://www.interviewdb.io/get-started), or [1point3acres](https://www.1point3acres.com/interview/thread/1167709).\n" +
+    "3. Once you have completed all 75 questions, I would recommend **reattempting ones that gave you trouble** before moving onto company-specific lists from [Leetcode Premium](https://leetcode.com/subscribe/), [InterviewDB](https://www.interviewdb.io/get-started), or [1point3acres](https://www.1point3acres.com/interview/thread/1167709).\n" +
     "4. Ensure to leverage free **mock interviews** on [Pramp](https://www.pramp.com/#/) to reacclimate to brain fog/interview anxiety - *you want to fail as many times practicing and not during an interview*.\n" +
     "5. Schedule interviews with companies that are **not your first choice** before interviewing with your goal companies - the practice will drastically help.\n",
   phases: [
@@ -837,8 +837,8 @@ export const experiencedRoadmap: Roadmap = {
   ],
   nextSteps: [
     "**Re-solve problems that gave you trouble** - if you struggled with a question, redo it until the approach is second nature.",
-    "Work through remaining questions in the [main question list](.) or **company-specific lists** from [Leetcode Premium](https://leetcode.com/subscribe/), [InterviewDB](https://www.interviewdb.io/get-started), or [1point3acres](https://www.1point3acres.com/interview/thread/1167709) to target your upcoming interviews.",
-    "I highly recommend **taking advantage of free mock interviews** on [Pramp](https://www.pramp.com/#/) - *you want to fail as many times practicing and not during an interview*. I have also met friends there who went on to join Facebook, Google, Microsoft, and other big tech companies!",
+    "Work through remaining questions in the **All Questions** tab or **company-specific lists** from [Leetcode Premium](https://leetcode.com/subscribe/), [InterviewDB](https://www.interviewdb.io/get-started), or [1point3acres](https://www.1point3acres.com/interview/thread/1167709) to target your upcoming interviews.",
+    "I highly recommend **taking advantage of free mock interviews** on [Pramp](https://www.pramp.com/#/) - *you want to fail as many times practicing and not during an interview*.",
   ],
 };
 

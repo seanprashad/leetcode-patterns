@@ -71,14 +71,14 @@ export default function AboutPanel() {
             </p>
             <p>
               I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
-              access to high-quality interview prep - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
+              access to high-quality interview material - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span>.
             </p>
             <p>
-              Thank you and best of luck studying!
+              Best of luck in your journey!
             </p>
             <p className="text-2xl text-zinc-900 dark:text-zinc-100" style={{ fontFamily: "var(--font-dancing-script)" }}>
-              - <a
+              <a
                 href="https://github.com/SeanPrashad"
                 target="_blank"
                 rel="noopener noreferrer"

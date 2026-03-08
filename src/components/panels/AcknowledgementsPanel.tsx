@@ -68,7 +68,7 @@ export default function AcknowledgementsPanel() {
         </div>
         <div className="h-[calc(100%-49px)] overflow-y-auto px-4 py-4">
           <p className="mb-4 text-xs text-zinc-500">
-            The following sources were used in aggregating this question list.
+            Leetcode Patterns wouldn&apos;t exist without the following resources:
           </p>
           <div className="space-y-4">
             {sources.map((source) => (
