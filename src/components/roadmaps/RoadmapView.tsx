@@ -317,8 +317,15 @@ export default function RoadmapView({ roadmap, questions }: Props) {
                       alt={c.name}
                       className="h-4 w-4 rounded-sm object-contain dark:brightness-90"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = "none";
-                        (e.target as HTMLImageElement).nextElementSibling?.classList.remove("hidden");
+                        const img = e.target as HTMLImageElement;
+                        const fallback = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${c.slug}.com`;
+                        if (!img.dataset.triedFallback) {
+                          img.dataset.triedFallback = "1";
+                          img.src = fallback;
+                        } else {
+                          img.style.display = "none";
+                          img.nextElementSibling?.classList.remove("hidden");
+                        }
                       }}
                     />
                     <span className="hidden rounded-full bg-zinc-100 px-1.5 py-0.5 text-[10px] dark:bg-zinc-800">

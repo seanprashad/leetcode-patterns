@@ -104,7 +104,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks search with debounce", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const searchInput = screen.getByPlaceholderText("Search (/)...");
+    const searchInput = screen.getByPlaceholderText("Search (/)");
     await user.type(searchInput, "two");
     await waitFor(() => {
       expect(mockTrackEvent).toHaveBeenCalledWith("search", { query: "two" });
