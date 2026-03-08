@@ -493,7 +493,7 @@ describe("QuestionsTable analytics", () => {
     expect(groupHeaders).toHaveLength(0);
     // Button shows "Restore order" since shuffle is active
     expect(screen.getByText("Restore order")).toBeInTheDocument();
-    const rows = screen.getAllByRole("row").filter((row) => row.querySelector("td"));
+    const rows = screen.getAllByRole("row").filter((row) => row.querySelector("td") && row.querySelectorAll("td").length > 1);
     expect(rows).toHaveLength(3);
   });
 
@@ -510,6 +510,127 @@ describe("QuestionsTable analytics", () => {
         completed_count: 2,
         notes_count: 1,
       });
+    });
+  });
+
+  it("collapses and expands a difficulty group", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
+    // Easy group visible with its question
+    expect(screen.getByText("Two Sum")).toBeInTheDocument();
+    const easyGroup = screen.getByRole("button", { name: /Easy group/ });
+
+    // Collapse
+    await user.click(easyGroup);
+    expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
+
+    // Expand
+    await user.click(easyGroup);
+    expect(screen.getByText("Two Sum")).toBeInTheDocument();
+  });
+
+  it("focuses search input when pressing /", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const searchInput = screen.getByPlaceholderText("Search (/)");
+    expect(searchInput).not.toHaveFocus();
+    await user.keyboard("/");
+    expect(searchInput).toHaveFocus();
+  });
+
+  it("picks a random question when pressing r", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.keyboard("r");
+    expect(mockTrackEvent).toHaveBeenCalledWith(
+      "random_question",
+      expect.objectContaining({ question_id: expect.any(Number), slug: expect.any(String) })
+    );
+  });
+
+  it("shows discard confirmation when closing note modal with unsaved changes", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const noteBtn = screen.getAllByText("Add a note...")[0];
+    await user.click(noteBtn);
+    const textarea = screen.getByPlaceholderText("Write your notes here...");
+    await user.type(textarea, "unsaved text");
+    await user.click(screen.getByText("Cancel"));
+    expect(screen.getByText("Unsaved changes")).toBeInTheDocument();
+
+    // Click "Keep editing" to go back
+    await user.click(screen.getByText("Keep editing"));
+    expect(screen.getByPlaceholderText("Write your notes here...")).toBeInTheDocument();
+  });
+
+  it("discards note changes when clicking Discard", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const noteBtn = screen.getAllByText("Add a note...")[0];
+    await user.click(noteBtn);
+    const textarea = screen.getByPlaceholderText("Write your notes here...");
+    await user.type(textarea, "unsaved text");
+    await user.click(screen.getByText("Cancel"));
+    await user.click(screen.getByText("Discard"));
+    // Modal is closed, note not saved
+    expect(screen.queryByText("Unsaved changes")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Add a note...")).toHaveLength(3);
+  });
+
+  it("saves note with Cmd+Enter keyboard shortcut", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const noteBtn = screen.getAllByText("Add a note...")[0];
+    await user.click(noteBtn);
+    const textarea = screen.getByPlaceholderText("Write your notes here...");
+    await user.type(textarea, "keyboard note");
+    await user.keyboard("{Meta>}{Enter}{/Meta}");
+    expect(mockTrackEvent).toHaveBeenCalledWith("note_save", {
+      question_id: 0,
+      has_content: true,
+    });
+    // Modal closed
+    expect(screen.queryByPlaceholderText("Write your notes here...")).not.toBeInTheDocument();
+  });
+
+  it("filters questions when typing in search", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const searchInput = screen.getByPlaceholderText("Search (/)");
+    await user.type(searchInput, "Two Sum");
+    await waitFor(() => {
+      expect(screen.getByText("Two Sum")).toBeInTheDocument();
+      expect(screen.queryByText("Median of Two Sorted Arrays")).not.toBeInTheDocument();
+    });
+  });
+
+  it("records solved date when completing a question", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const checkboxes = screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ });
+    await user.click(checkboxes[0].closest("td")!);
+    const stored = JSON.parse(localStorage.getItem("leetcode-patterns-solved-dates")!);
+    expect(stored).toHaveProperty("0");
+    expect(new Date(stored["0"]).getTime()).not.toBeNaN();
+  });
+
+  it("imports starred and solvedDates from file", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const importContainer = screen.getByText("Import progress").closest("div")!;
+    const fileInput = importContainer.querySelector("input[type='file']")! as HTMLInputElement;
+    const importData = JSON.stringify({
+      completed: [0],
+      starred: [1],
+      notes: {},
+      solvedDates: { "0": "2025-06-01T00:00:00.000Z" },
+    });
+    const file = new File([importData], "progress.json", { type: "application/json" });
+    await user.upload(fileInput, file);
+    await waitFor(() => {
+      expect(JSON.parse(localStorage.getItem("leetcode-patterns-starred")!)).toEqual([1]);
+      expect(JSON.parse(localStorage.getItem("leetcode-patterns-solved-dates")!)).toEqual({ "0": "2025-06-01T00:00:00.000Z" });
     });
   });
 

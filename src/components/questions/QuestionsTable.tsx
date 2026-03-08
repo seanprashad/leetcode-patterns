@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef, useSyncExternalStore, Fragment } from "react";
 import { useSearchParams } from "next/navigation";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import {
   useReactTable,
   getCoreRowModel,
@@ -837,6 +838,43 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       .map((key) => ({ key: key as string | null, rows: groupMap.get(key)! }));
   }, [tableRows, shuffleOrder, companySortActive, companySortDesc, activeCompanyFilter]);
 
+  type FlatItem =
+    | { type: "header"; key: string; groupDone: number; total: number }
+    | { type: "row"; row: (typeof tableRows)[number] };
+
+  const flatItems = useMemo<FlatItem[]>(() => {
+    const items: FlatItem[] = [];
+    for (const group of groupedRows) {
+      const isCollapsed = group.key !== null && collapsedGroups.has(group.key);
+      const groupDone = group.rows.filter((r) => completed.has(r.original.id)).length;
+      if (group.key !== null) {
+        items.push({ type: "header", key: group.key, groupDone, total: group.rows.length });
+      }
+      if (!isCollapsed) {
+        for (const row of group.rows) {
+          items.push({ type: "row", row });
+        }
+      }
+    }
+    return items;
+  }, [groupedRows, collapsedGroups, completed]);
+
+  const tableBodyRef = useRef<HTMLTableSectionElement>(null);
+  const [scrollMargin, setScrollMargin] = useState(0);
+
+  useEffect(() => {
+    if (tableBodyRef.current) {
+      setScrollMargin(tableBodyRef.current.offsetTop);
+    }
+  });
+
+  const virtualizer = useWindowVirtualizer({
+    count: flatItems.length,
+    estimateSize: () => 44,
+    overscan: 10,
+    scrollMargin,
+  });
+
   return (
     <div className="space-y-4">
       {/* Sticky: Progress + Filters */}
@@ -1261,25 +1299,32 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
               </tr>
             ))}
           </thead>
-          <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-            {groupedRows.map((group) => {
-              const isCollapsed = group.key !== null && collapsedGroups.has(group.key);
-              const groupDone = group.rows.filter((r) => completed.has(r.original.id)).length;
-              return (
-                <Fragment key={group.key ?? "all"}>
-                  {group.key !== null && (
+          <tbody ref={tableBodyRef} className="divide-y divide-zinc-200 dark:divide-zinc-800">
+            {virtualizer.getVirtualItems().length > 0 && (
+              <tr>
+                <td colSpan={columns.length} style={{ height: Math.max(0, virtualizer.getVirtualItems()[0].start - scrollMargin), padding: 0, border: "none" }} />
+              </tr>
+            )}
+            {virtualizer.getVirtualItems().map((virtualItem) => {
+              const item = flatItems[virtualItem.index];
+              if (item.type === "header") {
+                const isCollapsed = collapsedGroups.has(item.key);
+                return (
                   <tr
+                    key={`header-${item.key}`}
+                    data-index={virtualItem.index}
+                    ref={virtualizer.measureElement}
                     className={`cursor-pointer select-none border-l-4 ${{
                       Easy: "border-l-green-500 bg-green-50 hover:bg-green-100 dark:bg-green-900/30 dark:hover:bg-green-900/50",
                       Medium: "border-l-yellow-500 bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-900/30 dark:hover:bg-yellow-900/50",
                       Hard: "border-l-red-500 bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50",
-                    }[group.key] ?? ""}`}
-                    onClick={() => toggleGroup(group.key!)}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleGroup(group.key!); } }}
+                    }[item.key] ?? ""}`}
+                    onClick={() => toggleGroup(item.key)}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleGroup(item.key); } }}
                     tabIndex={0}
                     role="button"
                     aria-expanded={!isCollapsed}
-                    aria-label={`${group.key} group, ${groupDone} of ${group.rows.length} completed`}
+                    aria-label={`${item.key} group, ${item.groupDone} of ${item.total} completed`}
                   >
                     <td
                       colSpan={columns.length}
@@ -1291,17 +1336,17 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                         ) : (
                           <ChevronDown className="h-4 w-4" />
                         )}
-                        <span className={`text-base font-bold ${difficultyColor[group.key] ?? ""}`}>
-                          {group.key}
+                        <span className={`text-base font-bold ${difficultyColor[item.key] ?? ""}`}>
+                          {item.key}
                         </span>
                         <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                          {groupDone}/{group.rows.length} completed
+                          {item.groupDone}/{item.total} completed
                         </span>
-                        {groupDone > 0 && (
+                        {item.groupDone > 0 && (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              setResetConfirmGroup(group.key!);
+                              setResetConfirmGroup(item.key);
                             }}
                             className="ml-auto flex items-center gap-1 rounded px-1.5 py-1 text-xs text-zinc-400 transition-colors hover:bg-zinc-200 hover:text-zinc-600 dark:hover:bg-zinc-600 dark:hover:text-zinc-300"
                           >
@@ -1312,44 +1357,50 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                       </span>
                     </td>
                   </tr>
-                  )}
-                  {!isCollapsed &&
-                    group.rows.map((row) => (
-                      <tr
-                        key={row.id}
-                        className={
-                          completed.has(row.original.id)
-                            ? `text-zinc-400 line-through decoration-zinc-300 dark:text-zinc-500 dark:decoration-zinc-600 ${
-                                {
-                                  Easy: "bg-green-100/60 hover:bg-green-100 dark:bg-green-900/30 dark:hover:bg-green-900/40",
-                                  Medium: "bg-yellow-100/60 hover:bg-yellow-100 dark:bg-yellow-900/30 dark:hover:bg-yellow-900/40",
-                                  Hard: "bg-red-100/60 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/40",
-                                }[row.original.difficulty]
-                              }`
-                            : "hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
-                        }
+                );
+              }
+              const row = item.row;
+              return (
+                <tr
+                  key={row.id}
+                  data-index={virtualItem.index}
+                  ref={virtualizer.measureElement}
+                  className={
+                    completed.has(row.original.id)
+                      ? `text-zinc-400 line-through decoration-zinc-300 dark:text-zinc-500 dark:decoration-zinc-600 ${
+                          {
+                            Easy: "bg-green-100/60 hover:bg-green-100 dark:bg-green-900/30 dark:hover:bg-green-900/40",
+                            Medium: "bg-yellow-100/60 hover:bg-yellow-100 dark:bg-yellow-900/30 dark:hover:bg-yellow-900/40",
+                            Hard: "bg-red-100/60 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/40",
+                          }[row.original.difficulty]
+                        }`
+                      : "hover:bg-zinc-50 dark:hover:bg-zinc-900/50"
+                  }
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    const meta = cell.column.columnDef.meta as { clickable?: boolean; toggleFn?: string } | undefined;
+                    const isClickable = meta?.clickable;
+                    const onClick = isClickable
+                      ? () => (meta?.toggleFn === "starred" ? toggleStarred : toggleCompleted)(row.original.id)
+                      : undefined;
+                    return (
+                      <td
+                        key={cell.id}
+                        className={`px-2 py-2 sm:px-4 sm:py-3 ${isClickable ? "cursor-pointer select-none" : ""}`}
+                        onClick={onClick}
                       >
-                        {row.getVisibleCells().map((cell) => {
-                          const meta = cell.column.columnDef.meta as { clickable?: boolean; toggleFn?: string } | undefined;
-                          const isClickable = meta?.clickable;
-                          const onClick = isClickable
-                            ? () => (meta?.toggleFn === "starred" ? toggleStarred : toggleCompleted)(row.original.id)
-                            : undefined;
-                          return (
-                            <td
-                              key={cell.id}
-                              className={`px-2 py-2 sm:px-4 sm:py-3 ${isClickable ? "cursor-pointer select-none" : ""}`}
-                              onClick={onClick}
-                            >
-                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    ))}
-                </Fragment>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    );
+                  })}
+                </tr>
               );
             })}
+            {virtualizer.getVirtualItems().length > 0 && (
+              <tr>
+                <td colSpan={columns.length} style={{ height: Math.max(0, virtualizer.getTotalSize() - virtualizer.getVirtualItems().at(-1)!.end), padding: 0, border: "none" }} />
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
