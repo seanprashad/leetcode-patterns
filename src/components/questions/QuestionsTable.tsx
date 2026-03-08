@@ -54,7 +54,7 @@ const makeColumns = (
         checked={completed.has(info.row.original.id)}
         onChange={() => toggleCompleted(info.row.original.id)}
         className="h-4 w-4 pointer-events-none accent-blue-600"
-        tabIndex={-1}
+        aria-label={`Mark ${info.row.original.title} as ${completed.has(info.row.original.id) ? "incomplete" : "complete"}`}
       />
     ),
     meta: { clickable: true },
@@ -64,13 +64,19 @@ const makeColumns = (
     header: "★",
     size: 40,
     cell: (info) => (
-      <Star
-        className={`h-4 w-4 pointer-events-none ${
-          starred.has(info.row.original.id)
-            ? "fill-amber-400 text-amber-400"
-            : "text-zinc-300 dark:text-zinc-600"
-        }`}
-      />
+      <span
+        role="checkbox"
+        aria-checked={starred.has(info.row.original.id)}
+        aria-label={`Star ${info.row.original.title}`}
+      >
+        <Star
+          className={`h-4 w-4 pointer-events-none ${
+            starred.has(info.row.original.id)
+              ? "fill-amber-400 text-amber-400"
+              : "text-zinc-300 dark:text-zinc-600"
+          }`}
+        />
+      </span>
     ),
     meta: { clickable: true, toggleFn: "starred" },
     enableSorting: false,
@@ -101,6 +107,7 @@ const makeColumns = (
         target="_blank"
         rel="noopener noreferrer"
         title="View solutions"
+        aria-label={`View solutions for ${info.row.original.title}`}
         className="inline-flex items-center text-zinc-400 hover:text-blue-600 dark:text-zinc-500 dark:hover:text-blue-400"
       >
         <ExternalLink className="h-4 w-4" />
@@ -856,7 +863,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
             )}
           </div>
         </div>
-        <div className="relative h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
+        <div className="relative h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="Completion progress">
           {/* Default: solid blue bar */}
           <div
             className="absolute inset-0 h-full bg-blue-500 transition-opacity duration-500 ease-in-out sm:group-hover:opacity-0 max-sm:hidden"
@@ -887,11 +894,14 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           placeholder="Search (/)"
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
+          aria-label="Search questions"
           className="w-36 rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm focus:border-blue-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900"
         />
         <div ref={difficultyDropdownRef} className="relative">
           <button
             onClick={() => setDifficultyDropdownOpen((o) => !o)}
+            aria-expanded={difficultyDropdownOpen}
+            aria-haspopup="listbox"
             className="flex items-center gap-1 whitespace-nowrap rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
             <span>
@@ -944,6 +954,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div ref={patternDropdownRef} className="relative">
           <button
             onClick={() => setPatternDropdownOpen((o) => !o)}
+            aria-expanded={patternDropdownOpen}
+            aria-haspopup="listbox"
             className="flex items-center gap-1 whitespace-nowrap rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
             <span>
@@ -1011,6 +1023,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div ref={companyDropdownRef} className="relative">
           <button
             onClick={() => setCompanyDropdownOpen((o) => !o)}
+            aria-expanded={companyDropdownOpen}
+            aria-haspopup="listbox"
             className="flex items-center gap-1 whitespace-nowrap rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
             <span>
@@ -1228,7 +1242,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                     className="px-2 py-2 font-semibold whitespace-nowrap select-none sm:px-4 sm:py-3"
                     style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                     onClick={header.column.getToggleSortingHandler()}
+                    onKeyDown={header.column.getCanSort() ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.column.getToggleSortingHandler()?.(e); } } : undefined}
+                    tabIndex={header.column.getCanSort() ? 0 : undefined}
                     role={header.column.getCanSort() ? "button" : undefined}
+                    aria-sort={header.column.getIsSorted() === "asc" ? "ascending" : header.column.getIsSorted() === "desc" ? "descending" : undefined}
                   >
                     <span className="flex items-center gap-1">
                       {flexRender(
@@ -1258,6 +1275,11 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                       Hard: "border-l-red-500 bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50",
                     }[group.key] ?? ""}`}
                     onClick={() => toggleGroup(group.key!)}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleGroup(group.key!); } }}
+                    tabIndex={0}
+                    role="button"
+                    aria-expanded={!isCollapsed}
+                    aria-label={`${group.key} group, ${groupDone} of ${group.rows.length} completed`}
                   >
                     <td
                       colSpan={columns.length}
@@ -1347,6 +1369,9 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
             onClick={tryDismiss}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Edit note for ${editingNote.title}`}
           >
             <div
               className="mx-4 w-full max-w-lg rounded-xl border border-zinc-200 bg-white p-6 shadow-xl dark:border-zinc-700 dark:bg-zinc-900"
@@ -1451,6 +1476,9 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
             onClick={() => setResetConfirmGroup(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Reset ${resetConfirmGroup} progress`}
           >
             <div
               className="mx-4 w-full max-w-sm rounded-xl border border-zinc-200 bg-white p-6 shadow-xl dark:border-zinc-700 dark:bg-zinc-900"
@@ -1491,6 +1519,9 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
           onClick={() => setClearConfirm(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={clearConfirm === "notes" ? "Clear all notes" : clearConfirm === "starred" ? "Clear all stars" : "Clear all progress"}
         >
           <div
             className="mx-4 w-full max-w-sm rounded-xl border border-zinc-200 bg-white p-6 shadow-xl dark:border-zinc-700 dark:bg-zinc-900"

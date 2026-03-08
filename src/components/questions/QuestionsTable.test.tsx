@@ -65,7 +65,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks question_toggle when checking a question", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const checkboxes = screen.getAllByRole("checkbox", { name: "" });
+    const checkboxes = screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ });
     const cell = checkboxes[0].closest("td")!;
     await user.click(cell);
     expect(mockTrackEvent).toHaveBeenCalledWith("question_toggle", {
@@ -78,7 +78,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const checkboxes = screen.getAllByRole("checkbox", { name: "" });
+    const checkboxes = screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ });
     const cell = checkboxes[0].closest("td")!;
     await user.click(cell);
     expect(mockTrackEvent).toHaveBeenCalledWith("question_toggle", {
@@ -323,8 +323,8 @@ describe("QuestionsTable analytics", () => {
   it("tracks star_toggle when starring a question", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const starCells = screen.getAllByRole("row").slice(2).map((row) => row.querySelectorAll("td")[1]);
-    await user.click(starCells[0]);
+    const starCheckboxes = screen.getAllByRole("checkbox", { name: /^Star / });
+    await user.click(starCheckboxes[0].closest("td")!);
     expect(mockTrackEvent).toHaveBeenCalledWith("star_toggle", {
       question_id: 0,
       starred: true,
@@ -335,8 +335,8 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0]));
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const starCells = screen.getAllByRole("row").slice(2).map((row) => row.querySelectorAll("td")[1]);
-    await user.click(starCells[0]);
+    const starCheckboxes = screen.getAllByRole("checkbox", { name: /^Star / });
+    await user.click(starCheckboxes[0].closest("td")!);
     expect(mockTrackEvent).toHaveBeenCalledWith("star_toggle", {
       question_id: 0,
       starred: false,
@@ -437,23 +437,19 @@ describe("QuestionsTable analytics", () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
     const getGroupHeaders = () =>
-      screen.getAllByRole("row").filter((row) =>
-        row.querySelector(".text-base.font-bold")
-      );
+      screen.getAllByRole("button", { name: /group/ });
     expect(getGroupHeaders()).toHaveLength(3);
 
     const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
     await user.click(shuffleBtn);
-    expect(getGroupHeaders()).toHaveLength(0);
+    expect(screen.queryAllByRole("button", { name: /group/ })).toHaveLength(0);
   });
 
   it("toggles between shuffle and restore on the same button", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
     const getGroupHeaders = () =>
-      screen.getAllByRole("row").filter((row) =>
-        row.querySelector(".text-base.font-bold")
-      );
+      screen.queryAllByRole("button", { name: /group/ });
 
     // Initially shows "Shuffle questions"
     expect(screen.getByText("Shuffle questions")).toBeInTheDocument();
@@ -493,9 +489,7 @@ describe("QuestionsTable analytics", () => {
   it("restores shuffle order from localStorage on mount", () => {
     localStorage.setItem("leetcode-patterns-shuffle-order", JSON.stringify([2, 0, 1]));
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const groupHeaders = screen.getAllByRole("row").filter((row) =>
-      row.querySelector(".text-base.font-bold")
-    );
+    const groupHeaders = screen.queryAllByRole("button", { name: /group/ });
     expect(groupHeaders).toHaveLength(0);
     // Button shows "Restore order" since shuffle is active
     expect(screen.getByText("Restore order")).toBeInTheDocument();
@@ -530,7 +524,7 @@ describe("QuestionsTable analytics", () => {
       render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
 
       // Both questions should be checked
-      const checkboxes = screen.getAllByRole("checkbox", { name: "" });
+      const checkboxes = screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ });
       expect(checkboxes[0]).toBeChecked(); // Two Sum (id: 0)
       expect(checkboxes[1]).toBeChecked(); // Add Two Numbers (id: 1)
       expect(checkboxes[2]).not.toBeChecked(); // Median of Two Sorted Arrays
