@@ -48,35 +48,33 @@ export default function AboutPanel() {
             <X className="h-4 w-4" />
           </button>
         </div>
-        <div className="h-[calc(100%-49px)] overflow-y-auto px-4 py-4">
-          <div className="space-y-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <div className="h-[calc(100%-49px)] overflow-y-auto px-5 py-5">
+          <div className="space-y-5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
             <p>
               In <span className="font-semibold text-zinc-900 dark:text-zinc-100">2019</span>, as a broke college
-              student who couldn&apos;t afford premium interview resources, I spent{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">countless hours</span> searching
-              for free materials, taught myself React, and built{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span> before{" "}
+              student who couldn&apos;t afford premium interview resources, I spent countless hours searching
+              for free materials and teaching myself React to build{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span>.
+            </p>
+            <p>
+              Since sharing it with {" "}
               <a
                 href="https://www.reddit.com/r/csMajors/comments/cvy1fg/leetcode_pattern_study_guide/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-blue-600 hover:underline dark:text-blue-400"
               >
-                sharing it with Reddit
-              </a>.
-            </p>
-            <p>
-              Since launching, the site has attracted more than{" "}
+                Reddit
+              </a>, the site has grown to over{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">150k users every year</span> from{" "}
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">128 countries</span>.
             </p>
             <p>
               I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
-              access to high-quality interview prep resources regardless of their financial situation. Therefore, it is
-              my commitment to you that this site will remain {" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span> for as long as it can.
+              access to high-quality interview prep - regardless of their financial situation. It's why I chose to make this website{" "}
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span>.
             </p>
-            <p className="pt-2">
+            <p>
               Thank you and best of luck studying!
             </p>
             <p className="text-2xl text-zinc-900 dark:text-zinc-100" style={{ fontFamily: "var(--font-dancing-script)" }}>
