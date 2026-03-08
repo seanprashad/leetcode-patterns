@@ -72,7 +72,12 @@ export default function AboutPanel() {
             <p>
               I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
               access to high-quality interview material - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">free and open source</span>.
+              <a
+                href="https://github.com/seanprashad/leetcode-patterns/blob/main/LICENSE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-blue-600 hover:underline dark:text-blue-400"
+              >free and open source</a>.
             </p>
             <p>
               Best of luck in your journey!
