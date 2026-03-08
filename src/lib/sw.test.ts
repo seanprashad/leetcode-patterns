@@ -55,9 +55,10 @@ interface FetchEvent {
 
 function loadSW(mockSelf: Record<string, unknown>) {
   const swSource = readFileSync(join(__dirname, "../../public/sw.js"), "utf-8");
-  const listeners = new Map<string, Function[]>();
+  type EventHandler = (...args: unknown[]) => void;
+  const listeners = new Map<string, EventHandler[]>();
 
-  mockSelf.addEventListener = (event: string, handler: Function) => {
+  mockSelf.addEventListener = (event: string, handler: EventHandler) => {
     if (!listeners.has(event)) listeners.set(event, []);
     listeners.get(event)!.push(handler);
   };
@@ -136,7 +137,7 @@ describe("Service Worker", () => {
       const keys = await mockCaches.keys();
       expect(keys).not.toContain("lc-patterns-v1");
       expect(keys).toContain("lc-patterns-v2");
-      expect((mockSelf.clients as { claim: Function }).claim).toHaveBeenCalled();
+      expect((mockSelf.clients as { claim: () => void }).claim).toHaveBeenCalled();
     });
   });
 
