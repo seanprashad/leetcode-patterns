@@ -361,6 +361,50 @@ describe("RoadmapView", () => {
   });
 });
 
+describe("RoadmapView next steps", () => {
+  beforeEach(() => {
+    mockTrackEvent.mockClear();
+    localStorage.clear();
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.restoreAllMocks();
+  });
+
+  it("renders next steps section for beginner roadmap", () => {
+    render(<RoadmapView roadmap={beginnerRoadmap} questions={testData} />);
+    expect(screen.getByText("Next Steps")).toBeInTheDocument();
+    expect(screen.getByText("What to do after completing this roadmap")).toBeInTheDocument();
+  });
+
+  it("renders next steps section for experienced roadmap", () => {
+    render(<RoadmapView roadmap={experiencedRoadmap} questions={testData} />);
+    expect(screen.getByText("Next Steps")).toBeInTheDocument();
+  });
+
+  it("renders the correct number of steps", () => {
+    render(<RoadmapView roadmap={beginnerRoadmap} questions={testData} />);
+    const nextStepsContainer = screen.getByText("Next Steps").closest(".border-blue-300")!;
+    const stepNumbers = nextStepsContainer.querySelectorAll(".bg-blue-100");
+    // pill + numbered circles
+    expect(stepNumbers.length).toBe(beginnerRoadmap.nextSteps!.length + 1);
+  });
+
+  it("renders external links with target=_blank", () => {
+    render(<RoadmapView roadmap={experiencedRoadmap} questions={testData} />);
+    const prampLinks = screen.getAllByText("Pramp");
+    const nextStepsPramp = prampLinks.find((el) => el.closest(".border-blue-300"));
+    expect(nextStepsPramp?.closest("a")).toHaveAttribute("target", "_blank");
+  });
+
+  it("does not render next steps when none are defined", () => {
+    const roadmapWithoutSteps = { ...beginnerRoadmap, nextSteps: undefined };
+    render(<RoadmapView roadmap={roadmapWithoutSteps} questions={testData} />);
+    expect(screen.queryByText("Next Steps")).not.toBeInTheDocument();
+  });
+});
+
 describe("Roadmap data integrity", () => {
   it("beginner roadmap has no duplicate question slugs", () => {
     const slugs = beginnerRoadmap.phases.flatMap((p) => p.questions.map((q) => q.slug));
@@ -378,6 +422,13 @@ describe("Roadmap data integrity", () => {
       0
     );
     expect(count).toBe(75);
+  });
+
+  it("both roadmaps have nextSteps defined", () => {
+    expect(beginnerRoadmap.nextSteps).toBeDefined();
+    expect(beginnerRoadmap.nextSteps!.length).toBeGreaterThan(0);
+    expect(experiencedRoadmap.nextSteps).toBeDefined();
+    expect(experiencedRoadmap.nextSteps!.length).toBeGreaterThan(0);
   });
 
   it("every roadmap question has a non-empty note", () => {
