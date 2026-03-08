@@ -168,8 +168,15 @@ const makeColumns = (
               alt={c.name}
               className="h-5 w-5 rounded-sm object-contain dark:brightness-90"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-                (e.target as HTMLImageElement).nextElementSibling?.classList.remove("hidden");
+                const img = e.target as HTMLImageElement;
+                const fallback = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${c.slug}.com`;
+                if (!img.dataset.triedFallback) {
+                  img.dataset.triedFallback = "1";
+                  img.src = fallback;
+                } else {
+                  img.style.display = "none";
+                  img.nextElementSibling?.classList.remove("hidden");
+                }
               }}
             />
             <span className="hidden rounded-full bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-800">
@@ -877,7 +884,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <input
           ref={searchRef}
           type="text"
-          placeholder="Search (/)..."
+          placeholder="Search (/)"
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="w-36 rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm focus:border-blue-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900"
