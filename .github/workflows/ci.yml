@@ -66,20 +66,6 @@ jobs:
         name: Remove service worker from preview
         run: rm -f out/sw.js
 
-      - name: Ensure .nojekyll exists at gh-pages root
-        run: |
-          git fetch origin gh-pages:gh-pages || true
-          if git rev-parse --verify gh-pages >/dev/null 2>&1; then
-            if ! git show gh-pages:.nojekyll >/dev/null 2>&1; then
-              git checkout gh-pages
-              touch .nojekyll
-              git add .nojekyll
-              git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -m "Add .nojekyll for Next.js _next/ assets"
-              git push origin gh-pages
-              git checkout -
-            fi
-          fi
-
       - uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: out
