@@ -276,20 +276,27 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const [globalFilter, setGlobalFilter] = useState(
     () => searchParams.get("q") ?? ""
   );
-  const [{ completed: initialCompleted, migrationToast: initialToast }] = useState(() => {
-    const migrated = migrateLegacyProgress(data);
-    return {
-      completed: migrated ?? loadCompleted(),
-      migrationToast: migrated ? `Migrated ${migrated.size} completed question${migrated.size === 1 ? "" : "s"} from V1` : null,
-    };
-  });
-  const [completed, setCompleted] = useState(initialCompleted);
-  const [starred, setStarred] = useState(loadStarred);
-  const [shuffleOrder, setShuffleOrder] = useState(loadShuffleOrder);
-  const [notes, setNotes] = useState(loadNotes);
-  const [solvedDates, setSolvedDates] = useState(loadSolvedDates);
-  const [migrationToast, setMigrationToast] = useState(initialToast);
+  const [completed, setCompleted] = useState<Set<number>>(new Set());
+  const [starred, setStarred] = useState<Set<number>>(new Set());
+  const [shuffleOrder, setShuffleOrder] = useState<number[] | null>(null);
+  const [notes, setNotes] = useState<Record<number, string>>({});
+  const [solvedDates, setSolvedDates] = useState<Record<number, string>>({});
+  const [migrationToast, setMigrationToast] = useState<string | null>(null);
   const [toastFading, setToastFading] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const migrated = migrateLegacyProgress(data);
+    setCompleted(migrated ?? loadCompleted());
+    if (migrated) {
+      setMigrationToast(`Migrated ${migrated.size} completed question${migrated.size === 1 ? "" : "s"} from V1`);
+    }
+    setStarred(loadStarred());
+    setShuffleOrder(loadShuffleOrder());
+    setNotes(loadNotes());
+    setSolvedDates(loadSolvedDates());
+    setHydrated(true);
+  }, [data]);
 
   useEffect(() => {
     if (!migrationToast) return;
@@ -380,19 +387,19 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setEditingNote({ id, title, draft: notes[id] ?? "", confirmDiscard: false });
   }, [notes]);
 
-  const [hideCompleted, setHideCompleted] = useState(
-    () => typeof window !== "undefined" && localStorage.getItem("leetcode-patterns-hide-completed") === "true"
-  );
-  const [showStarredOnly, setShowStarredOnly] = useState(
-    () => typeof window !== "undefined" && localStorage.getItem("leetcode-patterns-starred-only") === "true"
-  );
-  const [hidePatterns, setHidePatterns] = useState(
-    () => typeof window !== "undefined" && localStorage.getItem("leetcode-patterns-hide-patterns") === "true"
-  );
+  const [hideCompleted, setHideCompleted] = useState(false);
+  const [showStarredOnly, setShowStarredOnly] = useState(false);
+  const [hidePatterns, setHidePatterns] = useState(false);
 
-  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted]);
-  useEffect(() => { localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly]);
-  useEffect(() => { localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns]);
+  useEffect(() => {
+    setHideCompleted(localStorage.getItem("leetcode-patterns-hide-completed") === "true");
+    setShowStarredOnly(localStorage.getItem("leetcode-patterns-starred-only") === "true");
+    setHidePatterns(localStorage.getItem("leetcode-patterns-hide-patterns") === "true");
+  }, []);
+
+  useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted, hydrated]);
+  useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly, hydrated]);
+  useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns, hydrated]);
 
   const activeCompanyFilter = useMemo(
     () => (columnFilters.find((f) => f.id === "companies")?.value as string[]) ?? [],
@@ -705,14 +712,14 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
 
   const difficultyFilter = useMemo(
     () => (table.getColumn("difficulty")?.getFilterValue() as string[]) ?? [],
-    [table]
+    [table, columnFilters]
   );
   const [difficultyDropdownOpen, setDifficultyDropdownOpen] = useState(false);
   const difficultyDropdownRef = useRef<HTMLDivElement>(null);
 
   const patternFilter = useMemo(
     () => (table.getColumn("pattern")?.getFilterValue() as string[]) ?? [],
-    [table]
+    [table, columnFilters]
   );
   const [patternDropdownOpen, setPatternDropdownOpen] = useState(false);
   const [patternSearch, setPatternSearch] = useState("");
@@ -734,7 +741,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
 
   const companyFilter = useMemo(
     () => (table.getColumn("companies")?.getFilterValue() as string[]) ?? [],
-    [table]
+    [table, columnFilters]
   );
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [companySearch, setCompanySearch] = useState("");
@@ -755,7 +762,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   }, [companies, companySearch, companyFilter]);
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: MouseEvent | TouchEvent) => {
       if (difficultyDropdownRef.current && !difficultyDropdownRef.current.contains(e.target as Node)) {
         setDifficultyDropdownOpen(false);
       }
@@ -769,7 +776,11 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       }
     };
     document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("touchstart", handleClick);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("touchstart", handleClick);
+    };
   }, []);
 
   const pct = stats.total > 0 ? Math.round((stats.totalDone / stats.total) * 100) : 0;
@@ -874,36 +885,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div ref={difficultyDropdownRef} className="relative">
           <button
             onClick={() => setDifficultyDropdownOpen((o) => !o)}
-            className="flex items-center gap-1 rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="flex items-center gap-1 whitespace-nowrap rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
-            <span className="flex items-center gap-1">
-              {difficultyFilter.length === 0 ? (
-                "All Difficulties"
-              ) : (
-                <>
-                  {difficultyFilter.map((d) => (
-                    <span
-                      key={d}
-                      className="inline-flex items-center gap-0.5 rounded bg-blue-100 px-1.5 py-0.5 text-xs text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-                    >
-                      {d}
-                      <span
-                        role="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const next = difficultyFilter.filter((x) => x !== d);
-                          table
-                            .getColumn("difficulty")
-                            ?.setFilterValue(next.length ? next : undefined);
-                        }}
-                        className="ml-0.5 cursor-pointer hover:text-blue-900 dark:hover:text-blue-100"
-                      >
-                        ×
-                      </span>
-                    </span>
-                  ))}
-                </>
-              )}
+            <span>
+              {difficultyFilter.length === 0
+                ? "All Difficulties"
+                : `Difficulty (${difficultyFilter.length})`}
             </span>
             <svg className="h-3 w-3 shrink-0 opacity-50" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M3 5l3 3 3-3" />
@@ -950,41 +937,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div ref={patternDropdownRef} className="relative">
           <button
             onClick={() => setPatternDropdownOpen((o) => !o)}
-            className="flex items-center gap-1 rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="flex items-center gap-1 whitespace-nowrap rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
-            <span className="flex items-center gap-1">
-              {patternFilter.length === 0 ? (
-                "All Patterns"
-              ) : (
-                <>
-                  {patternFilter.slice(0, 2).map((p) => (
-                    <span
-                      key={p}
-                      className="inline-flex items-center gap-0.5 rounded bg-blue-100 px-1.5 py-0.5 text-xs text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-                    >
-                      {p}
-                      <span
-                        role="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const next = patternFilter.filter((x) => x !== p);
-                          table
-                            .getColumn("pattern")
-                            ?.setFilterValue(next.length ? next : undefined);
-                        }}
-                        className="ml-0.5 cursor-pointer hover:text-blue-900 dark:hover:text-blue-100"
-                      >
-                        ×
-                      </span>
-                    </span>
-                  ))}
-                  {patternFilter.length > 2 && (
-                    <span className="text-xs text-zinc-500">
-                      +{patternFilter.length - 2}
-                    </span>
-                  )}
-                </>
-              )}
+            <span>
+              {patternFilter.length === 0
+                ? "All Patterns"
+                : `Patterns (${patternFilter.length})`}
             </span>
             <svg className="h-3 w-3 shrink-0 opacity-50" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M3 5l3 3 3-3" />
@@ -1046,44 +1004,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <div ref={companyDropdownRef} className="relative">
           <button
             onClick={() => setCompanyDropdownOpen((o) => !o)}
-            className="flex items-center gap-1 rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="flex items-center gap-1 whitespace-nowrap rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
-            <span className="flex items-center gap-1">
-              {companyFilter.length === 0 ? (
-                "All Companies"
-              ) : (
-                <>
-                  {companyFilter.slice(0, 2).map((slug) => {
-                    const name = companies.find(([s]) => s === slug)?.[1] ?? slug;
-                    return (
-                      <span
-                        key={slug}
-                        className="inline-flex items-center gap-0.5 rounded bg-blue-100 px-1.5 py-0.5 text-xs text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-                      >
-                        {name}
-                        <span
-                          role="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const next = companyFilter.filter((s) => s !== slug);
-                            table
-                              .getColumn("companies")
-                              ?.setFilterValue(next.length ? next : undefined);
-                          }}
-                          className="ml-0.5 cursor-pointer hover:text-blue-900 dark:hover:text-blue-100"
-                        >
-                          ×
-                        </span>
-                      </span>
-                    );
-                  })}
-                  {companyFilter.length > 2 && (
-                    <span className="text-xs text-zinc-500">
-                      +{companyFilter.length - 2}
-                    </span>
-                  )}
-                </>
-              )}
+            <span>
+              {companyFilter.length === 0
+                ? "All Companies"
+                : `Companies (${companyFilter.length})`}
             </span>
             <svg className="h-3 w-3 shrink-0 opacity-50" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M3 5l3 3 3-3" />
