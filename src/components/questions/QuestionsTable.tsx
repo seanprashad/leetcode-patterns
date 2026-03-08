@@ -16,13 +16,15 @@ import {
 import { Question } from "@/types/question";
 import { ExternalLink, Star, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress } from "@/lib/storage";
+import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress, loadReminders, saveReminders } from "@/lib/storage";
+import { type Reminder, initReminder, isDue, setCustomDate as setCustomReviewDate } from "@/lib/reminders";
 import ProgressBar, { type ProgressStats } from "./ProgressBar";
 import FilterToolbar from "./FilterToolbar";
 import NoteModal, { type EditingNote } from "./NoteModal";
 import ConfirmModal from "./ConfirmModal";
 import GroupHeaderRow from "./GroupHeaderRow";
 import QuestionRow from "./QuestionRow";
+import ReviewDateModal, { type ReviewDateTarget } from "./ReviewDateModal";
 
 const columnHelper = createColumnHelper<Question>();
 
@@ -48,7 +50,9 @@ const makeColumns = (
   hidePatterns: boolean,
   companyFilter: string[],
   updatedDate: string,
-  solvedDates: Record<number, string>
+  solvedDates: Record<number, string>,
+  reminders: Record<number, Reminder>,
+  openReviewModal: (id: number, title: string) => void
 ) => [
   columnHelper.display({
     id: "completed",
@@ -219,8 +223,8 @@ const makeColumns = (
   columnHelper.display({
     id: "notes",
     header: "Notes",
-    size: 200,
-    meta: { hideOnMobile: true },
+    size: 100,
+    meta: { hideOnMobile: true, noStrikethrough: true },
     cell: (info) => {
       const note = notes[info.row.original.id];
       return (
@@ -228,31 +232,94 @@ const makeColumns = (
           onClick={() =>
             openNoteModal(info.row.original.id, info.row.original.title)
           }
-          className="block max-w-[200px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
+          title={note || undefined}
+          aria-label={`${note ? "Edit" : "Add"} note for ${info.row.original.title}`}
+          className="block max-w-[100px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
         >
-          {note || "Add a note..."}
+          {note || <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>}
         </button>
       );
     },
     enableSorting: false,
   }),
   columnHelper.display({
-    id: "lastSolved",
-    header: "Last Solved",
-    size: 110,
-    meta: { hideOnMobile: true },
+    id: "review",
+    header: "Review",
+    size: 160,
+    meta: { hideOnMobile: true, noStrikethrough: true },
     cell: (info) => {
-      const date = solvedDates[info.row.original.id];
-      if (!date) return <span className="text-zinc-300 dark:text-zinc-700">-</span>;
+      const solvedDate = solvedDates[info.row.original.id];
+      const reminder = reminders[info.row.original.id];
+      if (!solvedDate && !reminder) return <span className="text-zinc-300 dark:text-zinc-700">—</span>;
+      const dateFmt = { month: "short" as const, day: "numeric" as const, year: "numeric" as const };
       return (
-        <span className="text-xs text-zinc-500 dark:text-zinc-400">
-          {new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-        </span>
+        <div className="flex flex-col items-start gap-0.5">
+          {solvedDate && (
+            <span
+              className="whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset bg-zinc-100 text-zinc-600 ring-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:ring-zinc-700"
+              title={new Date(solvedDate).toLocaleDateString("en-US", dateFmt)}
+            >
+              Solved {relativeDate(solvedDate, "past")}
+            </span>
+          )}
+          {reminder ? (
+            <button
+              className={`group/review inline-flex items-center gap-1 whitespace-nowrap cursor-pointer rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset transition-colors ${reviewPillStyle(reminder.nextReview)}`}
+              title={`${new Date(reminder.nextReview + "T00:00:00").toLocaleDateString("en-US", dateFmt)} · Click to change`}
+              onClick={(e) => { e.stopPropagation(); openReviewModal(info.row.original.id, info.row.original.title); }}
+            >
+              {relativeDate(reminder.nextReview, "future")}
+              <svg className="h-3 w-3 shrink-0 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            </button>
+          ) : solvedDate && (
+            <button
+              className="inline-flex items-center gap-1 whitespace-nowrap cursor-pointer rounded-full px-2 py-0.5 text-xs ring-1 ring-inset ring-dashed transition-colors text-zinc-400 ring-zinc-300 hover:text-zinc-600 hover:ring-zinc-400 dark:text-zinc-500 dark:ring-zinc-600 dark:hover:text-zinc-400 dark:hover:ring-zinc-500"
+              title="Set a review date"
+              onClick={(e) => { e.stopPropagation(); openReviewModal(info.row.original.id, info.row.original.title); }}
+            >
+              + Set review
+            </button>
+          )}
+        </div>
       );
     },
     enableSorting: false,
   }),
 ];
+
+function daysDiff(isoDate: string): number {
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const target = isoDate.slice(0, 10);
+  const todayMs = new Date(todayStr + "T00:00:00Z").getTime();
+  const targetMs = new Date(target + "T00:00:00Z").getTime();
+  return Math.round((targetMs - todayMs) / 86_400_000);
+}
+
+function reviewPillStyle(isoDate: string): string {
+  const diff = daysDiff(isoDate);
+  if (diff < 0) return "bg-red-100 text-red-700 ring-red-200 hover:bg-red-200 dark:bg-red-900/40 dark:text-red-400 dark:ring-red-800 dark:hover:bg-red-900/60";
+  if (diff === 0) return "bg-orange-100 text-orange-700 ring-orange-200 hover:bg-orange-200 dark:bg-orange-900/40 dark:text-orange-400 dark:ring-orange-800 dark:hover:bg-orange-900/60";
+  if (diff === 1) return "bg-amber-100 text-amber-700 ring-amber-200 hover:bg-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:ring-amber-800 dark:hover:bg-amber-900/60";
+  if (diff <= 3) return "bg-yellow-100 text-yellow-700 ring-yellow-200 hover:bg-yellow-200 dark:bg-yellow-900/40 dark:text-yellow-400 dark:ring-yellow-800 dark:hover:bg-yellow-900/60";
+  if (diff <= 7) return "bg-lime-100 text-lime-700 ring-lime-200 hover:bg-lime-200 dark:bg-lime-900/40 dark:text-lime-400 dark:ring-lime-800 dark:hover:bg-lime-900/60";
+  if (diff <= 14) return "bg-emerald-100 text-emerald-700 ring-emerald-200 hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 dark:ring-emerald-800 dark:hover:bg-emerald-900/60";
+  if (diff <= 30) return "bg-cyan-100 text-cyan-700 ring-cyan-200 hover:bg-cyan-200 dark:bg-cyan-900/40 dark:text-cyan-400 dark:ring-cyan-800 dark:hover:bg-cyan-900/60";
+  return "bg-zinc-100 text-zinc-600 ring-zinc-200 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:ring-zinc-700 dark:hover:bg-zinc-700";
+}
+
+function relativeDate(isoDate: string, mode: "past" | "future"): string {
+  const diffDays = daysDiff(isoDate);
+  if (mode === "past") {
+    const ago = -diffDays;
+    if (ago <= 0) return "today";
+    if (ago === 1) return "yesterday";
+    return `${ago}d ago`;
+  }
+  if (diffDays < 0) return `Overdue ${-diffDays}d`;
+  if (diffDays === 0) return "Due today";
+  if (diffDays === 1) return "Review tomorrow";
+  return `Review in ${diffDays}d`;
+}
 
 const mobileQuery = "(max-width: 639px)";
 
@@ -301,6 +368,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const [shuffleOrder, setShuffleOrder] = useState<number[] | null>(null);
   const [notes, setNotes] = useState<Record<number, string>>({});
   const [solvedDates, setSolvedDates] = useState<Record<number, string>>({});
+  const [reminders, setReminders] = useState<Record<number, Reminder>>({});
   const [migrationToast, setMigrationToast] = useState<string | null>(null);
   const [toastFading, setToastFading] = useState(false);
   const [hydrated, setHydrated] = useState(false);
@@ -315,6 +383,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setShuffleOrder(loadShuffleOrder());
     setNotes(loadNotes());
     setSolvedDates(loadSolvedDates());
+    setReminders(loadReminders());
     setHydrated(true);
   }, [data]);
 
@@ -339,9 +408,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   }, [globalFilter, columnFilters]);
 
   const toggleCompleted = useCallback((id: number) => {
+    let completing = false;
     setCompleted((prev) => {
       const next = new Set(prev);
-      const completing = !next.has(id);
+      completing = !next.has(id);
       if (completing) next.add(id);
       else next.delete(id);
       saveCompleted(next);
@@ -354,6 +424,36 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       saveSolvedDates(next);
       return next;
     });
+    setReminders((prev) => {
+      const next = { ...prev };
+      if (completing) {
+        next[id] = initReminder(new Date().toISOString());
+      } else {
+        delete next[id];
+      }
+      saveReminders(next);
+      return next;
+    });
+  }, []);
+
+  const [reviewTarget, setReviewTarget] = useState<ReviewDateTarget | null>(null);
+
+  const openReviewModal = useCallback((id: number, title: string) => {
+    setReviewTarget({ id, title });
+  }, []);
+
+  const onReviewDateChange = useCallback((id: number, date: string) => {
+    setReminders((prev) => {
+      const existing = prev[id];
+      const updated = existing
+        ? setCustomReviewDate(existing, date)
+        : { nextReview: date.slice(0, 10), interval: 1 };
+      const next = { ...prev, [id]: updated };
+      saveReminders(next);
+      trackEvent("custom_review_date", { question_id: id });
+      return next;
+    });
+    setReviewTarget(null);
   }, []);
 
   const toggleStarred = useCallback((id: number) => {
@@ -405,16 +505,19 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   const [hideCompleted, setHideCompleted] = useState(false);
   const [showStarredOnly, setShowStarredOnly] = useState(false);
   const [hidePatterns, setHidePatterns] = useState(false);
+  const [showDueOnly, setShowDueOnly] = useState(false);
 
   useEffect(() => {
     setHideCompleted(localStorage.getItem("leetcode-patterns-hide-completed") === "true");
     setShowStarredOnly(localStorage.getItem("leetcode-patterns-starred-only") === "true");
     setHidePatterns(localStorage.getItem("leetcode-patterns-hide-patterns") === "true");
+    setShowDueOnly(localStorage.getItem("leetcode-patterns-due-only") === "true");
   }, []);
 
   useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-hide-completed", String(hideCompleted)); }, [hideCompleted, hydrated]);
   useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-starred-only", String(showStarredOnly)); }, [showStarredOnly, hydrated]);
   useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-hide-patterns", String(hidePatterns)); }, [hidePatterns, hydrated]);
+  useEffect(() => { if (hydrated) localStorage.setItem("leetcode-patterns-due-only", String(showDueOnly)); }, [showDueOnly, hydrated]);
 
   const activeCompanyFilter = useMemo(
     () => (columnFilters.find((f) => f.id === "companies")?.value as string[]) ?? [],
@@ -422,8 +525,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   );
 
   const columns = useMemo(
-    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates),
-    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates]
+    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates, reminders, openReviewModal),
+    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates, reminders, openReviewModal]
   );
 
   useEffect(() => {
@@ -442,8 +545,9 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     let result = data;
     if (hideCompleted) result = result.filter((q) => !completed.has(q.id));
     if (showStarredOnly) result = result.filter((q) => starred.has(q.id));
+    if (showDueOnly) result = result.filter((q) => reminders[q.id] && isDue(reminders[q.id]));
     return result;
-  }, [data, completed, starred, hideCompleted, showStarredOnly]);
+  }, [data, completed, starred, hideCompleted, showStarredOnly, showDueOnly, reminders]);
 
   const columnVisibility = useMemo(() => {
     if (!isMobile) return {};
@@ -545,7 +649,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   }, [table, shuffleOrder]);
 
   const [resetConfirmGroup, setResetConfirmGroup] = useState<string | null>(null);
-  const [clearConfirm, setClearConfirm] = useState<"notes" | "questions" | "starred" | null>(null);
+  const [clearConfirm, setClearConfirm] = useState<"notes" | "questions" | "starred" | "reminders" | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
 
   const toggleGroup = useCallback((group: string) => {
@@ -577,6 +681,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       saveSolvedDates(next);
       return next;
     });
+    setReminders((prev) => {
+      const next = { ...prev };
+      ids.forEach((id) => delete next[id]);
+      saveReminders(next);
+      return next;
+    });
     trackEvent("reset_group", { difficulty });
     setResetConfirmGroup(null);
   }, [data]);
@@ -593,6 +703,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     saveCompleted(new Set());
     setSolvedDates({});
     saveSolvedDates({});
+    setReminders({});
+    saveReminders({});
     trackEvent("clear_all_progress");
     setClearConfirm(null);
   }, []);
@@ -604,8 +716,15 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setClearConfirm(null);
   }, []);
 
+  const clearAllReminders = useCallback(() => {
+    setReminders({});
+    saveReminders({});
+    trackEvent("clear_all_reminders");
+    setClearConfirm(null);
+  }, []);
+
   const exportProgress = useCallback(() => {
-    const payload = { completed: [...completed], starred: [...starred], notes, solvedDates };
+    const payload = { completed: [...completed], starred: [...starred], notes, solvedDates, reminders };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -614,7 +733,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     a.click();
     URL.revokeObjectURL(url);
     trackEvent("export_progress", { completed_count: completed.size, notes_count: Object.keys(notes).length });
-  }, [completed, starred, notes, solvedDates]);
+  }, [completed, starred, notes, solvedDates, reminders]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -641,6 +760,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           setSolvedDates(parsed.solvedDates);
           saveSolvedDates(parsed.solvedDates);
         }
+        if (parsed.reminders && typeof parsed.reminders === "object") {
+          setReminders(parsed.reminders);
+          saveReminders(parsed.reminders);
+        }
         trackEvent("import_progress", { completed_count: parsed.completed?.length ?? 0, notes_count: parsed.notes ? Object.keys(parsed.notes).length : 0 });
       } catch {}
     };
@@ -652,6 +775,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (reviewTarget) { setReviewTarget(null); return; }
         if (clearConfirm) { setClearConfirm(null); return; }
         if (resetConfirmGroup) { setResetConfirmGroup(null); return; }
         if (editingNote) {
@@ -675,7 +799,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [pickRandom, editingNote, notes, clearConfirm, resetConfirmGroup]);
+  }, [pickRandom, editingNote, notes, clearConfirm, resetConfirmGroup, reviewTarget]);
 
   // Track filter changes
   const activeDifficultyFilter = useMemo(
@@ -826,9 +950,12 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         starred={starred}
         notes={notes}
         completed={completed}
+        reminders={reminders}
         setClearConfirm={setClearConfirm}
         searchRef={searchRef}
         columnFilters={columnFilters}
+        showDueOnly={showDueOnly}
+        setShowDueOnly={setShowDueOnly}
       />
       </div>
 
@@ -920,6 +1047,15 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         />
       )}
 
+      {/* Review Date Modal */}
+      {reviewTarget && (
+        <ReviewDateModal
+          target={reviewTarget}
+          onSelect={onReviewDateChange}
+          onCancel={() => setReviewTarget(null)}
+        />
+      )}
+
       {/* Reset Confirmation Modal */}
       {resetConfirmGroup && (() => {
         const groupIds = data.filter((q) => q.difficulty === resetConfirmGroup).map((q) => q.id);
@@ -948,16 +1084,18 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       {/* Clear All Confirmation Modal */}
       {clearConfirm && (
         <ConfirmModal
-          title={clearConfirm === "notes" ? "Clear all notes" : clearConfirm === "starred" ? "Clear all stars" : "Clear all progress"}
+          title={clearConfirm === "notes" ? "Clear all notes" : clearConfirm === "starred" ? "Clear all stars" : clearConfirm === "reminders" ? "Clear all reminders" : "Clear all progress"}
           message={
             clearConfirm === "notes"
               ? `This will delete ${Object.keys(notes).length} note(s). This action cannot be undone.`
               : clearConfirm === "starred"
                 ? `This will unstar ${starred.size} question(s). This action cannot be undone.`
-                : `This will clear ${completed.size} completed question(s). This action cannot be undone.`
+                : clearConfirm === "reminders"
+                  ? `This will remove ${Object.keys(reminders).length} review reminder(s). This action cannot be undone.`
+                  : `This will clear ${completed.size} completed question(s). This action cannot be undone.`
           }
           confirmLabel="Clear"
-          onConfirm={clearConfirm === "notes" ? clearAllNotes : clearConfirm === "starred" ? clearAllStarred : clearAllQuestions}
+          onConfirm={clearConfirm === "notes" ? clearAllNotes : clearConfirm === "starred" ? clearAllStarred : clearConfirm === "reminders" ? clearAllReminders : clearAllQuestions}
           onCancel={() => setClearConfirm(null)}
         />
       )}

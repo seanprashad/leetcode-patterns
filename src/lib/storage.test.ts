@@ -5,6 +5,7 @@ import {
   loadStarred, saveStarred,
   loadNotes, saveNotes,
   loadSolvedDates, saveSolvedDates,
+  loadReminders, saveReminders,
   loadShuffleOrder, saveShuffleOrder,
   migrateLegacyProgress,
 } from "@/lib/storage";
@@ -73,6 +74,26 @@ describe("solvedDates", () => {
     const dates = { 1: "2025-06-01T00:00:00.000Z" };
     saveSolvedDates(dates);
     expect(loadSolvedDates()).toEqual(dates);
+  });
+});
+
+describe("reminders", () => {
+  it("returns empty object when nothing stored", () => {
+    expect(loadReminders()).toEqual({});
+  });
+
+  it("round-trips reminder data correctly", () => {
+    const reminders = {
+      1: { nextReview: "2025-07-01", interval: 1 },
+      2: { nextReview: "2025-08-01", interval: 3 },
+    };
+    saveReminders(reminders);
+    expect(loadReminders()).toEqual(reminders);
+  });
+
+  it("returns empty object on corrupt JSON", () => {
+    localStorage.setItem("leetcode-patterns-reminders", "not-json");
+    expect(loadReminders()).toEqual({});
   });
 });
 

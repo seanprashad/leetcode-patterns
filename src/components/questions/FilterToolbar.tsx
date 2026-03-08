@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { type Table } from "@tanstack/react-table";
 import { Question } from "@/types/question";
-import { RotateCcw, Shuffle, Download, Upload, Trash2, StarOff, Dices, ListOrdered } from "lucide-react";
+import { RotateCcw, Shuffle, Download, Upload, Trash2, StarOff, Dices, ListOrdered, CalendarOff } from "lucide-react";
+import type { Reminder } from "@/lib/reminders";
 import { trackEvent } from "@/lib/analytics";
 
 const difficultyColor: Record<string, string> = {
@@ -22,6 +23,8 @@ interface FilterToolbarProps {
   setHideCompleted: (value: boolean) => void;
   hidePatterns: boolean;
   setHidePatterns: (value: boolean) => void;
+  showDueOnly: boolean;
+  setShowDueOnly: (value: boolean) => void;
   pickRandom: () => void;
   shuffleOrder: number[] | null;
   toggleShuffle: () => void;
@@ -31,7 +34,8 @@ interface FilterToolbarProps {
   starred: Set<number>;
   notes: Record<number, string>;
   completed: Set<number>;
-  setClearConfirm: (value: "notes" | "questions" | "starred" | null) => void;
+  reminders: Record<number, Reminder>;
+  setClearConfirm: (value: "notes" | "questions" | "starred" | "reminders" | null) => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
   columnFilters: { id: string; value: unknown }[];
 }
@@ -48,6 +52,8 @@ export default function FilterToolbar({
   setHideCompleted,
   hidePatterns,
   setHidePatterns,
+  showDueOnly,
+  setShowDueOnly,
   pickRandom,
   shuffleOrder,
   toggleShuffle,
@@ -57,6 +63,7 @@ export default function FilterToolbar({
   starred,
   notes,
   completed,
+  reminders,
   setClearConfirm,
   searchRef,
   columnFilters,
@@ -138,7 +145,7 @@ export default function FilterToolbar({
   }, []);
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-sm">
+    <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
       <input
         ref={searchRef}
         type="text"
@@ -340,141 +347,112 @@ export default function FilterToolbar({
           </div>
         )}
       </div>
-      <label className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap">
-        <input
-          type="checkbox"
-          checked={showStarredOnly}
-          onChange={(e) => { setShowStarredOnly(e.target.checked); trackEvent("show_starred_only", { enabled: e.target.checked }); }}
-          className="h-3.5 w-3.5 accent-amber-500"
-        />
-        Starred only
-      </label>
-      <label className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap">
-        <input
-          type="checkbox"
-          checked={hideCompleted}
-          onChange={(e) => { setHideCompleted(e.target.checked); trackEvent("hide_completed", { enabled: e.target.checked }); }}
-          className="h-3.5 w-3.5 accent-blue-600"
-        />
-        Hide completed
-      </label>
-      <label className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap">
-        <input
-          type="checkbox"
-          checked={hidePatterns}
-          onChange={(e) => { setHidePatterns(e.target.checked); trackEvent("hide_patterns", { enabled: e.target.checked }); }}
-          className="h-3.5 w-3.5 accent-blue-600"
-        />
-        Hide patterns
-      </label>
+      <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
+        {([
+          { label: "Starred only", checked: showStarredOnly, onChange: (v: boolean) => { setShowStarredOnly(v); trackEvent("show_starred_only", { enabled: v }); } },
+          { label: "Due for review", checked: showDueOnly, onChange: (v: boolean) => { setShowDueOnly(v); trackEvent("show_due_only", { enabled: v }); } },
+          { label: "Hide completed", checked: hideCompleted, onChange: (v: boolean) => { setHideCompleted(v); trackEvent("hide_completed", { enabled: v }); } },
+          { label: "Hide patterns", checked: hidePatterns, onChange: (v: boolean) => { setHidePatterns(v); trackEvent("hide_patterns", { enabled: v }); } },
+        ] as const).map((opt) => (
+          <label key={opt.label} className={`flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded px-2 py-1.5 transition-colors select-none ${opt.checked ? "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "text-zinc-600 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:bg-zinc-800"}`}>
+            <input
+              type="checkbox"
+              checked={opt.checked}
+              onChange={(e) => opt.onChange(e.target.checked)}
+              className="h-3.5 w-3.5 accent-blue-600"
+            />
+            {opt.label}
+          </label>
+        ))}
+      </div>
       {/* Random & Shuffle */}
       <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
-        <div className="group/random relative">
-          <button
-            onClick={pickRandom}
-            className="rounded p-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          >
-            <Shuffle className="h-3.5 w-3.5" />
-          </button>
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/random:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            Random question <kbd className="ml-1 rounded bg-zinc-600 px-1 font-mono dark:bg-zinc-400">r</kbd>
-          </span>
-        </div>
-        <div className="group/shuffle relative">
-          <button
-            onClick={toggleShuffle}
-            className={`rounded p-1.5 transition-colors ${
-              shuffleOrder
-                ? "bg-violet-50 text-violet-600 hover:bg-violet-100 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
-                : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            }`}
-          >
-            {shuffleOrder ? <ListOrdered className="h-3.5 w-3.5" /> : <Dices className="h-3.5 w-3.5" />}
-          </button>
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/shuffle:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            {shuffleOrder ? "Restore order" : "Shuffle questions"}
-          </span>
-        </div>
+        <button
+          onClick={pickRandom}
+          className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+        >
+          <Shuffle className="h-3.5 w-3.5" />
+          Random
+        </button>
+        <button
+          onClick={toggleShuffle}
+          className={`inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors ${
+            shuffleOrder
+              ? "bg-violet-50 text-violet-600 hover:bg-violet-100 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
+              : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          }`}
+        >
+          {shuffleOrder ? <ListOrdered className="h-3.5 w-3.5" /> : <Dices className="h-3.5 w-3.5" />}
+          {shuffleOrder ? "Unshuffle" : "Shuffle"}
+        </button>
       </div>
-
       {/* Import & Export */}
       <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
-        <div className="group/export relative">
-          <button
-            onClick={exportProgress}
-            className="rounded p-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          >
-            <Download className="h-3.5 w-3.5" />
-          </button>
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/export:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            Export progress
-          </span>
-        </div>
-        <div className="group/import relative">
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="rounded p-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          >
-            <Upload className="h-3.5 w-3.5" />
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) importProgress(file);
-              e.target.value = "";
-            }}
-          />
-          <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/import:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-            Import progress
-          </span>
-        </div>
+        <button
+          onClick={exportProgress}
+          className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+        >
+          <Download className="h-3.5 w-3.5" />
+          Export
+        </button>
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
+        >
+          <Upload className="h-3.5 w-3.5" />
+          Import
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) importProgress(file);
+            e.target.value = "";
+          }}
+        />
       </div>
 
       {/* Clear */}
-      {(starred.size > 0 || Object.keys(notes).length > 0 || completed.size > 0) && (
-        <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
+      {(starred.size > 0 || Object.keys(notes).length > 0 || completed.size > 0 || Object.keys(reminders).length > 0) && (
+        <div className="flex items-center gap-1 rounded-lg border border-red-200 px-1 py-0.5 dark:border-red-900/40">
           {starred.size > 0 && (
-            <div className="group/clearstars relative">
-              <button
-                onClick={() => setClearConfirm("starred")}
-                className="rounded p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
-              >
-                <StarOff className="h-3.5 w-3.5" />
-              </button>
-              <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearstars:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-                Clear all stars
-              </span>
-            </div>
+            <button
+              onClick={() => setClearConfirm("starred")}
+              className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <StarOff className="h-3.5 w-3.5" />
+              Stars
+            </button>
           )}
           {Object.keys(notes).length > 0 && (
-            <div className="group/clearnotes relative">
-              <button
-                onClick={() => setClearConfirm("notes")}
-                className="rounded p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
-              >
-                <Trash2 className="h-3.5 w-3.5" />
-              </button>
-              <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearnotes:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-                Clear all notes
-              </span>
-            </div>
+            <button
+              onClick={() => setClearConfirm("notes")}
+              className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              Notes
+            </button>
+          )}
+          {Object.keys(reminders).length > 0 && (
+            <button
+              onClick={() => setClearConfirm("reminders")}
+              className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <CalendarOff className="h-3.5 w-3.5" />
+              Reminders
+            </button>
           )}
           {completed.size > 0 && (
-            <div className="group/clearqs relative">
-              <button
-                onClick={() => setClearConfirm("questions")}
-                className="rounded p-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
-              >
-                <RotateCcw className="h-3.5 w-3.5" />
-              </button>
-              <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-1 text-xs text-white opacity-0 shadow transition-opacity group-hover/clearqs:opacity-100 dark:bg-zinc-200 dark:text-zinc-900">
-                Clear all progress
-              </span>
-            </div>
+            <button
+              onClick={() => setClearConfirm("questions")}
+              className="inline-flex items-center gap-1 whitespace-nowrap rounded px-2 py-1.5 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              Progress
+            </button>
           )}
         </div>
       )}
