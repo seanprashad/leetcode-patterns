@@ -547,7 +547,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
                                   ? "bg-blue-500 text-white"
                                   : "bg-zinc-200 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300"
                             }`}>
-                              {phaseComplete ? <Check className="h-4 w-4" /> : group.phaseOffset + idx + 1}
+                              {phaseComplete ? <Check className="h-4 w-4" /> : entry.phaseIndex + 1}
                             </div>
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-2">
@@ -675,7 +675,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
         </div>
       )}
 
-      {/* Note Modal — same as QuestionsTable */}
+      {/* Note Modal - same as QuestionsTable */}
       {editingNote &&
         (() => {
           const saved = notes[editingNote.id] ?? "";

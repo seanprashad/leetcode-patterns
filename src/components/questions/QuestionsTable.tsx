@@ -223,7 +223,7 @@ const makeColumns = (
     meta: { hideOnMobile: true },
     cell: (info) => {
       const date = solvedDates[info.row.original.id];
-      if (!date) return <span className="text-zinc-300 dark:text-zinc-700">—</span>;
+      if (!date) return <span className="text-zinc-300 dark:text-zinc-700">-</span>;
       return (
         <span className="text-xs text-zinc-500 dark:text-zinc-400">
           {new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}

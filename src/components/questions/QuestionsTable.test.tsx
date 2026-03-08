@@ -211,7 +211,7 @@ describe("QuestionsTable analytics", () => {
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
     const resetBtns = screen.getAllByText("Reset");
     await user.click(resetBtns[0]);
-    // Modal has heading "Reset Easy progress" — find the confirm button inside it
+    // Modal has heading "Reset Easy progress" - find the confirm button inside it
     const modal = screen.getByText("Reset Easy progress").closest("div[class*='rounded-xl']")! as HTMLElement;
     const confirmBtn = within(modal).getByRole("button", { name: "Reset" });
     await user.click(confirmBtn);
@@ -234,7 +234,7 @@ describe("QuestionsTable analytics", () => {
     // Unfiltered: 2 of 3 completed
     expect(screen.getByText("2/3 completed (67%)")).toBeInTheDocument();
 
-    // Filter to Easy only — 1 of 1 completed, only Easy breakdown shown
+    // Filter to Easy only - 1 of 1 completed, only Easy breakdown shown
     await user.click(screen.getByText("All Difficulties"));
     await user.click(screen.getByLabelText("Easy"));
     expect(screen.getByText("1/1 completed (100%)")).toBeInTheDocument();
@@ -316,7 +316,7 @@ describe("QuestionsTable analytics", () => {
     await user.click(screen.getByLabelText("Hard"));
     await user.click(screen.getByLabelText("Hide completed"));
 
-    // Only the Hard question (id=2, not completed) should count — Easy/Medium are filtered out
+    // Only the Hard question (id=2, not completed) should count - Easy/Medium are filtered out
     expect(screen.getByText("0/1 completed (0%)")).toBeInTheDocument();
   });
 
@@ -562,7 +562,7 @@ describe("QuestionsTable analytics", () => {
       localStorage.setItem("checked", JSON.stringify(checked));
       render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
 
-      // Migration flag prevents re-running — old key should still be there
+      // Migration flag prevents re-running - old key should still be there
       expect(localStorage.getItem("checked")).not.toBeNull();
     });
 

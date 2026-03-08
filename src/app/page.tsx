@@ -32,8 +32,7 @@ export default function Home() {
             </a>
           </p>
           <p className="mt-1 text-sm text-zinc-500 sm:mt-2 sm:text-base">
-            A free and open-source collection of {questions.length} questions
-            grouped by pattern to help you prep for coding interviews.
+            A collection of {questions.length} questions grouped by pattern to help you prepare for coding interviews.
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">

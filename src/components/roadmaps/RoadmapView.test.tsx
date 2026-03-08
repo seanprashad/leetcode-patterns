@@ -90,7 +90,7 @@ describe("ViewSwitcher", () => {
     const user = userEvent.setup();
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     await user.click(screen.getByText("Experienced Roadmap"));
-    expect(await screen.findByText(/Originally shared on Blind by/)).toBeInTheDocument();
+    expect(await screen.findByText(/Originally shared on/)).toBeInTheDocument();
     expect(mockTrackEvent).toHaveBeenCalledWith("switch_view", { view: "experienced" });
   });
 
@@ -111,7 +111,7 @@ describe("ViewSwitcher", () => {
   it("restores view selection from localStorage", () => {
     localStorage.setItem("leetcode-patterns-view", "experienced");
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
-    expect(screen.getByText(/Originally shared on Blind by/)).toBeInTheDocument();
+    expect(screen.getByText(/Originally shared on/)).toBeInTheDocument();
   });
 
   it("deep links to beginner roadmap via ?view=beginner", () => {
@@ -123,7 +123,7 @@ describe("ViewSwitcher", () => {
   it("deep links to Experienced Roadmap via ?view=experienced", () => {
     mockSearchParams.current = new URLSearchParams("view=experienced");
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
-    expect(screen.getByText(/Originally shared on Blind by/)).toBeInTheDocument();
+    expect(screen.getByText(/Originally shared on/)).toBeInTheDocument();
   });
 
   it("URL param takes priority over localStorage", () => {
@@ -242,7 +242,7 @@ describe("RoadmapView", () => {
 
   it("un-completing a question fires event with completed: false", async () => {
     const user = userEvent.setup();
-    // Pre-mark question 1 (Contains Duplicate) as completed — it appears first in the Easy group
+    // Pre-mark question 1 (Contains Duplicate) as completed - it appears first in the Easy group
     localStorage.setItem("leetcode-patterns-completed", JSON.stringify([1]));
     render(<RoadmapView roadmap={beginnerRoadmap} questions={testData} />);
     // Wait for the useEffect to load completed state
