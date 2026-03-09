@@ -75,7 +75,7 @@ describe("ViewSwitcher", () => {
   it("defaults to All Questions view", () => {
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
     // QuestionsTable renders search, which is unique to the table view
-    expect(screen.getByPlaceholderText("Search (/)")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Search")).toBeInTheDocument();
   });
 
   it("switches to beginner roadmap view", async () => {
@@ -457,7 +457,7 @@ describe("ViewSwitcher edge cases", () => {
   it("ignores invalid ?view param and defaults to table", () => {
     mockSearchParams.current = new URLSearchParams("view=nonexistent");
     render(<ViewSwitcher questions={testData} updatedDate="2025-01-01" />);
-    expect(screen.getByPlaceholderText("Search (/)")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Search")).toBeInTheDocument();
   });
 
   it("switching back to table removes view param", async () => {

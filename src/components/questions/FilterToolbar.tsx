@@ -146,15 +146,18 @@ export default function FilterToolbar({
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
-      <input
-        ref={searchRef}
-        type="text"
-        placeholder="Search (/)"
-        value={globalFilter}
-        onChange={(e) => setGlobalFilter(e.target.value)}
-        aria-label="Search questions"
-        className="w-36 rounded border border-zinc-300 bg-white px-2 py-1.5 shadow-sm focus:border-blue-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900"
-      />
+      <div className="relative">
+        <input
+          ref={searchRef}
+          type="text"
+          placeholder="Search"
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          aria-label="Search questions"
+          className="w-36 rounded border border-zinc-300 bg-white px-2 py-1.5 pr-7 shadow-sm focus:border-blue-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900"
+        />
+        <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded bg-zinc-200 px-1 py-0.5 text-[10px] font-mono leading-none text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">/</kbd>
+      </div>
       <div ref={difficultyDropdownRef} className="relative">
         <button
           onClick={() => setDifficultyDropdownOpen((o) => !o)}
@@ -373,6 +376,7 @@ export default function FilterToolbar({
         >
           <Shuffle className="h-3.5 w-3.5" />
           Random
+          <kbd className="rounded bg-zinc-200 px-1 py-0.5 text-[10px] font-mono leading-none text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">r</kbd>
         </button>
         <button
           onClick={toggleShuffle}

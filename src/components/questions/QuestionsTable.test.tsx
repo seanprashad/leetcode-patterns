@@ -103,7 +103,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks search with debounce", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const searchInput = screen.getByPlaceholderText("Search (/)");
+    const searchInput = screen.getByPlaceholderText("Search");
     await user.type(searchInput, "two");
     await waitFor(() => {
       expect(mockTrackEvent).toHaveBeenCalledWith("search", { query: "two" });
@@ -528,7 +528,7 @@ await user.click(screen.getByLabelText("Hide completed"));
   it("focuses search input when pressing /", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const searchInput = screen.getByPlaceholderText("Search (/)");
+    const searchInput = screen.getByPlaceholderText("Search");
     expect(searchInput).not.toHaveFocus();
     await user.keyboard("/");
     expect(searchInput).toHaveFocus();
@@ -589,7 +589,7 @@ await user.click(screen.getByLabelText("Hide completed"));
   it("filters questions when typing in search", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const searchInput = screen.getByPlaceholderText("Search (/)");
+    const searchInput = screen.getByPlaceholderText("Search");
     await user.type(searchInput, "Two Sum");
     await waitFor(() => {
       expect(screen.getByText("Two Sum")).toBeInTheDocument();
