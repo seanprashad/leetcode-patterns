@@ -722,6 +722,49 @@ await user.click(screen.getByLabelText("Hide completed"));
     vi.useRealTimers();
   });
 
+  it("shows clear review date button in modal when reminder exists", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByText("Review in 7d"));
+    expect(screen.getByRole("button", { name: /clear review date/i })).toBeInTheDocument();
+    vi.useRealTimers();
+  });
+
+  it("does not show clear review date button when no reminder exists", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByText("+ Set review"));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /clear review date/i })).not.toBeInTheDocument();
+  });
+
+  it("clears review date and closes modal when clicking clear button", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByText("Review in 7d"));
+    await user.click(screen.getByRole("button", { name: /clear review date/i }));
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.getByText("+ Set review")).toBeInTheDocument();
+    });
+    const stored = JSON.parse(localStorage.getItem("leetcode-patterns-reminders")!);
+    expect(stored).not.toHaveProperty("0");
+    expect(mockTrackEvent).toHaveBeenCalledWith("clear_review_date", { question_id: 0 });
+    vi.useRealTimers();
+  });
+
   it("solved date pill shows tooltip with actual date", async () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     vi.setSystemTime(new Date("2026-03-12T12:00:00Z"));
