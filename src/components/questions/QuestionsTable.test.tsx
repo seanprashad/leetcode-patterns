@@ -607,14 +607,14 @@ await user.click(screen.getByLabelText("Hide completed"));
     expect(new Date(stored["0"]).getTime()).not.toBeNaN();
   });
 
-  it("shows relative solved date and review pill after completing a question", async () => {
+  it("shows relative solved date and set-review placeholder after completing a question", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
     const checkboxes = screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ });
     await user.click(checkboxes[0].closest("td")!);
     await waitFor(() => {
       expect(screen.getByText("Solved today")).toBeInTheDocument();
-      expect(screen.getByText("Review tomorrow")).toBeInTheDocument();
+      expect(screen.getByText("+ Set review")).toBeInTheDocument();
     });
   });
 

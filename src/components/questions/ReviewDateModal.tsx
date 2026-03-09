@@ -23,10 +23,12 @@ export interface ReviewDateTarget {
 export default function ReviewDateModal({
   target,
   onSelect,
+  onClear,
   onCancel,
 }: {
   target: ReviewDateTarget;
   onSelect: (id: number, date: string) => void;
+  onClear?: (id: number) => void;
   onCancel: () => void;
 }) {
   const todayStr = today();
@@ -91,6 +93,17 @@ export default function ReviewDateModal({
             </button>
           </div>
         </div>
+
+        {onClear && (
+          <div className="mt-2 border-t border-zinc-200 pt-2 dark:border-zinc-700">
+            <button
+              onClick={() => onClear(target.id)}
+              className="w-full rounded px-2 py-1.5 text-xs text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/30"
+            >
+              Clear review date
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

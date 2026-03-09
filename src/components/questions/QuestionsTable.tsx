@@ -17,7 +17,7 @@ import { Question } from "@/types/question";
 import { ExternalLink, Star, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress, loadReminders, saveReminders } from "@/lib/storage";
-import { type Reminder, initReminder, isDue, setCustomDate as setCustomReviewDate } from "@/lib/reminders";
+import { type Reminder, isDue, setCustomDate as setCustomReviewDate } from "@/lib/reminders";
 import ProgressBar, { type ProgressStats } from "./ProgressBar";
 import FilterToolbar from "./FilterToolbar";
 import NoteModal, { type EditingNote } from "./NoteModal";
@@ -424,16 +424,14 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       saveSolvedDates(next);
       return next;
     });
-    setReminders((prev) => {
-      const next = { ...prev };
-      if (completing) {
-        next[id] = initReminder(new Date().toISOString());
-      } else {
+    if (!completing) {
+      setReminders((prev) => {
+        const next = { ...prev };
         delete next[id];
-      }
-      saveReminders(next);
-      return next;
-    });
+        saveReminders(next);
+        return next;
+      });
+    }
   }, []);
 
   const [reviewTarget, setReviewTarget] = useState<ReviewDateTarget | null>(null);
@@ -451,6 +449,17 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       const next = { ...prev, [id]: updated };
       saveReminders(next);
       trackEvent("custom_review_date", { question_id: id });
+      return next;
+    });
+    setReviewTarget(null);
+  }, []);
+
+  const onReviewDateClear = useCallback((id: number) => {
+    setReminders((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      saveReminders(next);
+      trackEvent("clear_review_date", { question_id: id });
       return next;
     });
     setReviewTarget(null);
@@ -1052,6 +1061,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         <ReviewDateModal
           target={reviewTarget}
           onSelect={onReviewDateChange}
+          onClear={reminders[reviewTarget.id] ? onReviewDateClear : undefined}
           onCancel={() => setReviewTarget(null)}
         />
       )}
