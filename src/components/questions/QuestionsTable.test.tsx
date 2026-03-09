@@ -90,8 +90,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks note_save when saving a note", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getAllByText("Add a note...")[0];
-    await user.click(noteBtn);
+    await user.click(screen.getByRole("button", { name: /Add note for Two Sum/ }));
     const textarea = screen.getByPlaceholderText("Write your notes here...");
     await user.type(textarea, "my test note");
     await user.click(screen.getByText("Done"));
@@ -138,9 +137,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks random_question when picking a random question", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const shuffleContainer = screen.getByText("Random question").closest("div")!;
-    const shuffleBtn = shuffleContainer.querySelector("button")!;
-    await user.click(shuffleBtn);
+    await user.click(screen.getByRole("button", { name: /Random/ }));
     expect(mockTrackEvent).toHaveBeenCalledWith(
       "random_question",
       expect.objectContaining({ question_id: expect.any(Number), slug: expect.any(String) })
@@ -150,9 +147,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks export_progress when exporting", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const exportContainer = screen.getByText("Export progress").closest("div")!;
-    const exportBtn = exportContainer.querySelector("button")!;
-    await user.click(exportBtn);
+    await user.click(screen.getByRole("button", { name: /Export/ }));
     expect(mockTrackEvent).toHaveBeenCalledWith("export_progress", {
       completed_count: 0,
       notes_count: 0,
@@ -162,13 +157,15 @@ describe("QuestionsTable analytics", () => {
   it("tracks hide_completed when toggling", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
     expect(mockTrackEvent).toHaveBeenCalledWith("hide_completed", { enabled: true });
   });
 
   it("tracks hide_patterns when toggling", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
     await user.click(screen.getByLabelText("Hide patterns"));
     expect(mockTrackEvent).toHaveBeenCalledWith("hide_patterns", { enabled: true });
   });
@@ -187,9 +184,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const clearContainer = screen.getByText("Clear all progress").closest("div")!;
-    const clearBtn = clearContainer.querySelector("button")!;
-    await user.click(clearBtn);
+    await user.click(screen.getByRole("button", { name: /Progress/ }));
     await user.click(screen.getByRole("button", { name: "Clear" }));
     expect(mockTrackEvent).toHaveBeenCalledWith("clear_all_progress");
   });
@@ -198,9 +193,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: "test note" }));
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const clearNotesContainer = screen.getByText("Clear all notes").closest("div")!;
-    const clearNotesBtn = clearNotesContainer.querySelector("button")!;
-    await user.click(clearNotesBtn);
+    await user.click(screen.getByRole("button", { name: /Notes/ }));
     await user.click(screen.getByRole("button", { name: "Clear" }));
     expect(mockTrackEvent).toHaveBeenCalledWith("clear_all_notes");
   });
@@ -223,7 +216,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: longNote }));
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
     const noteBtn = screen.getByText(longNote);
-    expect(noteBtn).toHaveClass("truncate", "max-w-[200px]");
+    expect(noteBtn).toHaveClass("truncate", "max-w-[100px]");
   });
 
   it("shows progress stats scoped to filtered questions", async () => {
@@ -252,7 +245,8 @@ describe("QuestionsTable analytics", () => {
     expect(screen.getByText("1/3 completed (33%)")).toBeInTheDocument();
 
     // Toggle hide completed
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
 
     // Row is hidden but progress bar still shows 1/3
     await waitFor(() => expect(screen.queryByText("Two Sum")).not.toBeInTheDocument());
@@ -267,7 +261,8 @@ describe("QuestionsTable analytics", () => {
     // 2 of 3 completed
     expect(screen.getByText("2/3 completed (67%)")).toBeInTheDocument();
 
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
 
     // Progress bar still shows 2/3 with all difficulty breakdowns
     expect(screen.getByText("2/3 completed (67%)")).toBeInTheDocument();
@@ -284,7 +279,8 @@ describe("QuestionsTable analytics", () => {
     // Filter to Easy + hide completed
     await user.click(screen.getByText("All Difficulties"));
     await user.click(screen.getByLabelText("Easy"));
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
 
     // Two Sum (Easy, completed) is hidden from table but still counted in progress
     await waitFor(() => expect(screen.queryByText("Two Sum")).not.toBeInTheDocument());
@@ -299,7 +295,8 @@ describe("QuestionsTable analytics", () => {
     // Filter to Arrays pattern + hide completed
     await user.click(screen.getByText("All Patterns"));
     await user.click(screen.getByLabelText("Arrays"));
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
 
     // Two Sum is the only Arrays question, completed and hidden, but still in progress
     await waitFor(() => expect(screen.queryByText("Two Sum")).not.toBeInTheDocument());
@@ -314,7 +311,8 @@ describe("QuestionsTable analytics", () => {
     // Filter to Hard only + hide completed
     await user.click(screen.getByText("All Difficulties"));
     await user.click(screen.getByLabelText("Hard"));
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
 
     // Only the Hard question (id=2, not completed) should count - Easy/Medium are filtered out
     expect(screen.getByText("0/1 completed (0%)")).toBeInTheDocument();
@@ -352,6 +350,7 @@ describe("QuestionsTable analytics", () => {
     expect(screen.getByText("Two Sum")).toBeInTheDocument();
     expect(screen.getByText("Add Two Numbers")).toBeInTheDocument();
 
+
     await user.click(screen.getByLabelText("Starred only"));
     expect(screen.getByText("Two Sum")).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByText("Add Two Numbers")).not.toBeInTheDocument());
@@ -362,9 +361,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0, 1]));
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const clearStarsContainer = screen.getByText("Clear all stars").closest("div")!;
-    const clearStarsBtn = clearStarsContainer.querySelector("button")!;
-    await user.click(clearStarsBtn);
+    await user.click(screen.getByRole("button", { name: /Stars/ }));
     await user.click(screen.getByRole("button", { name: "Clear" }));
     expect(mockTrackEvent).toHaveBeenCalledWith("clear_all_starred");
   });
@@ -372,6 +369,7 @@ describe("QuestionsTable analytics", () => {
   it("persists starred only checkbox to localStorage", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
     await user.click(screen.getByLabelText("Starred only"));
     expect(localStorage.getItem("leetcode-patterns-starred-only")).toBe("true");
   });
@@ -380,6 +378,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-starred-only", "true");
     localStorage.setItem("leetcode-patterns-starred", JSON.stringify([0]));
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
     expect(screen.getByLabelText("Starred only")).toBeChecked();
     expect(screen.getByText("Two Sum")).toBeInTheDocument();
     expect(screen.queryByText("Add Two Numbers")).not.toBeInTheDocument();
@@ -388,7 +387,8 @@ describe("QuestionsTable analytics", () => {
   it("persists hide completed checkbox to localStorage", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    await user.click(screen.getByLabelText("Hide completed"));
+
+await user.click(screen.getByLabelText("Hide completed"));
     expect(localStorage.getItem("leetcode-patterns-hide-completed")).toBe("true");
   });
 
@@ -396,6 +396,7 @@ describe("QuestionsTable analytics", () => {
     localStorage.setItem("leetcode-patterns-hide-completed", "true");
     localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
     expect(screen.getByLabelText("Hide completed")).toBeChecked();
     expect(screen.queryByText("Two Sum")).not.toBeInTheDocument();
   });
@@ -403,6 +404,7 @@ describe("QuestionsTable analytics", () => {
   it("persists hide patterns checkbox to localStorage", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
     await user.click(screen.getByLabelText("Hide patterns"));
     expect(localStorage.getItem("leetcode-patterns-hide-patterns")).toBe("true");
   });
@@ -410,22 +412,21 @@ describe("QuestionsTable analytics", () => {
   it("restores hide patterns checkbox from localStorage", () => {
     localStorage.setItem("leetcode-patterns-hide-patterns", "true");
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+
     expect(screen.getByLabelText("Hide patterns")).toBeChecked();
   });
 
   it("tracks shuffle_questions when clicking shuffle", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
-    await user.click(shuffleBtn);
+    await user.click(screen.getByRole("button", { name: /Shuffle/ }));
     expect(mockTrackEvent).toHaveBeenCalledWith("shuffle_questions");
   });
 
   it("persists shuffle order to localStorage", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
-    await user.click(shuffleBtn);
+    await user.click(screen.getByRole("button", { name: /Shuffle/ }));
     const stored = localStorage.getItem("leetcode-patterns-shuffle-order");
     expect(stored).not.toBeNull();
     const order = JSON.parse(stored!);
@@ -440,8 +441,7 @@ describe("QuestionsTable analytics", () => {
       screen.getAllByRole("button", { name: /group/ });
     expect(getGroupHeaders()).toHaveLength(3);
 
-    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
-    await user.click(shuffleBtn);
+    await user.click(screen.getByRole("button", { name: /Shuffle/ }));
     expect(screen.queryAllByRole("button", { name: /group/ })).toHaveLength(0);
   });
 
@@ -451,38 +451,33 @@ describe("QuestionsTable analytics", () => {
     const getGroupHeaders = () =>
       screen.queryAllByRole("button", { name: /group/ });
 
-    // Initially shows "Shuffle questions"
-    expect(screen.getByText("Shuffle questions")).toBeInTheDocument();
+    // Initially shows "Shuffle"
+    expect(screen.getByRole("button", { name: /Shuffle/ })).toBeInTheDocument();
 
     // Click to shuffle
-    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
-    await user.click(shuffleBtn);
+    await user.click(screen.getByRole("button", { name: /Shuffle/ }));
     expect(mockTrackEvent).toHaveBeenCalledWith("shuffle_questions");
     expect(getGroupHeaders()).toHaveLength(0);
 
-    // Button now shows "Restore order"
-    expect(screen.getByText("Restore order")).toBeInTheDocument();
-    expect(screen.queryByText("Shuffle questions")).not.toBeInTheDocument();
+    // Button now shows "Unshuffle"
+    expect(screen.getByRole("button", { name: /Unshuffle/ })).toBeInTheDocument();
 
     // Click to restore
-    const restoreBtn = screen.getByText("Restore order").closest("div")!.querySelector("button")!;
-    await user.click(restoreBtn);
+    await user.click(screen.getByRole("button", { name: /Unshuffle/ }));
     expect(mockTrackEvent).toHaveBeenCalledWith("restore_order");
     expect(getGroupHeaders().length).toBeGreaterThan(0);
 
-    // Button shows "Shuffle questions" again
-    expect(screen.getByText("Shuffle questions")).toBeInTheDocument();
+    // Button shows "Shuffle" again
+    expect(screen.getByRole("button", { name: /Shuffle/ })).toBeInTheDocument();
   });
 
   it("clears shuffle order from localStorage on restore", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const shuffleBtn = screen.getByText("Shuffle questions").closest("div")!.querySelector("button")!;
-    await user.click(shuffleBtn);
+    await user.click(screen.getByRole("button", { name: /Shuffle/ }));
     expect(localStorage.getItem("leetcode-patterns-shuffle-order")).not.toBeNull();
 
-    const restoreBtn = screen.getByText("Restore order").closest("div")!.querySelector("button")!;
-    await user.click(restoreBtn);
+    await user.click(screen.getByRole("button", { name: /Unshuffle/ }));
     expect(localStorage.getItem("leetcode-patterns-shuffle-order")).toBeNull();
   });
 
@@ -491,8 +486,8 @@ describe("QuestionsTable analytics", () => {
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
     const groupHeaders = screen.queryAllByRole("button", { name: /group/ });
     expect(groupHeaders).toHaveLength(0);
-    // Button shows "Restore order" since shuffle is active
-    expect(screen.getByText("Restore order")).toBeInTheDocument();
+    // Button shows "Unshuffle" since shuffle is active
+    expect(screen.getByRole("button", { name: /Unshuffle/ })).toBeInTheDocument();
     const rows = screen.getAllByRole("row").filter((row) => row.querySelector("td") && row.querySelectorAll("td").length > 1);
     expect(rows).toHaveLength(3);
   });
@@ -500,7 +495,7 @@ describe("QuestionsTable analytics", () => {
   it("tracks import_progress when importing a file", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const importContainer = screen.getByText("Import progress").closest("div")!;
+    const importContainer = screen.getByRole("button", { name: /Import/ }).closest("div")!;
     const fileInput = importContainer.querySelector("input[type='file']")! as HTMLInputElement;
     const importData = JSON.stringify({ completed: [0, 1], notes: { 0: "note" } });
     const file = new File([importData], "progress.json", { type: "application/json" });
@@ -552,8 +547,7 @@ describe("QuestionsTable analytics", () => {
   it("shows discard confirmation when closing note modal with unsaved changes", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getAllByText("Add a note...")[0];
-    await user.click(noteBtn);
+    await user.click(screen.getByRole("button", { name: /Add note for Two Sum/ }));
     const textarea = screen.getByPlaceholderText("Write your notes here...");
     await user.type(textarea, "unsaved text");
     await user.click(screen.getByText("Cancel"));
@@ -567,22 +561,20 @@ describe("QuestionsTable analytics", () => {
   it("discards note changes when clicking Discard", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getAllByText("Add a note...")[0];
-    await user.click(noteBtn);
+    await user.click(screen.getByRole("button", { name: /Add note for Two Sum/ }));
     const textarea = screen.getByPlaceholderText("Write your notes here...");
     await user.type(textarea, "unsaved text");
     await user.click(screen.getByText("Cancel"));
     await user.click(screen.getByText("Discard"));
     // Modal is closed, note not saved
     expect(screen.queryByText("Unsaved changes")).not.toBeInTheDocument();
-    expect(screen.getAllByText("Add a note...")).toHaveLength(3);
+    expect(screen.getAllByRole("button", { name: /Add note for/ })).toHaveLength(3);
   });
 
   it("saves note with Cmd+Enter keyboard shortcut", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getAllByText("Add a note...")[0];
-    await user.click(noteBtn);
+    await user.click(screen.getByRole("button", { name: /Add note for Two Sum/ }));
     const textarea = screen.getByPlaceholderText("Write your notes here...");
     await user.type(textarea, "keyboard note");
     await user.keyboard("{Meta>}{Enter}{/Meta}");
@@ -615,10 +607,155 @@ describe("QuestionsTable analytics", () => {
     expect(new Date(stored["0"]).getTime()).not.toBeNaN();
   });
 
+  it("shows relative solved date and review pill after completing a question", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const checkboxes = screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ });
+    await user.click(checkboxes[0].closest("td")!);
+    await waitFor(() => {
+      expect(screen.getByText("Solved today")).toBeInTheDocument();
+      expect(screen.getByText("Review tomorrow")).toBeInTheDocument();
+    });
+  });
+
+  it("shows relative solved date for imported past dates", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-06T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-09", interval: 3 } }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByText("Solved 3d ago")).toBeInTheDocument();
+    expect(screen.getByText("Due today")).toBeInTheDocument();
+    vi.useRealTimers();
+  });
+
+  it("shows overdue pill for past review dates", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-12T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-06T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-09", interval: 3 } }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByText("Overdue 3d")).toBeInTheDocument();
+    vi.useRealTimers();
+  });
+
+  it("shows future review pill for upcoming dates", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByText("Review in 7d")).toBeInTheDocument();
+    vi.useRealTimers();
+  });
+
+  it("review pill tooltip contains the actual date and click hint", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const pill = screen.getByText("Review in 7d");
+    expect(pill.getAttribute("title")).toContain("Click to change");
+    vi.useRealTimers();
+  });
+
+  it("shows set review placeholder when solved but no reminder", () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByText("+ Set review")).toBeInTheDocument();
+  });
+
+  it("opens review modal when clicking set review placeholder", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByText("+ Set review"));
+    expect(screen.getByRole("dialog", { name: /review date/i })).toBeInTheDocument();
+  });
+
+  it("note column shows full note as tooltip", () => {
+    const note = "This is a long test note for tooltip";
+    localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: note }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const noteBtn = screen.getByText(note);
+    expect(noteBtn.getAttribute("title")).toBe(note);
+  });
+
+  it("note column has no tooltip when empty", () => {
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const noteBtn = screen.getByRole("button", { name: /Add note for Two Sum/ });
+    expect(noteBtn.getAttribute("title")).toBeNull();
+  });
+
+  it("opens review modal when clicking review pill", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByText("Review in 7d"));
+    expect(screen.getByRole("dialog", { name: /review date/i })).toBeInTheDocument();
+    vi.useRealTimers();
+  });
+
+  it("closes review modal when clicking close button", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByText("Review in 7d"));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Close" }));
+    await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+    vi.useRealTimers();
+  });
+
+  it("solved date pill shows tooltip with actual date", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-12T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const solvedPill = screen.getByText("Solved 3d ago");
+    expect(solvedPill.getAttribute("title")).toContain("Mar");
+    expect(solvedPill.getAttribute("title")).toContain("2026");
+    vi.useRealTimers();
+  });
+
+  it("tracks clear_all_reminders when clearing all reminders", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByRole("button", { name: /Reminders/ }));
+    await user.click(screen.getByRole("button", { name: "Clear" }));
+    expect(mockTrackEvent).toHaveBeenCalledWith("clear_all_reminders");
+  });
+
+  it("filter checkboxes are visible without opening a dropdown", () => {
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByLabelText("Starred only")).toBeInTheDocument();
+    expect(screen.getByLabelText("Due for review")).toBeInTheDocument();
+    expect(screen.getByLabelText("Hide completed")).toBeInTheDocument();
+    expect(screen.getByLabelText("Hide patterns")).toBeInTheDocument();
+  });
+
   it("imports starred and solvedDates from file", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const importContainer = screen.getByText("Import progress").closest("div")!;
+    const importContainer = screen.getByRole("button", { name: /Import/ }).closest("div")!;
     const fileInput = importContainer.querySelector("input[type='file']")! as HTMLInputElement;
     const importData = JSON.stringify({
       completed: [0],

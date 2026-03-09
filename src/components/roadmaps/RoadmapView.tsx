@@ -13,7 +13,8 @@ import {
 import { Question } from "@/types/question";
 import { Roadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
-import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates } from "@/lib/storage";
+import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadReminders, saveReminders } from "@/lib/storage";
+import { type Reminder, initReminder } from "@/lib/reminders";
 
 function InlineMarkdown({ text }: { text: string }) {
   const lines = text.split("\n");
@@ -67,6 +68,7 @@ export default function RoadmapView({ roadmap, questions }: Props) {
   const [starred, setStarred] = useState<Set<number>>(new Set());
   const [notes, setNotes] = useState<Record<number, string>>({});
   const [, setSolvedDates] = useState<Record<number, string>>({});
+  const [, setReminders] = useState<Record<number, Reminder>>({});
   const [collapsedPhases, setCollapsedPhases] = useState<Set<string | number>>(
     new Set()
   );
@@ -83,12 +85,14 @@ export default function RoadmapView({ roadmap, questions }: Props) {
     setStarred(loadStarred());
     setNotes(loadNotes());
     setSolvedDates(loadSolvedDates());
+    setReminders(loadReminders());
   }, []);
 
   const toggleCompleted = useCallback((id: number) => {
+    let completing = false;
     setCompleted((prev) => {
       const next = new Set(prev);
-      const completing = !next.has(id);
+      completing = !next.has(id);
       if (completing) next.add(id);
       else next.delete(id);
       saveCompleted(next);
@@ -102,6 +106,16 @@ export default function RoadmapView({ roadmap, questions }: Props) {
       const next = { ...prev };
       next[id] = new Date().toISOString();
       saveSolvedDates(next);
+      return next;
+    });
+    setReminders((prev) => {
+      const next = { ...prev };
+      if (completing) {
+        next[id] = initReminder(new Date().toISOString());
+      } else {
+        delete next[id];
+      }
+      saveReminders(next);
       return next;
     });
   }, []);
