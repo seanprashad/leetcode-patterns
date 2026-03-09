@@ -182,7 +182,7 @@ const makeColumns = (
             <img
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/${c.slug}.png`}
               alt={c.name}
-              className="h-5 w-5 rounded-sm object-contain dark:brightness-90"
+              className="h-5 w-5 rounded-sm object-contain bg-white/0 p-px dark:bg-white/90 dark:rounded"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
                 const fallback = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${c.slug}.com`;
