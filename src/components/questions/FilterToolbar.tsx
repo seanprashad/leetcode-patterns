@@ -350,7 +350,7 @@ export default function FilterToolbar({
           </div>
         )}
       </div>
-      <div className="flex items-center gap-1 rounded-lg border border-zinc-200 px-1 py-0.5 dark:border-zinc-800">
+      <div className="flex flex-wrap items-center justify-center gap-1 px-1 py-0.5 sm:flex-nowrap sm:rounded-lg sm:border sm:border-zinc-200 sm:dark:border-zinc-800">
         {([
           { label: "Starred only", checked: showStarredOnly, onChange: (v: boolean) => { setShowStarredOnly(v); trackEvent("show_starred_only", { enabled: v }); } },
           { label: "Due for review", checked: showDueOnly, onChange: (v: boolean) => { setShowDueOnly(v); trackEvent("show_due_only", { enabled: v }); } },
