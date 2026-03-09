@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { useSearchParams } from "next/navigation";
-import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import {
   useReactTable,
   getCoreRowModel,
@@ -570,6 +569,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return vis;
   }, [isMobile, columns]);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: filteredData,
     columns,
@@ -913,23 +913,6 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     return items;
   }, [groupedRows, collapsedGroups, completed]);
 
-  const tableBodyRef = useRef<HTMLTableSectionElement>(null);
-  const [scrollMargin, setScrollMargin] = useState(0);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (tableBodyRef.current) {
-      setScrollMargin(tableBodyRef.current.offsetTop);
-    }
-  });
-
-  const virtualizer = useWindowVirtualizer({
-    count: flatItems.length,
-    estimateSize: () => 44,
-    overscan: 10,
-    scrollMargin,
-  });
-
   return (
     <div className="space-y-4">
       {/* Sticky: Progress + Filters */}
@@ -999,20 +982,13 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
               </tr>
             ))}
           </thead>
-          <tbody ref={tableBodyRef} className="divide-y divide-zinc-200 dark:divide-zinc-800">
-            {virtualizer.getVirtualItems().length > 0 && (
-              <tr>
-                <td colSpan={columns.length} style={{ height: Math.max(0, virtualizer.getVirtualItems()[0].start - scrollMargin), padding: 0, border: "none" }} />
-              </tr>
-            )}
-            {virtualizer.getVirtualItems().map((virtualItem) => {
-              const item = flatItems[virtualItem.index];
+          <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
+            {flatItems.map((item, idx) => {
               if (item.type === "header") {
                 const isCollapsed = collapsedGroups.has(item.key);
                 return (
                   <GroupHeaderRow
                     key={`header-${item.key}`}
-                    ref={virtualizer.measureElement}
                     groupKey={item.key}
                     groupDone={item.groupDone}
                     total={item.total}
@@ -1020,7 +996,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                     toggleGroup={toggleGroup}
                     setResetConfirmGroup={setResetConfirmGroup}
                     colSpan={columns.length}
-                    dataIndex={virtualItem.index}
+                    dataIndex={idx}
                   />
                 );
               }
@@ -1028,20 +1004,14 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
               return (
                 <QuestionRow
                   key={row.id}
-                  ref={virtualizer.measureElement}
                   row={row}
                   completed={completed}
                   toggleCompleted={toggleCompleted}
                   toggleStarred={toggleStarred}
-                  dataIndex={virtualItem.index}
+                  dataIndex={idx}
                 />
               );
             })}
-            {virtualizer.getVirtualItems().length > 0 && (
-              <tr>
-                <td colSpan={columns.length} style={{ height: Math.max(0, virtualizer.getTotalSize() - virtualizer.getVirtualItems().at(-1)!.end), padding: 0, border: "none" }} />
-              </tr>
-            )}
           </tbody>
         </table>
       </div>
