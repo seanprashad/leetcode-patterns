@@ -31,6 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState<{ message: string; type: "error" | "success" } | null>(null);
   const [toastFading, setToastFading] = useState(false);
   const realtimeChannelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
+  const hasSessionRef = useRef(false);
 
   useEffect(() => {
     if (!toast) return;
@@ -97,7 +98,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const u = session?.user ?? null;
       setUser(u);
       setLoading(false);
-      if (u) downloadAndMerge(u.id).then(() => setSyncVersion((v) => v + 1));
+      if (u) {
+        hasSessionRef.current = true;
+        downloadAndMerge(u.id).then(() => setSyncVersion((v) => v + 1));
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -105,10 +109,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(u);
       if (u) downloadAndMerge(u.id).then(() => setSyncVersion((v) => v + 1));
       if (event === "SIGNED_IN") {
-        trackEvent("sign_in", { provider: "github" });
-        setToast({ message: `Signed in as ${u?.user_metadata?.user_name ?? "user"}`, type: "success" });
+        if (!hasSessionRef.current) {
+          trackEvent("sign_in", { provider: "github" });
+          setToast({ message: `Signed in as ${u?.user_metadata?.user_name ?? "user"}`, type: "success" });
+        }
+        hasSessionRef.current = true;
       }
       if (event === "SIGNED_OUT") {
+        hasSessionRef.current = false;
         trackEvent("sign_out");
       }
     });
