@@ -57,19 +57,6 @@ export default function AboutPanel() {
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span>.
             </p>
             <p>
-              Since sharing it with {" "}
-              <a
-                href="https://www.reddit.com/r/csMajors/comments/cvy1fg/leetcode_pattern_study_guide/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-              >
-                Reddit
-              </a>, the site has grown to over{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">150k users every year</span> from{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">128 countries</span>.
-            </p>
-            <p>
               I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
               access to high-quality interview material - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
               <a
@@ -80,7 +67,7 @@ export default function AboutPanel() {
               >free and open source</a>.
             </p>
             <p>
-              Best of luck in your journey!
+              Best of luck on your journey!
             </p>
             <p className="text-2xl text-zinc-900 dark:text-zinc-100" style={{ fontFamily: "var(--font-dancing-script)" }}>
               <a
