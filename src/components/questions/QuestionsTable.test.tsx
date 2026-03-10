@@ -16,6 +16,10 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace: vi.fn() }),
 }));
 
+vi.mock("@/components/layout/AuthContext", () => ({
+  useAuth: () => ({ user: null, loading: false, signIn: vi.fn(), signOut: vi.fn(), syncNow: vi.fn(), syncVersion: 0 }),
+}));
+
 import QuestionsTable from "@/components/questions/QuestionsTable";
 
 const testData: Question[] = [

@@ -1,6 +1,8 @@
 import { Question } from "@/types/question";
 import type { Reminder } from "./reminders";
 
+export const MAX_NOTE_LENGTH = 10_000; // characters per note (server enforces 500 KB total)
+
 const STORAGE_KEY = "leetcode-patterns-completed";
 const STARRED_KEY = "leetcode-patterns-starred";
 const NOTES_KEY = "leetcode-patterns-notes";

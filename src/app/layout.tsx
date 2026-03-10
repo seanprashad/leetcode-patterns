@@ -3,6 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import ServiceWorkerRegistrar from "@/components/layout/ServiceWorkerRegistrar";
+import { AuthProvider } from "@/components/layout/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -74,14 +75,16 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.classList.add("dark")}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.classList.add("dark")}catch(e){}})();if(location.hash&&location.hash.indexOf("access_token")>-1)window.__SUPABASE_AUTH_HASH__=location.hash`,
           }}
         />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <ServiceWorkerRegistrar />
       </body>
       <GoogleAnalytics gaId="G-J7FBQPGZTW" />

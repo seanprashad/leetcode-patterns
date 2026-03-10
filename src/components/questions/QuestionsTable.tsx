@@ -16,6 +16,7 @@ import { Question } from "@/types/question";
 import { ExternalLink, Star, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress, loadReminders, saveReminders } from "@/lib/storage";
+import { useAuth } from "@/components/layout/AuthContext";
 import { type Reminder, isDue, setCustomDate as setCustomReviewDate } from "@/lib/reminders";
 import ProgressBar, { type ProgressStats } from "./ProgressBar";
 import FilterToolbar from "./FilterToolbar";
@@ -354,6 +355,7 @@ function parseInitialFilters(searchParams: URLSearchParams) {
 export default function QuestionsTable({ data, updatedDate }: { data: Question[]; updatedDate: string }) {
   const isMobile = useIsMobile();
   const searchParams = useSearchParams();
+  const { syncNow, syncVersion } = useAuth();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(() =>
@@ -385,6 +387,16 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     setReminders(loadReminders());
     setHydrated(true);
   }, [data]);
+
+  // Reload from localStorage when remote sync arrives
+  useEffect(() => {
+    if (!hydrated || syncVersion === 0) return;
+    setCompleted(loadCompleted());
+    setStarred(loadStarred());
+    setNotes(loadNotes());
+    setSolvedDates(loadSolvedDates());
+    setReminders(loadReminders());
+  }, [syncVersion, hydrated]);
 
   useEffect(() => {
     if (!migrationToast) return;
@@ -431,7 +443,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
         return next;
       });
     }
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const [reviewTarget, setReviewTarget] = useState<ReviewDateTarget | null>(null);
 
@@ -451,7 +464,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       return next;
     });
     setReviewTarget(null);
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const onReviewDateClear = useCallback((id: number) => {
     setReminders((prev) => {
@@ -462,7 +476,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       return next;
     });
     setReviewTarget(null);
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const toggleStarred = useCallback((id: number) => {
     setStarred((prev) => {
@@ -474,7 +489,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       trackEvent("star_toggle", { question_id: id, starred: starring });
       return next;
     });
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const patterns = useMemo(() => {
     const set = new Set<string>();
@@ -502,7 +518,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
       trackEvent("note_save", { question_id: id, has_content: !!value });
       return next;
     });
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const [editingNote, setEditingNote] = useState<EditingNote | null>(null);
 
@@ -698,14 +715,16 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     });
     trackEvent("reset_group", { difficulty });
     setResetConfirmGroup(null);
-  }, [data]);
+    syncNow();
+  }, [data, syncNow]);
 
   const clearAllNotes = useCallback(() => {
     setNotes({});
     saveNotes({});
     trackEvent("clear_all_notes");
     setClearConfirm(null);
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const clearAllQuestions = useCallback(() => {
     setCompleted(new Set());
@@ -716,21 +735,24 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     saveReminders({});
     trackEvent("clear_all_progress");
     setClearConfirm(null);
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const clearAllStarred = useCallback(() => {
     setStarred(new Set());
     saveStarred(new Set());
     trackEvent("clear_all_starred");
     setClearConfirm(null);
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const clearAllReminders = useCallback(() => {
     setReminders({});
     saveReminders({});
     trackEvent("clear_all_reminders");
     setClearConfirm(null);
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const exportProgress = useCallback(() => {
     const payload = { completed: [...completed], starred: [...starred], notes, solvedDates, reminders };
@@ -774,10 +796,11 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
           saveReminders(parsed.reminders);
         }
         trackEvent("import_progress", { completed_count: parsed.completed?.length ?? 0, notes_count: parsed.notes ? Object.keys(parsed.notes).length : 0 });
+        syncNow();
       } catch {}
     };
     reader.readAsText(file);
-  }, []);
+  }, [syncNow]);
 
   const searchRef = useRef<HTMLInputElement>(null);
 
