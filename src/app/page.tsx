@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { MessageSquarePlus } from "lucide-react";
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import GitHubLink from "@/components/layout/GitHubLink";
+import UserMenu from "@/components/layout/UserMenu";
 import Logo from "@/components/layout/Logo";
 import ViewSwitcher from "@/components/layout/ViewSwitcher";
 import AboutPanel from "@/components/panels/AboutPanel";
@@ -51,6 +52,7 @@ export default function Home() {
             </span>
           </span>
           <ThemeToggle />
+          <UserMenu />
         </div>
       </div>
       {/* Side panel tabs – stacked flush in a fixed column */}

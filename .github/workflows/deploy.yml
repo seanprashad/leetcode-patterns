@@ -30,6 +30,8 @@ jobs:
       - name: Build
         env:
           NEXT_PUBLIC_BASE_PATH: /leetcode-patterns
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: npm run build
 
       - uses: JamesIves/github-pages-deploy-action@v4

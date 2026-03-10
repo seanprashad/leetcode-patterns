@@ -1,3 +1,5 @@
+import { MAX_NOTE_LENGTH } from "@/lib/storage";
+
 export interface EditingNote {
   id: number;
   title: string;
@@ -86,12 +88,13 @@ export default function NoteModal({
                   setEditingNote(null);
                 }
               }}
+              maxLength={MAX_NOTE_LENGTH}
               placeholder="Write your notes here..."
               className="w-full resize-y rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm break-words focus:border-blue-500 focus:outline-none dark:border-zinc-700"
             />
             <div className="mt-2 flex items-center justify-between">
-              <span className="text-xs text-zinc-400">
-                {editingNote.draft.length} character{editingNote.draft.length !== 1 ? "s" : ""}
+              <span className={`text-xs ${editingNote.draft.length >= MAX_NOTE_LENGTH ? "text-red-500" : "text-zinc-400"}`}>
+                {editingNote.draft.length.toLocaleString()} / {MAX_NOTE_LENGTH.toLocaleString()} characters
               </span>
               {hasChanges ? (
                 <span className="text-xs text-amber-600 dark:text-amber-400">

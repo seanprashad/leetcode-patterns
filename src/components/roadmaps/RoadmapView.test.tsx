@@ -19,6 +19,10 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => mockSearchParams.current,
 }));
 
+vi.mock("@/components/layout/AuthContext", () => ({
+  useAuth: () => ({ user: null, loading: false, signIn: vi.fn(), signOut: vi.fn(), syncNow: vi.fn(), syncVersion: 0 }),
+}));
+
 import ViewSwitcher from "@/components/layout/ViewSwitcher";
 import RoadmapView from "@/components/roadmaps/RoadmapView";
 import { beginnerRoadmap, experiencedRoadmap } from "@/data/roadmaps";

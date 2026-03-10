@@ -13,7 +13,8 @@ import {
 import { Question } from "@/types/question";
 import { Roadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
-import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadReminders, saveReminders } from "@/lib/storage";
+import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadReminders, saveReminders, MAX_NOTE_LENGTH } from "@/lib/storage";
+import { useAuth } from "@/components/layout/AuthContext";
 import { type Reminder, initReminder } from "@/lib/reminders";
 
 function InlineMarkdown({ text }: { text: string }) {
@@ -58,6 +59,7 @@ interface Props {
 }
 
 export default function RoadmapView({ roadmap, questions }: Props) {
+  const { syncNow, syncVersion } = useAuth();
   const slugToQuestion = useMemo(() => {
     const map = new Map<string, Question>();
     questions.forEach((q) => map.set(q.slug, q));
@@ -87,6 +89,16 @@ export default function RoadmapView({ roadmap, questions }: Props) {
     setSolvedDates(loadSolvedDates());
     setReminders(loadReminders());
   }, []);
+
+  // Reload from localStorage when remote sync arrives
+  useEffect(() => {
+    if (syncVersion === 0) return;
+    setCompleted(loadCompleted());
+    setStarred(loadStarred());
+    setNotes(loadNotes());
+    setSolvedDates(loadSolvedDates());
+    setReminders(loadReminders());
+  }, [syncVersion]);
 
   const toggleCompleted = useCallback((id: number) => {
     let completing = false;
@@ -118,7 +130,8 @@ export default function RoadmapView({ roadmap, questions }: Props) {
       saveReminders(next);
       return next;
     });
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const toggleStarred = useCallback((id: number) => {
     setStarred((prev) => {
@@ -130,7 +143,8 @@ export default function RoadmapView({ roadmap, questions }: Props) {
       trackEvent("star_toggle", { question_id: id, starred: starring });
       return next;
     });
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const updateNote = useCallback((id: number, value: string) => {
     setNotes((prev) => {
@@ -141,7 +155,8 @@ export default function RoadmapView({ roadmap, questions }: Props) {
       trackEvent("note_save", { question_id: id, has_content: !!value });
       return next;
     });
-  }, []);
+    syncNow();
+  }, [syncNow]);
 
   const openNoteModal = useCallback(
     (id: number, title: string) => {
@@ -816,13 +831,13 @@ export default function RoadmapView({ roadmap, questions }: Props) {
                           setEditingNote(null);
                         }
                       }}
+                      maxLength={MAX_NOTE_LENGTH}
                       placeholder="Write your notes here..."
                       className="w-full resize-y rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm break-words focus:border-blue-500 focus:outline-none dark:border-zinc-700"
                     />
                     <div className="mt-2 flex items-center justify-between">
-                      <span className="text-xs text-zinc-400">
-                        {editingNote.draft.length} character
-                        {editingNote.draft.length !== 1 ? "s" : ""}
+                      <span className={`text-xs ${editingNote.draft.length >= MAX_NOTE_LENGTH ? "text-red-500" : "text-zinc-400"}`}>
+                        {editingNote.draft.length.toLocaleString()} / {MAX_NOTE_LENGTH.toLocaleString()} characters
                       </span>
                       {hasChanges ? (
                         <span className="text-xs text-amber-600 dark:text-amber-400">

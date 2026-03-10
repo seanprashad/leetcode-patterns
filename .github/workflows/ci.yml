@@ -60,6 +60,8 @@ jobs:
         name: Build
         env:
           NEXT_PUBLIC_BASE_PATH: /leetcode-patterns/pr-preview/pr-${{ github.event.number }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: npx next build
 
       - if: github.event.action != 'closed'
