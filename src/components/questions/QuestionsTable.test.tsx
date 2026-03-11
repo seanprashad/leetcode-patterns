@@ -698,6 +698,26 @@ await user.click(screen.getByLabelText("Hide completed"));
     expect(noteBtn.getAttribute("title")).toBeNull();
   });
 
+  it("clears reminder when clicking completed button on review pill", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([0]));
+    localStorage.setItem("leetcode-patterns-solved-dates", JSON.stringify({ "0": "2026-03-09T10:00:00.000Z" }));
+    localStorage.setItem("leetcode-patterns-reminders", JSON.stringify({ "0": { nextReview: "2026-03-16", interval: 7 } }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    expect(screen.getByText("Review in 7d")).toBeInTheDocument();
+    const completedBtn = screen.getByRole("button", { name: /mark review as completed/i });
+    await user.click(completedBtn);
+    await waitFor(() => {
+      expect(screen.queryByText("Review in 7d")).not.toBeInTheDocument();
+      expect(screen.getByText("+ Set review")).toBeInTheDocument();
+    });
+    const stored = JSON.parse(localStorage.getItem("leetcode-patterns-reminders")!);
+    expect(stored).not.toHaveProperty("0");
+    vi.useRealTimers();
+  });
+
   it("opens review modal when clicking review pill", async () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     vi.setSystemTime(new Date("2026-03-09T12:00:00Z"));
