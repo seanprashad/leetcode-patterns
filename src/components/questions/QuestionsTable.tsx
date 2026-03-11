@@ -52,7 +52,8 @@ const makeColumns = (
   updatedDate: string,
   solvedDates: Record<number, string>,
   reminders: Record<number, Reminder>,
-  openReviewModal: (id: number, title: string) => void
+  openReviewModal: (id: number, title: string) => void,
+  completeReminder: (id: number) => void
 ) => [
   columnHelper.display({
     id: "completed",
@@ -263,14 +264,23 @@ const makeColumns = (
             </span>
           )}
           {reminder ? (
-            <button
-              className={`group/review inline-flex items-center gap-1 whitespace-nowrap cursor-pointer rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset transition-colors ${reviewPillStyle(reminder.nextReview)}`}
-              title={`${new Date(reminder.nextReview + "T00:00:00").toLocaleDateString("en-US", dateFmt)} · Click to change`}
-              onClick={(e) => { e.stopPropagation(); openReviewModal(info.row.original.id, info.row.original.title); }}
-            >
-              {relativeDate(reminder.nextReview, "future")}
-              <svg className="h-3 w-3 shrink-0 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
-            </button>
+            <span className={`inline-flex items-center whitespace-nowrap rounded-full text-xs font-semibold ring-1 ring-inset ${reviewPillStyle(reminder.nextReview)}`}>
+              <button
+                className="inline-flex items-center gap-1 cursor-pointer pl-2 pr-1.5 py-0.5 rounded-l-full transition-opacity hover:opacity-80"
+                title={`${new Date(reminder.nextReview + "T00:00:00").toLocaleDateString("en-US", dateFmt)} · Click to change`}
+                onClick={(e) => { e.stopPropagation(); openReviewModal(info.row.original.id, info.row.original.title); }}
+              >
+                {relativeDate(reminder.nextReview, "future")}
+              </button>
+              <span className="w-px self-stretch bg-current opacity-20" />
+              <button
+                className="inline-flex items-center justify-center cursor-pointer px-1.5 py-0.5 rounded-r-full transition-opacity hover:opacity-80"
+                title="Mark review as completed"
+                onClick={(e) => { e.stopPropagation(); completeReminder(info.row.original.id); }}
+              >
+                <Check className="h-3 w-3" strokeWidth={2.5} />
+              </button>
+            </span>
           ) : solvedDate && (
             <button
               className="inline-flex items-center gap-1 whitespace-nowrap cursor-pointer rounded-full px-2 py-0.5 text-xs ring-1 ring-inset ring-dashed transition-colors text-zinc-400 ring-zinc-300 hover:text-zinc-600 hover:ring-zinc-400 dark:text-zinc-500 dark:ring-zinc-600 dark:hover:text-zinc-400 dark:hover:ring-zinc-500"
@@ -550,8 +560,8 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   );
 
   const columns = useMemo(
-    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates, reminders, openReviewModal),
-    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates, reminders, openReviewModal]
+    () => makeColumns(completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates, reminders, openReviewModal, onReviewDateClear),
+    [completed, toggleCompleted, starred, toggleStarred, notes, openNoteModal, hidePatterns, activeCompanyFilter, updatedDate, solvedDates, reminders, openReviewModal, onReviewDateClear]
   );
 
   useEffect(() => {
