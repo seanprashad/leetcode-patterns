@@ -112,6 +112,38 @@ describe("AuthProvider sign-in toast suppression", () => {
     expect(mockTrackEvent).not.toHaveBeenCalledWith("sign_in", expect.anything());
   });
 
+  it("does NOT show toast when INITIAL_SESSION fires before getSession resolves", async () => {
+    // Simulate getSession that never resolves before INITIAL_SESSION fires
+    let resolveGetSession!: (v: { data: { session: { user: typeof fakeUser } } }) => void;
+    mockGetSession.mockReturnValue(new Promise((r) => { resolveGetSession = r; }));
+
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <TestConsumer />
+        </AuthProvider>
+      );
+    });
+
+    // Supabase fires INITIAL_SESSION before getSession resolves
+    await act(async () => {
+      authCallback("INITIAL_SESSION", { user: fakeUser });
+    });
+
+    // Then SIGNED_IN fires (common Supabase behaviour on page load)
+    await act(async () => {
+      authCallback("SIGNED_IN", { user: fakeUser });
+    });
+
+    expect(screen.queryByText(/Signed in as/)).not.toBeInTheDocument();
+    expect(mockTrackEvent).not.toHaveBeenCalledWith("sign_in", expect.anything());
+
+    // Let getSession resolve to avoid dangling promise
+    await act(async () => {
+      resolveGetSession({ data: { session: { user: fakeUser } } });
+    });
+  });
+
   it("shows toast again after sign-out then fresh sign-in", async () => {
     mockGetSession.mockResolvedValue({ data: { session: { user: fakeUser } } });
 

@@ -31,7 +31,7 @@ vi.mock("@/lib/supabase", () => ({
   },
 }));
 
-import { mergeFromRealtimePayload, uploadProgress, downloadAndMerge, scheduleUpload } from "@/lib/sync";
+import { mergeFromRealtimePayload, uploadProgress, downloadAndMerge, scheduleUpload, flushPendingUpload } from "@/lib/sync";
 
 beforeEach(() => {
   localStorage.clear();
@@ -343,6 +343,51 @@ describe("scheduleUpload", () => {
     await vi.advanceTimersByTimeAsync(2000);
 
     expect(mockUpsert).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+});
+
+describe("flushPendingUpload", () => {
+  it("fires the pending upload immediately without waiting for debounce", async () => {
+    vi.useFakeTimers();
+
+    scheduleUpload("user-flush");
+
+    expect(mockUpsert).not.toHaveBeenCalled();
+
+    flushPendingUpload();
+
+    // Upload should fire synchronously (the async upsert is mocked)
+    await vi.advanceTimersByTimeAsync(0);
+    expect(mockUpsert).toHaveBeenCalledTimes(1);
+    expect(mockUpsert).toHaveBeenCalledWith(
+      expect.objectContaining({ user_id: "user-flush" }),
+      { onConflict: "user_id" },
+    );
+
+    // Original debounce timer should no longer fire a second upload
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(mockUpsert).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+
+  it("does nothing when there is no pending upload", () => {
+    flushPendingUpload();
+    expect(mockUpsert).not.toHaveBeenCalled();
+  });
+
+  it("does nothing after the debounce has already fired", async () => {
+    vi.useFakeTimers();
+
+    scheduleUpload("user-123");
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(mockUpsert).toHaveBeenCalledTimes(1);
+
+    mockUpsert.mockClear();
+    flushPendingUpload();
+    expect(mockUpsert).not.toHaveBeenCalled();
 
     vi.useRealTimers();
   });

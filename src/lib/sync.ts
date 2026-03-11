@@ -88,10 +88,26 @@ async function doUpload(userId: string): Promise<void> {
 
 // Debounced upload — call after every save
 let uploadTimer: ReturnType<typeof setTimeout> | null = null;
+let pendingUserId: string | null = null;
 
 export function scheduleUpload(userId: string): void {
+  pendingUserId = userId;
   if (uploadTimer) clearTimeout(uploadTimer);
-  uploadTimer = setTimeout(() => doUpload(userId), 2000);
+  uploadTimer = setTimeout(() => {
+    pendingUserId = null;
+    doUpload(userId);
+  }, 2000);
+}
+
+// Flush any pending debounced upload immediately (e.g. on page unload)
+export function flushPendingUpload(): void {
+  if (uploadTimer && pendingUserId) {
+    clearTimeout(uploadTimer);
+    uploadTimer = null;
+    const uid = pendingUserId;
+    pendingUserId = null;
+    doUpload(uid);
+  }
 }
 
 // Merge from a realtime payload (no API call needed).

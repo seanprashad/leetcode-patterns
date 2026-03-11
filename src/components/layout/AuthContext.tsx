@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useCallback, useRef, type ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
-import { downloadAndMerge, scheduleUpload, mergeFromRealtimePayload } from "@/lib/sync";
+import { downloadAndMerge, scheduleUpload, flushPendingUpload, mergeFromRealtimePayload } from "@/lib/sync";
 import { trackEvent } from "@/lib/analytics";
 import type { User } from "@supabase/supabase-js";
 
@@ -108,7 +108,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const u = session?.user ?? null;
       setUser(u);
       if (u) downloadAndMerge(u.id).then(() => setSyncVersion((v) => v + 1));
-      if (event === "SIGNED_IN") {
+      if (event === "INITIAL_SESSION") {
+        // Supabase fires INITIAL_SESSION on load for existing sessions;
+        // mark it so the subsequent SIGNED_IN event doesn't show a toast.
+        if (u) hasSessionRef.current = true;
+      } else if (event === "SIGNED_IN") {
         if (!hasSessionRef.current) {
           trackEvent("sign_in", { provider: "github" });
           setToast({ message: `Signed in as ${u?.user_metadata?.user_name ?? "user"}`, type: "success" });
@@ -122,6 +126,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     return () => subscription.unsubscribe();
+  }, []);
+
+  // Flush any pending debounced upload before the page unloads so that
+  // a refresh always sees the latest state in Supabase.
+  useEffect(() => {
+    const flush = () => flushPendingUpload();
+    const onVisChange = () => { if (document.visibilityState === "hidden") flush(); };
+    window.addEventListener("beforeunload", flush);
+    document.addEventListener("visibilitychange", onVisChange);
+    return () => {
+      window.removeEventListener("beforeunload", flush);
+      document.removeEventListener("visibilitychange", onVisChange);
+    };
   }, []);
 
   const signIn = useCallback(async () => {
