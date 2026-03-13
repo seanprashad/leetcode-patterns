@@ -277,7 +277,7 @@ describe("downloadAndMerge", () => {
     expect(mockUpsert).toHaveBeenCalled();
   });
 
-  it("merges remote and local completed via union", async () => {
+  it("overwrites local completed with remote", async () => {
     saveCompleted(new Set([1, 2]));
     mockSingle.mockResolvedValueOnce({
       data: { completed: [2, 3], starred: [], notes: {}, solved_dates: {}, reminders: {} },
@@ -287,10 +287,22 @@ describe("downloadAndMerge", () => {
     const result = await downloadAndMerge("user-123");
 
     expect(result).toBe(true);
-    expect(loadCompleted()).toEqual(new Set([1, 2, 3]));
+    expect(loadCompleted()).toEqual(new Set([2, 3]));
   });
 
-  it("prefers local notes over remote", async () => {
+  it("overwrites local starred with remote", async () => {
+    saveStarred(new Set([1, 2]));
+    mockSingle.mockResolvedValueOnce({
+      data: { completed: [], starred: [3, 4], notes: {}, solved_dates: {}, reminders: {} },
+      error: null,
+    });
+
+    await downloadAndMerge("user-123");
+
+    expect(loadStarred()).toEqual(new Set([3, 4]));
+  });
+
+  it("overwrites local notes with remote", async () => {
     saveNotes({ 1: "local note" });
     mockSingle.mockResolvedValueOnce({
       data: { completed: [], starred: [], notes: { 1: "remote note", 2: "remote only" }, solved_dates: {}, reminders: {} },
@@ -300,11 +312,11 @@ describe("downloadAndMerge", () => {
     await downloadAndMerge("user-123");
 
     const notes = loadNotes();
-    expect(notes[1]).toBe("local note");
+    expect(notes[1]).toBe("remote note");
     expect(notes[2]).toBe("remote only");
   });
 
-  it("prefers local solved_dates over remote", async () => {
+  it("overwrites local solved_dates with remote", async () => {
     saveSolvedDates({ 1: "2026-03-10" });
     mockSingle.mockResolvedValueOnce({
       data: { completed: [], starred: [], notes: {}, solved_dates: { 1: "2026-01-01", 2: "2026-02-02" }, reminders: {} },
@@ -314,11 +326,23 @@ describe("downloadAndMerge", () => {
     await downloadAndMerge("user-123");
 
     const dates = loadSolvedDates();
-    expect(dates[1]).toBe("2026-03-10");
+    expect(dates[1]).toBe("2026-01-01");
     expect(dates[2]).toBe("2026-02-02");
   });
 
-  it("pushes merged state back to Supabase", async () => {
+  it("overwrites local reminders with remote", async () => {
+    saveReminders({ 1: { nextReview: "2026-01-01", interval: 1 } });
+    mockSingle.mockResolvedValueOnce({
+      data: { completed: [], starred: [], notes: {}, solved_dates: {}, reminders: { 2: { nextReview: "2026-03-15", interval: 3 } } },
+      error: null,
+    });
+
+    await downloadAndMerge("user-123");
+
+    expect(loadReminders()).toEqual({ 2: { nextReview: "2026-03-15", interval: 3 } });
+  });
+
+  it("does not push state back to Supabase after overwriting", async () => {
     mockSingle.mockResolvedValueOnce({
       data: { completed: [1], starred: [], notes: {}, solved_dates: {}, reminders: {} },
       error: null,
@@ -326,7 +350,24 @@ describe("downloadAndMerge", () => {
 
     await downloadAndMerge("user-123");
 
-    expect(mockUpsert).toHaveBeenCalled();
+    expect(mockUpsert).not.toHaveBeenCalled();
+  });
+
+  it("handles null fields in remote data gracefully", async () => {
+    saveCompleted(new Set([1]));
+    saveNotes({ 1: "note" });
+    mockSingle.mockResolvedValueOnce({
+      data: { completed: null, starred: null, notes: null, solved_dates: null, reminders: null },
+      error: null,
+    });
+
+    await downloadAndMerge("user-123");
+
+    expect(loadCompleted()).toEqual(new Set());
+    expect(loadStarred()).toEqual(new Set());
+    expect(loadNotes()).toEqual({});
+    expect(loadSolvedDates()).toEqual({});
+    expect(loadReminders()).toEqual({});
   });
 });
 
@@ -340,7 +381,7 @@ describe("scheduleUpload", () => {
 
     expect(mockUpsert).not.toHaveBeenCalled();
 
-    await vi.advanceTimersByTimeAsync(2000);
+    await vi.advanceTimersByTimeAsync(1000);
 
     expect(mockUpsert).toHaveBeenCalledTimes(1);
 
@@ -367,7 +408,7 @@ describe("flushPendingUpload", () => {
     );
 
     // Original debounce timer should no longer fire a second upload
-    await vi.advanceTimersByTimeAsync(2000);
+    await vi.advanceTimersByTimeAsync(1000);
     expect(mockUpsert).toHaveBeenCalledTimes(1);
 
     vi.useRealTimers();
@@ -382,7 +423,7 @@ describe("flushPendingUpload", () => {
     vi.useFakeTimers();
 
     scheduleUpload("user-123");
-    await vi.advanceTimersByTimeAsync(2000);
+    await vi.advanceTimersByTimeAsync(1000);
     expect(mockUpsert).toHaveBeenCalledTimes(1);
 
     mockUpsert.mockClear();

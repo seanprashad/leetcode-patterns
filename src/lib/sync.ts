@@ -32,7 +32,7 @@ export async function uploadProgress(userId: string): Promise<void> {
   await supabase.from("user_progress").upsert(payload, { onConflict: "user_id" });
 }
 
-// Download remote progress, merge with local, save to both
+// Download remote progress and replace local state with it
 export async function downloadAndMerge(userId: string): Promise<boolean> {
   const { data, error } = await supabase
     .from("user_progress")
@@ -46,35 +46,14 @@ export async function downloadAndMerge(userId: string): Promise<boolean> {
     return false;
   }
 
-  // Merge: union sets, prefer latest for key-value maps
-  const localCompleted = loadCompleted();
-  const remoteCompleted = new Set<number>(data.completed ?? []);
-  const mergedCompleted = new Set([...localCompleted, ...remoteCompleted]);
-  saveCompleted(mergedCompleted);
+  // Remote is the source of truth — overwrite local state
+  saveCompleted(new Set<number>(data.completed ?? []));
+  saveStarred(new Set<number>(data.starred ?? []));
+  saveNotes((data.notes as Record<number, string>) ?? {});
+  saveSolvedDates((data.solved_dates as Record<number, string>) ?? {});
+  saveReminders((data.reminders as Record<number, Reminder>) ?? {});
 
-  const localStarred = loadStarred();
-  const remoteStarred = new Set<number>(data.starred ?? []);
-  const mergedStarred = new Set([...localStarred, ...remoteStarred]);
-  saveStarred(mergedStarred);
-
-  const localNotes = loadNotes();
-  const mergedNotes = { ...localNotes, ...(data.notes ?? {}) };
-  // Prefer local if both exist (local is "more recent" since user is on this device)
-  Object.keys(localNotes).forEach((k) => { mergedNotes[Number(k)] = localNotes[Number(k)]; });
-  saveNotes(mergedNotes);
-
-  const localDates = loadSolvedDates();
-  const mergedDates = { ...(data.solved_dates ?? {}), ...localDates };
-  saveSolvedDates(mergedDates);
-
-  const localReminders = loadReminders();
-  const mergedReminders = { ...(data.reminders ?? {}), ...localReminders };
-  saveReminders(mergedReminders);
-
-  // Push merged state back up
-  await uploadProgress(userId);
-
-  return true; // data was merged
+  return true;
 }
 
 // Track when we last uploaded to ignore our own realtime events
@@ -96,7 +75,7 @@ export function scheduleUpload(userId: string): void {
   uploadTimer = setTimeout(() => {
     pendingUserId = null;
     doUpload(userId);
-  }, 2000);
+  }, 1000);
 }
 
 // Flush any pending debounced upload immediately (e.g. on page unload)
