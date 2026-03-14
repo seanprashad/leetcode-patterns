@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened, closed, labeled]
     branches: [main]
 
 permissions:
@@ -41,7 +41,10 @@ jobs:
       - run: npx vitest run --coverage
 
   preview:
-    if: always() && (github.event.action == 'closed' || (needs.lint.result == 'success' && needs.test.result == 'success'))
+    if: >-
+      always() &&
+      contains(github.event.pull_request.labels.*.name, 'preview') &&
+      (github.event.action == 'closed' || (needs.lint.result == 'success' && needs.test.result == 'success'))
     needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
