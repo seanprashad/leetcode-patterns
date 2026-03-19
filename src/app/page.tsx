@@ -31,6 +31,7 @@ export default function Home() {
             >
               Sean Prashad
             </a>
+            {" · Est. 2019"}
           </p>
           <p className="mt-1 text-sm text-zinc-500 sm:mt-2 sm:text-base">
             A collection of {questions.length} questions grouped by pattern to help you prepare for coding interviews.
