@@ -13,6 +13,7 @@ import {
 import { Question } from "@/types/question";
 import { Roadmap } from "@/data/roadmaps";
 import { trackEvent } from "@/lib/analytics";
+import FormattedNote from "@/components/questions/FormattedNote";
 import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadReminders, saveReminders, MAX_NOTE_LENGTH } from "@/lib/storage";
 import { useAuth } from "@/components/layout/AuthContext";
 import { type Reminder, initReminder } from "@/lib/reminders";
@@ -395,7 +396,8 @@ export default function RoadmapView({ roadmap, questions }: Props) {
           </button>
           {userNote && (
             <p className="mt-1 break-words text-sm text-zinc-600 dark:text-zinc-300">
-              <NotebookPen className="inline h-3.5 w-3.5 shrink-0 text-blue-500" /> {userNote}
+              <NotebookPen className="inline h-3.5 w-3.5 shrink-0 text-blue-500" />{" "}
+              <FormattedNote text={userNote} />
             </p>
           )}
         </div>

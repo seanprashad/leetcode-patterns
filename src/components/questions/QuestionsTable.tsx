@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect, useRef, useSyncExternalStore } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   useReactTable,
@@ -15,6 +15,7 @@ import {
 import { Question } from "@/types/question";
 import { ExternalLink, Star, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import FormattedNote from "@/components/questions/FormattedNote";
 import { loadCompleted, saveCompleted, loadStarred, saveStarred, loadNotes, saveNotes, loadSolvedDates, saveSolvedDates, loadShuffleOrder, saveShuffleOrder, migrateLegacyProgress, loadReminders, saveReminders } from "@/lib/storage";
 import { useAuth } from "@/components/layout/AuthContext";
 import { type Reminder, isDue, setCustomDate as setCustomReviewDate } from "@/lib/reminders";
@@ -229,16 +230,18 @@ const makeColumns = (
     cell: (info) => {
       const note = notes[info.row.original.id];
       return (
-        <button
-          onClick={() =>
-            openNoteModal(info.row.original.id, info.row.original.title)
-          }
-          title={note || undefined}
-          aria-label={`${note ? "Edit" : "Add"} note for ${info.row.original.title}`}
-          className="block max-w-[100px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
-        >
-          {note || <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>}
-        </button>
+        <NoteCell note={note}>
+          <button
+            onClick={() =>
+              openNoteModal(info.row.original.id, info.row.original.title)
+            }
+
+            aria-label={`${note ? "Edit" : "Add"} note for ${info.row.original.title}`}
+            className="block max-w-[100px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
+          >
+            {note || <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>}
+          </button>
+        </NoteCell>
       );
     },
     enableSorting: false,
@@ -332,6 +335,60 @@ function relativeDate(isoDate: string, mode: "past" | "future"): string {
 }
 
 const mobileQuery = "(max-width: 639px)";
+
+function NoteCell({ note, children }: { note: string | undefined; children: ReactNode }) {
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const hideTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const show = useCallback(() => {
+    clearTimeout(hideTimeout.current);
+    if (!note || !ref.current) return;
+    setRect(ref.current.getBoundingClientRect());
+  }, [note]);
+
+  const hide = useCallback(() => {
+    hideTimeout.current = setTimeout(() => setRect(null), 100);
+  }, []);
+
+  useEffect(() => () => clearTimeout(hideTimeout.current), []);
+
+  const style = useMemo(() => {
+    if (!rect) return undefined;
+    const gap = 8;
+    const spaceAbove = rect.top - gap;
+    const spaceBelow = window.innerHeight - rect.bottom - gap;
+    const above = spaceAbove >= Math.min(200, spaceBelow);
+    const maxH = Math.min(300, above ? spaceAbove : spaceBelow);
+    return {
+      left: rect.left,
+      maxHeight: maxH,
+      ...(above
+        ? { bottom: window.innerHeight - rect.top + gap }
+        : { top: rect.bottom + gap }),
+    };
+  }, [rect]);
+
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+    >
+      {children}
+      {note && style && (
+        <div
+          className="fixed z-50 max-w-xs overflow-y-auto rounded-lg border border-zinc-200 bg-white p-3 text-sm shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
+          style={style}
+          onMouseEnter={show}
+          onMouseLeave={hide}
+        >
+          <FormattedNote text={note} className="whitespace-pre-wrap break-words text-zinc-700 dark:text-zinc-300" />
+        </div>
+      )}
+    </div>
+  );
+}
 
 function subscribeMobile(callback: () => void) {
   const mq = window.matchMedia(mobileQuery);
