@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useRef } from "react";
+import { Bold, Italic, Strikethrough, Code, List, ListOrdered } from "lucide-react";
 import { MAX_NOTE_LENGTH } from "@/lib/storage";
 
 export interface EditingNote {
@@ -20,6 +22,90 @@ export default function NoteModal({
 }) {
   const saved = notes[editingNote.id] ?? "";
   const hasChanges = editingNote.draft !== saved;
+  const mouseDownOnBackdrop = useRef(false);
+  const resizing = useRef(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const onTextareaMouseDown = useCallback(() => {
+    resizing.current = true;
+  }, []);
+
+  useEffect(() => {
+    const onMouseUp = () => {
+      if (resizing.current) {
+        requestAnimationFrame(() => {
+          resizing.current = false;
+        });
+      }
+    };
+    window.addEventListener("mouseup", onMouseUp);
+    return () => window.removeEventListener("mouseup", onMouseUp);
+  }, []);
+
+  const guardedClick = (fn: () => void) => () => {
+    if (!resizing.current) fn();
+  };
+
+  const wrapSelection = useCallback(
+    (prefix: string, suffix: string) => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const text = editingNote.draft;
+      const selected = text.slice(start, end);
+      const wrapped = prefix + selected + suffix;
+      const updated = text.slice(0, start) + wrapped + text.slice(end);
+      setEditingNote({ ...editingNote, draft: updated });
+      requestAnimationFrame(() => {
+        ta.focus();
+        if (selected.length > 0) {
+          ta.setSelectionRange(start, start + wrapped.length);
+        } else {
+          const cursor = start + prefix.length;
+          ta.setSelectionRange(cursor, cursor);
+        }
+      });
+    },
+    [editingNote, setEditingNote],
+  );
+
+  const prefixLines = useCallback(
+    (mode: "bullet" | "numbered") => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      const text = editingNote.draft;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const lineStart = text.lastIndexOf("\n", start - 1) + 1;
+      const lineEnd = text.indexOf("\n", end);
+      const block = text.slice(lineStart, lineEnd === -1 ? undefined : lineEnd);
+      const lines = block.split("\n");
+      const prefixed = lines
+        .map((l, i) => (mode === "bullet" ? `- ${l}` : `${i + 1}. ${l}`))
+        .join("\n");
+      const updated = text.slice(0, lineStart) + prefixed + (lineEnd === -1 ? "" : text.slice(lineEnd));
+      setEditingNote({ ...editingNote, draft: updated });
+      requestAnimationFrame(() => {
+        ta.focus();
+        ta.setSelectionRange(lineStart, lineStart + prefixed.length);
+      });
+    },
+    [editingNote, setEditingNote],
+  );
+
+  const formatActions = [
+    { icon: Bold, prefix: "**", suffix: "**", title: "Bold", key: "b" },
+    { icon: Italic, prefix: "*", suffix: "*", title: "Italic", key: "i" },
+    { icon: Strikethrough, prefix: "~~", suffix: "~~", title: "Strikethrough", key: "s" },
+    { icon: Code, prefix: "`", suffix: "`", title: "Code", key: "e" },
+  ];
+
+  const listActions = [
+    { icon: List, mode: "bullet" as const, title: "Bullet list" },
+    { icon: ListOrdered, mode: "numbered" as const, title: "Numbered list" },
+  ];
+
   const tryDismiss = () => {
     if (hasChanges) {
       setEditingNote({ ...editingNote, confirmDiscard: true });
@@ -30,7 +116,15 @@ export default function NoteModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={tryDismiss}
+      onMouseDown={(e) => {
+        mouseDownOnBackdrop.current = e.target === e.currentTarget;
+      }}
+      onMouseUp={(e) => {
+        if (mouseDownOnBackdrop.current && e.target === e.currentTarget && !resizing.current) {
+          tryDismiss();
+        }
+        mouseDownOnBackdrop.current = false;
+      }}
       role="dialog"
       aria-modal="true"
       aria-label={`Edit note for ${editingNote.title}`}
@@ -74,18 +168,53 @@ export default function NoteModal({
           <>
             <h2 className="mb-1 text-lg font-semibold">{editingNote.title}</h2>
             <p className="mb-4 text-sm text-zinc-500">Add your notes below</p>
+            <div className="mb-2 flex items-center gap-1">
+              {formatActions.map(({ icon: Icon, prefix, suffix, title, key }) => (
+                <button
+                  key={title}
+                  type="button"
+                  onClick={() => wrapSelection(prefix, suffix)}
+                  title={`${title} (${navigator.platform?.includes("Mac") ? "⌘" : "Ctrl"}+${key.toUpperCase()})`}
+                  className="rounded p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
+                >
+                  <Icon className="h-4 w-4" />
+                </button>
+              ))}
+              <div className="mx-1 h-4 w-px bg-zinc-200 dark:bg-zinc-700" />
+              {listActions.map(({ icon: Icon, mode, title }) => (
+                <button
+                  key={title}
+                  type="button"
+                  onClick={() => prefixLines(mode)}
+                  title={title}
+                  className="rounded p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
+                >
+                  <Icon className="h-4 w-4" />
+                </button>
+              ))}
+            </div>
             <textarea
+              ref={textareaRef}
               autoFocus
-              rows={4}
+              rows={14}
               value={editingNote.draft}
               onChange={(e) =>
                 setEditingNote({ ...editingNote, draft: e.target.value })
               }
+              onMouseDown={onTextareaMouseDown}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
                   e.preventDefault();
                   updateNote(editingNote.id, editingNote.draft);
                   setEditingNote(null);
+                  return;
+                }
+                if (e.metaKey || e.ctrlKey) {
+                  const action = formatActions.find((a) => a.key === e.key);
+                  if (action) {
+                    e.preventDefault();
+                    wrapSelection(action.prefix, action.suffix);
+                  }
                 }
               }}
               maxLength={MAX_NOTE_LENGTH}
@@ -108,16 +237,16 @@ export default function NoteModal({
             </div>
             <div className="mt-4 flex justify-end gap-2">
               <button
-                onClick={tryDismiss}
+                onClick={guardedClick(tryDismiss)}
                 className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
               >
                 Cancel
               </button>
               <button
-                onClick={() => {
+                onClick={guardedClick(() => {
                   updateNote(editingNote.id, editingNote.draft);
                   setEditingNote(null);
-                }}
+                })}
                 className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
                 Done

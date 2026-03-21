@@ -219,7 +219,7 @@ await user.click(screen.getByLabelText("Hide completed"));
     const longNote = "a".repeat(300);
     localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: longNote }));
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getByText(longNote);
+    const noteBtn = screen.getByRole("button", { name: /Edit note for Two Sum/ });
     expect(noteBtn).toHaveClass("truncate", "max-w-[100px]");
   });
 
@@ -684,18 +684,16 @@ await user.click(screen.getByLabelText("Hide completed"));
     expect(screen.getByRole("dialog", { name: /review date/i })).toBeInTheDocument();
   });
 
-  it("note column shows full note as tooltip", () => {
+  it("note column shows hover popover with full note", async () => {
     const note = "This is a long test note for tooltip";
     localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: note }));
+    const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getByText(note);
-    expect(noteBtn.getAttribute("title")).toBe(note);
-  });
-
-  it("note column has no tooltip when empty", () => {
-    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
-    const noteBtn = screen.getByRole("button", { name: /Add note for Two Sum/ });
+    const noteBtn = screen.getByRole("button", { name: /Edit note for Two Sum/ });
     expect(noteBtn.getAttribute("title")).toBeNull();
+    await user.hover(noteBtn);
+    const allNoteEls = screen.getAllByText(note);
+    expect(allNoteEls.length).toBe(2);
   });
 
   it("clears reminder when clicking completed button on review pill", async () => {
