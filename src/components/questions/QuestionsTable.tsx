@@ -676,20 +676,20 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  const filteredRows = table.getFilteredRowModel().rows;
+  const tableRows = table.getRowModel().rows;
 
   const stats = useMemo<ProgressStats>(() => {
     const totals = { Easy: 0, Medium: 0, Hard: 0 };
     const done = { Easy: 0, Medium: 0, Hard: 0 };
-    for (const row of filteredRows) {
+    for (const row of tableRows) {
       const q = row.original;
       totals[q.difficulty]++;
       if (completed.has(q.id)) done[q.difficulty]++;
     }
-    const total = filteredRows.length;
+    const total = tableRows.length;
     const totalDone = done.Easy + done.Medium + done.Hard;
     return { totals, done, total, totalDone };
-  }, [filteredRows, completed]);
+  }, [tableRows, completed]);
 
   const pickRandom = useCallback(() => {
     const unsolved = table
@@ -927,8 +927,6 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
 
   const companySortActive = sorting.some((s) => s.id === "companies");
   const companySortDesc = sorting.find((s) => s.id === "companies")?.desc ?? true;
-
-  const tableRows = table.getRowModel().rows;
 
   const groupedRows = useMemo(() => {
     if (shuffleOrder) {
