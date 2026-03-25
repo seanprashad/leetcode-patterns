@@ -676,39 +676,20 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  const filteredRows = table.getFilteredRowModel().rows;
+
   const stats = useMemo<ProgressStats>(() => {
     const totals = { Easy: 0, Medium: 0, Hard: 0 };
     const done = { Easy: 0, Medium: 0, Hard: 0 };
-    const unfilteredData = showStarredOnly ? data.filter((q) => starred.has(q.id)) : data;
-    const filteredRows = table.getFilteredRowModel().rows;
-    const visibleIds = new Set(filteredRows.map((r) => r.original.id));
-    const baseRows = unfilteredData.filter(
-      (q) => visibleIds.has(q.id) || (hideCompleted && completed.has(q.id) && (() => {
-        const patternFilter = columnFilters.find((f) => f.id === "pattern");
-        const diffFilter = columnFilters.find((f) => f.id === "difficulty");
-        const companyFilter = columnFilters.find((f) => f.id === "companies");
-        const patternOk = !patternFilter || q.pattern.some((p) =>
-          (patternFilter.value as string[]).some((f) => p.toLowerCase() === f.toLowerCase())
-        );
-        const diffOk = !diffFilter || (diffFilter.value as string[]).includes(q.difficulty);
-        const companyOk = !companyFilter || q.companies.some((c) =>
-          (companyFilter.value as string[]).includes(c.slug)
-        );
-        const searchOk = !globalFilter || q.title.toLowerCase().includes(globalFilter.toLowerCase()) ||
-          q.difficulty.toLowerCase().includes(globalFilter.toLowerCase()) ||
-          q.pattern.some((p) => p.toLowerCase().includes(globalFilter.toLowerCase())) ||
-          q.companies.some((c) => c.name.toLowerCase().includes(globalFilter.toLowerCase()));
-        return patternOk && diffOk && companyOk && searchOk;
-      })())
-    );
-    baseRows.forEach((q) => {
+    for (const row of filteredRows) {
+      const q = row.original;
       totals[q.difficulty]++;
       if (completed.has(q.id)) done[q.difficulty]++;
-    });
-    const total = baseRows.length;
+    }
+    const total = filteredRows.length;
     const totalDone = done.Easy + done.Medium + done.Hard;
     return { totals, done, total, totalDone };
-  }, [table, data, completed, starred, columnFilters, globalFilter, hideCompleted, showStarredOnly]);
+  }, [filteredRows, completed]);
 
   const pickRandom = useCallback(() => {
     const unsolved = table
