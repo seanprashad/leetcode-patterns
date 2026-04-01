@@ -144,6 +144,30 @@ export default function FilterToolbar({
     };
   }, []);
 
+  const showSean10 = globalFilter.toLowerCase() === "sean10";
+  const [sean10Fading, setSean10Fading] = useState(false);
+
+  useEffect(() => {
+    if (!showSean10) {
+      setSean10Fading(false);
+      return;
+    }
+    const timer = setTimeout(() => setSean10Fading(true), 5000);
+    return () => clearTimeout(timer);
+  }, [showSean10]);
+
+  const confettiPieces = useMemo(
+    () =>
+      Array.from({ length: 100 }, (_, i) => ({
+        emoji: ["🎉", "✨", "⭐", "🦧"][i % 9],
+        left: Math.random() * 100,
+        delay: Math.random() * 2,
+        duration: 2 + Math.random() * 2,
+        size: 12 + Math.random() * 16,
+      })),
+    [],
+  );
+
   return (
     <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
       <div className="relative">
@@ -154,9 +178,56 @@ export default function FilterToolbar({
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           aria-label="Search questions"
-          className="w-36 rounded border border-zinc-300 bg-white px-2 py-1.5 pr-7 shadow-sm focus:border-blue-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900"
+          className={`w-36 rounded border bg-white px-2 py-1.5 pr-7 shadow-sm focus:outline-none dark:bg-zinc-900 ${showSean10 ? "border-green-500 ring-1 ring-green-500" : "border-zinc-300 focus:border-blue-500 dark:border-zinc-700"}`}
         />
         <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded bg-zinc-200 px-1 py-0.5 text-[10px] font-mono leading-none text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">/</kbd>
+        {showSean10 && (
+          <>
+            {/* Sparkle particles around search input */}
+            <div className={`pointer-events-none absolute -inset-3 z-40 transition-opacity duration-700 ${sean10Fading ? "opacity-0" : "opacity-100"}`}>
+              {["✨", "⭐", "💫", "🌟", "✨", "⭐"].map((spark, i) => (
+                <span
+                  key={i}
+                  className="absolute animate-ping text-xs"
+                  style={{
+                    top: `${[0, 50, 100, 0, 50, 100][i]}%`,
+                    left: `${[0, 100, 50, 100, 0, 50][i]}%`,
+                    animationDelay: `${i * 150}ms`,
+                    animationDuration: "1s",
+                  }}
+                >
+                  {spark}
+                </span>
+              ))}
+            </div>
+            {/* Success toast centered on screen */}
+            <div className={`fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none transition-opacity duration-700 ${sean10Fading ? "opacity-0" : "opacity-100"}`}>
+              <div className="whitespace-nowrap rounded-xl border-2 border-green-500 bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 px-8 py-4 text-center shadow-2xl dark:border-green-400 dark:from-green-950 dark:via-emerald-950 dark:to-green-950"
+                style={{ animation: "sean10Pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both" }}
+              >
+                <div className="flex items-center gap-2 text-base">
+                  <span className="font-semibold text-green-700 dark:text-green-300">
+                    Code <code className="rounded bg-green-200 px-1.5 py-0.5 font-mono text-sm font-bold text-green-800 dark:bg-green-800 dark:text-green-200">sean10</code> successfully applied
+                  </span>
+                  <span className="text-xl">🎉</span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {/* Easter egg keyframe styles */}
+        {showSean10 && (
+          <style>{`
+            @keyframes sean10Pop {
+              0% { opacity: 0; transform: scale(0.3); }
+              100% { opacity: 1; transform: scale(1); }
+            }
+            @keyframes sean10Spin {
+              0% { transform: rotate(-180deg) scale(0); }
+              100% { transform: rotate(0deg) scale(1); }
+            }
+          `}</style>
+        )}
       </div>
       <div ref={difficultyDropdownRef} className="relative">
         <button
@@ -458,6 +529,35 @@ export default function FilterToolbar({
               Progress
             </button>
           )}
+        </div>
+      )}
+      {/* Full-screen confetti rain */}
+      {showSean10 && (
+        <div className={`pointer-events-none fixed inset-0 z-[9999] overflow-hidden transition-opacity duration-700 ${sean10Fading ? "opacity-0" : "opacity-100"}`}>
+          {confettiPieces.map((p, i) => (
+            <span
+              key={i}
+              className="absolute"
+              style={{
+                left: `${p.left}%`,
+                top: "-5%",
+                fontSize: `${p.size}px`,
+                animation: `sean10Fall ${p.duration}s linear ${p.delay}s infinite, sean10Rainbow 2s linear ${p.delay}s infinite`,
+              }}
+            >
+              {p.emoji}
+            </span>
+          ))}
+          <style>{`
+            @keyframes sean10Fall {
+              0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+              100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+            }
+            @keyframes sean10Rainbow {
+              0% { filter: hue-rotate(0deg); }
+              100% { filter: hue-rotate(360deg); }
+            }
+          `}</style>
         </div>
       )}
     </div>
