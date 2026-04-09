@@ -90,11 +90,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const accessToken = params.get("access_token");
       const refreshToken = params.get("refresh_token");
       if (accessToken && refreshToken) {
-        supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken }).then(({ error }) => {
+          if (error) {
+            setToast({ message: `Sign in failed: ${error.message}`, type: "error" });
+          }
+        });
       }
     }
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        setToast({ message: `Sign in failed: ${error.message}`, type: "error" });
+        setLoading(false);
+        return;
+      }
       const u = session?.user ?? null;
       setUser(u);
       setLoading(false);
