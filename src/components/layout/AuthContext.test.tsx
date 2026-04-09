@@ -22,7 +22,7 @@ vi.mock("@/lib/supabase", () => ({
     auth: {
       getSession: mockGetSession,
       onAuthStateChange: mockOnAuthStateChange,
-      setSession: vi.fn(),
+      setSession: vi.fn().mockResolvedValue({ error: null }),
     },
     channel: () => mockChannel,
     removeChannel: vi.fn(),
@@ -142,6 +142,22 @@ describe("AuthProvider sign-in toast suppression", () => {
     await act(async () => {
       resolveGetSession({ data: { session: { user: fakeUser } } });
     });
+  });
+
+  it("shows error toast when getSession fails and does not fetch data", async () => {
+    mockGetSession.mockResolvedValue({ data: { session: null }, error: { message: "Session expired" } });
+
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <TestConsumer />
+        </AuthProvider>
+      );
+    });
+
+    expect(screen.getByText(/Sign in failed: Session expired/)).toBeInTheDocument();
+    expect(screen.getByText("signed-out")).toBeInTheDocument();
+    expect(mockDownloadAndMerge).not.toHaveBeenCalled();
   });
 
   it("shows toast again after sign-out then fresh sign-in", async () => {
