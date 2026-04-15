@@ -27,6 +27,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         env:
           NEXT_PUBLIC_BASE_PATH: /leetcode-patterns
