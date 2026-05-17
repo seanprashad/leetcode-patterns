@@ -57,7 +57,7 @@ export default function AboutPanel() {
               <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span>.
             </p>
             <p>
-              I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
+              I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span>{" "}deserves
               access to high-quality interview material - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
               <a
                 href="https://github.com/seanprashad/leetcode-patterns/blob/main/LICENSE"
