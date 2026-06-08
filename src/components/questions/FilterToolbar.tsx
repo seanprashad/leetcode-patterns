@@ -14,7 +14,7 @@ const difficultyColor: Record<string, string> = {
 // Easter egg codes: type one in the search box for a celebration.
 const EASTER_EGGS: Record<string, string[]> = {
   sean10: ["🎉", "✨", "⭐", "🦧"],
-  maxson10: ["👹", "🔥", "🩸", "6️⃣"], // 10 rubber ducks
+  maxson10: ["👹", "🔥", "🩸", "6️⃣", "🦆"],
 };
 
 interface FilterToolbarProps {

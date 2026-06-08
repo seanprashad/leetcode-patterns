@@ -160,6 +160,7 @@ describe("FilterToolbar maxson10 easter egg", () => {
     expect(screen.getAllByText("🔥").length).toBeGreaterThan(0);
     expect(screen.getAllByText("🩸").length).toBeGreaterThan(0);
     expect(screen.getAllByText("6️⃣").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("🦆").length).toBeGreaterThan(0);
   });
 
   it("applies green border to search input when active", () => {
