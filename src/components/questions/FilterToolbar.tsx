@@ -11,6 +11,12 @@ const difficultyColor: Record<string, string> = {
   Hard: "text-red-700 dark:text-red-400",
 };
 
+// Easter egg codes: type one in the search box for a celebration.
+const EASTER_EGGS: Record<string, string[]> = {
+  sean10: ["🎉", "✨", "⭐", "🦧"],
+  maxson10: ["👹", "🔥", "🩸", "6️⃣"], // 10 rubber ducks
+};
+
 interface FilterToolbarProps {
   table: Table<Question>;
   globalFilter: string;
@@ -144,7 +150,9 @@ export default function FilterToolbar({
     };
   }, []);
 
-  const showSean10 = globalFilter.toLowerCase() === "sean10";
+  const activeCode = globalFilter.toLowerCase();
+  const eggEmojis = EASTER_EGGS[activeCode];
+  const showSean10 = !!eggEmojis;
   const [sean10Fading, setSean10Fading] = useState(false);
 
   useEffect(() => {
@@ -159,13 +167,14 @@ export default function FilterToolbar({
   const confettiPieces = useMemo(
     () =>
       Array.from({ length: 100 }, (_, i) => ({
-        emoji: ["🎉", "✨", "⭐", "🦧"][i % 9],
+        emoji: eggEmojis ? eggEmojis[i % eggEmojis.length] : "",
         left: Math.random() * 100,
         delay: Math.random() * 2,
         duration: 2 + Math.random() * 2,
         size: 12 + Math.random() * 16,
       })),
-    [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [activeCode],
   );
 
   return (
@@ -207,9 +216,9 @@ export default function FilterToolbar({
               >
                 <div className="flex items-center gap-2 text-base">
                   <span className="font-semibold text-green-700 dark:text-green-300">
-                    Code <code className="rounded bg-green-200 px-1.5 py-0.5 font-mono text-sm font-bold text-green-800 dark:bg-green-800 dark:text-green-200">sean10</code> successfully applied
+                    Code <code className="rounded bg-green-200 px-1.5 py-0.5 font-mono text-sm font-bold text-green-800 dark:bg-green-800 dark:text-green-200">{activeCode}</code> successfully applied
                   </span>
-                  <span className="text-xl">🎉</span>
+                  <span className="text-xl">{eggEmojis?.[0]}</span>
                 </div>
               </div>
             </div>
@@ -542,7 +551,7 @@ export default function FilterToolbar({
                 left: `${p.left}%`,
                 top: "-5%",
                 fontSize: `${p.size}px`,
-                animation: `sean10Fall ${p.duration}s linear ${p.delay}s infinite, sean10Rainbow 2s linear ${p.delay}s infinite`,
+                animation: `sean10Fall ${p.duration}s linear ${p.delay}s infinite`,
               }}
             >
               {p.emoji}
@@ -552,10 +561,6 @@ export default function FilterToolbar({
             @keyframes sean10Fall {
               0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
               100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-            }
-            @keyframes sean10Rainbow {
-              0% { filter: hue-rotate(0deg); }
-              100% { filter: hue-rotate(360deg); }
             }
           `}</style>
         </div>

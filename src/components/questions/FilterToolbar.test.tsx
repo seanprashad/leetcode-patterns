@@ -129,3 +129,42 @@ describe("FilterToolbar sean10 easter egg", () => {
     expect(toastOverlay?.className).toContain("opacity-100");
   });
 });
+
+describe("FilterToolbar maxson10 easter egg", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("shows toast when globalFilter is 'maxson10'", () => {
+    renderToolbar("maxson10");
+    expect(screen.getByText(/successfully applied/)).toBeInTheDocument();
+  });
+
+  it("is case-insensitive", () => {
+    renderToolbar("Maxson10");
+    expect(screen.getByText(/successfully applied/)).toBeInTheDocument();
+  });
+
+  it("shows confetti when maxson10 is typed", () => {
+    const { container } = renderToolbar("maxson10");
+    const confettiPieces = container.querySelectorAll("[style*='sean10Fall']");
+    expect(confettiPieces.length).toBe(100);
+  });
+
+  it("rains the configured emojis", () => {
+    renderToolbar("maxson10");
+    expect(screen.getAllByText("👹").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("🔥").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("🩸").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("6️⃣").length).toBeGreaterThan(0);
+  });
+
+  it("applies green border to search input when active", () => {
+    renderToolbar("maxson10");
+    const input = screen.getByLabelText("Search questions");
+    expect(input.className).toContain("border-green-500");
+  });
+});
