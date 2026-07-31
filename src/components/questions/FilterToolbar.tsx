@@ -12,9 +12,10 @@ const difficultyColor: Record<string, string> = {
 };
 
 // Easter egg codes: type one in the search box for a celebration.
-const EASTER_EGGS: Record<string, string[]> = {
-  sean10: ["🎉", "✨", "⭐", "🦧"],
-  maxson10: ["👹", "🔥", "🩸", "6️⃣", "🦆"],
+const EASTER_EGGS: Record<string, { emojis: string[]; pieces: number }> = {
+  sean10: { emojis: ["🎉", "✨", "⭐", "🦧"], pieces: 100 },
+  maxson10: { emojis: ["👹", "🔥", "🩸", "6️⃣", "🦆"], pieces: 100 },
+  wendy10: { emojis: ["🅽"], pieces: 200 },
 };
 
 interface FilterToolbarProps {
@@ -151,8 +152,8 @@ export default function FilterToolbar({
   }, []);
 
   const activeCode = globalFilter.toLowerCase();
-  const eggEmojis = EASTER_EGGS[activeCode];
-  const showSean10 = !!eggEmojis;
+  const egg = EASTER_EGGS[activeCode];
+  const showSean10 = !!egg;
   const [sean10Fading, setSean10Fading] = useState(false);
 
   useEffect(() => {
@@ -166,8 +167,8 @@ export default function FilterToolbar({
 
   const confettiPieces = useMemo(
     () =>
-      Array.from({ length: 100 }, (_, i) => ({
-        emoji: eggEmojis ? eggEmojis[i % eggEmojis.length] : "",
+      Array.from({ length: egg?.pieces ?? 0 }, (_, i) => ({
+        emoji: egg ? egg.emojis[i % egg.emojis.length] : "",
         left: Math.random() * 100,
         delay: Math.random() * 2,
         duration: 2 + Math.random() * 2,
@@ -218,7 +219,7 @@ export default function FilterToolbar({
                   <span className="font-semibold text-green-700 dark:text-green-300">
                     Code <code className="rounded bg-green-200 px-1.5 py-0.5 font-mono text-sm font-bold text-green-800 dark:bg-green-800 dark:text-green-200">{activeCode}</code> successfully applied
                   </span>
-                  <span className="text-xl">{eggEmojis?.[0]}</span>
+                  <span className="text-xl">{egg?.emojis[0]}</span>
                 </div>
               </div>
             </div>
