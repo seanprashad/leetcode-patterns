@@ -12,10 +12,15 @@ const difficultyColor: Record<string, string> = {
 };
 
 // Easter egg codes: type one in the search box for a celebration.
-const EASTER_EGGS: Record<string, string[]> = {
-  sean10: ["🎉", "✨", "⭐", "🦧"],
-  maxson10: ["👹", "🔥", "🩸", "6️⃣", "🦆"],
+// `icon` is a company icon slug (public/icons/<slug>.png) rained instead of emojis.
+const EASTER_EGGS: Record<string, { emojis: string[]; pieces: number; icon?: string }> = {
+  sean10: { emojis: ["🎉", "✨", "⭐", "🦧"], pieces: 100 },
+  maxson10: { emojis: ["👹", "🔥", "🩸", "6️⃣", "🦆"], pieces: 100 },
+  wendy10: { emojis: [], pieces: 200, icon: "netflix" },
 };
+
+const eggIconSrc = (icon: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/${icon}.png`;
 
 interface FilterToolbarProps {
   table: Table<Question>;
@@ -151,8 +156,8 @@ export default function FilterToolbar({
   }, []);
 
   const activeCode = globalFilter.toLowerCase();
-  const eggEmojis = EASTER_EGGS[activeCode];
-  const showSean10 = !!eggEmojis;
+  const egg = EASTER_EGGS[activeCode];
+  const showSean10 = !!egg;
   const [sean10Fading, setSean10Fading] = useState(false);
 
   useEffect(() => {
@@ -166,8 +171,8 @@ export default function FilterToolbar({
 
   const confettiPieces = useMemo(
     () =>
-      Array.from({ length: 100 }, (_, i) => ({
-        emoji: eggEmojis ? eggEmojis[i % eggEmojis.length] : "",
+      Array.from({ length: egg?.pieces ?? 0 }, (_, i) => ({
+        emoji: egg?.emojis.length ? egg.emojis[i % egg.emojis.length] : "",
         left: Math.random() * 100,
         delay: Math.random() * 2,
         duration: 2 + Math.random() * 2,
@@ -218,7 +223,18 @@ export default function FilterToolbar({
                   <span className="font-semibold text-green-700 dark:text-green-300">
                     Code <code className="rounded bg-green-200 px-1.5 py-0.5 font-mono text-sm font-bold text-green-800 dark:bg-green-800 dark:text-green-200">{activeCode}</code> successfully applied
                   </span>
-                  <span className="text-xl">{eggEmojis?.[0]}</span>
+                  <span className="text-xl">
+                    {egg?.icon ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={eggIconSrc(egg.icon)}
+                        alt=""
+                        className="inline h-5 w-5 rounded-sm object-contain"
+                      />
+                    ) : (
+                      egg?.emojis[0]
+                    )}
+                  </span>
                 </div>
               </div>
             </div>
@@ -554,7 +570,17 @@ export default function FilterToolbar({
                 animation: `sean10Fall ${p.duration}s linear ${p.delay}s infinite`,
               }}
             >
-              {p.emoji}
+              {egg?.icon ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={eggIconSrc(egg.icon)}
+                  alt=""
+                  className="object-contain"
+                  style={{ width: `${p.size}px`, height: `${p.size}px` }}
+                />
+              ) : (
+                p.emoji
+              )}
             </span>
           ))}
           <style>{`

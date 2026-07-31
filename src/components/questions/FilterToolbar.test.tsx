@@ -169,3 +169,49 @@ describe("FilterToolbar maxson10 easter egg", () => {
     expect(input.className).toContain("border-green-500");
   });
 });
+
+describe("FilterToolbar wendy10 easter egg", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("shows toast when globalFilter is 'wendy10'", () => {
+    renderToolbar("wendy10");
+    expect(screen.getByText(/successfully applied/)).toBeInTheDocument();
+  });
+
+  it("is case-insensitive", () => {
+    renderToolbar("Wendy10");
+    expect(screen.getByText(/successfully applied/)).toBeInTheDocument();
+  });
+
+  it("shows twice as much confetti when wendy10 is typed", () => {
+    const { container } = renderToolbar("wendy10");
+    const confettiPieces = container.querySelectorAll("[style*='sean10Fall']");
+    expect(confettiPieces.length).toBe(200);
+  });
+
+  it("rains only the Netflix company icon", () => {
+    const { container } = renderToolbar("wendy10");
+    const confettiPieces = container.querySelectorAll("[style*='sean10Fall']");
+    confettiPieces.forEach((piece) => {
+      const img = piece.querySelector("img");
+      expect(img?.getAttribute("src")).toContain("/icons/netflix.png");
+    });
+  });
+
+  it("shows the Netflix company icon in the toast", () => {
+    const { container } = renderToolbar("wendy10");
+    const toastIcon = container.querySelector(".text-xl img");
+    expect(toastIcon?.getAttribute("src")).toContain("/icons/netflix.png");
+  });
+
+  it("applies green border to search input when active", () => {
+    renderToolbar("wendy10");
+    const input = screen.getByLabelText("Search questions");
+    expect(input.className).toContain("border-green-500");
+  });
+});
