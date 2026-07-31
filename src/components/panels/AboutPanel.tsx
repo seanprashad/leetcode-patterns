@@ -53,13 +53,11 @@ export default function AboutPanel() {
             <p>
               In <span className="font-semibold text-zinc-900 dark:text-zinc-100">2019</span>, as a broke college
               student who couldn&apos;t afford premium interview resources, I spent countless hours searching
-              for free materials and teaching myself React to build{" "}
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span>.
+              for free materials and teaching myself React to build <span className="font-semibold text-zinc-900 dark:text-zinc-100">Leetcode Patterns</span>.
             </p>
             <p>
-              I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span>{" "}deserves
-              access to high-quality interview material - regardless of their financial situation. It&apos;s why I chose to make this website{" "}
-              <a
+              I believe <span className="font-semibold text-zinc-900 dark:text-zinc-100">everyone</span> deserves
+              access to high-quality interview material - regardless of their financial situation. It&apos;s why I chose to make this website <a
                 href="https://github.com/seanprashad/leetcode-patterns/blob/main/LICENSE"
                 target="_blank"
                 rel="noopener noreferrer"
