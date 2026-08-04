@@ -803,7 +803,10 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
   }, [syncNow]);
 
   const exportProgress = useCallback(() => {
-    const payload = { completed: [...completed], starred: [...starred], notes, solvedDates, reminders };
+    // Serialize the JSON keys in order, so that they're stable across backups
+    const settings = { completed: [...completed].sort(), starred: [...starred].sort(), notes, solvedDates, reminders };
+    const keys = Object.keys(settings).sort();
+    const payload = Object.fromEntries(keys.map((k) => [k, settings[k as keyof typeof settings]])) + "\n";
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
