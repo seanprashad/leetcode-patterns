@@ -75,7 +75,7 @@ function loadSW(mockSelf: Record<string, unknown>) {
   fn(mockSelf, mockSelf.caches, mockSelf.fetch, Response, Request);
 
   return {
-    trigger(event: string, detail: Record<string, unknown>) {
+    trigger(event: string, detail: unknown) {
       const handlers = listeners.get(event) ?? [];
       handlers.forEach((h) => h(detail));
     },
