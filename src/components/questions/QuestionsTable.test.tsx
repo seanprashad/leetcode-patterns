@@ -158,6 +158,57 @@ describe("QuestionsTable analytics", () => {
     });
   });
 
+  it("exports valid JSON that round-trips through import", async () => {
+    localStorage.setItem("leetcode-patterns-completed", JSON.stringify([2, 0]));
+    localStorage.setItem("leetcode-patterns-starred", JSON.stringify([1]));
+    localStorage.setItem("leetcode-patterns-notes", JSON.stringify({ 0: "my note" }));
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByRole("button", { name: /Export/ }));
+
+    const blob = vi.mocked(URL.createObjectURL).mock.calls[0][0] as Blob;
+    const text = await blob.text();
+    const exported = JSON.parse(text);
+    expect(exported).toMatchObject({ completed: [0, 2], starred: [1], notes: { 0: "my note" } });
+
+    localStorage.clear();
+    const importContainer = screen.getByRole("button", { name: /Import/ }).closest("div")!;
+    const fileInput = importContainer.querySelector("input[type='file']")! as HTMLInputElement;
+    await user.upload(fileInput, new File([text], "progress.json", { type: "application/json" }));
+    await waitFor(() => {
+      expect(JSON.parse(localStorage.getItem("leetcode-patterns-completed")!)).toEqual([0, 2]);
+      expect(JSON.parse(localStorage.getItem("leetcode-patterns-starred")!)).toEqual([1]);
+      expect(JSON.parse(localStorage.getItem("leetcode-patterns-notes")!)).toEqual({ 0: "my note" });
+    });
+  });
+
+  it("exports completed and starred sorted numerically regardless of completion order", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    const checkboxCell = (i: number) =>
+      screen.getAllByRole("checkbox", { name: /^Mark .+ as (complete|incomplete)$/ })[i].closest("td")!;
+    await user.click(checkboxCell(2));
+    await user.click(checkboxCell(0));
+    await waitFor(() => {
+      expect(JSON.parse(localStorage.getItem("leetcode-patterns-completed")!)).toHaveLength(2);
+    });
+    await user.click(screen.getByRole("button", { name: /Export/ }));
+
+    const blob = vi.mocked(URL.createObjectURL).mock.calls[0][0] as Blob;
+    const exported = JSON.parse(await blob.text());
+    expect(exported.completed).toEqual([0, 2]);
+  });
+
+  it("exports with a trailing newline", async () => {
+    const user = userEvent.setup();
+    render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
+    await user.click(screen.getByRole("button", { name: /Export/ }));
+
+    const blob = vi.mocked(URL.createObjectURL).mock.calls[0][0] as Blob;
+    const text = await blob.text();
+    expect(text.endsWith("}\n")).toBe(true);
+  });
+
   it("tracks hide_completed when toggling", async () => {
     const user = userEvent.setup();
     render(<QuestionsTable data={testData} updatedDate="2025-01-01" />);
