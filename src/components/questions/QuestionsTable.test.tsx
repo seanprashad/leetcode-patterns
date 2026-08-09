@@ -170,6 +170,7 @@ describe("QuestionsTable analytics", () => {
     const text = await blob.text();
     const exported = JSON.parse(text);
     expect(exported).toMatchObject({ completed: [0, 2], starred: [1], notes: { 0: "my note" } });
+    expect(Object.keys(exported)).toEqual(["completed", "starred", "notes", "solvedDates", "reminders"]);
 
     localStorage.clear();
     const importContainer = screen.getByRole("button", { name: /Import/ }).closest("div")!;
