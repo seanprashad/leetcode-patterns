@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-16T13:14:18.780633",
+  "updated": "2026-08-20T15:18:30.805Z",
   "data": [
     {
       "id": 1,
@@ -3635,7 +3635,7 @@
         "Divide and Conquer",
         "Sorting",
         "Counting",
-        "Boyer\u2013Moore Majority Vote Algorithm"
+        "Boyer–Moore Majority Vote Algorithm"
       ],
       "difficulty": "Easy",
       "premium": false,
@@ -7327,7 +7327,7 @@
         "String",
         "Trie",
         "Sorting",
-        "Aho\u2013Corasick Algorithm"
+        "Aho–Corasick Algorithm"
       ],
       "difficulty": "Easy",
       "premium": true,
@@ -7950,6 +7950,542 @@
           "name": "TikTok",
           "slug": "tiktok",
           "frequency": 2
+        }
+      ]
+    },
+    {
+      "id": 496,
+      "title": "Next Greater Element I",
+      "slug": "next-greater-element-i",
+      "pattern": [
+        "Array",
+        "Hash Table",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "difficulty": "Easy",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 12
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 8
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 6
+        },
+        {
+          "name": "Adobe",
+          "slug": "adobe",
+          "frequency": 4
+        }
+      ]
+    },
+    {
+      "id": 739,
+      "title": "Daily Temperatures",
+      "slug": "daily-temperatures",
+      "pattern": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 24
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 18
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 10
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 8
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 5
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 4
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "title": "Largest Rectangle in Histogram",
+      "slug": "largest-rectangle-in-histogram",
+      "pattern": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "difficulty": "Hard",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 28
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 20
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 14
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 10
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 6
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 875,
+      "title": "Koko Eating Bananas",
+      "slug": "koko-eating-bananas",
+      "pattern": [
+        "Array",
+        "Binary Search"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 16
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 12
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 8
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 6
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 4
+        }
+      ]
+    },
+    {
+      "id": 1011,
+      "title": "Capacity To Ship Packages Within D Days",
+      "slug": "capacity-to-ship-packages-within-d-days",
+      "pattern": [
+        "Array",
+        "Binary Search"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 20
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 10
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 8
+        },
+        {
+          "name": "Uber",
+          "slug": "uber",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 410,
+      "title": "Split Array Largest Sum",
+      "slug": "split-array-largest-sum",
+      "pattern": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming",
+        "Greedy",
+        "Prefix Sum"
+      ],
+      "difficulty": "Hard",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 14
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 10
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 8
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 6
+        }
+      ]
+    },
+    {
+      "id": 994,
+      "title": "Rotting Oranges",
+      "slug": "rotting-oranges",
+      "pattern": [
+        "Array",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 22
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 14
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 10
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 8
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 542,
+      "title": "01 Matrix",
+      "slug": "01-matrix",
+      "pattern": [
+        "Array",
+        "Dynamic Programming",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 16
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 12
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 8
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 6
+        }
+      ]
+    },
+    {
+      "id": 560,
+      "title": "Subarray Sum Equals K",
+      "slug": "subarray-sum-equals-k",
+      "pattern": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 30
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 22
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 18
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 14
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 8
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 974,
+      "title": "Subarray Sums Divisible by K",
+      "slug": "subarray-sums-divisible-by-k",
+      "pattern": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 12
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 8
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 6
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 684,
+      "title": "Redundant Connection",
+      "slug": "redundant-connection",
+      "pattern": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph Theory",
+        "Union-Find",
+        "Tree"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 10
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 8
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 6
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 4
+        }
+      ]
+    },
+    {
+      "id": 547,
+      "title": "Number of Provinces",
+      "slug": "number-of-provinces",
+      "pattern": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph Theory",
+        "Union-Find"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 14
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 10
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 8
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "title": "Edit Distance",
+      "slug": "edit-distance",
+      "pattern": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 26
+        },
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 18
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 16
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 12
+        },
+        {
+          "name": "Apple",
+          "slug": "apple",
+          "frequency": 6
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 5
+        }
+      ]
+    },
+    {
+      "id": 518,
+      "title": "Coin Change II",
+      "slug": "coin-change-2",
+      "pattern": [
+        "Array",
+        "Dynamic Programming",
+        "Knapsack Problem",
+        "Complete Knapsack"
+      ],
+      "difficulty": "Medium",
+      "premium": false,
+      "companies": [
+        {
+          "name": "Amazon",
+          "slug": "amazon",
+          "frequency": 16
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "frequency": 12
+        },
+        {
+          "name": "Microsoft",
+          "slug": "microsoft",
+          "frequency": 10
+        },
+        {
+          "name": "Meta",
+          "slug": "facebook",
+          "frequency": 8
+        },
+        {
+          "name": "Bloomberg",
+          "slug": "bloomberg",
+          "frequency": 4
         }
       ]
     }
