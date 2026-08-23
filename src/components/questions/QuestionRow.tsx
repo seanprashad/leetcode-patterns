@@ -40,7 +40,7 @@ const QuestionRow = forwardRef<HTMLTableRowElement, QuestionRowProps>(
           return (
             <td
               key={cell.id}
-              className={`px-2 py-2 sm:px-4 sm:py-3 ${strikethrough} ${isClickable ? "cursor-pointer select-none" : ""}`}
+              className={`px-2 py-2 sm:px-3 sm:py-3 ${strikethrough} ${isClickable ? "cursor-pointer select-none" : ""}`}
               onClick={onClick}
             >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}

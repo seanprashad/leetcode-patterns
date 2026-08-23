@@ -237,7 +237,7 @@ const makeColumns = (
             }
 
             aria-label={`${note ? "Edit" : "Add"} note for ${info.row.original.title}`}
-            className="block max-w-[100px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
+            className="block max-w-[88px] cursor-pointer truncate text-left text-sm text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400"
           >
             {note || <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>}
           </button>
@@ -249,7 +249,7 @@ const makeColumns = (
   columnHelper.display({
     id: "review",
     header: "Review",
-    size: 160,
+    size: 140,
     meta: { hideOnMobile: true, noStrikethrough: true },
     cell: (info) => {
       const solvedDate = solvedDates[info.row.original.id];
@@ -330,8 +330,8 @@ function relativeDate(isoDate: string, mode: "past" | "future"): string {
   }
   if (diffDays < 0) return `Overdue ${-diffDays}d`;
   if (diffDays === 0) return "Due today";
-  if (diffDays === 1) return "Review tomorrow";
-  return `Review in ${diffDays}d`;
+  if (diffDays === 1) return "Tomorrow";
+  return `In ${diffDays}d`;
 }
 
 const mobileQuery = "(max-width: 639px)";
@@ -1029,7 +1029,7 @@ export default function QuestionsTable({ data, updatedDate }: { data: Question[]
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-2 py-2 font-semibold whitespace-nowrap select-none sm:px-4 sm:py-3"
+                    className="px-2 py-2 font-semibold whitespace-nowrap select-none sm:px-3 sm:py-3"
                     style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                     onClick={header.column.getToggleSortingHandler()}
                     onKeyDown={header.column.getCanSort() ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); header.column.getToggleSortingHandler()?.(e); } } : undefined}
