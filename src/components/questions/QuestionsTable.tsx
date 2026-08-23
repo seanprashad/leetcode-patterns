@@ -166,7 +166,7 @@ const makeColumns = (
     header: () => (
       <div>
         <span>Companies</span>
-        <div className="text-[10px] font-normal text-zinc-400 dark:text-zinc-500">
+        <div className="max-w-[156px] whitespace-normal text-[10px] font-normal text-zinc-400 dark:text-zinc-500">
           0–6 months, via{" "}
           <a href="https://leetcode.com/subscribe/" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted">
             LC Premium
@@ -178,7 +178,7 @@ const makeColumns = (
     ),
     meta: { hideOnMobile: true },
     cell: (info) => (
-      <div className="flex w-[156px] flex-wrap gap-1">
+      <div className="flex w-[clamp(104px,11vw,156px)] flex-wrap gap-1">
         {info.getValue().map((c) => (
           <span key={c.slug} className="group/icon relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}

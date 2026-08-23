@@ -15,7 +15,7 @@ const { data: questions } = questionsJson as QuestionsData;
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:py-10">
+    <div className="mx-auto w-full max-w-[100rem] px-4 py-6 sm:px-6 sm:py-10 min-[90rem]:px-16">
       <div className="mb-4 flex items-start justify-between sm:mb-6">
         <div>
           <h1>
